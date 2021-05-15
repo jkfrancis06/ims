@@ -31,6 +31,16 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+
+        for ($i = 0; $i <= 5; $i++){
+            $departement = new Departement();
+            $departement->setNom('Depart-'.rand(0, 1000));
+            $departement->setDescription('A generated departement'.rand(0,1000));
+
+            $manager->persist($departement);
+            $manager->flush();
+        }
+
         for ($i = 0; $i <= 10; $i++){
             $val = rand(0,1000);
             $user = new Utilisateur();
