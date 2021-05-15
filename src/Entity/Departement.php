@@ -42,6 +42,7 @@ class Departement
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
+        $this->ceatedAt = new \DateTime();
     }
 
     public function getId(): ?int

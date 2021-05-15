@@ -64,6 +64,10 @@ class Utilisateur implements UserInterface
      */
     private $departement;
 
+    public function __construct(){
+        $this->createAt = new \DateTime();
+    }
+
     public function eraseCredentials()
     {
     }
