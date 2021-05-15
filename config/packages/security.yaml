@@ -1,7 +1,14 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    enable_authenticator_manager: true
     encoders:
-        App\Entity\Utilisateur : sha512
+        App\Entity\Utilisateur:
+            algorithm: 'auto'
+
+    role_hierarchy:
+        ROLE_ADMIN: [ ROLE_CREATOR, ROLE_USER ]
+        ROLE_CREATOR: [ROLE_USER]
+        ROLE_USER: [ ROLE_USER ]
 
     providers:
         app_user_provider:
@@ -16,7 +23,6 @@ security:
         login:
             pattern: ^/api/login
             stateless: true
-            anonymous: true
             provider: app_user_provider
             json_login:
                 check_path: /api/login_check
@@ -30,10 +36,6 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
-        main:
-            anonymous: true
-            lazy: true
-            provider: app_user_provider
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -48,3 +50,5 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+

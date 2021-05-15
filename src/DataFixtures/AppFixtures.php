@@ -69,10 +69,10 @@ class AppFixtures extends Fixture
                     'ROLE_ADMIN'
                 ]);
             }
-            $dep_rand = rand(1,6);
             $dep_repo = $manager->getRepository(Departement::class);
-            $dep = $dep_repo->find($dep_rand);
-            $user->setDepartement($dep);
+            $dep = $dep_repo->findAll();
+            $dep_rand = rand(0,sizeof($dep)-1);
+            $user->setDepartement($dep[$dep_rand]);
             $manager->persist($user);
             $manager->flush();
         }
