@@ -25,7 +25,7 @@ class JWTCreatedListener
 
         $payload        = $event->getData();
         $payload['code'] = $event->getResponse()->getStatusCode();
-        $payload['code'] = "Authentication success";
+        $payload['message'] = "Authentication success";
 
         $event->setData($payload);
     }
