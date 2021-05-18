@@ -2,13 +2,43 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DepartementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 
 /**
+ *  * @ApiResource(
+ *      collectionOperations={
+ *          "get"= {
+ *               "access_control"="is_granted('ROLE_ADMIN')"
+ *           },
+ *          "post"= {
+ *               "access_control"="is_granted('ROLE_ADMIN')",
+ *           }
+ *      },
+ *      itemOperations={
+ *          "get"= {
+ *               "access_control"="is_granted('USER_VIEW_DEP', object)"
+ *           },
+ *          "delete"= {
+ *               "access_control"="is_granted('ROLE_ADMIN')",
+ *           },
+ *          "put"= {
+ *               "access_control"="is_granted('ROLE_ADMIN')",
+ *           }
+ *      },
+ *     normalizationContext={"groups"={"departement:read"}},
+ *     denormalizationContext={"groups"={"departement:write"}}
+ * )
  * @ORM\Entity(repositoryClass=DepartementRepository::class)
+ * @UniqueEntity(fields={"nom"}, message="Ce departement existe deja !!")
  */
 class Departement
 {
@@ -16,33 +46,48 @@ class Departement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"utilisateur:read", "departement:read", "affaire:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"utilisateur:read", "departement:read", "departement:write", "affaire:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"utilisateur:read", "departement:read", "departement:write", "affaire:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"utilisateur:read", "departement:read"})
      */
     private $ceatedAt;
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="departement")
+     * @Groups("departement:read","departement:write")
      */
     private $utilisateurs;
+
+    /**
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity=Affaire::class, mappedBy="departement")
+     * @Groups("departement:read")
+     */
+    private $affaires;
+
 
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->ceatedAt = new \DateTime();
+        $this->affaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,4 +160,35 @@ class Departement
 
         return $this;
     }
+
+    /**
+     * @return Collection|Affaire[]
+     */
+    public function getAffaires(): Collection
+    {
+        return $this->affaires;
+    }
+
+    public function addAffaire(Affaire $affaire): self
+    {
+        if (!$this->affaires->contains($affaire)) {
+            $this->affaires[] = $affaire;
+            $affaire->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffaire(Affaire $affaire): self
+    {
+        if ($this->affaires->removeElement($affaire)) {
+            // set the owning side to null (unless already changed)
+            if ($affaire->getDepartement() === $this) {
+                $affaire->setDepartement(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
