@@ -67,13 +67,15 @@ class AppFixtures extends Fixture
                 $user->setRoles([
                     'ROLE_USER',
                     'USER_VIEW_DEP',
+                    'USER_VIEW_AFF'
                 ]);
             }
             if ($i >= 5 && $i < 7) {
                 $user->setRoles([
                     'ROLE_USER',
                     'USER_VIEW_DEP',
-                    'ROLE_CREATOR'
+                    'ROLE_CREATOR',
+                    'USER_VIEW_AFF'
                 ]);
             }
             if ($i >= 7) {
@@ -81,10 +83,10 @@ class AppFixtures extends Fixture
                     'ROLE_USER',
                     'USER_VIEW_DEP',
                     'ROLE_CREATOR',
-                    'ROLE_ADMIN'
+                    'ROLE_ADMIN',
+                    'USER_VIEW_AFF'
                 ]);
             }
-
             $dep_rand = rand(0,sizeof($dep)-1);
             $user->setDepartement($dep[$dep_rand]);
             $manager->persist($user);

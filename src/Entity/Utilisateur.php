@@ -156,6 +156,16 @@ class Utilisateur implements UserInterface
      */
     private $affaireUtilisateurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CanConsult::class, mappedBy="utilisateur", orphanRemoval=true)
+     */
+    private $canConsults;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CanConsult::class, mappedBy="createdBy")
+     */
+    private $canConsultsCreated;
+
 
 
 
@@ -167,6 +177,8 @@ class Utilisateur implements UserInterface
         $this->affaires = new ArrayCollection();
         $this->affaireDepartements = new ArrayCollection();
         $this->affaireUtilisateurs = new ArrayCollection();
+        $this->canConsults = new ArrayCollection();
+        $this->canConsultsCreated = new ArrayCollection();
     }
 
     public function eraseCredentials()
@@ -347,6 +359,66 @@ class Utilisateur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($affaireUtilisateur->getUtilisateur() === $this) {
                 $affaireUtilisateur->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CanConsult[]
+     */
+    public function getCanConsults(): Collection
+    {
+        return $this->canConsults;
+    }
+
+    public function addCanConsult(CanConsult $canConsult): self
+    {
+        if (!$this->canConsults->contains($canConsult)) {
+            $this->canConsults[] = $canConsult;
+            $canConsult->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCanConsult(CanConsult $canConsult): self
+    {
+        if ($this->canConsults->removeElement($canConsult)) {
+            // set the owning side to null (unless already changed)
+            if ($canConsult->getUtilisateur() === $this) {
+                $canConsult->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CanConsult[]
+     */
+    public function getCanConsultsCreated(): Collection
+    {
+        return $this->canConsultsCreated;
+    }
+
+    public function addCanConsultsCreated(CanConsult $canConsultsCreated): self
+    {
+        if (!$this->canConsultsCreated->contains($canConsultsCreated)) {
+            $this->canConsultsCreated[] = $canConsultsCreated;
+            $canConsultsCreated->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCanConsultsCreated(CanConsult $canConsultsCreated): self
+    {
+        if ($this->canConsultsCreated->removeElement($canConsultsCreated)) {
+            // set the owning side to null (unless already changed)
+            if ($canConsultsCreated->getCreatedBy() === $this) {
+                $canConsultsCreated->setCreatedBy(null);
             }
         }
 

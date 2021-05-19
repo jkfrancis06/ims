@@ -26,11 +26,13 @@ use App\Validator as AppAssert;
  *      },
  *      itemOperations={
  *          "get"= {
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "delete"= {
  *               "access_control"="is_granted('ROLE_ADMIN')",
  *           },
  *          "put"= {
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           }
  *      },
  *     normalizationContext={"groups"={"affaire:read"}},
@@ -46,45 +48,46 @@ class Affaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"affaire:read", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read"})
      */
     private $id;
 
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
      */
     private $statut;
 
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
      */
     private $source;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
      */
     private $resume;
 
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
      */
     private $createdAt;
 
@@ -104,15 +107,27 @@ class Affaire
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="affaires")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"affaire:read","affaire:write","createAffaire:write"})
+     * @Groups({"affaire:read","affaire:write","createAffaire:write", "entite:read"})
      */
     private $departement;
 
     /**
      * @ORM\OneToMany(targetEntity=AffaireUtilisateur::class, mappedBy="affaire", orphanRemoval=true)
-     * @Groups({"affaire:read", "affaire:write"})
+     * @Groups({"affaire:read", "affaire:write", "entite:read"})
      */
     private $affaireUtilisateurs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CanConsult::class, mappedBy="affaire", orphanRemoval=true)
+     * @Groups({"affaire:read"})
+     */
+    private $canConsults;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Entites::class, mappedBy="affaire", orphanRemoval=true)
+     * @Groups({"affaire:read"})
+     */
+    private $entites;
 
 
 
@@ -121,6 +136,8 @@ class Affaire
         $this->lastUpdate = new \DateTime();
         $this->statut = 'Ouvert';
         $this->affaireUtilisateurs = new ArrayCollection();
+        $this->canConsults = new ArrayCollection();
+        $this->entites = new ArrayCollection();
 
     }
 
@@ -262,6 +279,66 @@ class Affaire
             // set the owning side to null (unless already changed)
             if ($affaireUtilisateur->getAffaire() === $this) {
                 $affaireUtilisateur->setAffaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CanConsult[]
+     */
+    public function getCanConsults(): Collection
+    {
+        return $this->canConsults;
+    }
+
+    public function addCanConsult(CanConsult $canConsult): self
+    {
+        if (!$this->canConsults->contains($canConsult)) {
+            $this->canConsults[] = $canConsult;
+            $canConsult->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCanConsult(CanConsult $canConsult): self
+    {
+        if ($this->canConsults->removeElement($canConsult)) {
+            // set the owning side to null (unless already changed)
+            if ($canConsult->getAffaire() === $this) {
+                $canConsult->setAffaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Entites[]
+     */
+    public function getEntites(): Collection
+    {
+        return $this->entites;
+    }
+
+    public function addEntite(Entites $entite): self
+    {
+        if (!$this->entites->contains($entite)) {
+            $this->entites[] = $entite;
+            $entite->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntite(Entites $entite): self
+    {
+        if ($this->entites->removeElement($entite)) {
+            // set the owning side to null (unless already changed)
+            if ($entite->getAffaire() === $this) {
+                $entite->setAffaire(null);
             }
         }
 
