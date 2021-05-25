@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "post"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *      },
  *      itemOperations={
@@ -22,10 +22,10 @@ use Doctrine\ORM\Mapping as ORM;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "delete"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "put"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           }
  *      },
  *     normalizationContext={"groups"={"organisation:read"}},

@@ -58,7 +58,7 @@ class GetAffaireItemVoter extends Voter
 
 
 
-        if ($can == true || $userAffaire != null || in_array('ROLE_ADMIN', $user->getRoles())) {
+        if ($can == true || $subject->getNiveauAccreditation() <= $user->getNiveauAccreditation() || $userAffaire != null || in_array('ROLE_ADMIN', $user->getRoles())) {
             return true;
         }
 

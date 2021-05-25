@@ -62,23 +62,42 @@ class Utilisateur implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"utilisateur:read", "departement:read"})
+     * @Groups({"utilisateur:read", "departement:read","tache:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     *  @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read"})
+     *  @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read"})
+     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read"})
      */
     private $prenom;
+
+
+    /**
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5,
+     *      notInRangeMessage = "You must be between {{ min }}cm and {{ max }}cm tall to enter",
+     * )
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read"})
+     */
+    private $niveauAccreditation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"utilisateur:read", "departement:read"})
+     */
+    private $numeroMatricule;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -166,6 +185,16 @@ class Utilisateur implements UserInterface
      */
     private $canConsultsCreated;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Tache::class, mappedBy="createdBy")
+s    */
+    private $taches;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TacheUtilisateur::class, mappedBy="utilisateur")
+     */
+    private $tacheUtilisateurs;
+
 
 
 
@@ -179,6 +208,13 @@ class Utilisateur implements UserInterface
         $this->affaireUtilisateurs = new ArrayCollection();
         $this->canConsults = new ArrayCollection();
         $this->canConsultsCreated = new ArrayCollection();
+
+        //TODO remove below after tests
+
+        $this->numeroMatricule = 'BHL-DNE-'.time().'-'.random_int(100, 999999);
+        $this->taches = new ArrayCollection();
+        $this->tacheUtilisateurs = new ArrayCollection();
+
     }
 
     public function eraseCredentials()
@@ -421,6 +457,90 @@ class Utilisateur implements UserInterface
                 $canConsultsCreated->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tache[]
+     */
+    public function getTaches(): Collection
+    {
+        return $this->taches;
+    }
+
+    public function addTach(Tache $tach): self
+    {
+        if (!$this->taches->contains($tach)) {
+            $this->taches[] = $tach;
+            $tach->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTach(Tache $tach): self
+    {
+        if ($this->taches->removeElement($tach)) {
+            // set the owning side to null (unless already changed)
+            if ($tach->getCreatedBy() === $this) {
+                $tach->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TacheUtilisateur[]
+     */
+    public function getTacheUtilisateurs(): Collection
+    {
+        return $this->tacheUtilisateurs;
+    }
+
+    public function addTacheUtilisateur(TacheUtilisateur $tacheUtilisateur): self
+    {
+        if (!$this->tacheUtilisateurs->contains($tacheUtilisateur)) {
+            $this->tacheUtilisateurs[] = $tacheUtilisateur;
+            $tacheUtilisateur->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTacheUtilisateur(TacheUtilisateur $tacheUtilisateur): self
+    {
+        if ($this->tacheUtilisateurs->removeElement($tacheUtilisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($tacheUtilisateur->getUtilisateur() === $this) {
+                $tacheUtilisateur->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNumeroMatricule(): ?string
+    {
+        return $this->numeroMatricule;
+    }
+
+    public function setNumeroMatricule(string $numeroMatricule): self
+    {
+        $this->numeroMatricule = $numeroMatricule;
+
+        return $this;
+    }
+
+    public function getNiveauAccreditation(): ?int
+    {
+        return $this->niveauAccreditation;
+    }
+
+    public function setNiveauAccreditation(int $niveauAccreditation): self
+    {
+        $this->niveauAccreditation = $niveauAccreditation;
 
         return $this;
     }

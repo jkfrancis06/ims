@@ -4,6 +4,7 @@
 namespace App\DataPersister;
 
 
+use App\Entity\Affaire;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -37,6 +38,12 @@ class UtilisateurDataPersister implements \ApiPlatform\Core\DataPersister\DataPe
     public function persist($data)
     {
         // TODO: Implement persist() method.
+
+        $gen_id = 'AFF-DNE-'.time().'-'.random_int(100, 999999);
+
+        if (null !== $this->entityManager->getRepository(Utilisateur::class)->findOneBy(['numeroMatricule' => $gen_id])) {
+            $data->setNumeroMatricule($gen_id);
+        }
 
         if ($data->getPlainPassword()) {
             $data->setPassword(

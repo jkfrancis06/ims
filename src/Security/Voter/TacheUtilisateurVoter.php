@@ -2,16 +2,13 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\AffaireUtilisateur;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\RequestHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class EntiteVoter extends Voter
+class TacheUtilisateurVoter extends Voter
 {
-
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager) {
@@ -23,7 +20,7 @@ class EntiteVoter extends Voter
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, ['USER_VIEW_AFF'])
-            && $subject instanceof \App\Entity\Entites;
+            && $subject instanceof \App\Entity\TacheUtilisateur;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -34,30 +31,7 @@ class EntiteVoter extends Voter
             return false;
         }
 
-
-        // check if user
-        $userAffaire = $this->entityManager->getRepository(AffaireUtilisateur::class)
-            ->findBy([
-                'affaire' => $subject->getAffaire(),
-                'utilisateur' => $user
-            ]);
-
-
-        if ($userAffaire == null && !in_array('ROLE_ADMIN', $user->getRoles())){
-
-            $canConsults = $subject->getAffaire()->getCanConsults();
-
-            if ($canConsults != null){
-                foreach ($canConsults as $canConsult){
-                    if ($canConsult->getUtilisateur() == $user && $canConsult->getIsRevoked() == false){
-                        $can = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if ($can == true || $subject->getNiveauAccreditation() <= $user->getNiveauAccreditation() || $userAffaire != null){
+        if ($subject->getUtilisateur() == $user){
             return true;
         }
 

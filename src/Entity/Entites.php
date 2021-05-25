@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "post"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *      },
  *      itemOperations={
@@ -33,10 +33,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "delete"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "put"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           }
  *      },
  *     normalizationContext={"groups"={"entite:read"}},
@@ -302,6 +302,18 @@ abstract class Entites
         if ($this->envenements->removeElement($envenement)) {
             $envenement->removeEntite($this);
         }
+
+        return $this;
+    }
+
+    public function getResume(): ?string
+    {
+        return $this->resume;
+    }
+
+    public function setResume(string $resume): self
+    {
+        $this->resume = $resume;
 
         return $this;
     }

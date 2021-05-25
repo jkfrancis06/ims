@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *          "get"= {
  *           },
  *          "post"= {
- *              "access_control"="is_granted('ROLE_CREATOR')"
+ *              "access_control"="is_granted('USER_VIEW_AFF')"
  *           }
  *      },
  *      itemOperations={
@@ -78,6 +78,14 @@ class AffaireUtilisateur
      */
     private $responsability;
 
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","utilisateur:read"})
+     */
+    private $niveauAccreditation;
+
+
+
     public function __construct(){
         $this->createdAt = new \DateTime();
     }
@@ -131,6 +139,18 @@ class AffaireUtilisateur
     public function setResponsability(?string $responsability): self
     {
         $this->responsability = $responsability;
+
+        return $this;
+    }
+
+    public function getNiveauAccreditation(): ?int
+    {
+        return $this->niveauAccreditation;
+    }
+
+    public function setNiveauAccreditation(int $niveauAccreditation): self
+    {
+        $this->niveauAccreditation = $niveauAccreditation;
 
         return $this;
     }

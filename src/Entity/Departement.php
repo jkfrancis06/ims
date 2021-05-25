@@ -19,6 +19,16 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          "get"= {
  *               "access_control"="is_granted('ROLE_ADMIN')"
  *           },
+ *           "GET-DEP-USERS"={
+ *              "method"="GET",
+ *              "path"="/departement-users/get",
+ *              "access_control"="is_granted('ROLE_USER')",
+ *              "controller"="App\Controller\GetDepartementUsersController",
+ *              "denormalization_context"={
+ *                 "groups"={"departement:write"}
+ *              },
+ *              "normalization_context"={"groups"={"departement:read"}},
+ *          },
  *          "post"= {
  *               "access_control"="is_granted('ROLE_ADMIN')",
  *           }

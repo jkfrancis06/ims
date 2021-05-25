@@ -5,10 +5,11 @@ namespace App\DataPersister;
 
 
 use App\Entity\Affaire;
+use App\Entity\Tache;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class AffaireDataPersister implements \ApiPlatform\Core\DataPersister\DataPersisterInterface
+class TacheDataPersister implements \ApiPlatform\Core\DataPersister\DataPersisterInterface
 {
 
     /** @var  TokenStorageInterface */
@@ -30,7 +31,7 @@ class AffaireDataPersister implements \ApiPlatform\Core\DataPersister\DataPersis
     {
         // TODO: Implement supports() method.
 
-        return $data instanceof Affaire;
+        return $data instanceof Tache;
     }
 
     /**
@@ -38,17 +39,7 @@ class AffaireDataPersister implements \ApiPlatform\Core\DataPersister\DataPersis
      */
     public function persist($data)
     {
-        // TODO: Implement persist() method.
 
-        $gen_id = 'AFF-DNE-'.time().'-'.random_int(100, 999999);
-
-        if (null !== $this->entityManager->getRepository(Affaire::class)->findOneBy(['numeroMatricule' => $gen_id])) {
-            $data->setNumeroMatricule($gen_id);
-        }
-
-        $token = $this->tokenStorage->getToken();
-        $user = $token->getUser();
-        $data->setCreatedBy($user);
         $this->entityManager->persist($data);
         $this->entityManager->flush();
     }

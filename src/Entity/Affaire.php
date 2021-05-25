@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Validator as AppAssert;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -20,8 +20,18 @@ use App\Validator as AppAssert;
  *          "get"= {
  *               "access_control"="is_granted('ROLE_ADMIN')"
  *           },
+ *          "GET-USER-AFFAIRE"={
+ *              "method"="GET",
+ *              "path"="/utilisateur/affaire/get",
+ *              "access_control"="is_granted('ROLE_USER')",
+ *              "controller"="App\Controller\GetUserAffaireController",
+ *              "denormalization_context"={
+ *                 "groups"={"affaire:write"}
+ *              },
+ *              "normalization_context"={"groups"={"affaire:read"}},
+ *          },
  *          "post"= {
- *              "access_control"="is_granted('ROLE_CREATOR')",
+ *              "access_control"="is_granted('USER_VIEW_AFF')",
  *           },
  *      },
  *      itemOperations={
@@ -40,7 +50,9 @@ use App\Validator as AppAssert;
  * )
  * @ORM\Entity(repositoryClass=AffaireRepository::class)
  * @UniqueEntity(fields={"nom"}, message="Une affaire de ce nom existe deja !!")
+ * @UniqueEntity(fields={"numeroMatricule"}, message="Une affaire de ce matricule existe deja !!")
  * @AppAssert\AffaireInDepartement()
+ * @AppAssert\AffaireAcrreditation()
  */
 class Affaire
 {
@@ -48,14 +60,20 @@ class Affaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read"})
      */
     private $id;
 
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read"})
+     */
+    private $numeroMatricule;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","tache:read"})
      */
     private $nom;
 
@@ -64,6 +82,19 @@ class Affaire
      * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
      */
     private $description;
+
+    /**
+    /**
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5,
+     *      notInRangeMessage = "You must be between {{ min }}cm and {{ max }}cm tall to enter",
+     * )
+     *
+     * @ORM\Column(type="integer")
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     */
+    private $niveauAccreditation;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -138,6 +169,12 @@ class Affaire
         $this->affaireUtilisateurs = new ArrayCollection();
         $this->canConsults = new ArrayCollection();
         $this->entites = new ArrayCollection();
+
+        //TODO remove below after tests
+
+        $this->numeroMatricule = date("Y").'-000'.date("m").'-AFF-DNE- '.time().'-'.random_int(100, 999999);
+
+
 
     }
 
@@ -341,6 +378,30 @@ class Affaire
                 $entite->setAffaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumeroMatricule(): ?string
+    {
+        return $this->numeroMatricule;
+    }
+
+    public function setNumeroMatricule(string $numeroMatricule): self
+    {
+        $this->numeroMatricule = $numeroMatricule;
+
+        return $this;
+    }
+
+    public function getNiveauAccreditation(): ?int
+    {
+        return $this->niveauAccreditation;
+    }
+
+    public function setNiveauAccreditation(int $niveauAccreditation): self
+    {
+        $this->niveauAccreditation = $niveauAccreditation;
 
         return $this;
     }

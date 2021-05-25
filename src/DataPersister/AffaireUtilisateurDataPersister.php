@@ -50,6 +50,7 @@ class AffaireUtilisateurDataPersister implements \ApiPlatform\Core\DataPersister
         $role_to_add = 'USER_OWN_AFF';
         array_push($role,$role_to_add);
         $utilisateur->setRoles($role);
+        $data->setNiveauAccreditation($data->getAffaire()->getNiveauAccreditation());
         $this->entityManager->flush();
 
     }

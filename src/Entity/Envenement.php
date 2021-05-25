@@ -7,9 +7,32 @@ use App\Repository\EnvenementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *      collectionOperations={
+ *          "get"= {
+ *               "access_control"="is_granted('USER_VIEW_AFF', object))"
+ *           },
+ *          "post"= {
+ *              "access_control"="is_granted('USER_VIEW_AFF', object))",
+ *           },
+ *      },
+ *      itemOperations={
+ *          "get"= {
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
+ *           },
+ *          "delete"= {
+ *               "access_control"="is_granted('USER_VIEW_AFF', object))",
+ *           },
+ *          "put"= {
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
+ *           }
+ *      },
+ *     normalizationContext={"groups"={"envenement:read"}},
+ *     denormalizationContext={"groups"={"envenement:write"}}
+ * )
  * @ORM\Entity(repositoryClass=EnvenementRepository::class)
  */
 class Envenement
@@ -18,51 +41,61 @@ class Envenement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"envenement:read", "envenement:read","affaire:read", "entite:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $typeEvenement;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $localisation;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $startAt;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $duration;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $resume;
 
     /**
      * @ORM\ManyToMany(targetEntity=Entites::class, inversedBy="envenements")
+     * @Groups({"envenement:read", "envenement:write","affaire:read"})
      */
     private $entite;
 
     /**
      * @ORM\ManyToMany(targetEntity=Utilisateur::class)
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $utilisateur;
 
     /**
      * @ORM\OneToMany(targetEntity=Preuve::class, mappedBy="evenement")
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $preuves;
 
