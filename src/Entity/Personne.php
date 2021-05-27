@@ -78,6 +78,11 @@ class Personne extends Entites
      */
     protected $nationalite;
 
+    public function __construct()
+    {
+        $this->description = $this->nom;
+        $this->description2 = $this->prenom;
+    }
 
 
     public function getNom(): ?string

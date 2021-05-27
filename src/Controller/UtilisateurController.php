@@ -35,20 +35,13 @@ class UtilisateurController extends \Symfony\Bundle\FrameworkBundle\Controller\A
 
     public function createUserAction(Request $request){
 
-        $utilisateurAffaires = $this->getDoctrine()->getManager()->getRepository(AffaireUtilisateur::class)->findAll();
-        $em = $this->getDoctrine()->getManager();
-        foreach ($utilisateurAffaires as $utilisateurAffaire){
-            $utilisateur = $utilisateurAffaire->getUtilisateur();
-            $role = $utilisateur->getRoles();
-            if (!in_array('USER_OWN_AFF',$role)){
-                array_push($role, 'USER_OWN_AFF');
-                var_dump($role);
-                $utilisateur->setRoles($role);
-                $em->flush();
-            }
-        }
+        $token = $this->tokenStorage->getToken();
+        $user = $token->getUser();
+        $affaireUtilisateurs = $this->getDoctrine()->getManager()->getRepository(AffaireUtilisateur::class)->findBy([
+            'utilisateur' => $user->getId()
+        ]);
 
-        return new JsonResponse('$temp',200);
+        return new JsonResponse($user->getId(),200);
 
     }
 

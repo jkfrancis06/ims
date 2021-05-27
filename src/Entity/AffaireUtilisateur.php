@@ -21,17 +21,27 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *          "get"= {
  *           },
  *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF')"
- *           }
+ *              "access_control"="is_granted('USER_VIEW_AFF',object)",
+ *           },
+ *          "BULK-AFFAIRE_UTILISATEURS"={
+ *              "method"="POST",
+ *              "path"="/api/affaire_utilisateurs/bulk",
+ *              "access_control"="is_granted('USER_VIEW_AFF')",
+ *              "controller"="App\Controller\CreateBulkAffaireUtilisateursController",
+ *              "denormalization_context"={
+ *                 "groups"={"affaireUtilisateur:write"}
+ *              },
+ *              "normalization_context"={"groups"={"affaireUtilisateur:read"}},
+ *          }
  *      },
  *      itemOperations={
  *          "get"= {
  *           },
  *          "delete"= {
- *              "access_control"="is_granted('ROLE_ADMIN')",
+ *              "access_control"="is_granted('USER_VIEW_AFF',object)",
  *           },
  *          "put"= {
- *              "access_control"="is_granted('ROLE_ADMIN')",
+ *              "access_control"="is_granted('USER_VIEW_AFF')",
  *           }
  *      },
  *     normalizationContext={"groups"={"affaireUtilisateur:read"}},
@@ -79,7 +89,7 @@ class AffaireUtilisateur
     private $responsability;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","utilisateur:read"})
      */
     private $niveauAccreditation;

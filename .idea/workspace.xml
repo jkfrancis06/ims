@@ -14,40 +14,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Controller/GetUserAffaireController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/GetUserTasksController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataPersister/TacheDataPersister.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Doctrine/IdGenerator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventListener/AuthenticationFailureListener.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventListener/JWTExpiredListener.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventListener/JWTInvalidListener.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventListener/JWTNotFoundListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/CreateBulkAffaireUtilisateursController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/GetAffaireEntiteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/nelmio_cors.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/nelmio_cors.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/GetDepartementUsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GetDepartementUsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UtilisateurController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UtilisateurController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/AffaireDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/AffaireDataPersister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/AffaireUtilisateurDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/AffaireUtilisateurDataPersister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/UtilisateurDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/UtilisateurDataPersister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Affaire.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Affaire.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Entites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entites.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Envenement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Envenement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Organisation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Organisation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Preuve.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Preuve.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Personne.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Personne.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Tache.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Tache.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventListener/JWTCreatedListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/JWTCreatedListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UtilisateurRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UtilisateurRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Voter/AffaireUtilisateurVoter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Voter/AffaireUtilisateurVoter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Security/Voter/EntiteVoter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Voter/EntiteVoter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/Voter/GetAffaireItemVoter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Voter/GetAffaireItemVoter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +205,9 @@
       <workItem from="1621494424740" duration="8000" />
       <workItem from="1621494451020" duration="176000" />
       <workItem from="1621494645142" duration="934000" />
-      <workItem from="1621502589555" duration="77172000" />
+      <workItem from="1621502589555" duration="78083000" />
+      <workItem from="1621954385774" duration="10889000" />
+      <workItem from="1622050524008" duration="13068000" />
     </task>
     <servers />
   </component>
@@ -253,10 +235,11 @@
       <screen x="50" y="27" width="1316" height="741" />
     </state>
     <state x="522" y="188" width="351" height="433" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/50.27.1316.741@50.27.1316.741" timestamp="1621219024732" />
-    <state x="441" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1621843891418">
+    <state x="441" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1622102875063">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
-    <state x="441" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/50.27.1316.741@50.27.1316.741" timestamp="1621843891418" />
+    <state x="441" y="155" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/50.27.1316.741/1366.0.1656.900@50.27.1316.741" timestamp="1622102875063" />
+    <state x="441" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/50.27.1316.741@50.27.1316.741" timestamp="1622021605950" />
     <state x="491" y="143" width="424" height="520" key="FileChooserDialogImpl" timestamp="1621601426597">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
@@ -277,17 +260,19 @@
       <screen x="50" y="27" width="1316" height="741" />
     </state>
     <state width="536" height="446" key="SwitcherDM/50.27.1316.741@50.27.1316.741" timestamp="1621356510464" />
-    <state x="150" y="127" width="1116" height="541" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1621420072237">
+    <state x="150" y="127" width="1116" height="541" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1621953937959">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
-    <state x="150" y="127" width="1116" height="541" key="com.intellij.history.integration.ui.views.FileHistoryDialog/50.27.1316.741@50.27.1316.741" timestamp="1621420072237" />
-    <state x="372" y="174" width="672" height="677" key="run.anything.popup" timestamp="1621437362218">
+    <state x="150" y="127" width="1116" height="541" key="com.intellij.history.integration.ui.views.FileHistoryDialog/50.27.1316.741@50.27.1316.741" timestamp="1621953937959" />
+    <state x="372" y="174" width="672" height="677" key="run.anything.popup" timestamp="1622103021033">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
+    <state x="372" y="174" width="672" height="677" key="run.anything.popup/50.27.1316.741/1366.0.1656.900@50.27.1316.741" timestamp="1622103021033" />
     <state x="372" y="174" width="672" height="677" key="run.anything.popup/50.27.1316.741@50.27.1316.741" timestamp="1621437362218" />
-    <state x="371" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1621952965494">
+    <state x="371" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1622130448878">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
-    <state x="371" y="89" width="672" height="678" key="search.everywhere.popup/50.27.1316.741@50.27.1316.741" timestamp="1621952965494" />
+    <state x="371" y="89" width="672" height="678" key="search.everywhere.popup/50.27.1316.741/1366.0.1656.900@50.27.1316.741" timestamp="1622130448878" />
+    <state x="371" y="89" width="672" height="678" key="search.everywhere.popup/50.27.1316.741@50.27.1316.741" timestamp="1622028138071" />
   </component>
 </project>

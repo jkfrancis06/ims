@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Affaire;
+use App\Entity\AffaireUtilisateur;
+use App\Entity\Entites;
 use App\Entity\Tache;
+use App\Entity\TacheUtilisateur;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class GetDepartementUsersController
+class GetAffaireEntiteController
 {
 
     /** @var  TokenStorageInterface */
@@ -24,17 +28,21 @@ class GetDepartementUsersController
 
     }
 
-    public function __invoke(Request $request){
+    public function __invoke($id,Request $request){
+
+        $json_data = $request->getContent();
+        $data = json_decode($json_data,true);
+
 
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
 
-        $users = $this->entityManager->getRepository(Utilisateur::class)
-                ->findBy([
-                   'departement' => $user->getDepartement()
-                ]);
+        $entites = $this->entityManager->getRepository(Entites::class)->findBy([
+            'affaire' => $id
+        ]);
 
-        return $users;
+
+        return $entites;
 
     }
 

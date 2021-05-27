@@ -62,21 +62,21 @@ class Utilisateur implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"utilisateur:read", "departement:read","tache:read"})
+     * @Groups({"utilisateur:read", "departement:read","tache:read","affaire:read","affaireUtilisateur:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     *  @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read"})
+     *  @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read"})
+     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read"})
      */
     private $prenom;
 
@@ -89,13 +89,13 @@ class Utilisateur implements UserInterface
      * )
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
-     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read"})
+     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read"})
      */
     private $niveauAccreditation;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"utilisateur:read", "departement:read"})
+     * @Groups({"utilisateur:read", "departement:read","affaireUtilisateur:read"})
      */
     private $numeroMatricule;
 

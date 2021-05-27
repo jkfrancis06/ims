@@ -43,7 +43,7 @@ class EntiteVoter extends Voter
             ]);
 
 
-        if ($userAffaire == null && !in_array('ROLE_ADMIN', $user->getRoles())){
+        if ($userAffaire == null){
 
             $canConsults = $subject->getAffaire()->getCanConsults();
 

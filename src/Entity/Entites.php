@@ -24,6 +24,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "get"= {
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
+ *           "GET-AFFAIRE-ENTITES"={
+ *              "method"="GET",
+ *              "path"="/affaire-entites/get/{id}",
+ *              "controller"="App\Controller\GetAffaireEntiteController",
+ *              "denormalization_context"={
+ *                 "groups"={"entite:write"}
+ *              },
+ *              "normalization_context"={"groups"={"entite:read"}},
+ *          },
  *          "post"= {
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
@@ -54,13 +63,13 @@ abstract class Entites
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", nullable=true ,length=255)
      * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
      */
     protected $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", nullable=true, length=255)
      * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
      */
     protected $description2;
