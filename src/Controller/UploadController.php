@@ -1,0 +1,58 @@
+<?php
+
+
+namespace App\Controller;
+
+use App\Entity\AffaireUtilisateur;
+use App\Entity\CanConsult;
+use App\Entity\Entites;
+use App\Entity\Utilisateur;
+use App\Entity\Vehicule;
+use App\Service\FileUploader;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\User;
+
+
+class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+{
+
+    /** @var  TokenStorageInterface */
+    private $tokenStorage;
+    private  $fileUploader;
+
+    public function __construct( TokenStorageInterface $storage, FileUploader $fileUploader){
+        $this->tokenStorage = $storage;
+        $this->fileUploader = $fileUploader;
+    }
+
+    /**
+     * @Route("/api/personne-file/upload", name="upload")
+     *
+     */
+
+    public function createUserAction(Request $request){
+
+        $token = $this->tokenStorage->getToken();
+        $user = $token->getUser();
+
+        /** @var UploadedFile $uploadedFile */
+        $uploadedFile = $request->files->get('file');
+
+        $file_array = [];
+        foreach ($uploadedFile as $file){
+            array_push($file_array,$this->fileUploader->upload($file));
+        }
+
+
+        return new JsonResponse($file_array,200);
+
+    }
+
+}

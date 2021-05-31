@@ -2,19 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PersonneRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
  *      collectionOperations={
  *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
+ *              "access_control"="is_granted('ROLE_USER')"
  *           },
  *          "post"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *      },
  *      itemOperations={
@@ -22,15 +26,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "delete"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "put"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           }
  *      },
  *     normalizationContext={"groups"={"entite:read"}},
  *     denormalizationContext={"groups"={"entite:write"}}
  * )
+ * @ApiFilter(SearchFilter::class,properties={"numPassport":"iexact",
+ *     "numCarte":"iexact","aliases.alias":"iexact"})
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
  */
 class Personne extends Entites
@@ -78,10 +84,19 @@ class Personne extends Entites
      */
     protected $nationalite;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Alias::class, mappedBy="personne", orphanRemoval=true,cascade={"persist", "remove"})
+     * @Groups({"entite:read", "entite:write"})
+     */
+    private $aliases;
+
     public function __construct()
     {
+        $this->mainPicture = "icon-default.png";
         $this->description = $this->nom;
         $this->description2 = $this->prenom;
+        $this->aliases = new ArrayCollection();
+        $this->attachements = new ArrayCollection();
     }
 
 
@@ -93,6 +108,7 @@ class Personne extends Entites
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+        $this->description = $nom;
 
         return $this;
     }
@@ -105,6 +121,7 @@ class Personne extends Entites
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+        $this->description2 = $prenom;
 
         return $this;
     }
@@ -168,5 +185,37 @@ class Personne extends Entites
 
         return $this;
     }
+
+    /**
+     * @return Collection|Alias[]
+     */
+    public function getAliases(): Collection
+    {
+        return $this->aliases;
+    }
+
+    public function addAlias(Alias $alias): self
+    {
+        if (!$this->aliases->contains($alias)) {
+            $this->aliases[] = $alias;
+            $alias->setPersonne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlias(Alias $alias): self
+    {
+        if ($this->aliases->removeElement($alias)) {
+            // set the owning side to null (unless already changed)
+            if ($alias->getPersonne() === $this) {
+                $alias->setPersonne(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 }

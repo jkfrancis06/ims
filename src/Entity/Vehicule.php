@@ -2,19 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VehiculeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
  *      collectionOperations={
  *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
+ *              "access_control"="is_granted('ROLE_USER')"
  *           },
  *          "post"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *      },
  *      itemOperations={
@@ -22,15 +24,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "delete"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "put"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           }
  *      },
  *     normalizationContext={"groups"={"entite:read"}},
  *     denormalizationContext={"groups"={"entite:write"}}
  * )
+ * @ApiFilter(SearchFilter::class,properties={"immatriculation":"iexact"})
  * @ORM\Entity(repositoryClass=VehiculeRepository::class)
  */
 class Vehicule extends Entites

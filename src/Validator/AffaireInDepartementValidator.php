@@ -2,6 +2,7 @@
 
 namespace App\Validator;
 
+use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -34,7 +35,8 @@ class AffaireInDepartementValidator extends ConstraintValidator
         if ($token instanceof TokenInterface) {
 
             $departementAffaire = $affaire->getDepartement();
-            $utilisateurDepartement = $user->getDepartement();
+            $db_user = $this->entityManager->getRepository(Utilisateur::class)->find($user->getId());
+            $utilisateurDepartement = $db_user->getDepartement();
 
             if ($departementAffaire != $utilisateurDepartement){
                 $this->context->buildViolation($constraint->message)

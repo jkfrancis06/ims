@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource(
  *      collectionOperations={
  *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
+ *              "access_control"="is_granted('ROLE_USER')"
  *           },
  *          "post"= {
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
@@ -28,8 +28,8 @@ use Doctrine\ORM\Mapping as ORM;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           }
  *      },
- *     normalizationContext={"groups"={"organisation:read"}},
- *     denormalizationContext={"groups"={"organisation:write"}}
+ *     normalizationContext={"groups"={"entite:read"}},
+ *     denormalizationContext={"groups"={"entite:write"}}
  * )
  */
 class Organisation extends Entites

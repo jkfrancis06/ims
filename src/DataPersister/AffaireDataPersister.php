@@ -5,6 +5,9 @@ namespace App\DataPersister;
 
 
 use App\Entity\Affaire;
+use App\Entity\AffaireUtilisateur;
+use App\Entity\Departement;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -48,8 +51,19 @@ class AffaireDataPersister implements \ApiPlatform\Core\DataPersister\DataPersis
 
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
+        $db_user = $this->entityManager->getRepository(Utilisateur::class)->find($user->getId());
         $data->setCreatedBy($user);
+        $data->setDepartement($db_user->getDepartement());
+
         $this->entityManager->persist($data);
+        $this->entityManager->flush();
+
+        $affaireUtilisateur = new AffaireUtilisateur();
+        $affaireUtilisateur->setAffaire($data);
+        $affaireUtilisateur->setUtilisateur($db_user);
+        $affaireUtilisateur->setNiveauAccreditation($data->getNiveauAccreditation());
+        $affaireUtilisateur->setResponsability('');
+        $this->entityManager->persist($affaireUtilisateur);
         $this->entityManager->flush();
     }
 

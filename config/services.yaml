@@ -10,6 +10,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $projectDir: '%kernel.project_dir%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -64,3 +66,11 @@ services:
             $globalFactory: '@limiter.ip_login'
             # localFactory is the limiter for username+IP
             $localFactory: '@limiter.username_ip_login'
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%kernel.project_dir%/public/upload'
+
+    foo:
+        class: App\Enti\To\Foo
+        arguments: [ '%kernel.project_dir%' ]

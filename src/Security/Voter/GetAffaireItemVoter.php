@@ -3,6 +3,7 @@
 namespace App\Security\Voter;
 
 use App\Entity\AffaireUtilisateur;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -40,27 +41,32 @@ class GetAffaireItemVoter extends Voter
 
         $can = false;
 
+        $db_user = $this->entityManager->getRepository(Utilisateur::class)->find($user->getId());
 
-        if ($userAffaire == null && !in_array('ROLE_ADMIN', $user->getRoles())){
+
+
+        if ($userAffaire == null){
 
             $canConsults = $subject->getCanConsults();
 
             if ($canConsults != null){
                 foreach ($canConsults as $canConsult){
                     if ($canConsult->getUtilisateur() == $user && $canConsult->getIsRevoked() == false){
-                        $can = true;
-                        break;
+                        return true;
                     }
                 }
+            }else{
+                if ($db_user->getDepartement() != $subject->getDepartement()){
+                    return false;
+                }elseif ($subject->getNiveauAccreditation() <= $user->getNiveauAccreditation() ){
+                    return true;
+                }
             }
-        }
 
-
-
-
-        if ($can == true || $subject->getNiveauAccreditation() <= $user->getNiveauAccreditation() || $userAffaire != null || in_array('ROLE_ADMIN', $user->getRoles())) {
+        }else{
             return true;
         }
+
 
 
         // ... (check conditions and return true to grant permission) ...

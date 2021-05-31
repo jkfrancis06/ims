@@ -45,36 +45,37 @@ class TacheUtilisateur
 
     /**
      * @ORM\ManyToOne(targetEntity=Tache::class, inversedBy="tacheUtilisateurs")
-     * @Groups({"tache:read", "tache:write","utilisateur:read", "tacheUtilisateur:read","get-task:read"})
+     * @Groups({"tache:read","utilisateur:read", "tacheUtilisateur:read","get-task:read"})
      */
     private $tache;
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="tacheUtilisateurs")
-     * @Groups({"tache:read", "tache:write","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
+     * @Groups({"tache:read","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
      */
     private $utilisateur;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"tache:read", "tache:write","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
+     * @Groups({"tache:read","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
      */
     private $statut;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"tache:read", "tache:write","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
+     * @Groups({"tache:read","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"tache:read", "tache:write","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
+     * @Groups({"tache:read","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
      */
     private $remarque;
 
     public function __construct(){
         $this->updatedAt = new \DateTime();
+        $this->statut = "0";
     }
 
     public function getId(): ?int

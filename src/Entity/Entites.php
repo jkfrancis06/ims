@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EntitesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 
 /**
  * @ORM\Entity(repositoryClass=EntitesRepository::class)
@@ -22,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *      collectionOperations={
  *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
+ *              "access_control"="is_granted('ROLE_USER')"
  *           },
  *           "GET-AFFAIRE-ENTITES"={
  *              "method"="GET",
@@ -50,7 +53,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      },
  *     normalizationContext={"groups"={"entite:read"}},
  *     denormalizationContext={"groups"={"entite:write"}}
+ *
  * )
+ * @ApiFilter(SearchFilter::class,properties={"description":"iexact","description2":"iexact"})
  */
 abstract class Entites
 {
@@ -81,6 +86,12 @@ abstract class Entites
     protected $role;
 
     /**
+     * @ORM\Column(type="integer")
+     * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
+     */
+    protected $cat;
+
+    /**
      * @ORM\Column(type="string", length=255, options={"default": "icon-default.png"})
      * @Groups({"entite:read", "entite:write","affaire:read"})
      */
@@ -101,25 +112,25 @@ abstract class Entites
     protected $affaire;
 
     /**
-     * @ORM\OneToMany(targetEntity=Attachements::class, mappedBy="entite", orphanRemoval=true)
-     * @Groups({"entite:read", "entite:write"})
+     * @ORM\OneToMany(targetEntity=Attachements::class, mappedBy="entite", orphanRemoval=true,cascade={"persist", "remove"})
+     * @Groups({"entite:read","entite:write"})
      */
-    private $attachements;
+    protected $attachements;
 
     /**
      * @ORM\OneToMany(targetEntity=RelatedTo::class, mappedBy="parent")
      */
-    private $ParentOf;
+    protected $ParentOf;
 
     /**
      * @ORM\OneToMany(targetEntity=RelatedTo::class, mappedBy="child")
      */
-    private $ChildOf;
+    protected $ChildOf;
 
     /**
      * @ORM\ManyToMany(targetEntity=Envenement::class, mappedBy="entite")
      */
-    private $envenements;
+    protected $envenements;
 
 
 
@@ -199,7 +210,7 @@ abstract class Entites
     }
 
     /**
-     * @return Collection|Attachements[]
+     * @return Collection|Attachements[]|null
      */
     public function getAttachements(): Collection
     {
@@ -323,6 +334,18 @@ abstract class Entites
     public function setResume(string $resume): self
     {
         $this->resume = $resume;
+
+        return $this;
+    }
+
+    public function getCat(): ?int
+    {
+        return $this->cat;
+    }
+
+    public function setCat(int $cat): self
+    {
+        $this->cat = $cat;
 
         return $this;
     }

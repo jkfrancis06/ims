@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AttachementsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -39,7 +41,7 @@ class Attachements
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"entite:read", "attachements:read","utilisateur:read","affaire:read"})
+     * @Groups({"entite:read","entite:write", "attachements:read","utilisateur:read","affaire:read"})
      */
     private $id;
 
@@ -50,6 +52,12 @@ class Attachements
     private $name;
 
     /**
+     * @ORM\Column(type="integer", length=255)
+     * @Groups({"entite:read","entite:write", "attachements:read","attachements:write","utilisateur:read","affaire:read"})
+     */
+    private $type;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"entite:read","entite:write", "attachements:read","attachements:write","utilisateur:read","affaire:read"})
      */
@@ -58,9 +66,11 @@ class Attachements
     /**
      * @ORM\ManyToOne(targetEntity=Entites::class, inversedBy="attachements")
      * @ORM\JoinColumn()
-     * @Groups({"attachements:read","attachements:write"})
+     * @Groups({"attachements:read","attachements:write","entite:write"})
      */
     private $entite;
+
+
 
     public function getId(): ?int
     {
@@ -71,6 +81,7 @@ class Attachements
     {
         return $this->name;
     }
+
 
     public function setName(string $name): self
     {
@@ -99,6 +110,18 @@ class Attachements
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

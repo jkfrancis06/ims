@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AffaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,13 +13,16 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\TermFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\MatchFilter;
 
 
 /**
  * @ApiResource(
  *      collectionOperations={
  *          "get"= {
- *               "access_control"="is_granted('ROLE_ADMIN')"
+ *               "access_control"="is_granted('ROLE_USER')"
  *           },
  *          "GET-USER-AFFAIRE"={
  *              "method"="GET",
@@ -31,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "normalization_context"={"groups"={"affaire:read"}},
  *          },
  *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF')",
+ *              "access_control"="is_granted('ROLE_USER')",
  *           },
  *      },
  *      itemOperations={
@@ -48,10 +52,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     normalizationContext={"groups"={"affaire:read"}},
  *     denormalizationContext={"groups"={"affaire:write"}}
  * )
+ * @ApiFilter(SearchFilter::class,properties={"nom":"ipartial","numeroMatricule":"ipartial"})
+ * @ORM\Table(name="affaire")
  * @ORM\Entity(repositoryClass=AffaireRepository::class)
  * @UniqueEntity(fields={"nom"}, message="Une affaire de ce nom existe deja !!")
  * @UniqueEntity(fields={"numeroMatricule"}, message="Une affaire de ce matricule existe deja !!")
- * @AppAssert\AffaireInDepartement()
  * @AppAssert\AffaireAcrreditation()
  */
 class Affaire

@@ -8,9 +8,11 @@ use App\Entity\CanConsult;
 use App\Entity\Entites;
 use App\Entity\Utilisateur;
 use App\Entity\Vehicule;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -43,6 +45,20 @@ class UtilisateurController extends \Symfony\Bundle\FrameworkBundle\Controller\A
 
         return new JsonResponse($user->getId(),200);
 
+    }
+
+    /**
+     * @Route("/file/get/{name}", name="get_file")
+     *
+     */
+
+    public function getFileAction($name){
+
+        $file_with_path = $this->getParameter('kernel.project_dir').'/public/upload/'.$name;
+        $file = file_get_contents($file_with_path);
+
+
+        return new Response(base64_encode($file),200);
     }
 
 }

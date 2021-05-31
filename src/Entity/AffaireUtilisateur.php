@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AffaireUtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator as AppAssert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Table(
@@ -50,6 +52,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass=AffaireUtilisateurRepository::class)
  * @AppAssert\InDepartement()
  * @AppAssert\UtilisateurAffaireExist()
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "affaire.id": "exact"
+ * })
  */
 class AffaireUtilisateur
 {

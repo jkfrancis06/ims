@@ -36,6 +36,7 @@ class JWTCreatedListener
         $payload['user']["departement"] = $user->getDepartement()->getId();
         $payload['user']["roles"] = $user->getRoles();
         $payload['user']["username"] = $user->getUsername();
+        $payload['user']["niveauAccreditation"] = $user->getNiveauAccreditation();
         $payload['expires'] = $jws->getPayload()['exp'];
         $payload['message'] = "Authentication success";
 
