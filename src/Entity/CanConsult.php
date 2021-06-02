@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CanConsultRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator as AppAssert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Table(
@@ -19,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ApiResource(
  *      collectionOperations={
  *          "get"= {
- *              "access_control"="is_granted('ROLE_ADMIN')"
+ *              "access_control"="is_granted('ROLE_USER')"
  *           },
  *          "post"= {
  *              "access_control"="is_granted('USER_VIEW_AFF',object)"
@@ -39,6 +41,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     normalizationContext={"groups"={"canConsult:read"}},
  *     denormalizationContext={"groups"={"canConsult:write"}}
  * )
+ * @ApiFilter(SearchFilter::class,properties={"utilisateur.id": "exact"})
  * @ORM\Entity(repositoryClass=CanConsultRepository::class)
  * @AppAssert\AlreadyOnAffaire()
  */
@@ -48,7 +51,7 @@ class CanConsult
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"canConsult:read"})
+     * @Groups({"canConsult:read","affaire:read"})
      */
     private $id;
 
@@ -56,7 +59,7 @@ class CanConsult
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Affaire::class, inversedBy="canConsults")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"canConsult:read","canConsult:write"})
+     * @Groups({"canConsult:read","canConsult:write","affaire:read"})
      */
     private $affaire;
 
@@ -64,7 +67,7 @@ class CanConsult
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="canConsults")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"canConsult:read","canConsult:write"})
+     * @Groups({"canConsult:read","canConsult:write","affaire:read"})
      */
     private $utilisateur;
 
@@ -72,27 +75,34 @@ class CanConsult
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="canConsultsCreated")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"canConsult:read","canConsult:write"})
+     * @Groups({"canConsult:read","canConsult:write","affaire:read"})
      */
     private $createdBy;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"canConsult:read","canConsult:write"})
+     * @Groups({"canConsult:read","canConsult:write","affaire:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"canConsult:read","canConsult:write"})
+     * @Groups({"canConsult:read","canConsult:write","affaire:read"})
      */
     private $expireAt;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"canConsult:read","canConsult:write"})
+     * @Groups({"canConsult:read","canConsult:write","affaire:read"})
      */
     private $isRevoked;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Groups({"canConsult:read","canConsult:write","affaire:read"})
+     */
+    private $statut;
 
     public function __construct(){
         $this->createdAt = new \DateTime();
@@ -175,4 +185,25 @@ class CanConsult
 
         return $this;
     }
+
+    public function getStatut(): ?string
+    {
+        if(!$this->isRevoked){
+            if ($this->expireAt > new \DateTime()){
+                return "0";
+            }else{
+                return "1";
+            }
+        }else{
+            return "3";
+        }
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
 }

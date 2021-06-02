@@ -55,7 +55,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     denormalizationContext={"groups"={"entite:write"}}
  *
  * )
- * @ApiFilter(SearchFilter::class,properties={"description":"iexact","description2":"iexact"})
+ * @ApiFilter(SearchFilter::class,properties={"affaire.id":"exact","description":"iexact","description2":"iexact"})
  */
 abstract class Entites
 {
@@ -63,25 +63,25 @@ abstract class Entites
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"entite:read", "entite:read","utilisateur:read","affaire:read","attachements:read"})
+     * @Groups({"envenement:read","entite:read", "entite:read","utilisateur:read","affaire:read","attachements:read"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", nullable=true ,length=255)
-     * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
+     * @Groups({"envenement:read","entite:read", "entite:write","affaire:read","attachements:read"})
      */
     protected $description;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
-     * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
+     * @Groups({"envenement:read","entite:read", "entite:write","affaire:read","attachements:read"})
      */
     protected $description2;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
+     * @Groups({"envenement:read","entite:read", "entite:write","affaire:read","attachements:read"})
      */
     protected $role;
 
@@ -93,7 +93,7 @@ abstract class Entites
 
     /**
      * @ORM\Column(type="string", length=255, options={"default": "icon-default.png"})
-     * @Groups({"entite:read", "entite:write","affaire:read"})
+     * @Groups({"envenement:read","entite:read", "entite:write","affaire:read"})
      */
     protected $mainPicture;
 

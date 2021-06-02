@@ -39,33 +39,39 @@ class Preuve
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"preuve:read","envenement:read", "envenement:read","affaire:read", "entite:read"})
+     * @Groups({"preuve:read","envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:read","affaire:read", "entite:read"})
+     * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:read","affaire:read", "entite:read"})
+     * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Envenement::class, inversedBy="preuves")
-     * @Groups({"preuve:read","preuve:write","affaire:read", "entite:read"})
+     * @Groups({"preuve:read","preuve:write","affaire:read", "entite:read", "envenement:write"})
      */
     private $evenement;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:read","affaire:read", "entite:read"})
+     * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:write","affaire:read", "entite:read"})
+     */
+    private $files = [];
 
     public function getId(): ?int
     {
@@ -116,6 +122,18 @@ class Preuve
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getFiles(): ?array
+    {
+        return $this->files;
+    }
+
+    public function setFiles(?array $files): self
+    {
+        $this->files = $files;
 
         return $this;
     }

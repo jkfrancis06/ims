@@ -56,13 +56,13 @@ class Departement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"utilisateur:read", "departement:read", "affaire:read"})
+     * @Groups({"envenement:read","utilisateur:read", "departement:read", "affaire:read","canConsult:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"utilisateur:read", "departement:read", "departement:write", "affaire:read"})
+     * @Groups({"envenement:read","utilisateur:read", "departement:read", "departement:write", "affaire:read","canConsult:read"})
      */
     private $nom;
 

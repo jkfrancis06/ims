@@ -2,21 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EnvenementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
  *      collectionOperations={
  *          "get"= {
- *               "access_control"="is_granted('USER_VIEW_AFF', object))"
+ *               "access_control"="is_granted('ROLE_USER')"
  *           },
  *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object))",
+ *              "access_control"="is_granted('USER_VIEW_AFF', object)",
  *           },
  *      },
  *      itemOperations={
@@ -24,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
  *           },
  *          "delete"= {
- *               "access_control"="is_granted('USER_VIEW_AFF', object))",
+ *               "access_control"="is_granted('USER_VIEW_AFF', object)",
  *           },
  *          "put"= {
  *              "access_control"="is_granted('USER_VIEW_AFF', object)"
@@ -34,6 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"envenement:write"}}
  * )
  * @ORM\Entity(repositoryClass=EnvenementRepository::class)
+ * @ApiFilter(SearchFilter::class,properties={"affaire.id": "exact"})
  */
 class Envenement
 {
@@ -69,11 +72,6 @@ class Envenement
      */
     private $duration;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="text")
@@ -98,6 +96,26 @@ class Envenement
      * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $preuves;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Affaire::class, inversedBy="envenements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $affaire;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
+     */
+    private $endAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
+     */
+    private $geoLocalisation;
+
+
 
     public function __construct()
     {
@@ -155,18 +173,6 @@ class Envenement
     public function setDuration(string $duration): self
     {
         $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }
@@ -239,6 +245,40 @@ class Envenement
         return $this->preuves;
     }
 
+    public function addPreuve(Preuve $preuve): self
+    {
+        if (!$this->preuves->contains($preuve)) {
+            $this->preuves[] = $preuve;
+            $preuve->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removePreuve(Preuve $preuve): self
+    {
+        if ($this->preuves->removeElement($preuve)) {
+            // set the owning side to null (unless already changed)
+            if ($preuve->getEvenement() === $this) {
+                $preuve->setEvenement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAffaire(): ?Affaire
+    {
+        return $this->affaire;
+    }
+
+    public function setAffaire(?Affaire $affaire): self
+    {
+        $this->affaire = $affaire;
+
+        return $this;
+    }
+
     public function addPreufe(Preuve $preufe): self
     {
         if (!$this->preuves->contains($preufe)) {
@@ -257,6 +297,30 @@ class Envenement
                 $preufe->setEvenement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEndAt(): ?\DateTimeInterface
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(?\DateTimeInterface $endAt): self
+    {
+        $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    public function getGeoLocalisation(): ?string
+    {
+        return $this->geoLocalisation;
+    }
+
+    public function setGeoLocalisation(?string $geoLocalisation): self
+    {
+        $this->geoLocalisation = $geoLocalisation;
 
         return $this;
     }

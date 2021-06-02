@@ -62,21 +62,21 @@ class Utilisateur implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"utilisateur:read", "departement:read","tache:read","affaire:read","affaireUtilisateur:read"})
+     * @Groups({"envenement:read","utilisateur:read", "departement:read","tache:read","affaire:read","affaireUtilisateur:read","canConsult:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     *  @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read"})
+     *  @Groups({"envenement:read","utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read","canConsult:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read"})
+     * @Groups({"envenement:read","utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read","canConsult:read"})
      */
     private $prenom;
 
@@ -165,7 +165,7 @@ class Utilisateur implements UserInterface
     /**
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="utilisateurs")
-     * @Groups({"utilisateur:read","utilisateur:write"})
+     * @Groups({"envenement:read","utilisateur:read","utilisateur:write","affaire:read"})
      */
     private $departement;
 

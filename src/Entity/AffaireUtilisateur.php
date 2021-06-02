@@ -62,7 +62,7 @@ class AffaireUtilisateur
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"affaireUtilisateur:read","affaire:read","utilisateur:read"})
+     * @Groups({"affaireUtilisateur:read","affaire:read","utilisateur:read","canConsult:read"})
      */
     private $id;
 
@@ -70,32 +70,32 @@ class AffaireUtilisateur
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="affaireUtilisateurs")
      * @ORM\JoinColumn(name="utilisateur_id", nullable=false)
-     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read"})
+     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","canConsult:read"})
      */
     private $utilisateur;
 
     /**
      * @ORM\ManyToOne(targetEntity=Affaire::class, inversedBy="affaireUtilisateurs")
      * @ORM\JoinColumn(name="affaire_id", nullable=false)
-     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","utilisateur:read"})
+     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","utilisateur:read","canConsult:read"})
      */
     private $affaire;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"affaireUtilisateur:read","affaire:read","utilisateur:read"})
+     * @Groups({"affaireUtilisateur:read","affaire:read","utilisateur:read","canConsult:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","utilisateur:read"})
+     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","utilisateur:read","canConsult:read"})
      */
     private $responsability;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","utilisateur:read"})
+     * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","utilisateur:read","canConsult:read"})
      */
     private $niveauAccreditation;
 

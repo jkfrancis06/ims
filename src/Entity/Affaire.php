@@ -52,7 +52,7 @@ use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\MatchFilter;
  *     normalizationContext={"groups"={"affaire:read"}},
  *     denormalizationContext={"groups"={"affaire:write"}}
  * )
- * @ApiFilter(SearchFilter::class,properties={"nom":"ipartial","numeroMatricule":"ipartial"})
+ * @ApiFilter(SearchFilter::class,properties={"nom":"ipartial","numeroMatricule":"ipartial","departement.id": "exact"})
  * @ORM\Table(name="affaire")
  * @ORM\Entity(repositoryClass=AffaireRepository::class)
  * @UniqueEntity(fields={"nom"}, message="Une affaire de ce nom existe deja !!")
@@ -65,26 +65,26 @@ class Affaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read"})
+     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read"})
      */
     private $id;
 
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read"})
+     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read"})
      */
     private $numeroMatricule;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","tache:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
      */
     private $description;
 
@@ -93,49 +93,49 @@ class Affaire
      * @Assert\Range(
      *      min = 1,
      *      max = 5,
-     *      notInRangeMessage = "You must be between {{ min }}cm and {{ max }}cm tall to enter",
+     *      notInRangeMessage = "Le niveau d'accreditation doit etre entre {{ min }} et{{ max }}",
      * )
      *
      * @ORM\Column(type="integer")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
      */
     private $niveauAccreditation;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
      */
     private $statut;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
      */
     private $source;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
      */
     private $resume;
 
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read","canConsult:read"})
      */
     private $lastUpdate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class)
-     * @Groups({"affaire:read", "affaire:write", "departement:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","canConsult:read"})
      */
     private $createdBy;
 
@@ -143,13 +143,13 @@ class Affaire
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="affaires")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"affaire:read","affaire:write","createAffaire:write", "entite:read"})
+     * @Groups({"affaire:read","affaire:write","createAffaire:write", "entite:read","canConsult:read"})
      */
     private $departement;
 
     /**
      * @ORM\OneToMany(targetEntity=AffaireUtilisateur::class, mappedBy="affaire", orphanRemoval=true)
-     * @Groups({"affaire:read", "affaire:write", "entite:read"})
+     * @Groups({"affaire:read", "affaire:write", "entite:read","canConsult:read"})
      */
     private $affaireUtilisateurs;
 
@@ -161,9 +161,15 @@ class Affaire
 
     /**
      * @ORM\OneToMany(targetEntity=Entites::class, mappedBy="affaire", orphanRemoval=true)
-     * @Groups({"affaire:read"})
+     * @Groups({"affaire:read","canConsult:read"})
      */
     private $entites;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Envenement::class, mappedBy="affaire", orphanRemoval=true)
+     */
+    private $envenements;
+
 
 
 
@@ -178,6 +184,7 @@ class Affaire
         //TODO remove below after tests
 
         $this->numeroMatricule = date("Y").'-000'.date("m").'-AFF-DNE- '.time().'-'.random_int(100, 999999);
+        $this->envenements = new ArrayCollection();
 
 
 
@@ -407,6 +414,36 @@ class Affaire
     public function setNiveauAccreditation(int $niveauAccreditation): self
     {
         $this->niveauAccreditation = $niveauAccreditation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Envenement[]
+     */
+    public function getEnvenements(): Collection
+    {
+        return $this->envenements;
+    }
+
+    public function addEnvenement(Envenement $envenement): self
+    {
+        if (!$this->envenements->contains($envenement)) {
+            $this->envenements[] = $envenement;
+            $envenement->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnvenement(Envenement $envenement): self
+    {
+        if ($this->envenements->removeElement($envenement)) {
+            // set the owning side to null (unless already changed)
+            if ($envenement->getAffaire() === $this) {
+                $envenement->setAffaire(null);
+            }
+        }
 
         return $this;
     }

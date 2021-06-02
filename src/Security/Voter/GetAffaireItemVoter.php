@@ -39,7 +39,6 @@ class GetAffaireItemVoter extends Voter
                            'utilisateur' => $user
                         ]);
 
-        $can = false;
 
         $db_user = $this->entityManager->getRepository(Utilisateur::class)->find($user->getId());
 
@@ -51,16 +50,17 @@ class GetAffaireItemVoter extends Voter
 
             if ($canConsults != null){
                 foreach ($canConsults as $canConsult){
-                    if ($canConsult->getUtilisateur() == $user && $canConsult->getIsRevoked() == false){
+                    if ($canConsult->getUtilisateur() == $user &&
+                        $canConsult->getIsRevoked() == false &&
+                        $canConsult->getStatut() == '0'){
                         return true;
                     }
                 }
-            }else{
-                if ($db_user->getDepartement() != $subject->getDepartement()){
-                    return false;
-                }elseif ($subject->getNiveauAccreditation() <= $user->getNiveauAccreditation() ){
-                    return true;
-                }
+            }
+            if ($db_user->getDepartement() != $subject->getDepartement()){
+                return false;
+            }elseif ($subject->getNiveauAccreditation() <= $user->getNiveauAccreditation() ){
+                return true;
             }
 
         }else{
@@ -68,19 +68,8 @@ class GetAffaireItemVoter extends Voter
         }
 
 
-
-        // ... (check conditions and return true to grant permission) ...
-        switch ($attribute) {
-            case 'POST_EDIT':
-                // logic to determine if the user can EDIT
-                // return true or false
-                break;
-            case 'POST_VIEW':
-                // logic to determine if the user can VIEW
-                // return true or false
-                break;
-        }
-
         return false;
+
+
     }
 }
