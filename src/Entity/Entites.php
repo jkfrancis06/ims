@@ -91,6 +91,13 @@ abstract class Entites
      */
     protected $cat;
 
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
+     */
+    protected $createdAt;
+
     /**
      * @ORM\Column(type="string", length=255, options={"default": "icon-default.png"})
      * @Groups({"envenement:read","entite:read", "entite:write","affaire:read"})
@@ -132,9 +139,20 @@ abstract class Entites
      */
     protected $envenements;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $roleFinal;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $rapportFinal;
+
 
 
     public function __construct(){
+        $this->createdAt = new \DateTime();
         $this->mainPicture = "icon-default.png";
         $this->attachements = new ArrayCollection();
         $this->ParentOf = new ArrayCollection();
@@ -346,6 +364,42 @@ abstract class Entites
     public function setCat(int $cat): self
     {
         $this->cat = $cat;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getRoleFinal(): ?string
+    {
+        return $this->roleFinal;
+    }
+
+    public function setRoleFinal(?string $roleFinal): self
+    {
+        $this->roleFinal = $roleFinal;
+
+        return $this;
+    }
+
+    public function getRapportFinal(): ?string
+    {
+        return $this->rapportFinal;
+    }
+
+    public function setRapportFinal(?string $rapportFinal): self
+    {
+        $this->rapportFinal = $rapportFinal;
 
         return $this;
     }

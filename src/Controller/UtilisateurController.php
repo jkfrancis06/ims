@@ -3,6 +3,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Affaire;
+use App\Entity\AffaireDirected;
 use App\Entity\AffaireUtilisateur;
 use App\Entity\CanConsult;
 use App\Entity\Entites;
@@ -37,13 +39,20 @@ class UtilisateurController extends \Symfony\Bundle\FrameworkBundle\Controller\A
 
     public function createUserAction(Request $request){
 
-        $token = $this->tokenStorage->getToken();
-        $user = $token->getUser();
-        $affaireUtilisateurs = $this->getDoctrine()->getManager()->getRepository(AffaireUtilisateur::class)->findBy([
-            'utilisateur' => $user->getId()
-        ]);
+        $affaires = $this->getDoctrine()->getManager()->getRepository(Affaire::class)->findAll();
+        foreach ($affaires as $affaire){
+            $affaireDir = new AffaireDirected();
+            $affaireDir->setAffaire($affaire);
+            $affaireDir->setUtilisateur($affaire->getCreatedBy());
+            $affaireDir->setCreatedAt($affaire->getCreatedAt());
+            $affaireDir->setLastUpdate($affaire->getCreatedAt());
+            $affaireDir->setIsRevoked(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($affaireDir);
+            $em->flush();
+        }
 
-        return new JsonResponse($user->getId(),200);
+        return new JsonResponse("ok",200);
 
     }
 
@@ -58,7 +67,15 @@ class UtilisateurController extends \Symfony\Bundle\FrameworkBundle\Controller\A
         $file = file_get_contents($file_with_path);
 
 
-        return new Response(base64_encode($file),200);
+        $filepath = $file_with_path;
+        $filename = $name;
+
+        $response = new Response();
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_INLINE, $filename);
+        $response->headers->set('Content-Disposition', $disposition);
+        $response->setContent(file_get_contents($filepath));
+
+        return $response;
     }
 
 }

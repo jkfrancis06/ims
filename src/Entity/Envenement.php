@@ -10,6 +10,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+
 
 /**
  * @ApiResource(
@@ -37,6 +39,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * )
  * @ORM\Entity(repositoryClass=EnvenementRepository::class)
  * @ApiFilter(SearchFilter::class,properties={"affaire.id": "exact"})
+ * @ApiFilter(OrderFilter::class,properties={"startAt": "asc"})
  */
 class Envenement
 {
@@ -67,7 +70,7 @@ class Envenement
     private $startAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $duration;
@@ -92,7 +95,7 @@ class Envenement
     private $utilisateur;
 
     /**
-     * @ORM\OneToMany(targetEntity=Preuve::class, mappedBy="evenement")
+     * @ORM\OneToMany(targetEntity=Preuve::class, mappedBy="evenement",cascade={"persist", "remove"})
      * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $preuves;
@@ -100,6 +103,7 @@ class Envenement
     /**
      * @ORM\ManyToOne(targetEntity=Affaire::class, inversedBy="envenements")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"envenement:read", "envenement:write"})
      */
     private $affaire;
 
@@ -122,6 +126,7 @@ class Envenement
         $this->entite = new ArrayCollection();
         $this->utilisateur = new ArrayCollection();
         $this->preuves = new ArrayCollection();
+
     }
 
     public function getId(): ?int

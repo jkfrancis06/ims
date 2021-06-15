@@ -56,25 +56,25 @@ class Departement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"envenement:read","utilisateur:read", "departement:read", "affaire:read","canConsult:read"})
+     * @Groups({"envenement:read","utilisateur:read", "departement:read", "affaire:read","canConsult:read","affaireDirected:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"envenement:read","utilisateur:read", "departement:read", "departement:write", "affaire:read","canConsult:read"})
+     * @Groups({"envenement:read","utilisateur:read", "departement:read", "departement:write", "affaire:read","canConsult:read","affaireDirected:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"utilisateur:read", "departement:read", "departement:write", "affaire:read"})
+     * @Groups({"utilisateur:read", "departement:read", "departement:write", "affaire:read","affaireDirected:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"utilisateur:read", "departement:read"})
+     * @Groups({"utilisateur:read", "departement:read","affaireDirected:read"})
      */
     private $ceatedAt;
 

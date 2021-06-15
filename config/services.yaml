@@ -74,3 +74,8 @@ services:
     foo:
         class: App\Enti\To\Foo
         arguments: [ '%kernel.project_dir%' ]
+
+    serializer.normalizer.datetime:
+        class: App\Normalizer\DateTimeNormalizer
+        tags:
+            - { name: serializer.normalizer }

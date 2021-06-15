@@ -40,6 +40,7 @@ class CanConsultVoter extends Voter
 
 
         if ($this->requestStack->getCurrentRequest()->isMethod('PUT') ||
+            $this->requestStack->getCurrentRequest()->isMethod('DELETE') ||
             $this->requestStack->getCurrentRequest()->isMethod('POST')){
             if ($affaire->getCreatedBy() == $user){
                 return true;

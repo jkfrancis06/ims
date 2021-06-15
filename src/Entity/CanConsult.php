@@ -190,7 +190,7 @@ class CanConsult
     {
         if(!$this->isRevoked){
             if ($this->expireAt > new \DateTime()){
-                return "0";
+                return "0";  // ok
             }else{
                 return "1";
             }

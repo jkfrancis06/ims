@@ -68,10 +68,15 @@ class Preuve
     private $createdAt;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @Groups({"preuve:read","preuve:write","envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
-    private $files = [];
+    private $files;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -126,15 +131,16 @@ class Preuve
         return $this;
     }
 
-    public function getFiles(): ?array
+    public function getFiles(): ?string
     {
         return $this->files;
     }
 
-    public function setFiles(?array $files): self
+    public function setFiles(?string $files): self
     {
         $this->files = $files;
 
         return $this;
     }
+
 }

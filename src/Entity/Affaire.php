@@ -65,26 +65,26 @@ class Affaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read"})
+     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read","affaireDirected:read"})
      */
     private $id;
 
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read"})
+     * @Groups({"affaire:read", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read","affaireDirected:read"})
      */
     private $numeroMatricule;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","tache:read","canConsult:read","affaireDirected:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read","affaireDirected:read"})
      */
     private $description;
 
@@ -97,45 +97,45 @@ class Affaire
      * )
      *
      * @ORM\Column(type="integer")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read","affaireDirected:read"})
      */
     private $niveauAccreditation;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read","affaireDirected:read"})
      */
     private $statut;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read","affaireDirected:read"})
      */
     private $source;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read","affaireDirected:read"})
      */
     private $resume;
 
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read","affaireDirected:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read","canConsult:read","affaireDirected:read"})
      */
     private $lastUpdate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class)
-     * @Groups({"affaire:read", "affaire:write", "departement:read","canConsult:read"})
+     * @Groups({"affaire:read", "affaire:write", "departement:read","canConsult:read","affaireDirected:read"})
      */
     private $createdBy;
 
@@ -170,6 +170,23 @@ class Affaire
      */
     private $envenements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AffaireDirected::class, mappedBy="affaire", orphanRemoval=true)
+     */
+    private $affaireDirecteds;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"affaire:read", "affaire:write", "departement:read","canConsult:read","affaireDirected:read"})
+     */
+    private $rapportFinal;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"affaire:read", "affaire:write", "departement:read","canConsult:read","affaireDirected:read"})
+     */
+    private $clotureAt;
+
 
 
 
@@ -185,6 +202,7 @@ class Affaire
 
         $this->numeroMatricule = date("Y").'-000'.date("m").'-AFF-DNE- '.time().'-'.random_int(100, 999999);
         $this->envenements = new ArrayCollection();
+        $this->affaireDirecteds = new ArrayCollection();
 
 
 
@@ -444,6 +462,60 @@ class Affaire
                 $envenement->setAffaire(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AffaireDirected[]
+     */
+    public function getAffaireDirecteds(): Collection
+    {
+        return $this->affaireDirecteds;
+    }
+
+    public function addAffaireDirected(AffaireDirected $affaireDirected): self
+    {
+        if (!$this->affaireDirecteds->contains($affaireDirected)) {
+            $this->affaireDirecteds[] = $affaireDirected;
+            $affaireDirected->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffaireDirected(AffaireDirected $affaireDirected): self
+    {
+        if ($this->affaireDirecteds->removeElement($affaireDirected)) {
+            // set the owning side to null (unless already changed)
+            if ($affaireDirected->getAffaire() === $this) {
+                $affaireDirected->setAffaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRapportFinal(): ?string
+    {
+        return $this->rapportFinal;
+    }
+
+    public function setRapportFinal(?string $rapportFinal): self
+    {
+        $this->rapportFinal = $rapportFinal;
+
+        return $this;
+    }
+
+    public function getClotureAt(): ?\DateTimeInterface
+    {
+        return $this->clotureAt;
+    }
+
+    public function setClotureAt(?\DateTimeInterface $clotureAt): self
+    {
+        $this->clotureAt = $clotureAt;
 
         return $this;
     }

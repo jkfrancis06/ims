@@ -35,7 +35,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     normalizationContext={"groups"={"entite:read"}},
  *     denormalizationContext={"groups"={"entite:write"}}
  * )
- * @ApiFilter(SearchFilter::class,properties={"numPassport":"iexact",
+ * @ApiFilter(SearchFilter::class,properties={"nom":"iexact","prenom":"iexact","numPassport":"iexact",
  *     "numCarte":"iexact","aliases.alias":"iexact"})
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
  */
@@ -95,6 +95,7 @@ class Personne extends Entites
         $this->mainPicture = "icon-default.png";
         $this->description = $this->nom;
         $this->description2 = $this->prenom;
+        $this->createdAt = new \DateTime();
         $this->aliases = new ArrayCollection();
         $this->attachements = new ArrayCollection();
     }

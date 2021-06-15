@@ -62,21 +62,21 @@ class Utilisateur implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"envenement:read","utilisateur:read", "departement:read","tache:read","affaire:read","affaireUtilisateur:read","canConsult:read"})
+     * @Groups({"envenement:read","utilisateur:read", "departement:read","tache:read","affaire:read","affaireUtilisateur:read","canConsult:read","affaireDirected:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     *  @Groups({"envenement:read","utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read","canConsult:read"})
+     *  @Groups({"envenement:read","utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read","canConsult:read","affaireDirected:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Groups({"envenement:read","utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read","canConsult:read"})
+     * @Groups({"envenement:read","utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read","canConsult:read","affaireDirected:read"})
      */
     private $prenom;
 
@@ -89,13 +89,13 @@ class Utilisateur implements UserInterface
      * )
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
-     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read"})
+     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaire:read","tache:read","affaireUtilisateur:read","affaireDirected:read"})
      */
     private $niveauAccreditation;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"utilisateur:read", "departement:read","affaireUtilisateur:read"})
+     * @Groups({"utilisateur:read", "departement:read","affaireUtilisateur:read","affaireDirected:read"})
      */
     private $numeroMatricule;
 
@@ -142,13 +142,13 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"utilisateur:read", "departement:read"})
+     * @Groups({"utilisateur:read", "departement:read","affaireDirected:read"})
      */
     private $createAt;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"utilisateur:read","utilisateur:write", "departement:read"})
+     * @Groups({"utilisateur:read","utilisateur:write", "departement:read","affaireDirected:read"})
      */
     private $isActive;
 
@@ -165,7 +165,7 @@ class Utilisateur implements UserInterface
     /**
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="utilisateurs")
-     * @Groups({"envenement:read","utilisateur:read","utilisateur:write","affaire:read"})
+     * @Groups({"envenement:read","utilisateur:read","utilisateur:write","affaire:read","canConsult:read","affaireDirected:read"})
      */
     private $departement;
 
@@ -195,6 +195,11 @@ s    */
      */
     private $tacheUtilisateurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AffaireDirected::class, mappedBy="utilisateur", orphanRemoval=true)
+     */
+    private $affaireDirecteds;
+
 
 
 
@@ -214,6 +219,7 @@ s    */
         $this->numeroMatricule = 'BHL-DNE-'.time().'-'.random_int(100, 999999);
         $this->taches = new ArrayCollection();
         $this->tacheUtilisateurs = new ArrayCollection();
+        $this->affaireDirecteds = new ArrayCollection();
 
     }
 
@@ -541,6 +547,36 @@ s    */
     public function setNiveauAccreditation(int $niveauAccreditation): self
     {
         $this->niveauAccreditation = $niveauAccreditation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AffaireDirected[]
+     */
+    public function getAffaireDirecteds(): Collection
+    {
+        return $this->affaireDirecteds;
+    }
+
+    public function addAffaireDirected(AffaireDirected $affaireDirected): self
+    {
+        if (!$this->affaireDirecteds->contains($affaireDirected)) {
+            $this->affaireDirecteds[] = $affaireDirected;
+            $affaireDirected->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffaireDirected(AffaireDirected $affaireDirected): self
+    {
+        if ($this->affaireDirecteds->removeElement($affaireDirected)) {
+            // set the owning side to null (unless already changed)
+            if ($affaireDirected->getUtilisateur() === $this) {
+                $affaireDirected->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
