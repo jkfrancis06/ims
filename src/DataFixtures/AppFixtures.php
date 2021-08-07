@@ -44,28 +44,30 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
+        $lipsum = new LoremIpsum();
+
+        $departement = new Departement();
+        $departement->setNom("Administration");
+        $departement->setDescription("Administration des utilisateurs");
+
+        $manager->persist($departement);
+        $manager->flush();
+
+
         $user = new Utilisateur();
-        $user->setNom('sysadmin');
-        $user->setPrenom('admin');
-        $user->setUsername('admin');
+        $user->setNom('Admin');
+        $user->setPrenom('Systeme');
+        $user->setUsername('sysadmin');
         $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-        $plainPassword ='admin@123';
+        $plainPassword ='Admin@123';
         $user->setPassword($this->passwordEncoder->encodePassword($user, $plainPassword));
         $user->setIsActive(true);
-
-        $user->setRoles([
-            'ROLE_USER',
-            'USER_VIEW_DEP',
-            'ROLE_CREATOR',
-            'ROLE_ADMIN',
-            'USER_VIEW_AFF'
-        ]);
-
+        $user->setNiveauAccreditation(1);
+        $user->setDepartement($departement);
         $manager->persist($user);
         $manager->flush();
 
 
-       
 
 
     }
