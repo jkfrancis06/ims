@@ -44,115 +44,26 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        $lipsum = new LoremIpsum();
+        $user = new Utilisateur();
+        $user->setNom('sysadmin');
+        $user->setPrenom('admin');
+        $user->setUsername('admin');
+        $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+        $plainPassword ='admin@123';
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $plainPassword));
+        $user->setIsActive(true);
 
-        for ($i = 0; $i <= 5; $i++){
-            $departement = new Departement();
-            $departement->setNom($lipsum->word());
-            $departement->setDescription($lipsum->words(8));
+        $user->setRoles([
+            'ROLE_USER',
+            'USER_VIEW_DEP',
+            'ROLE_CREATOR',
+            'ROLE_ADMIN',
+            'USER_VIEW_AFF'
+        ]);
 
-            $manager->persist($departement);
-            $manager->flush();
-        }
+        $manager->persist($user);
+        $manager->flush();
 
-        $dep_repo = $manager->getRepository(Departement::class);
-        $dep = $dep_repo->findAll();
-
-        for ($i = 0; $i <= 10; $i++){
-            $val = rand(0,1000);
-            $user = new Utilisateur();
-            $user->setNom($lipsum->word());
-            $user->setPrenom($lipsum->word());
-            $user->setUsername('user-'.$val);
-            $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-            $plainPassword ='pass-'.$val;
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $plainPassword));
-            $user->setIsActive(true);
-            if ($i < 5) {
-                $user->setRoles([
-                    'ROLE_USER',
-                    'USER_VIEW_DEP',
-                    'USER_VIEW_AFF'
-                ]);
-            }
-            if ($i >= 5 && $i < 7) {
-                $user->setRoles([
-                    'ROLE_USER',
-                    'USER_VIEW_DEP',
-                    'ROLE_CREATOR',
-                    'USER_VIEW_AFF'
-                ]);
-            }
-            if ($i >= 7) {
-                $user->setRoles([
-                    'ROLE_USER',
-                    'USER_VIEW_DEP',
-                    'ROLE_CREATOR',
-                    'ROLE_ADMIN',
-                    'USER_VIEW_AFF'
-                ]);
-            }
-            $dep_rand = rand(0,sizeof($dep)-1);
-            $user->setNiveauAccreditation(rand(1,5));
-            $user->setDepartement($dep[$dep_rand]);
-            $manager->persist($user);
-            $manager->flush();
-        }
-
-
-
-        $utilisateur_repo = $manager->getRepository(Utilisateur::class);
-        $utilisateurs = $utilisateur_repo->findAll();
-        $utilisateurs_array = [];
-
-
-        foreach ($utilisateurs as $utilisateur){
-            if (in_array('ROLE_CREATOR',$utilisateur->getRoles()) || in_array('ROLE_ADMIN',$utilisateur->getRoles())){
-                array_push($utilisateurs_array,$utilisateur);
-            }
-        }
-        for ($i = 0; $i <= 30 ; $i ++){
-            $rand = rand(0, 1000);
-            $affaire = new Affaire();
-            $affaire->setNom('Affaire -'.$lipsum->word());
-            $affaire->setDescription($lipsum->words(5));
-            $affaire->setSource($lipsum->word());
-            $affaire->setResume($lipsum->sentences(2));
-            $util_rand = rand(0,sizeof($utilisateurs_array)-1);
-            $affaire->setCreatedBy($utilisateurs_array[$util_rand]);
-            $dep_rand = rand(0,sizeof($dep)-1);
-            $affaire->setDepartement($dep[$dep_rand]);
-            $affaire->setNiveauAccreditation(rand(1,$utilisateurs_array[$util_rand]->getNiveauAccreditation()));
-            $manager->persist($affaire);
-            $manager->flush();
-
-        }
-
-        $affaire_repo = $manager->getRepository(Affaire::class);
-
-        $affaires = $affaire_repo->findAll();
-
-        foreach ($affaires as $affaire){
-            $departement = $affaire->getDepartement();
-
-            $dep_users = $utilisateur_repo->findBy([
-                'departement' => $departement
-            ]);
-
-            if ($dep_users != null) {
-                $rand = rand(0,sizeof($dep_users)-1);
-                for ($i = 0; $i <= $rand; $i++){
-                    $affaireUtilisateur = new AffaireUtilisateur();
-                    $affaireUtilisateur->setAffaire($affaire);
-                    $affaireUtilisateur->setUtilisateur($dep_users[$i]);
-                    $affaireUtilisateur->setResponsability('Responsability- '.$dep_users[$i]->getNom());
-                    $manager->persist($affaireUtilisateur);
-                    $manager->flush();
-                }
-            }
-
-
-        }
 
        
 
