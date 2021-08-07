@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
         $lipsum = new LoremIpsum();
 
         $departement = $manager->getRepository(Departement::class)->find(4);
-        
+
 
 
         $user = new Utilisateur();
@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
         $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
         $plainPassword ='OussamaT@123';
         $user->setPassword($this->passwordEncoder->encodePassword($user, $plainPassword));
-        $user->setIsActive(truezz);
+        $user->setIsActive(true);
         $user->setNiveauAccreditation(5);
         $user->setDepartement($departement);
         $user->setRoles([
