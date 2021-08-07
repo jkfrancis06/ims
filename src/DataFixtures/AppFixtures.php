@@ -46,29 +46,26 @@ class AppFixtures extends Fixture
 
         $lipsum = new LoremIpsum();
 
-        $departement = new Departement();
-        $departement->setNom("Administration");
-        $departement->setDescription("Administration des utilisateurs");
+        $departement = $manager->getRepository(Departement::class)->find(4);
 
         $manager->persist($departement);
         $manager->flush();
 
 
         $user = new Utilisateur();
-        $user->setNom('Admin');
-        $user->setPrenom('Systeme');
-        $user->setUsername('sysadmin');
+        $user->setNom('Oussama');
+        $user->setPrenom('T');
+        $user->setUsername('oussamat');
         $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-        $plainPassword ='Admin@123';
+        $plainPassword ='OussamaT@123';
         $user->setPassword($this->passwordEncoder->encodePassword($user, $plainPassword));
         $user->setIsActive(true);
-        $user->setNiveauAccreditation(1);
+        $user->setNiveauAccreditation(5);
         $user->setDepartement($departement);
         $user->setRoles([
             'ROLE_USER',
             'USER_VIEW_DEP',
             'ROLE_CREATOR',
-            'ROLE_ADMIN',
             'USER_VIEW_AFF'
         ]);
         $manager->persist($user);
