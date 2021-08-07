@@ -51,11 +51,11 @@ class AppFixtures extends Fixture
 
 
         $user = new Utilisateur();
-        $user->setNom('Oussama');
-        $user->setPrenom('T');
-        $user->setUsername('oussamat');
+        $user->setNom('Departement');
+        $user->setPrenom('Admin');
+        $user->setUsername('adminDep');
         $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-        $plainPassword ='OussamaT@123';
+        $plainPassword ='Admin@123';
         $user->setPassword($this->passwordEncoder->encodePassword($user, $plainPassword));
         $user->setIsActive(true);
         $user->setNiveauAccreditation(5);
@@ -63,6 +63,7 @@ class AppFixtures extends Fixture
         $user->setRoles([
             'ROLE_USER',
             'USER_VIEW_DEP',
+            'ROLE_ADMIN',
             'ROLE_CREATOR',
             'USER_VIEW_AFF'
         ]);
