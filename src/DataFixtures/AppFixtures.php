@@ -64,6 +64,13 @@ class AppFixtures extends Fixture
         $user->setIsActive(true);
         $user->setNiveauAccreditation(1);
         $user->setDepartement($departement);
+        $user->setRoles([
+            'ROLE_USER',
+            'USER_VIEW_DEP',
+            'ROLE_CREATOR',
+            'ROLE_ADMIN',
+            'USER_VIEW_AFF'
+        ]);
         $manager->persist($user);
         $manager->flush();
 
