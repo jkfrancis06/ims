@@ -5,6 +5,7 @@ namespace App\DataPersister;
 
 
 use App\Entity\Affaire;
+use App\Entity\AffaireDirected;
 use App\Entity\AffaireUtilisateur;
 use App\Entity\Departement;
 use App\Entity\Utilisateur;
@@ -64,6 +65,12 @@ class AffaireDataPersister implements \ApiPlatform\Core\DataPersister\DataPersis
         $affaireUtilisateur->setNiveauAccreditation($data->getNiveauAccreditation());
         $affaireUtilisateur->setResponsability('');
         $this->entityManager->persist($affaireUtilisateur);
+        $this->entityManager->flush();
+
+        $affaireDirected = new AffaireDirected();
+        $affaireDirected->setAffaire($data);
+        $affaireDirected->setUtilisateur($db_user);
+        $this->entityManager->persist($affaireDirected);
         $this->entityManager->flush();
     }
 

@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\AffaireUtilisateur;
+use App\Entity\Attachements;
 use App\Entity\CanConsult;
 use App\Entity\Entites;
 use App\Entity\Utilisateur;
@@ -48,6 +49,50 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
         $file_array = [];
         foreach ($uploadedFile as $file){
             array_push($file_array,$this->fileUploader->upload($file));
+        }
+
+
+        return new JsonResponse($file_array,200);
+
+    }
+
+
+    /**
+     * @Route("/personne-file/upload")
+     *
+     */
+
+    public function update(Request $request){
+
+
+
+        /** @var UploadedFile $uploadedFile */
+        $uploadedFile = $request->files->get('file');
+
+        $file_array = [];
+
+        $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(4);
+
+
+
+        foreach ($uploadedFile as $file){
+            $name = $this->fileUploader->upload($file);
+
+            $file = new Attachements();
+
+            $file->setName($name);
+
+            $file->setDescription('Image');
+
+            $file->setType(1);
+
+            $entite->addAttachement($file);
+
+            array_push($file_array,$name);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->flush();
         }
 
 

@@ -107,6 +107,7 @@ class Envenement
      */
     private $affaire;
 
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})

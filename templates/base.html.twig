@@ -3,15 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+
+        <link rel="stylesheet" href="{{ absolute_url(asset('/assets/bootstrap.css')) }}" />
+        <link rel="stylesheet" href="{{ absolute_url(asset('/assets/bootstrap-theme.css')) }}" />
+        <script  src="{{ absolute_url(asset('/assets/jquery.js')) }}"></script>
+        <script  src="{{ absolute_url(asset('/assets/bootstrap.js')) }}"></script>
+
+        <style>
+            body{
+                margin: 0;
+                font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+            }
+        </style>
+
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+
         {% endblock %}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
+
     </head>
     <body>
         {% block body %}{% endblock %}
