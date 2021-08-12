@@ -56,7 +56,7 @@ class TacheUtilisateur
     private $utilisateur;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      * @Groups({"tache:read","utilisateur:read", "tacheUtilisateur:read", "tacheUtilisateur:write","get-task:read"})
      */
     private $statut;
@@ -73,9 +73,12 @@ class TacheUtilisateur
      */
     private $remarque;
 
+
+
+
     public function __construct(){
         $this->updatedAt = new \DateTime();
-        $this->statut = "0";
+        $this->statut = 0;
     }
 
     public function getId(): ?int
@@ -107,12 +110,12 @@ class TacheUtilisateur
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getStatut(): ?int
     {
         return $this->statut;
     }
 
-    public function setStatut(string $statut): self
+    public function setStatut(int $statut): self
     {
         $this->statut = $statut;
 

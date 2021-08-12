@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class GetUserTasksController
+class  GetUserTasksController
 {
 
     /** @var  TokenStorageInterface */
@@ -29,6 +29,8 @@ class GetUserTasksController
 
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
+
+
 
 
         return $this->entityManager->getRepository(TacheUtilisateur::class)

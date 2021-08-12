@@ -200,6 +200,21 @@ s    */
      */
     private $affaireDirecteds;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLoginForUser;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDeleted;
+
 
 
 
@@ -577,6 +592,42 @@ s    */
                 $affaireDirected->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastLoginForUser(): ?\DateTimeInterface
+    {
+        return $this->lastLoginForUser;
+    }
+
+    public function setLastLoginForUser(?\DateTimeInterface $lastLoginForUser): self
+    {
+        $this->lastLoginForUser = $lastLoginForUser;
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

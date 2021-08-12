@@ -14,61 +14,146 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/confidentiel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/user-unknown.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/buttons.bootstrap5.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/buttons.dataTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/datatables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/fa/all.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/fa/fontawesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Bold.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Bold.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Bold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Light.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Light.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Light.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Medium.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Medium.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Medium.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Thin.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Thin.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/font/roboto/Roboto-Thin.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons-pro/cards-extended.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons-pro/chat.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons-pro/multi-range.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons-pro/simple-charts.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons-pro/steppers.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons-pro/timeline.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/datatables-select.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/datatables.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/directives.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/flag.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/jquery.zmd.hierarchical-display.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/rating.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/bootstrap-dark.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/mdb.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/modules/accordion-extended.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/modules/animations-extended.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/modules/lightbox.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/modules/megamenu.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/modules/parallax.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-brands-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-brands-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-brands-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-brands-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-brands-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-regular-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-regular-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-regular-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-regular-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-regular-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-solid-900.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-solid-900.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-solid-900.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-solid-900.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/webfonts/fa-solid-900.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/custom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/formation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/modal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/picker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/sidebars.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/tab.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/tables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/buttons.bootstrap5.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/buttons.print.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/dataTables.buttons.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/datatables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons-pro/cards-extended.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons-pro/chat.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons-pro/multi-range.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons-pro/simple-charts.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons-pro/steppers.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons-pro/timeline.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/datatables-select.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/datatables.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/directives.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/flag.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/imagesloaded.pkgd.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/jquery.zmd.hierarchical-display.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/masonry.pkgd.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/rating.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/mdb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/accordion-extended.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/animations-extended.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/buttons.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/cards.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/character-counter.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/chips.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/collapsible.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/dropdown/dropdown-searchable.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/dropdown/dropdown.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/file-input.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/forms-free.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/lightbox.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/material-select/material-select-view-renderer.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/material-select/material-select-view.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/material-select/material-select.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/mdb-autocomplete.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/megamenu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/parallax.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/preloading.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/range-input.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/scrolling-navbar.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/sidenav.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/smooth-scroll.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/sticky.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/treeview.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/modules/wow.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/popper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/logo_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/UserChecker.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventListener/CustomUserChecksListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventListener/LoginListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40c4947ebb.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40ca000f54.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40ccbc8780.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40ccbc8b3a.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe05f6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe0d49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe1287.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe1807.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe1fcc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4171080918.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b41710873d2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd21e0a04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd21e50ae.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd21e566c.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd2b0bb29.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd2b0bfb4.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd2b0c147.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4ff2636d9b.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4ff31d8580.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b501736cc5f.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b501b499d5e.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b501b49a051.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b5024d84a60.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b5024d84f24.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b606a900424.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b606abe2d4f.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b606abe340d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b6563c1800f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b6563c189b8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b6563c1bd28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b656547ceee.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b656547d43c.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b656547dae4.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b76e3ad44ca.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b76e3ad4cc5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b76e451946e.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b77dd392d9a.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UploadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/AffaireDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/AffaireDataPersister.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/GetUserTasksController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GetUserTasksController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Attachements.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Attachements.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Envenement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Envenement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Personne.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Personne.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Preuve.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/TacheUtilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TacheUtilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PreuveRepository.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -241,7 +326,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/js" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -255,11 +340,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/js" />
+      <recent name="$PROJECT_DIR$/public/assets/css" />
       <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/public/assets/css/pro" />
       <recent name="$PROJECT_DIR$/public/assets" />
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/src/Controller" />
-      <recent name="$PROJECT_DIR$/src/EventListener" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -289,7 +374,14 @@
       <workItem from="1623507175749" duration="3284000" />
       <workItem from="1628328372233" duration="3574000" />
       <workItem from="1628347959250" duration="1483000" />
-      <workItem from="1628402055267" duration="17720000" />
+      <workItem from="1628402055267" duration="18133000" />
+      <workItem from="1628497662195" duration="308000" />
+      <workItem from="1628597497815" duration="341000" />
+      <workItem from="1628662283596" duration="430000" />
+      <workItem from="1628681603497" duration="123000" />
+      <workItem from="1628750240624" duration="589000" />
+      <workItem from="1628758724760" duration="8624000" />
+      <workItem from="1628776052616" duration="7398000" />
     </task>
     <servers />
   </component>

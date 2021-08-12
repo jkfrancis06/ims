@@ -1,0 +1,124 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+
+{% block javascripts %}
+
+
+{% endblock %}
+
+ {% block stylesheets %}
+
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+
+     <style>
+         .dt-buttons{
+             margin-bottom: 1em!important;
+             margin-left: 0.5em!important;
+         }
+         #tab-content{
+             display: none;
+         }
+         #loader{
+             display: block;
+         }
+         #loading {
+             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
+             position: absolute;
+             top: 0;
+             left: 0;
+             height: 100%;
+             width: 100%;
+             z-index: 9999999;
+         }
+         .pagination .page-item .page-link{
+             color: white!important;
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+
+    <div style="margin-top: 1em; ">
+        <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo" type="button" role="tab" aria-controls="todo" aria-selected="true">Demandes a traiter</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="task-tab" data-toggle="tab" href="#task" type="button" role="tab" aria-controls="task" aria-selected="false">Mes demandes d'acces</a>
+            </li>
+        </ul>
+        <div class="tab-content card pt-5" id="myTabContent">
+            <div class="tab-pane fade show active" id="todo" role="tabpanel" aria-labelledby="todo-tab">
+                <div class="row" style="margin-top:  1em; margin-left: 1em; width: 100% ">
+                    <table id="todoTable" class="table table-bordered table-hover text-center">
+                        <thead>
+                        <tr>
+                            <th class="th-sm">Demandeur
+                            </th>
+                            <th class="th-sm">Priorite
+                            </th>
+                            <th class="th-sm">Titre
+                            </th>
+                            <th class="th-sm">Statut
+                            </th>
+                            <th class="th-sm">Expiration
+                            </th>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tacheUtilisateur %}
+                                <tr>
+                                    <td class="text-uppercase">{{ task.tache.createdBy.nom }}&nbsp;{{ task.tache.createdBy.prenom }}</td>
+                                    <td data-sort="{{ task.tache.priorite }}">
+                                        {% if task.tache.priorite == 1 %}
+                                            <span class="font-weight-bold">Normale</span>
+                                        {% endif %}
+
+                                        {% if task.tache.priorite == 2 %}
+                                            <span class="font-weight-bold text-warning">Moyen</span>
+                                        {% endif %}
+
+                                        {% if task.tache.priorite == 3 %}
+                                            <span class="font-weight-bold text-danger">Elevee</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>{{ task.tache.titre }}</td>
+
+                                    <td data-sort="{{ task.statut }}">
+                                        {% if task.statut == 0 %}
+                                            <span class="font-weight-bold">En attente</span>
+                                        {% endif %}
+
+                                        {% if task.statut == 1 %}
+                                            <span class="font-weight-bold text-success">Traite</span>
+                                        {% endif %}
+                                    </td>
+                                    <td >{{ task.tache.getExpiresIn() }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="task" role="tabpanel" aria-labelledby="task-tab">
+                <div class="row" style="margin-top: 1em">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

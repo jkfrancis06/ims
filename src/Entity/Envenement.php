@@ -94,11 +94,6 @@ class Envenement
      */
     private $utilisateur;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Preuve::class, mappedBy="evenement",cascade={"persist", "remove"})
-     * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
-     */
-    private $preuves;
 
     /**
      * @ORM\ManyToOne(targetEntity=Affaire::class, inversedBy="envenements")
@@ -120,13 +115,18 @@ class Envenement
      */
     private $geoLocalisation;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Attachements::class, mappedBy="envenement")
+     */
+    private $attachements;
+
 
 
     public function __construct()
     {
         $this->entite = new ArrayCollection();
         $this->utilisateur = new ArrayCollection();
-        $this->preuves = new ArrayCollection();
+        $this->attachements = new ArrayCollection();
 
     }
 
@@ -243,69 +243,6 @@ class Envenement
         return $this;
     }
 
-    /**
-     * @return Collection|Preuve[]
-     */
-    public function getPreuves(): Collection
-    {
-        return $this->preuves;
-    }
-
-    public function addPreuve(Preuve $preuve): self
-    {
-        if (!$this->preuves->contains($preuve)) {
-            $this->preuves[] = $preuve;
-            $preuve->setEvenement($this);
-        }
-
-        return $this;
-    }
-
-    public function removePreuve(Preuve $preuve): self
-    {
-        if ($this->preuves->removeElement($preuve)) {
-            // set the owning side to null (unless already changed)
-            if ($preuve->getEvenement() === $this) {
-                $preuve->setEvenement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getAffaire(): ?Affaire
-    {
-        return $this->affaire;
-    }
-
-    public function setAffaire(?Affaire $affaire): self
-    {
-        $this->affaire = $affaire;
-
-        return $this;
-    }
-
-    public function addPreufe(Preuve $preufe): self
-    {
-        if (!$this->preuves->contains($preufe)) {
-            $this->preuves[] = $preufe;
-            $preufe->setEvenement($this);
-        }
-
-        return $this;
-    }
-
-    public function removePreufe(Preuve $preufe): self
-    {
-        if ($this->preuves->removeElement($preufe)) {
-            // set the owning side to null (unless already changed)
-            if ($preufe->getEvenement() === $this) {
-                $preufe->setEvenement(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getEndAt(): ?\DateTimeInterface
     {
@@ -327,6 +264,36 @@ class Envenement
     public function setGeoLocalisation(?string $geoLocalisation): self
     {
         $this->geoLocalisation = $geoLocalisation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Attachements[]
+     */
+    public function getAttachements(): Collection
+    {
+        return $this->attachements;
+    }
+
+    public function addAttachement(Attachements $attachement): self
+    {
+        if (!$this->attachements->contains($attachement)) {
+            $this->attachements[] = $attachement;
+            $attachement->setEnvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachement(Attachements $attachement): self
+    {
+        if ($this->attachements->removeElement($attachement)) {
+            // set the owning side to null (unless already changed)
+            if ($attachement->getEnvenement() === $this) {
+                $attachement->setEnvenement(null);
+            }
+        }
 
         return $this;
     }

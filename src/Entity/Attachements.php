@@ -70,6 +70,11 @@ class Attachements
      */
     private $entite;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Envenement::class, inversedBy="attachements")
+     */
+    private $envenement;
+
 
 
     public function getId(): ?int
@@ -122,6 +127,18 @@ class Attachements
     public function setType(int $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getEnvenement(): ?Envenement
+    {
+        return $this->envenement;
+    }
+
+    public function setEnvenement(?Envenement $envenement): self
+    {
+        $this->envenement = $envenement;
 
         return $this;
     }

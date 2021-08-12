@@ -60,11 +60,21 @@ class Personne extends Entites
      */
     protected $dateNaissance;
 
+
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      * @Groups({"entite:read", "entite:write"})
      */
-    protected $lieuNaissance;
+    protected $sexe;
+
+
+
+    /**
+     * @ORM\Column(type="text")
+     * @Groups({"entite:read", "entite:write"})
+     */
+    protected $description;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -90,6 +100,11 @@ class Personne extends Entites
      */
     private $aliases;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Telephone::class, inversedBy="personnes")
+     */
+    private $telephone;
+
     public function __construct()
     {
         $this->mainPicture = "icon-default.png";
@@ -98,6 +113,7 @@ class Personne extends Entites
         $this->createdAt = new \DateTime();
         $this->aliases = new ArrayCollection();
         $this->attachements = new ArrayCollection();
+        $this->telephone = new ArrayCollection();
     }
 
 
@@ -213,6 +229,30 @@ class Personne extends Entites
                 $alias->setPersonne(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Telephone[]
+     */
+    public function getTelephone(): Collection
+    {
+        return $this->telephone;
+    }
+
+    public function addTelephone(Telephone $telephone): self
+    {
+        if (!$this->telephone->contains($telephone)) {
+            $this->telephone[] = $telephone;
+        }
+
+        return $this;
+    }
+
+    public function removeTelephone(Telephone $telephone): self
+    {
+        $this->telephone->removeElement($telephone);
 
         return $this;
     }
