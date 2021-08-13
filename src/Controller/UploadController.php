@@ -76,6 +76,8 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
 
         foreach ($uploadedFile as $file){
+
+
             $name = $this->fileUploader->upload($file);
 
             $file = new Attachements();
@@ -84,9 +86,11 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
             $file->setDescription('Image');
 
+
+            $file->setType(1);
+
             $entite->setMainPicture($name);
 
-            $entite->addAttachement($file);
             $entite->addAttachement($file);
 
             array_push($file_array,$name);
