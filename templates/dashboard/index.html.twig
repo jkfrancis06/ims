@@ -42,6 +42,181 @@
 
 {% block content %}
 
+
+
+
+    {{  app.request.attributes.get('_route') }}
+
+
+    {% if db_task is not null %}
+        <div class="modal fade" id="todoModal" tabindex="-1" role="dialog" aria-labelledby="todoModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+            <div class="modal-dialog modal-lg modal-notify modal-info modal-dialog-scrollable" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <p class="heading lead">Tache</p>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">×</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body" style="color: white">
+                        <div class="text-left">
+                            <!-- <i class="fas fa-window-close fa-4x mb-3 animated rotateIn"></i> -->
+
+                            <div class="mb-2">
+                                <span class="font-weight-bold">Affaire : </span>
+                                <span>{{ db_task.affaire.numeroMatricule }} &nbsp; / &nbsp;{{ db_task.affaire.nom }}</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <span class="font-weight-bold">Titre : </span>
+                                <span>{{ db_task.titre }} </span>
+                            </div>
+
+                            <div class="mb-2">
+                                <span class="font-weight-bold">Priorite : </span>
+                                {% if db_task.priorite == 1 %}
+                                    <span class="font-weight-bold">Normale</span>
+                                {% endif %}
+
+                                {% if db_task.priorite == 2 %}
+                                    <span class="font-weight-bold text-warning">Moyen</span>
+                                {% endif %}
+
+                                {% if db_task.priorite == 3 %}
+                                    <span class="font-weight-bold text-danger">Elevee</span>
+                                {% endif %}
+
+                            </div>
+
+                            {% if db_task.createdBy.id != user.id %}
+
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Demandeur : </span>
+                                    <span class="text-uppercase">{{ db_task.createdBy.nom }} &nbsp; {{ db_task.createdBy.prenom }}</span>
+                                </div>
+
+                            {% endif %}
+
+                            <div class="mb-2">
+                                <span class="font-weight-bold">Cree le : </span>
+                                <span class="text-uppercase">{{ db_task.createdAt | date('d-m-Y H:i:s') }} </span>
+                            </div>
+
+                            <div class="mb-2">
+                                <span class="font-weight-bold">Expire le : </span>
+                                <span class="text-uppercase">{{ db_task.expireAt | date('d-m-Y H:i:s') }} </span>
+                            </div>
+
+                            <hr>
+
+                            <div class="mb-2">
+                                {{ db_task.resume | raw }}
+                            </div>
+
+                            <hr>
+
+                            <!-- Card -->
+                            <div class="card card-cascade">
+
+                                <!-- Card image -->
+                                <div class="view view-cascade gradient-card-header blue-gradient">
+
+                                    <!-- Subtitle -->
+                                    <p class="card-header-subtitle mb-0">Traitement de la demande</p>
+
+                                </div>
+
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+
+                                    <!-- Text -->
+                                    <table id="dtMaterialDesignExample" class="table text-left" >
+                                        <thead>
+                                            <tr>
+                                                <th class="th-sm">Statut
+                                                </th>
+                                                <th class="th-sm">Derniere MAJ
+                                                </th>
+                                                <th class="th-sm">Utilisateur
+                                                </th>
+                                                <th class="th-sm">Remarques
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for tacheUtilisateur in db_task.tacheUtilisateurs %}
+                                                <tr>
+                                                    <td>
+                                                        {% if tacheUtilisateur.statut == 0 %}
+                                                            <span class="font-weight-bold">En attente</span>
+                                                        {% endif %}
+
+                                                        {% if tacheUtilisateur.statut == 1 %}
+                                                            <span class="font-weight-bold text-success">Traite</span>
+                                                        {% endif %}
+
+                                                        {% if tacheUtilisateur.statut == 2 %}
+                                                            <span class="font-weight-bold text-danger">Refuse</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ tacheUtilisateur.updatedAt | date('d-m-Y H:i:s') }}</td>
+                                                    <td>{{ tacheUtilisateur.utilisateur.nom }}&nbsp;{{ tacheUtilisateur.utilisateur.prenom }}</td>
+                                                    <td>{{ tacheUtilisateur.remarque | raw }}</td>
+                                                </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- Card -->
+
+
+                        </div>
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer">
+
+
+                        {% set isTacheUtilisateur = false %}
+                        {% set pending = false %}
+                        {% set id = 0 %}
+
+                        {% for tacheUtilisateur in db_task.tacheUtilisateurs %}
+                            {% if tacheUtilisateur.utilisateur.id == user.id %}
+                                {% set isTacheUtilisateur = true %}
+                                {% set id =  tacheUtilisateur.id %}
+                                {% if tacheUtilisateur.statut == 0 %}
+                                    {% set pending = true %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if pending == true and isTacheUtilisateur == true %}
+                            <a type="button" class="btn btn-success waves-effect waves-light">Accepter
+                            </a>
+                            <a type="button" class="btn btn-danger waves-effect waves-light">Refuser
+                            </a>
+                        {% endif %}
+
+                        <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Fermer</a>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
     <div style="margin-top: 1em; ">
         <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -54,23 +229,26 @@
         <div class="tab-content card pt-5" id="myTabContent">
             <div class="tab-pane fade show active" id="todo" role="tabpanel" aria-labelledby="todo-tab">
                 <div class="row" style="margin-top:  1em; margin-left: 1em; width: 100% ">
-                    <table id="todoTable" class="table table-bordered table-hover text-center">
-                        <thead>
-                        <tr>
-                            <th class="th-sm">Demandeur
-                            </th>
-                            <th class="th-sm">Priorite
-                            </th>
-                            <th class="th-sm">Titre
-                            </th>
-                            <th class="th-sm">Statut
-                            </th>
-                            <th class="th-sm">Expiration
-                            </th>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
+
+                    <div class="col col-12">
+                        <table id="todoTable" class="table table-bordered table-hover text-center display">
+                            <thead>
+                            <tr>
+                                <th class="th-sm">Demandeur
+                                </th>
+                                <th class="th-sm">Priorite
+                                </th>
+                                <th class="th-sm">Titre
+                                </th>
+                                <th class="th-sm">Statut
+                                </th>
+                                <th class="th-sm">Expiration
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             {% for task in tacheUtilisateur %}
                                 <tr>
                                     <td class="text-uppercase">{{ task.tache.createdBy.nom }}&nbsp;{{ task.tache.createdBy.prenom }}</td>
@@ -98,18 +276,71 @@
                                         {% if task.statut == 1 %}
                                             <span class="font-weight-bold text-success">Traite</span>
                                         {% endif %}
+
+                                        {% if task.statut == 2 %}
+                                            <span class="font-weight-bold text-danger">Refuse</span>
+                                        {% endif %}
                                     </td>
                                     <td >{{ task.tache.getExpiresIn() }}</td>
+                                    <td>
+                                        <a href="{{ path('dashboard', {t_id: task.tache.id }) }}" class="btn-floating btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             {% endfor %}
-                        </tbody>
-                    </table>
-
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>
             <div class="tab-pane fade" id="task" role="tabpanel" aria-labelledby="task-tab">
                 <div class="row" style="margin-top: 1em">
+
+                   <div class="col col-12">
+                       <table id="todoTable" class="table  table-bordered table-hover text-center display" style="width: 100%">
+                           <thead>
+                           <tr>
+                               <th class="th-sm">Priorite
+                               </th>
+                               <th class="th-sm">Titre
+                               </th>
+                               <th class="th-sm">Expiration
+                               </th>
+                               <th>
+                               </th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           {% for task in tasks %}
+                               <tr>
+                                   <td data-sort="{{ task.priorite }}">
+                                       {% if task.priorite == 1 %}
+                                           <span class="font-weight-bold">Normale</span>
+                                       {% endif %}
+
+                                       {% if task.priorite == 2 %}
+                                           <span class="font-weight-bold text-warning">Moyen</span>
+                                       {% endif %}
+
+                                       {% if task.priorite == 3 %}
+                                           <span class="font-weight-bold text-danger">Elevee</span>
+                                       {% endif %}
+                                   </td>
+
+                                   <td>{{ task.titre }}</td>
+
+                                   <td>{{ task.getExpiresIn() }}</td>
+                                   <td>
+                                       <a href="{{ path('dashboard', {t_id: task.id }) }}"  class="btn-floating btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+                                   </td>
+                               </tr>
+                           {% endfor %}
+                           </tbody>
+                       </table>
+                   </div>
+
                 </div>
             </div>
         </div>
@@ -117,6 +348,27 @@
 
 
 
+
+    {% block botton_javascripts %}
+        <script>
+
+            $(document).ready(function() {
+
+                {% if db_task is not null %}
+
+                    $('#todoModal').modal('show');
+
+                {% endif %}
+
+                $('#todoModal').on('hidden.bs.modal', function (event) {
+                    window.location = "{{ path('dashboard') }}"
+                })
+
+            });
+
+
+        </script>
+    {% endblock %}
 
 
 

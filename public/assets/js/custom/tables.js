@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#todoTable').DataTable({
+    $('table.display').DataTable({
         dom: 'Bfrtip',
         buttons: [
             'excel', {

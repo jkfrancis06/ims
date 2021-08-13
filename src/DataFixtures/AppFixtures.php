@@ -117,7 +117,7 @@ class AppFixtures extends Fixture
                 $tache_utilisateur = new TacheUtilisateur();
 
                 $tache_utilisateur->setUtilisateur($t_utilisateurs[rand(0,sizeof($t_utilisateurs)-1)]->getUtilisateur());
-                $tache_utilisateur->setStatut(rand(0,1));
+                $tache_utilisateur->setStatut(rand(0,2));
                 $tache_utilisateur->setTache($tache);
                 $tache_utilisateur->setRemarque($lipsum->sentences(rand(1,3)));
 

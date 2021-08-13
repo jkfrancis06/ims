@@ -1,4 +1,10 @@
 $(function() {
+    $('a[data-toggle="modal"]').on('click', function (e) {
+        // save the latest tab; use cookies if you like 'em better:
+        localStorage.setItem('lastModal', $(this).attr('data-target'));
+        console.log('ok')
+    });
+
     $('button[data-toggle="modal"]').on('click', function (e) {
         // save the latest tab; use cookies if you like 'em better:
         localStorage.setItem('lastModal', $(this).attr('data-target'));
