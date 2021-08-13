@@ -14,62 +14,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/confidentiel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/user-unknown.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40c4947ebb.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40ca000f54.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40ccbc8780.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b40ccbc8b3a.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe05f6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe0d49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe1287.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe1807.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b416fbe1fcc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4171080918.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b41710873d2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd21e0a04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd21e50ae.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd21e566c.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd2b0bb29.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd2b0bfb4.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4dd2b0c147.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4ff2636d9b.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b4ff31d8580.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b501736cc5f.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b501b499d5e.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b501b49a051.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b5024d84a60.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b5024d84f24.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b606a900424.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b606abe2d4f.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b606abe340d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b6563c1800f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b6563c189b8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b6563c1bd28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b656547ceee.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b656547d43c.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b656547dae4.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b76e3ad44ca.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b76e3ad4cc5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b76e451946e.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/60b77dd392d9a.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UploadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPersister/AffaireDataPersister.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPersister/AffaireDataPersister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Envenement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Envenement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
