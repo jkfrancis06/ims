@@ -53,6 +53,11 @@
 
 {% block javascripts %}
     <script  src="{{ absolute_url(asset('/assets/bootstrap.js')) }}"></script>
+    <script>
+        $(document).ready(function () {
+            $( "<span>xxxxxxxx</span>" ).replaceAll( "secret" );
+        })
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -267,7 +272,7 @@
                 <hr>
             </div>
 
-            {% for envenement in affaire.envenements %}
+            {% for envenement in envenements %}
 
                 <div class="break-after">
                     <div class="col col-xs-12"  style="margin-top: 1em; border: 2px solid black;page-break-inside: avoid!important;">
