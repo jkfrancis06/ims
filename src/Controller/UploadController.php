@@ -71,7 +71,7 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
         $file_array = [];
 
-        $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(4);
+        $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(8);
 
 
 
@@ -84,8 +84,9 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
             $file->setDescription('Image');
 
-            $file->setType(1);
+            $entite->setMainPicture($name);
 
+            $entite->addAttachement($file);
             $entite->addAttachement($file);
 
             array_push($file_array,$name);
