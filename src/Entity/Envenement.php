@@ -297,4 +297,16 @@ class Envenement
 
         return $this;
     }
+
+    public function getAffaire(): ?Affaire
+    {
+        return $this->affaire;
+    }
+
+    public function setAffaire(?Affaire $affaire): self
+    {
+        $this->affaire = $affaire;
+
+        return $this;
+    }
 }

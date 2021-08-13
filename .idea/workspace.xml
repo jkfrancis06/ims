@@ -15,12 +15,16 @@
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/custom/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/custom/modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/custom/tables.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/custom/tables.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Envenement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Envenement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Personne.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Personne.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/TaskAcceptType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TaskAcceptType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/TaskRejectType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TaskRejectType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +252,7 @@
       <workItem from="1628750240624" duration="589000" />
       <workItem from="1628758724760" duration="8624000" />
       <workItem from="1628776052616" duration="7451000" />
-      <workItem from="1628838572986" duration="8698000" />
+      <workItem from="1628838572986" duration="14007000" />
     </task>
     <servers />
   </component>

@@ -35,13 +35,13 @@
 
                         {% if active == "dashboard" %}
                             <li>
-                                <a class="waves-effect active">
+                                <a href="{{ path('dashboard') }}" class="waves-effect active">
                                     <i class="fas fa-home"></i>
                                     Tableau de bord</a>
                             </li>
                         {% else %}
                             <li>
-                                <a class="waves-effect">
+                                <a  href="{{ path('dashboard') }}" class="waves-effect">
                                     <i class="fas fa-home"></i>
                                     Tableau de bord</a>
                             </li>
@@ -50,13 +50,13 @@
 
                         {% if active == "affaire" %}
                             <li>
-                                <a class="waves-effect active">
+                                <a href="{{ path('affaire') }}"  class="waves-effect active">
                                     <i class="fas fa-folder"></i>
                                     Dossiers</a>
                             </li>
                         {% else %}
                             <li>
-                                <a class="waves-effect">
+                                <a href="{{ path('affaire') }}"  class="waves-effect">
                                     <i class="fas fa-folder"></i>
                                     Dossiers</a>
                             </li>
@@ -90,7 +90,6 @@
                                     Courriers</a>
                             </li>
                         {% endif %}
-
                     </ul>
                 </li>
                 <!--/. Side navigation links -->
@@ -107,10 +106,6 @@
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
             </div>
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb-dn mr-auto">
-                <p class="font-weight-bold text-uppercase">DNDPE SI</p>
-            </div>
 
             <!-- Navbar links -->
             <ul class="nav navbar-nav nav-flex-icons ml-auto ">
@@ -140,7 +135,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block">{{ user.nom }}&nbsp;{{ user.prenom }}</span>
+                        <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block">{{ app.user.nom }}&nbsp;{{ app.user.prenom }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a style="color: white" class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>

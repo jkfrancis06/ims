@@ -87,6 +87,13 @@ class AffaireUtilisateur
      */
     private $createdAt;
 
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"affaireUtilisateur:read","affaire:read","utilisateur:read","canConsult:read"})
+     */
+    private $isRevoked;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"affaireUtilisateur:read","affaireUtilisateur:write","affaire:read","utilisateur:read","canConsult:read"})
@@ -166,6 +173,18 @@ class AffaireUtilisateur
     public function setNiveauAccreditation(int $niveauAccreditation): self
     {
         $this->niveauAccreditation = $niveauAccreditation;
+
+        return $this;
+    }
+
+    public function getIsRevoked()
+    {
+        return $this->isRevoked;
+    }
+
+    public function setIsRevoked($isRevoked): self
+    {
+        $this->isRevoked = $isRevoked;
 
         return $this;
     }
