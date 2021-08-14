@@ -90,6 +90,11 @@ class Personne extends Entites
      */
     private $aliases;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phoneNumber;
+
     public function __construct()
     {
         $this->mainPicture = "icon-default.png";
@@ -213,6 +218,18 @@ class Personne extends Entites
                 $alias->setPersonne(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(?string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
