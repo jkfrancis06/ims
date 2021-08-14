@@ -7,8 +7,6 @@ use App\Entity\AffaireUtilisateur;
 use App\Entity\Attachements;
 use App\Entity\CanConsult;
 use App\Entity\Entites;
-use App\Entity\Envenement;
-use App\Entity\Preuve;
 use App\Entity\Utilisateur;
 use App\Entity\Vehicule;
 use App\Service\FileUploader;
@@ -73,7 +71,7 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
         $file_array = [];
 
-        $entite = $this->getDoctrine()->getManager()->getRepository(Envenement::class)->find(6);
+        $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(4);
 
 
 
@@ -82,17 +80,18 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
             $name = $this->fileUploader->upload($file);
 
-            $file = new Preuve();
+            $file = new Attachements();
 
-            $file->setNom($name);
+            $file->setName($name);
 
-            $file->setDescription($name);
-            $file->setFiles($name);
+            $file->setDescription('Image');
 
 
-            $file->setCreatedAt(new \DateTime());
+            $file->setType(1);
 
-            $entite->addPreuve($file);
+            $entite->setMainPicture($name);
+
+            $entite->addAttachement($file);
 
             array_push($file_array,$name);
 
