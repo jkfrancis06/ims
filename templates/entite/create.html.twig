@@ -1,0 +1,70 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+
+{% block javascripts %}
+
+
+{% endblock %}
+
+ {% block stylesheets %}
+
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+
+     <style>
+         .dt-buttons{
+             margin-bottom: 1em!important;
+             margin-left: 0.5em!important;
+         }
+         #tab-content{
+             display: none;
+         }
+         #loader{
+             display: block;
+         }
+         #loading {
+             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
+             position: absolute;
+             top: 0;
+             left: 0;
+             height: 100%;
+             width: 100%;
+             z-index: 9999999;
+         }
+         .pagination .page-item .page-link{
+             color: white!important;
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+
+
+    <div style="margin-top: 1em; ">
+
+
+
+    </div>
+
+
+
+
+    {% block botton_javascripts %}
+        <script>
+
+            $(document).ready(function() {
+
+
+            });
+
+
+        </script>
+    {% endblock %}
+
+
+
+
+{% endblock %}

@@ -35,6 +35,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class TacheUtilisateur
 {
+
+
+    const STATUS_PENDING = 0;
+    const STATUS_ACCPETED = 1;
+    const STATUS_REJECTED = 2;
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -197,7 +197,7 @@
                             {% endif %}
                         {% endfor %}
 
-                        {% if pending == true and isTacheUtilisateur == true %}
+                        {% if pending == true and isTacheUtilisateur == true and db_task.isExpired() == false %}
 
                             <div class="dropdown dropup">
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -363,7 +363,14 @@
                                             <span class="font-weight-bold text-danger">Refuse</span>
                                         {% endif %}
                                     </td>
-                                    <td >{{ task.tache.getExpiresIn() }}</td>
+                                    <td>
+                                        {% if task.tache.isExpired() == true %}
+                                            <span class="text-danger">Expire</span>
+                                        {% else %}
+                                            {{ task.tache.getExpiresIn() }}
+                                        {% endif %}
+
+                                    </td>
                                     <td>
                                         <a href="{{ path('dashboard', {t_id: task.tache.id }) }}" class="btn-floating btn-sm btn-primary">
                                             <i class="fas fa-eye"></i>
@@ -413,7 +420,13 @@
 
                                    <td>{{ task.titre }}</td>
 
-                                   <td>{{ task.getExpiresIn() }}</td>
+                                   <td>
+                                       {% if task.isExpired() == true %}
+                                           <span class="text-danger">Expire</span>
+                                       {% else %}
+                                           {{ task.getExpiresIn() }}
+                                       {% endif %}
+                                   </td>
                                    <td>
                                        <a href="{{ path('dashboard', {t_id: task.id }) }}"  class="btn-floating btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                                    </td>

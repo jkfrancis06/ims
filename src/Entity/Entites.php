@@ -59,6 +59,13 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  */
 abstract class Entites
 {
+
+    const ROLE_SUSPECT = 0;
+    const ROLE_INTEREST = 1;
+    const ROLE_VICTIME = 2;
+    const ROLE_SOURCE = 3;
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -80,7 +87,7 @@ abstract class Entites
     protected $description2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      * @Groups({"envenement:read","entite:read", "entite:write","affaire:read","attachements:read"})
      */
     protected $role;
@@ -191,12 +198,12 @@ abstract class Entites
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRole(): ?int
     {
         return $this->role;
     }
 
-    public function setRole(string $role): self
+    public function setRole(int $role): self
     {
         $this->role = $role;
 

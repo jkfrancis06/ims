@@ -47,6 +47,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  */
 class CanConsult
 {
+
+    const CONSULT_EXPIRED = 0;
+    const CONSULT_VALID = 1;
+    const CONSULT_REVOKED = 2;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -99,7 +104,7 @@ class CanConsult
 
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      * @Groups({"canConsult:read","canConsult:write","affaire:read"})
      */
     private $statut;
@@ -186,20 +191,20 @@ class CanConsult
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getStatut(): ?int
     {
         if(!$this->isRevoked){
             if ($this->expireAt > new \DateTime()){
-                return "0";  // ok
+                return 0;  // ok
             }else{
-                return "1";
+                return 1;
             }
         }else{
-            return "3";
+            return 3;
         }
     }
 
-    public function setStatut(?string $statut): self
+    public function setStatut(?int $statut): self
     {
         $this->statut = $statut;
 

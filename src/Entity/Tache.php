@@ -201,6 +201,14 @@ class Tache
         return $this->expireAt;
     }
 
+
+    public function isExpired(): bool
+    {
+        $now = new \DateTime();
+        return $this->getExpireAt()->getTimestamp() < $now->getTimestamp();
+
+    }
+
     /**
      * @Groups({"tache:read", "utilisateur:read", "tacheUtilisateur:read","get-created-task:read","get-task:read"})
      */

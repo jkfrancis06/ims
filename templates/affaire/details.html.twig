@@ -1,0 +1,292 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Affaires{% endblock %}
+
+
+{% block javascripts %}
+
+
+{% endblock %}
+
+ {% block stylesheets %}
+
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+
+     <style>
+         .dt-buttons{
+             margin-bottom: 1em!important;
+             margin-left: 0.5em!important;
+         }
+         #tab-content{
+             display: none;
+         }
+         #loader{
+             display: block;
+         }
+         #loading {
+             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
+             position: absolute;
+             top: 0;
+             left: 0;
+             height: 100%;
+             width: 100%;
+             z-index: 9999999;
+         }
+         .pagination .page-item .page-link{
+             color: white!important;
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+
+
+
+
+    <div style="margin-top: 1em; ">
+
+
+        <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="affaire-tab" data-toggle="tab" href="#affaire" type="button" role="tab" aria-controls="todo" aria-selected="true">Affaire</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="entite-tab" data-toggle="tab" href="#entite" type="button" role="tab" aria-controls="entite" aria-selected="false">Entites</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="envenement-tab" data-toggle="tab" href="#envenement" type="button" role="tab" aria-controls="envenement" aria-selected="false">Evenements</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="report-tab" data-toggle="tab" href="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Rapports</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="administration-tab" data-toggle="tab" href="#administration" type="button" role="tab" aria-controls="administration" aria-selected="false">Administration</a>
+            </li>
+        </ul>
+        <div class="tab-content card pt-5" id="myTabContent">
+            <div class="tab-pane fade show active" id="affaire" role="tabpanel" aria-labelledby="affaire-tab">
+                <div class="row" style="margin-top:  1em; margin-left: 1em; width: 100% ">
+                    <div class="col col-8">
+                        <div class="card card-cascade">
+                            <div class="view view-cascade gradient-card-header blue-gradient">
+
+                                <h2 class="card-subtitle mb-3">Affaire</h2>
+
+                            </div>
+                            <!-- Card content -->
+                            <div class="card-body card-body-cascade">
+                                <div class="mb-2 ">
+                                    <span class="font-weight-bold">Numero de dossier : </span>
+                                    <span >{{ affaire.numeroMatricule }}</span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Nom : </span>
+                                    <span class="text-break">{{ affaire.nom }}</span>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Description : </span>
+                                    <span class="text-break">{{ affaire.description }}</span>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Niveau d'accreditation : </span>
+                                    <span>{{ affaire.niveauAccreditation }}</span>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Date d'ouverture : </span>
+                                    <span>{{ affaire.createdAt|date('d-m-Y H:i:s') }}</span>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Ouvert par : </span>
+                                    <span class="text-uppercase">{{ affaire.createdBy.nom }}&nbsp;{{ affaire.createdBy.prenom }}</span>
+                                </div>
+
+                                <div class="mb-5">
+                                    <span class="font-weight-bold">Departement en charge : </span>
+                                    <span class="text-uppercase">{{ affaire.departement.nom }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="mb-5">
+
+                            <div class="card card-cascade">
+                                <div class="view view-cascade gradient-card-header aqua-gradient">
+
+                                    <h2 class="card-subtitle mb-3">Rapport initial</h2>
+
+                                </div>
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade">
+                                    <div>{{ affaire.resume|raw }}</div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mb-2">
+
+
+                            <div class="mb-5">
+
+                                <div class="card card-cascade">
+                                    <div class="view view-cascade gradient-card-header blue-gradient">
+
+                                        <h2 class="card-subtitle mb-3">En charge du dossier</h2>
+
+                                    </div>
+                                    <!-- Card content -->
+                                    <div class="card-body card-body-cascade">
+                                        <table id="dtMaterialDesignExample" class="table text-left display" >
+                                            <thead>
+                                            <tr>
+                                                <th class="th-sm">
+                                                </th>
+                                                <th class="th-sm">Nom et Prenoms
+                                                </th>
+                                                <th class="th-sm">Departement
+                                                </th>
+                                                <th class="th-sm">
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for utilisateur in affaire.affaireUtilisateurs %}
+                                                {% if utilisateur.isRevoked == false %}
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <i class="fa fa-user"></i>
+                                                        </td>
+                                                        <td class="text-uppercase">{{ utilisateur.utilisateur.nom }}&nbsp;{{ utilisateur.utilisateur.prenom }}</td>
+                                                        <td>{{ utilisateur.utilisateur.departement.nom }}</td>
+                                                        <td>
+                                                            <a class="btn-floating btn-sm btn-primary">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>  <!-- Tab Affaire -->
+
+
+            <!-- Tab Entites -->
+            <div class="tab-pane fade" id="entite" role="tabpanel" aria-labelledby="entite-tab">
+                <div class="row" style="margin-top: 1em">
+
+                   <div class="col col-8">
+                       <div class="card card-cascade">
+                           <div class="view view-cascade gradient-card-header blue-gradient">
+
+                               <h2 class="card-subtitle mb-3">Entites</h2>
+
+                           </div>
+                           <!-- Card content -->
+                           <div class="card-body card-body-cascade">
+
+
+
+                               <div class="dropdown">
+
+                                   <!--Trigger-->
+                                   <a class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                      aria-haspopup="true" aria-expanded="false">Ajouter une entite</a>
+
+
+                                   <!--Menu-->
+                                   <div class="dropdown-menu dropdown-primary">
+                                       <a class="dropdown-item" href="{{ path('create_entite',{'type':1}) }}">Personne</a>
+                                       <a class="dropdown-item" href="{{ path('create_entite',{'type':2}) }}">Vehicule</a>
+                                       <a class="dropdown-item" href="{{ path('create_entite',{'type':3}) }}">Organisation</a>
+                                   </div>
+                               </div>
+
+
+
+                               <table id="dtMaterialDesignExample" class="table text-left display" >
+                                   <thead>
+                                   <tr>
+                                       <th class="th-sm">
+                                       </th>
+                                       <th class="th-sm">Nom / Prenom /Description
+                                       </th>
+                                       <th class="th-sm">Role
+                                       </th>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   {% for entite in affaire.entites %}
+                                       <tr>
+                                           <td class="text-center">
+                                               <i class="fa fa-user"></i>
+                                           </td>
+                                           <td class="text-uppercase">{{ entite.description }}&nbsp;{{ entite.description2 }}</td>
+                                           <td>{{ entite.role }}</td>
+                                       </tr>
+
+                                   {% endfor %}
+
+                                   </tbody>
+                               </table>
+                           </div>
+                       </div>
+                   </div>
+
+                </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="envenement" role="tabpanel" aria-labelledby="envenement-tab">
+                <div class="row" style="margin-top: 1em">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+                <div class="row" style="margin-top: 1em">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="administration" role="tabpanel" aria-labelledby="administration-tab">
+                <div class="row" style="margin-top: 1em">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% block botton_javascripts %}
+        <script>
+
+            $(document).ready(function() {
+
+            });
+
+
+        </script>
+    {% endblock %}
+
+
+
+
+{% endblock %}
