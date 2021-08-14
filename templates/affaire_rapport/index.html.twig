@@ -185,6 +185,17 @@
                                             {% endfor %}
                                         </div>
 
+
+
+                                        <div class="col col-xs-12" style="margin-top: 1em">
+                                            <span style="font-weight: bold">Numero de téléphone: </span>
+                                            {% if entite.role  == "Témoin" %}
+                                                <secret class="text-uppercase">{{ entite.phoneNumber }}</secret>
+                                            {% else %}
+                                                <span class="text-uppercase">{{ entite.phoneNumber }}</span>
+                                            {% endif %}
+                                        </div>
+
                                         <div class="col col-xs-12" style="margin-top: 1em">
                                             <span style="font-weight: bold">Date et lieu de naissance: </span>
                                             {% if entite.role  == "Témoin" %}
