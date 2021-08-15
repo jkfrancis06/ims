@@ -198,11 +198,16 @@
 
                                         <div class="col col-xs-12" style="margin-top: 1em">
                                             <span style="font-weight: bold">Date et lieu de naissance: </span>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }} &nbsp;&nbsp;  {{ entite.lieuNaissance }}</secret>
-                                            {% else %}
-                                                <span class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }} &nbsp;&nbsp; {{ entite.lieuNaissance }}</span>
+
+                                            {% if entite.dateNaissance is not null %}
+                                                {% if entite.role  == "Témoin" %}
+                                                    <secret class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }} &nbsp;&nbsp;  {{ entite.lieuNaissance }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }} &nbsp;&nbsp; {{ entite.lieuNaissance }}</span>
+                                                {% endif %}
                                             {% endif %}
+
+
                                         </div>
 
                                         <div class="col col-xs-12" style="margin-top: 1em">
