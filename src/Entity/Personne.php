@@ -42,6 +42,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 class Personne extends Entites
 {
 
+    const SEXE_IND = 'i';
+    const SEXE_HOMME = 'h';
+    const SEXE_FEMME = 'f';
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"entite:read", "entite:write"})
@@ -101,7 +105,7 @@ class Personne extends Entites
     private $aliases;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Telephone::class, inversedBy="personnes")
+     * @ORM\ManyToMany(targetEntity=Telephone::class, inversedBy="personnes", cascade={"persist"})
      */
     private $telephone;
 
@@ -246,6 +250,9 @@ class Personne extends Entites
         if (!$this->telephone->contains($telephone)) {
             $this->telephone[] = $telephone;
         }
+
+        $telephone->addPersonne($this);
+
 
         return $this;
     }

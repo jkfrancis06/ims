@@ -19,22 +19,22 @@ class Telephone
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numero;
+    public $numero;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $fichierCdr;
+    public $fichierCdr;
 
     /**
      * @ORM\ManyToMany(targetEntity=Personne::class, mappedBy="telephone")
      */
-    private $personnes;
+    public $personnes;
 
     public function __construct()
     {

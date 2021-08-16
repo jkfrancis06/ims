@@ -14,7 +14,7 @@ class TelephoneType extends AbstractType
     {
         $builder
             ->add('numero', TextType::class, [
-                'label' => 'Nom : ',
+                'label' => 'Numero de telephone : ',
             ])
             ->add('fichierCdr')
         ;

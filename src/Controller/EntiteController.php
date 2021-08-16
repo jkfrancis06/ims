@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Organisation;
 use App\Entity\Personne;
+use App\Entity\Telephone;
 use App\Entity\Vehicule;
 use App\Form\OrganisationType;
 use App\Form\PersonneType;
@@ -24,6 +25,7 @@ class EntiteController extends AbstractController
         $personne = new Personne();
         $vehicule = new Vehicule();
         $organisation = new Organisation();
+        $telephone = new Telephone();
 
         $personneForm = $this->createForm(PersonneType::class,$personne);
         $vehiculeForm = $this->createForm(VehiculeType::class,$vehicule);
@@ -32,6 +34,14 @@ class EntiteController extends AbstractController
         $personneForm->handleRequest($request);
         $vehiculeForm->handleRequest($request);
         $organisationForm->handleRequest($request);
+
+        if ($personneForm->isSubmitted() && $personneForm->isValid()){
+
+            //var_dump($personne->getTelephone()->toArray());
+            /*$em = $this->getDoctrine()->getManager();
+            $em->persist($personne);
+            $em->flush();*/
+        }
 
 
         if ($type == 1) {  // personne

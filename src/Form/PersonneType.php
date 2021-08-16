@@ -6,8 +6,12 @@ use App\Entity\Entites;
 use App\Entity\Personne;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -43,14 +47,8 @@ class PersonneType extends AbstractType
                 // every time you edit details
                 'required' => false,
 
-                'attr'     => [
-                    'accept' => 'image/*',
-                    'mimeTypesMessage' => "Veuillez uploader un fichier image valide",
-                    'maxSizeMessage' => "Taille maximum de 1M",
-                ],
-
             ])
-            ->add('resume')
+            ->add('resume',HiddenType::class)
             ->add('nom', TextType::class, [
                 'label' => 'Nom : ',
             ])
@@ -72,23 +70,34 @@ class PersonneType extends AbstractType
             ->add('sexe', ChoiceType::class, [
                 'label' => 'Sexe : ',
                 'choices'  => [
-                    'Homme' => 'h',
-                    'Femme' => 'f',
+                    'Inconnu' => Personne::SEXE_IND,
+                    'Homme' => Personne::SEXE_HOMME,
+                    'Femme' => Personne::SEXE_FEMME,
                 ],
                 'attr' => [
                     'placeholder' => 'Selectionner'
                 ],
             ])
             ->add('numPassport', TextType::class, [
-                'label' => 'Prenoms : ',
+                'label' => 'Numero de passport : ',
             ])
             ->add('numCarte', TextType::class, [
-                'label' => 'Prenoms : ',
+                'label' => 'Numero de carte : ',
             ])
             ->add('nationalite', TextType::class, [
-                'label' => 'Prenoms : ',
+                'label' => 'Nationalite : ',
             ])
-            ->add('telephone',TelephoneType::class)
+            ->add('telephone', CollectionType::class, [
+                'entry_type' => TelephoneType::class,
+                'block_name' => 'telephone_lists',
+                'entry_options' => ['label' => false],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ])
+
+            ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('cancel', ResetType::class, ['label' => 'Annuler'])
         ;
     }
 
