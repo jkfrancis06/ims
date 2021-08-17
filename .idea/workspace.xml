@@ -14,93 +14,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/ask/aksFileUpload.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/bootstrap-icons.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datepicker/bootstrap-datepicker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datepicker/daterangepicker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/fileinput/fileinput-rtl.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/fileinput/fileinput-rtl.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/fileinput/fileinput.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/fileinput/fileinput.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/fonts/bootstrap-icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/fonts/bootstrap-icons.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/img/loading-sm.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/img/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/dnd-file-upload.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/pro/addons/mdb-file-upload.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/quill/quill-snow.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/ask/aksFileUpload.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/bootstrap.bundle.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/personne.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/personne1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datepicker/bootstrap-datepicker.fr.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datepicker/bootstrap-datepicker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datepicker/daterangepicker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datepicker/moment.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/fileinput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/fileinput.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/LANG.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/ar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/az.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/bg.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/ca.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/cr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/cs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/da.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/de.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/el.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/es.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/et.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/fa.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/fi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/fr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/gl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/he.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/hu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/id.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/it.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/ja.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/ka.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/kr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/kz.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/lt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/lv.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/nl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/no.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/pl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/pt-BR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/pt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/ro.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/ru.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/sk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/sl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/sr-latn.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/sv.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/th.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/tr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/uk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/uz-cyrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/uz.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/vi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/zh-TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/locales/zh.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/plugins/piexif.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/plugins/piexif.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/plugins/sortable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/plugins/sortable.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/theme.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/jquery-3.5.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/pro/addons/mdb-file-upload.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/quill/DynamicQuillTools.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/quill/quill.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/fileinput/theme/theme.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/personneForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/personneFormEditor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/theme/theme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/default-avatar-male.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Entites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entites.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Personne.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Personne.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Telephone.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Telephone.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/OrganisationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/OrganisationType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/PersonneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PersonneType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/TelephoneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TelephoneType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/VehiculeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/VehiculeType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/details.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/entite/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +213,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/js/custom" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -295,11 +228,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/js/fileinput/theme" />
+      <recent name="$PROJECT_DIR$/public/assets/css/fileinput/theme" />
+      <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/public/assets/js/custom" />
       <recent name="$PROJECT_DIR$/public/assets/css" />
-      <recent name="$PROJECT_DIR$/public/assets/js" />
-      <recent name="$PROJECT_DIR$/public/assets/js/quill" />
-      <recent name="$PROJECT_DIR$/public/assets/css/fonts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -338,7 +271,9 @@
       <workItem from="1628758724760" duration="8624000" />
       <workItem from="1628776052616" duration="7451000" />
       <workItem from="1628838572986" duration="14007000" />
-      <workItem from="1629095187155" duration="22122000" />
+      <workItem from="1629095187155" duration="22201000" />
+      <workItem from="1629183064187" duration="23320000" />
+      <workItem from="1629213297687" duration="4462000" />
     </task>
     <servers />
   </component>

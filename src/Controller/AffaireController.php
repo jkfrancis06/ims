@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Affaire;
 use App\Entity\AffaireUtilisateur;
 use App\Entity\CanConsult;
+use App\Entity\Entites;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,13 +42,19 @@ class AffaireController extends AbstractController
 
 
     /**
-     * @Route("/affaire/d/{id}", name="affaire_details")
+     * @Route("/affaire/d/{id}/{entite_id}", name="affaire_details")
      */
-    public function affaireDetails($id): Response
+    public function affaireDetails($id,$entite_id = null): Response
     {
         $user = $this->getUser();
 
         $affaire = $this->getDoctrine()->getManager()->getRepository(Affaire::class)->find($id);
+
+        $entite = null;
+
+        if ($entite_id != null) {
+            $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find($entite_id);
+        }
 
         if ($affaire == null){
             return new NotFoundHttpException("Element non trouve");
@@ -57,7 +64,8 @@ class AffaireController extends AbstractController
             'controller_name' => 'AffaireController',
             'user' => $user,
             'active' => "affaire",
-            'affaire' => $affaire
+            'affaire' => $affaire,
+            'entite' => $entite
         ]);
     }
 

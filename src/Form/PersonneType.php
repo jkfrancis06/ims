@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PersonneType extends AbstractType
@@ -47,15 +49,43 @@ class PersonneType extends AbstractType
                 // every time you edit details
                 'required' => false,
 
+                'constraints' => [
+                    new File([
+                        'maxSize' => '20000M',
+                    ])
+                ],
+
+
             ])
-            ->add('resume',HiddenType::class)
+            ->add('attachements', FileType::class, [
+                'label' => 'Choisir un fichier',
+                'mapped' => false,
+                'multiple' => true,
+                'required' => false,
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '20000M'
+                            ]),
+                        ],
+                    ]),
+                ]
+            ])
+            ->add('resume',TextType::class, [
+                'label' => 'Resume : ',
+                'required' => false,
+            ])
             ->add('nom', TextType::class, [
                 'label' => 'Nom : ',
+                'required' => false,
             ])
             ->add('prenom', TextType::class, [
                 'label' => 'Prenoms : ',
+                'required' => false,
             ])
             ->add('dateNaissance', DateType::class, [
+                'required' => false,
                 'label' => 'Date de naissance: ',
                 'html5' => false,
                 'widget' => 'single_text',
@@ -79,16 +109,30 @@ class PersonneType extends AbstractType
                 ],
             ])
             ->add('numPassport', TextType::class, [
+                'required' => false,
                 'label' => 'Numero de passport : ',
             ])
             ->add('numCarte', TextType::class, [
+                'required' => false,
                 'label' => 'Numero de carte : ',
             ])
             ->add('nationalite', TextType::class, [
+                'required' => false,
                 'label' => 'Nationalite : ',
             ])
             ->add('telephone', CollectionType::class, [
+                'required' => false,
                 'entry_type' => TelephoneType::class,
+                'block_name' => 'telephone_lists',
+                'entry_options' => ['label' => false],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ])
+
+            ->add('aliases', CollectionType::class, [
+                'required' => false,
+                'entry_type' => AliasType::class,
                 'block_name' => 'telephone_lists',
                 'entry_options' => ['label' => false],
                 'by_reference' => false,

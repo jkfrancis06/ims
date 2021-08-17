@@ -15,6 +15,7 @@
      <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/theme/theme.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput-rtl.min.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
 
@@ -42,216 +43,639 @@
          .pagination .page-item .page-link{
              color: white!important;
          }
+         .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+             margin: 0;
+             padding: 0;
+             border: none;
+             box-shadow: none;
+             text-align: center;
+         }
+         .kv-avatar {
+             display: inline-block;
+         }
+         .kv-avatar .file-input {
+             display: table-cell;
+             width: 213px;
+         }
+         .kv-reqd {
+             color: red;
+             font-family: monospace;
+             font-weight: normal;
+         }
+
+         .kv-file-upload{
+             display: none;
+         }
      </style>
  {% endblock %}
 
 
 {% block content %}
 
+    {% import _self as formMacros %}
 
-    <div style="margin-top: 1em; ">
+    {% if type == 1 %}
 
-
-
-        {{ form_start(personneForm) }}
-
-        <div class="col col-8">
-            <div class="text-danger">
-                {{ form_errors(personneForm) }}
-            </div>
-        </div>
-
-
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.role, "Role de la personne : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.role, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.role) }}
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.mainPicture, "Image principale : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                <div class="file-loading">
-                    {{ form_widget(personneForm.mainPicture,{'id':'mainPicture'},{'attr': {'class': ''}}) }}
-                </div>
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.mainPicture) }}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.resume, "Rapport initial : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.resume) }}
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="col col-12 mb-3">
-            <div id="editor" style="color: inherit">
-
-            </div>
-        </div>
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.nom, "Nom : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.nom, {'attr': {'class': 'form-control'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.nom) }}
-                </div>
-            </div>
-        </div>
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.prenom, "Prenoms : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.prenom, {'attr': {'class': 'form-control'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.prenom) }}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.dateNaissance, '', {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.dateNaissance, {'attr': {'class': 'form-control js-datepicker'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.dateNaissance) }}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.sexe, "Sexe : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.sexe, {'attr': {'class': 'form-control'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.sexe) }}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.numPassport, "Numero de passport : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.numPassport, {'attr': {'class': 'form-control'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.numPassport) }}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.numCarte, "Numero de carte : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.numCarte, {'attr': {'class': 'form-control'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.numCarte) }}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col col-5">
-            <div class="mb-3">
-                {{ form_label(personneForm.nationalite, "Nationalite : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(personneForm.nationalite, {'attr': {'class': 'form-control'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(personneForm.nationalite) }}
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <div class="card">
-
-            <!-- Card image -->
-            <div class="card-header">
-                <button type="button" class="add_item_link btn blue-gradient" data-collection-holder-class="telephone">Ajouter un numero de telephone</button>
-            </div>
-
-            <!-- Card content -->
-            <div class="card-body">
-
-
-                <ul class="telephone" data-index="{{ personneForm.telephone|length > 0 ? personneForm.telephone|last.vars.name + 1 : 0 }}"
-                    data-prototype="{{ form_widget(personneForm.telephone.vars.prototype)|e('html_attr') }}">
-
-                    <div class="row">
-                        {% for telephone in personneForm.telephone %}
-                            <div class="col col-5">
-                                <div class="mb-3">
-                                    {{ form_label(telephone.numero, "Numero de telephone : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                                    {{ form_widget(telephone.numero, {'attr': {'class': 'form-control'}}) }}
-                                    <div class="form-error" style="color: red">
-                                        {{ form_errors(telephone.numero) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-5">
-                                <div class="mb-3">
-                                    {{ form_label(telephone.fichierCdr, "Fichier CDR  : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                                    {{ form_widget(telephone.fichierCdr, {'attr': {'class': 'form-control'}}) }}
-                                    <div class="form-error" style="color: red">
-                                        {{ form_errors(telephone.fichierCdr) }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+        {% macro printTelephoneRow(telephone) %}
+            <div class="row js-personne-telephone-item">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(telephone.numero, "Numero de telephone : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(telephone.numero, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(telephone.numero) }}
+                        </div>
                     </div>
-
-                </ul>
-
-
+                </div>
+                <div class="col col-5">
+                    <div class="md-form">
+                        <div class="file-field">
+                            <div class="btn blue-gradient btn-sm float-left">
+                                <span><i class="fas fa-cloud-upload-alt mr-2" aria-hidden="true"></i>Choisir un fichier</span>
+                                {{ form_widget(telephone.fichierCdr, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" readonly type="text" placeholder="Uploader une image">
+                            </div>
+                        </div>
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(telephone.fichierCdr) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-2">
+                    <div style="margin-top: 1.2em" class="">
+                        <a href="#" class="btn btn-outline-danger js-remove-telephone">
+                            <span class="fa fa-trash"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
+        {% endmacro %}
 
-        </div>
+
+        {% macro printAliasRow(aliases) %}
+            <div class="row js-personne-alias-item">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(aliases.alias, "Alias : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(aliases.alias, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(aliases.alias) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-2">
+                    <div style="margin-top: 1.2em" class="">
+                        <a href="#" class="btn btn-outline-danger js-remove-alias">
+                            <span class="fa fa-trash"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endmacro %}
 
 
-        <div class="col col-12">
+
+        <div style="margin-top: 1em; ">
+
+
+
+            {{ form_start(personneForm) }}
+
             <div class="row">
-                <div class="col col-2">
-                    {{ form_row(personneForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(personneForm) }}
+                    </div>
                 </div>
-                <div class="col col-2">
-                    {{ form_row(personneForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(personneForm.role, "Role de la personne : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(personneForm.role, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(personneForm.role) }}
+                        </div>
+                    </div>
                 </div>
+
+                <div class="col col-5"></div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        <div class="kv-avatar">
+                            <div class="file-loading">
+                                {{ form_widget(personneForm.mainPicture,{'id':'mainPicture'},{'attr': {'class': ''}}) }}
+                            </div>
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(personneForm.mainPicture) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(personneForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(personneForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-12 mb-3">
+                    <div id="personne_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 5em" class="col col-12">
+                    <div class="row">
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.nom, "Nom : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.nom, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.nom) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.prenom, "Prenoms : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.prenom, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.prenom) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.dateNaissance, '', {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.dateNaissance, {'attr': {'class': 'form-control js-datepicker'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.dateNaissance) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.sexe, "Sexe : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.sexe, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.sexe) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.numPassport, "Numero de passport : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.numPassport, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.numPassport) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.numCarte, "Numero de carte : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.numCarte, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.numCarte) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.nationalite, "Nationalite : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.nationalite, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.nationalite) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                <div class="file-loading">
+                                    {{ form_widget(personneForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                                </div>
+
+                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.attachements) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col col-5 mt-4">
+                            <div class="card">
+                                <!-- Card content -->
+                                <div class="card-body">
+
+                                    <div class="telephone row js-personne-telephone-wrapper" data-index="{{ personneForm.telephone|length > 0 ? personneForm.telephone|last.vars.name + 1 : 0 }}"
+                                         data-prototype="{{ formMacros.printTelephoneRow(personneForm.telephone.vars.prototype)|e('html_attr') }}">
+
+                                        <div class="col col-12">
+                                            <button type="button" class="add_item_link btn blue-gradient js-personne-telephone-add" data-collection-holder-class="telephone">
+                                                <span class="fa fa-plus-circle"></span>
+                                                Ajouter un numero de telephone</button>
+                                        </div>
+
+                                        <div class="col col-12">
+                                            {% for telephone in personneForm.telephone %}
+
+                                                {{ formMacros.printTelephoneRow(telephone) }}
+
+                                            {% endfor %}
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="col col-5 mt-4 mb-5">
+                            <div class="card">
+
+                                <!-- Card content -->
+                                <div class="card-body">
+
+                                    <div class="alias row js-personne-alias-wrapper" data-index="{{ personneForm.aliases|length > 0 ? personneForm.aliases|last.vars.name + 1 : 0 }}"
+                                         data-prototype="{{ formMacros.printAliasRow(personneForm.aliases.vars.prototype)|e('html_attr') }}">
+
+                                        <div class="col col-12">
+                                            <button type="button" class="btn blue-gradient js-personne-alias-add" data-collection-holder-class="alias">
+                                                <span class="fa fa-plus-circle"></span>
+                                                Ajouter un alias</button>
+                                        </div>
+
+                                        <div class="col col-12">
+                                            {% for alias in personneForm.aliases %}
+
+                                                {{ formMacros.printAliasRow(alias) }}
+
+                                            {% endfor %}
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        {{ form_widget(personneForm.telephone) }}
+                        {{ form_widget(personneForm.aliases) }}
+                        <div class="col col-12">
+                            <div class="row">
+                                <div class="col col-2">
+                                    {{ form_row(personneForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                                </div>
+                                <div class="col col-2">
+                                    {{ form_row(personneForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            {{ form_end(personneForm) }}
         </div>
 
 
+    {% endif %}
+
+
+
+    <!--- Type vehicule  --->
+
+
+    {% if type == 2 %}
+
+
+        <div style="margin-top: 1em; ">
+
+
+            {{ form_start(vehiculeForm) }}
+
+            <div class="row">
+
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(vehiculeForm) }}
+                    </div>
+                </div>
 
 
 
 
-        {{ form_end(personneForm) }}
-    </div>
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(vehiculeForm.role, "Role du vehicule : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(vehiculeForm.role, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(vehiculeForm.role) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5"></div>
 
 
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        <div class="kv-avatar">
+                            <div class="file-loading">
+                                {{ form_widget(vehiculeForm.mainPicture,{'id':'mainPicture'},{'attr': {'class': ''}}) }}
+                            </div>
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(vehiculeForm.mainPicture) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(vehiculeForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(vehiculeForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-12 mb-3">
+                    <div id="personne_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 5em" class="col col-12">
+                    <div class="row">
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.description, "Nom : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.description, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.description) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.description2, "Description : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.description2, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.description2) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.categorie, "Categorie : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.categorie, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.categorie) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.immatriculation, "Immatriculation : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.immatriculation, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.immatriculation) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                <div class="file-loading">
+                                    {{ form_widget(vehiculeForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                                </div>
+
+                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.attachements) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-12">
+                            <div class="row">
+                                <div class="col col-2">
+                                    {{ form_row(vehiculeForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                                </div>
+                                <div class="col col-2">
+                                    {{ form_row(vehiculeForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_end(vehiculeForm) }}
+        </div>
+
+
+    {% endif %}
+
+
+
+
+
+
+    <!--- Type organisation  --->
+
+
+    {% if type == 3 %}
+
+
+        <div style="margin-top: 1em; ">
+
+
+            {{ form_start(organisationForm) }}
+
+            <div class="row">
+
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(organisationForm) }}
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(organisationForm.role, "Role de l'organisation : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(organisationForm.role, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(organisationForm.role) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5"></div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        <div class="kv-avatar">
+                            <div class="file-loading">
+                                {{ form_widget(organisationForm.mainPicture,{'id':'mainPicture'},{'attr': {'class': ''}}) }}
+                            </div>
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(organisationForm.mainPicture) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(organisationForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(organisationForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-12 mb-3">
+                    <div id="personne_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 5em" class="col col-12">
+                    <div class="row">
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(organisationForm.description, "Nom : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(organisationForm.description, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(organisationForm.description) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(organisationForm.description2, "Description : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(organisationForm.description2, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(organisationForm.description2) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                <div class="file-loading">
+                                    {{ form_widget(organisationForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                                </div>
+
+                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(organisationForm.attachements) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-12">
+                            <div class="row">
+                                <div class="col col-2">
+                                    {{ form_row(organisationForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                                </div>
+                                <div class="col col-2">
+                                    {{ form_row(organisationForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_end(organisationForm) }}
+        </div>
+
+
+    {% endif %}
 
 
 
@@ -263,5 +687,148 @@
 
 
     {% block botton_javascripts %}
-        <script  src="{{ asset('/assets/js/custom/personne.js') }}"></script>
+
+
+        <script>
+
+
+            $(document).ready(function () {
+                //parse data of editor in form
+
+
+                $("#personne_submit").on("click",function(){
+                    $("#resume").val($("#personne_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+                $("#vehicule_submit").on("click",function(){
+                    $("#resume").val($("#personne_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+
+                $("#organisation_submit").on("click",function(){
+                    $("#resume").val($("#personne_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+
+                // Quill
+
+                var quill = new Quill('#personne_editor', {
+                    modules: {
+                        toolbar: [
+                            [{ header: [1, 2, false] }],
+                            ['bold', 'italic', 'underline'],
+                            ['image', 'code-block']
+                        ]
+                    },
+                    placeholder: 'Compose an epic...',
+                    theme: 'snow' // or 'bubble'
+                });
+
+
+                // Add a custom DropDown Menu to the Quill Editor's toolbar:
+
+                var entiteObj = [
+                    {% for entite in entites  %}
+                        {
+                            id : '{{ entite.id }}',
+                            nom : '{{ entite.description }}',
+                            prenoms : '{{ entite.description2 }}',
+                            aliases : [
+                                {% if entite.aliases is defined   %}
+                                    {% for alias in entite.aliases %}
+                                        '{{ alias.alias }}'
+                                    {% endfor %}
+                                {% endif %}
+                            ]
+                        },
+                    {% endfor %}
+                ];
+
+                console.log(entiteObj)
+
+                const dropDownItems = {
+
+                    {% for entite in entites  %}
+                        {% if entite.aliases is defined   %}
+                            '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}': '{{ entite.id }}',
+                        {% else %}
+                            '{{ entite.description }} {{ entite.description2 }}': '{{ entite.id }}',
+                        {% endif %}
+                    {% endfor %}
+
+                }
+
+                const myDropDown = new QuillToolbarDropDown({
+                    label: "Email Addresses",
+                    rememberSelection: false
+                })
+
+                myDropDown.setItems(dropDownItems)
+
+                myDropDown.onSelect = function(label, value, quill) {
+
+                    var range = quill.getSelection();
+
+                    var text = '';
+                    var tag = '';
+
+
+                    for (var i = 0; i<entiteObj.length; i++){
+                        if(entiteObj[i].id === value){
+                            if (entiteObj[i].nom === '' && entiteObj[i].prenoms === ''){
+                                text = entiteObj[i].aliases[0]
+                            }else {
+                                text = entiteObj[i].nom+' '+entiteObj[i].prenoms
+                            }
+                            tag = 'ent-'+entiteObj[i].id
+                            break;
+                        }
+                    }
+
+                    if (range == null) {
+                        register(text,tag)
+                        quill.insertEmbed(0, 'hashtag',value);
+                    }else {
+                        register()
+                        quill.insertEmbed(range.index, 'hashtag',value);
+                    }
+
+
+                    const { index, length } = quill.selection.savedRange
+                    quill.setSelection(index + value.length)
+                }
+
+                myDropDown.attach(quill)
+
+
+                function register(text,tag){
+
+                    var Embed = Quill.import('blots/embed');
+                    class QuillHashtag extends Embed {
+                        static create(value) {
+                            let node = super.create(value);
+                            node.innerHTML = `<span contenteditable=false>${text}</span>`;
+                            return node;
+                        }
+                    }
+                    QuillHashtag.blotName = 'hashtag';
+                    QuillHashtag.className = 'quill-hashtag';
+                    QuillHashtag.tagName = 'span';
+
+                    Quill.register({
+                        'formats/hashtag': QuillHashtag
+                    });
+                }
+
+            })
+
+        </script>
+
+        <script  src="{{ asset('/assets/js/custom/personneForm.js') }}"></script>
     {% endblock %}

@@ -93,7 +93,7 @@ abstract class Entites
     protected $role;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Groups({"entite:read", "entite:write","affaire:read","attachements:read"})
      */
     protected $cat;

@@ -93,7 +93,7 @@ class Personne extends Entites
     protected $numCarte;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"entite:read", "entite:write"})
      */
     protected $nationalite;
@@ -105,7 +105,7 @@ class Personne extends Entites
     private $aliases;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Telephone::class, inversedBy="personnes", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Telephone::class, inversedBy="personnes",cascade={"persist", "remove"})
      */
     private $telephone;
 

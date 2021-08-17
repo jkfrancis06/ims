@@ -48,6 +48,92 @@
     <div style="margin-top: 1em; ">
 
 
+        {% if entite is not null %}
+
+            <!-- Modal entite -->
+            <div class="modal fade" id="entiteModal" tabindex="-1" role="dialog" aria-labelledby="entiteModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+                <div class="modal-dialog modal-lg modal-notify modal-info modal-dialog-scrollable" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <p class="heading lead">Entite</p>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">×</span>
+                            </button>
+                        </div>
+
+                        <!--Body-->
+                        <div class="modal-body">
+
+                            <div class="text-left">
+                                <!-- <i class="fas fa-window-close fa-4x mb-3 animated rotateIn"></i> -->
+
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Nom et prenoms / Description : </span>
+                                    <span>{{ entite.description }} &nbsp {{ entite.description2 }}</span>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Numero de : </span>
+                                    <span>{{ entite.description }} &nbsp {{ entite.description2 }}</span>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Fermer</a>
+                        </div>
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+
+        {% endif %}
+
+
+        {% for message in app.session.flashbag.get('create_personne') %}
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
+
+        {% for message in app.session.flashbag.get('create_vehicule') %}
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
+
+
+        {% for message in app.session.flashbag.get('create_organisation') %}
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
+
+
         <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="affaire-tab" data-toggle="tab" href="#affaire" type="button" role="tab" aria-controls="todo" aria-selected="true">Affaire</a>
@@ -156,8 +242,6 @@
                                                 </th>
                                                 <th class="th-sm">Departement
                                                 </th>
-                                                <th class="th-sm">
-                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -169,11 +253,6 @@
                                                         </td>
                                                         <td class="text-uppercase">{{ utilisateur.utilisateur.nom }}&nbsp;{{ utilisateur.utilisateur.prenom }}</td>
                                                         <td>{{ utilisateur.utilisateur.departement.nom }}</td>
-                                                        <td>
-                                                            <a class="btn-floating btn-sm btn-primary">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-                                                        </td>
                                                     </tr>
                                                 {% endif %}
 
@@ -195,7 +274,7 @@
             <div class="tab-pane fade" id="entite" role="tabpanel" aria-labelledby="entite-tab">
                 <div class="row" style="margin-top: 1em">
 
-                   <div class="col col-8">
+                   <div class="col col-12">
                        <div class="card card-cascade">
                            <div class="view view-cascade gradient-card-header blue-gradient">
 
@@ -216,9 +295,9 @@
 
                                    <!--Menu-->
                                    <div class="dropdown-menu dropdown-primary">
-                                       <a class="dropdown-item" href="{{ path('create_entite',{'type':1}) }}">Personne</a>
-                                       <a class="dropdown-item" href="{{ path('create_entite',{'type':2}) }}">Vehicule</a>
-                                       <a class="dropdown-item" href="{{ path('create_entite',{'type':3}) }}">Organisation</a>
+                                       <a class="dropdown-item" href="{{ path('create_entite',{'id': affaire.id,'type':1}) }}">Personne</a>
+                                       <a class="dropdown-item" href="{{ path('create_entite',{'id': affaire.id,'type':2}) }}">Vehicule</a>
+                                       <a class="dropdown-item" href="{{ path('create_entite',{'id': affaire.id ,'type':3}) }}">Organisation</a>
                                    </div>
                                </div>
 
@@ -231,7 +310,14 @@
                                        </th>
                                        <th class="th-sm">Nom / Prenom /Description
                                        </th>
+                                       <th class="th-sm">Alias
+                                       </th>
+                                       <th class="th-sm">Description
+                                       </th>
                                        <th class="th-sm">Role
+                                       </th>
+                                       <th class="th-sm">
+                                           Action
                                        </th>
                                    </tr>
                                    </thead>
@@ -239,12 +325,59 @@
                                    {% for entite in affaire.entites %}
                                        <tr>
                                            <td class="text-center">
-                                               <i class="fa fa-user"></i>
+                                               <img src="{{ asset('/upload/') }}{{ entite.mainPicture }}" alt="thumbnail" class="img-thumbnail"
+                                                    style="width: 8em;height: 8em">
                                            </td>
                                            <td class="text-uppercase">{{ entite.description }}&nbsp;{{ entite.description2 }}</td>
-                                           <td>{{ entite.role }}</td>
-                                       </tr>
 
+                                           <td class="text-uppercase">
+                                               {% if entite.aliases is defined   %}
+                                                   {% for alias in entite.aliases %}
+                                                       {{ alias.alias }}
+                                                   {% endfor %}
+                                               {% endif %}
+                                           </td>
+
+                                           <td class="text-reset  ">
+                                               {{ entite.resume | raw }}
+                                           </td>
+
+
+                                           <td>
+                                               {% if entite.role == constant('ROLE_SUSPECT', entite)  %}
+                                                   <span class="font-weight-bold">SUSPECT</span>
+                                               {% endif %}
+
+                                               {% if entite.role == constant('ROLE_INTEREST', entite)  %}
+                                                   <span class="font-weight-bold">PERSONNE D'INTERET</span>
+                                               {% endif %}
+
+                                               {% if entite.role == constant('ROLE_VICTIME', entite)  %}
+                                                   <span class="font-weight-bold">VICTIME</span>
+                                               {% endif %}
+
+                                               {% if entite.role == constant('ROLE_SOURCE', entite)  %}
+                                                   <span class="font-weight-bold">SOURCE</span>
+                                               {% endif %}
+
+                                           </td>
+
+                                           <td>
+
+                                               <div class="d-flex align-items-center">
+                                                   <a href="{{ path('affaire_details', {id: affaire.id, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-primary">
+                                                       <i class="fa fa-eye"></i>
+                                                   </a>
+                                                   <a class="btn-floating btn-sm btn-deep-purple">
+                                                       <i class="fa fa-pen"></i>
+                                                   </a>
+                                                   <a class="btn-floating btn-sm btn-danger">
+                                                       <i class="fa fa-trash"></i>
+                                                   </a>
+                                               </div>
+                                           </td>
+
+                                       </tr>
                                    {% endfor %}
 
                                    </tbody>
@@ -274,18 +407,26 @@
 
 
 
-
     {% block botton_javascripts %}
         <script>
 
             $(document).ready(function() {
+
+                {% if entite is not null %}
+
+                $('#entiteModal').modal('show');
+
+                {% endif %}
+
+                $('#entiteModal').on('hidden.bs.modal', function (event) {
+                    window.location = "{{ path('affaire_details', {id: affaire.id }) }}"
+                })
 
             });
 
 
         </script>
     {% endblock %}
-
 
 
 
