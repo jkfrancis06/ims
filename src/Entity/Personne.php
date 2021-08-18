@@ -289,5 +289,9 @@ class Personne extends Entites
     }
 
 
+    public function isPersonne(){
+        return true;
+    }
+
 
 }

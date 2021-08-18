@@ -254,6 +254,7 @@ abstract class Entites
 
     public function removeAttachement(Attachements $attachement): self
     {
+
         if ($this->attachements->removeElement($attachement)) {
             // set the owning side to null (unless already changed)
             if ($attachement->getEntite() === $this) {

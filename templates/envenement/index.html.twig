@@ -1,0 +1,275 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+
+{% block javascripts %}
+    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
+    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
+    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
+
+{% endblock %}
+
+ {% block stylesheets %}
+
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/theme/theme.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput-rtl.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
+
+
+     <style>
+         .dt-buttons{
+             margin-bottom: 1em!important;
+             margin-left: 0.5em!important;
+         }
+         #tab-content{
+             display: none;
+         }
+         #loader{
+             display: block;
+         }
+         #loading {
+             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
+             position: absolute;
+             top: 0;
+             left: 0;
+             height: 100%;
+             width: 100%;
+             z-index: 9999999;
+         }
+         .pagination .page-item .page-link{
+             color: white!important;
+         }
+         .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+             margin: 0;
+             padding: 0;
+             border: none;
+             box-shadow: none;
+             text-align: center;
+         }
+         .kv-avatar {
+             display: inline-block;
+         }
+         .kv-avatar .file-input {
+             display: table-cell;
+             width: 213px;
+         }
+         .kv-reqd {
+             color: red;
+             font-family: monospace;
+             font-weight: normal;
+         }
+
+         .kv-file-upload{
+             display: none;
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+
+
+
+        <div style="margin-top: 1em; ">
+
+
+            {{ form_start(envenementForm) }}
+
+            <div class="row">
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(envenementForm) }}
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.typeEvenement, "Type de l'evenement: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.typeEvenement, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.typeEvenement) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.titre, "Titre de l'evenement: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.titre, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.titre) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.localisation, "Adresse / Lieu: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.localisation, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.localisation) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.geoLocalisation, "Coodonnees GPS: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.geoLocalisation, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.geoLocalisation) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.startAt, "Date de debut: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.startAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.startAt) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.endAt, "Date de fin: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.endAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.endAt) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-10 mb-3 mt-4">
+                    <div id="event_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.entite, "Entites impliques: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.entite, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-default'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.entite) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5 mt-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.utilisateur, "Agents impliques: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.utilisateur, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-dark'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.utilisateur) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(envenementForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-10">
+                    <div class="mb-3">
+                        <div class="file-loading">
+                            {{ form_widget(envenementForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.attachements) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-12">
+                    <div class="row">
+                        <div class="col col-2">
+                            {{ form_row(envenementForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                        </div>
+                        <div class="col col-2">
+                            {{ form_row(envenementForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_end(envenementForm) }}
+        </div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+    {% block botton_javascripts %}
+
+
+        <script>
+
+
+            $(document).ready(function () {
+                //parse data of editor in form
+
+
+                $("#envenement_submit").on("click",function(){
+                    $("#resume").val($("#event_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+
+
+                // Quill
+
+                var quill = new Quill('#event_editor', {
+                    modules: {
+                        toolbar: [
+                            [{ header: [1, 2, false] }],
+                            ['bold', 'italic', 'underline'],
+                            ['image', 'code-block']
+                        ]
+                    },
+                    placeholder: 'Compose an epic...',
+                    theme: 'snow' // or 'bubble'
+                });
+
+
+            })
+
+        </script>
+
+        <script  src="{{ asset('/assets/js/custom/eventForm.js') }}"></script>
+    {% endblock %}

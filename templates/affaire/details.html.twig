@@ -5,13 +5,16 @@
 
 {% block javascripts %}
 
+    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
+    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
+    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
 
 {% endblock %}
 
  {% block stylesheets %}
 
      <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
-     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />>
 
      <style>
          .dt-buttons{
@@ -68,21 +71,245 @@
                         <!--Body-->
                         <div class="modal-body">
 
-                            <div class="text-left">
+                            <div class="d-flex justify-content-between">
                                 <!-- <i class="fas fa-window-close fa-4x mb-3 animated rotateIn"></i> -->
 
-                                <div class="mb-2">
-                                    <span class="font-weight-bold">Nom et prenoms / Description : </span>
-                                    <span>{{ entite.description }} &nbsp {{ entite.description2 }}</span>
+                                <div>
+
+                                    <table class="table text-left display">
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Role  : </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-uppercase">
+                                                    {% if constant('ROLE_SUSPECT', entite)  == entite.role %}
+                                                        Suspect
+                                                    {% endif %}
+                                                    {% if constant('ROLE_INTEREST', entite) == entite.role %}
+                                                        personne d'interet
+                                                    {% endif %}
+                                                    {% if constant('ROLE_VICTIME', entite) == entite.role %}
+                                                        victime
+                                                    {% endif %}
+                                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                        source
+                                                    {% endif %}
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        {% if entite.isPersonne() is defined %}
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Nom et prenoms  : </span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-uppercase">{{ entite.nom }} &nbsp {{ entite.prenom }}</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Alias  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                         {% if entite.aliases is not null %}
+
+                                                             {% for alias in entite.aliases %}
+                                                                 {{ alias.alias }}
+                                                             {% endfor %}
+
+                                                         {% endif %}
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Telephones  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                         {% if entite.telephone is not null %}
+
+                                                             {% for telephone in entite.telephone %}
+                                                                 <p>
+                                                                     <span>{{ telephone.numero }}</span>
+                                                                     <span>
+                                                                         <a download style="text-decoration: none" href="{{ asset('/upload/') }}{{ telephone.fichierCdr }}" class="btn-floating btn-sm btn-secondary"><i class="fas fa-download"></i></a>
+                                                                     </span>
+                                                                 </p>
+                                                             {% endfor %}
+
+                                                         {% endif %}
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Sexe  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {% if constant('SEXE_IND', entite) == entite.sexe %}
+                                                            Indetermine
+                                                        {% endif %}
+                                                        {% if constant('SEXE_HOMME', entite) == entite.sexe %}
+                                                            Homme
+                                                        {% endif %}
+                                                        {% if constant('SEXE_FEMME', entite) == entite.sexe %}
+                                                            Femme
+                                                        {% endif %}
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Date de naissance  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ entite.dateNaissance|date('d-m-Y') }}</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Numero de passport  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ entite.numPassport }} </span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Numero de carte d'identite  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ entite.numCarte }} </span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Pays d'origine  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ entite.nationalite }}</span>
+                                                </td>
+                                            </tr>
+
+                                        {% else %}
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Nom  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ entite.description }}</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Description  : </span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ entite.description2 }}</span>
+                                                </td>
+                                            </tr>
+
+                                            {% if entite.isPersonne() is defined %}
+                                                <tr>
+                                                    <td>
+                                                        <span class="font-weight-bold">Categorie  : </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{ entite.categorie }}</span>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <span class="font-weight-bold">immatriculation  : </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{ entite.immatriculation }}</span>
+                                                    </td>
+                                                </tr>
+
+                                            {% endif %}
+
+
+                                        {% endif %}
+
+                                    </table>
+
+
                                 </div>
 
                                 <div class="mb-2">
-                                    <span class="font-weight-bold">Numero de : </span>
-                                    <span>{{ entite.description }} &nbsp {{ entite.description2 }}</span>
+                                    <img src="{{ asset('/upload/') }}{{ entite.mainPicture }}" alt="thumbnail" class="img-thumbnail"
+                                         style="width: 8em;height: 8em">
                                 </div>
 
+                            </div>
 
+                            <div>
 
+                                <table class="table table-bordered text-center">
+                                    <!-- Table head -->
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Nom
+                                        </th>
+                                        <th>
+                                            Type
+                                        </th>
+                                        <th>
+                                            Taille
+                                        </th>
+                                        <th>
+                                            Actions
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <!-- Table head -->
+
+                                    <!-- Table body -->
+                                    <tbody>
+                                    {% if entite is not null %}
+                                        {% for file in entite.attachements %}
+                                            <tr>
+                                                <th class="font-weight-bold">
+                                                    {{ file.name }}
+                                                </th>
+                                                <td class="text-center">
+                                                    {{ file.getThumbnail()| raw}}
+                                                </td>
+                                                <td>
+                                                    {{ file.getFileSize() }}
+                                                </td>
+                                                <td>
+                                                    <a download href="{{ asset('/upload/') }}{{ file.name }}" class="btn btn-outline-deep-purple">
+                                                        <i style="color: inherit" class="fas fa-file-download"></i>
+                                                        <span class="font-weight-bold">Telecharger</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    </tbody>
+                                    <!-- Table body -->
+                                </table>
                             </div>
 
                         </div>
@@ -95,6 +322,7 @@
                     <!--/.Content-->
                 </div>
             </div>
+            <!-- Modal entite -->
 
         {% endif %}
 
@@ -132,6 +360,16 @@
             </div>
         {% endfor %}
 
+        {% for message in app.session.flashbag.get('delete_entite') %}
+
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
 
 
         <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
@@ -152,6 +390,9 @@
             </li>
         </ul>
         <div class="tab-content card pt-5" id="myTabContent">
+
+            <!-- Tab Affaire -->
+
             <div class="tab-pane fade show active" id="affaire" role="tabpanel" aria-labelledby="affaire-tab">
                 <div class="row" style="margin-top:  1em; margin-left: 1em; width: 100% ">
                     <div class="col col-8">
@@ -267,11 +508,16 @@
                     </div>
 
                 </div>
-            </div>  <!-- Tab Affaire -->
+            </div>
+
+            <!-- Tab Affaire -->
 
 
             <!-- Tab Entites -->
             <div class="tab-pane fade" id="entite" role="tabpanel" aria-labelledby="entite-tab">
+
+
+
                 <div class="row" style="margin-top: 1em">
 
                    <div class="col col-12">
@@ -365,14 +611,26 @@
                                            <td>
 
                                                <div class="d-flex align-items-center">
+
+                                                   {% if entite.isPersonne() is defined %}
+                                                       {% set type = 1 %}
+                                                   {% endif %}
+                                                   {% if entite.isVehicule() is defined %}
+                                                       {% set type = 2 %}
+                                                   {% endif %}
+                                                   {% if entite.isOrganisation() is defined %}
+                                                       {% set type = 3 %}
+                                                   {% endif %}
+
                                                    <a href="{{ path('affaire_details', {id: affaire.id, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-primary">
                                                        <i class="fa fa-eye"></i>
                                                    </a>
-                                                   <a class="btn-floating btn-sm btn-deep-purple">
-                                                       <i class="fa fa-pen"></i>
+                                                   <a href="{{ path('update_entite', {id: affaire.id, type: type, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-deep-purple">
+                                                       <i class="fa fa-pen">
+                                                       </i>
                                                    </a>
-                                                   <a class="btn-floating btn-sm btn-danger">
-                                                       <i class="fa fa-trash"></i>
+                                                   <a href="{{ path('delete_entite', {id: entite.id }) }}" class="btn-floating btn-sm btn-danger" onclick="return confirm('Voulez vous vraiment supprimer cette entite ?')">
+                                                       <i  class="fa fa-trash" ></i>
                                                    </a>
                                                </div>
                                            </td>
@@ -388,20 +646,102 @@
 
                 </div>
             </div>
+            <!-- Tab Entites -->
 
-
+            <!-- Tab Evenement -->
             <div class="tab-pane fade" id="envenement" role="tabpanel" aria-labelledby="envenement-tab">
                 <div class="row" style="margin-top: 1em">
+
+
+
+                    <div class="row" style="margin-top: 1em">
+
+                        <div class="col col-12">
+                            <div class="card card-cascade">
+                                <div class="view view-cascade gradient-card-header blue-gradient">
+
+                                    <h2 class="card-subtitle mb-3">Evenements</h2>
+
+                                </div>
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade">
+
+
+
+                                    <div class="dropdown">
+
+                                        <!--Trigger-->
+                                        <a href="{{ path('envenement_create',{'id': affaire.id}) }}" class="btn btn-outline-primary" type="button">Ajouter un evenement</a>
+
+                                    </div>
+
+
+
+                                    <table id="dtMaterialDesignExample" class="table text-left display" >
+                                        <thead>
+                                        <tr>
+                                            <th class="th-sm">
+                                                Type
+                                            </th>
+                                            <th class="th-sm">
+                                                Titre
+                                            </th>
+                                            <th class="th-sm">
+                                                Dates
+                                            </th>
+                                            <th class="th-sm">
+                                                Localisation
+                                            </th>
+                                            <th class="th-sm">
+                                                Action
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for entite in affaire.envenements %}
+                                            <tr>
+                                                <td class="text-center">
+                                                </td>
+                                                <td class="text-uppercase"></td>
+
+                                                <td class="text-uppercase">
+                                                </td>
+
+                                                <td class="text-reset  ">
+                                                </td>
+
+                                                <td>
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
+            <!-- Tab Evenement -->
+
+            <!-- Tab Rapport -->
             <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
                 <div class="row" style="margin-top: 1em">
                 </div>
             </div>
+            <!-- Tab Rapport -->
+
+            <!-- Tab Administration -->
             <div class="tab-pane fade" id="administration" role="tabpanel" aria-labelledby="administration-tab">
                 <div class="row" style="margin-top: 1em">
                 </div>
             </div>
+            <!-- Tab Administration -->
+
         </div>
     </div>
 
@@ -411,6 +751,7 @@
         <script>
 
             $(document).ready(function() {
+
 
                 {% if entite is not null %}
 

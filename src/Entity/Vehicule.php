@@ -75,4 +75,8 @@ class Vehicule extends Entites
 
         return $this;
     }
+
+    public function isVehicule(){
+        return true;
+    }
 }

@@ -14,26 +14,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/fileinput/theme/theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/personneForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/personneFormEditor.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fileinput/theme/theme.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/default-avatar-male.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/custom/eventForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/custom/picker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/custom/picker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Attachements.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Attachements.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Entites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entites.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Envenement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Envenement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Organisation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Organisation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Personne.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Personne.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/OrganisationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/OrganisationType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PersonneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PersonneType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TelephoneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TelephoneType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/VehiculeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/VehiculeType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Vehicule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Vehicule.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/affaire/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entite/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +207,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/js/custom" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -228,11 +222,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/js/custom" />
+      <recent name="$PROJECT_DIR$/templates/entite" />
       <recent name="$PROJECT_DIR$/public/assets/js/fileinput/theme" />
       <recent name="$PROJECT_DIR$/public/assets/css/fileinput/theme" />
       <recent name="$PROJECT_DIR$/public/img" />
-      <recent name="$PROJECT_DIR$/public/assets/js/custom" />
-      <recent name="$PROJECT_DIR$/public/assets/css" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -273,7 +267,8 @@
       <workItem from="1628838572986" duration="14007000" />
       <workItem from="1629095187155" duration="22201000" />
       <workItem from="1629183064187" duration="23320000" />
-      <workItem from="1629213297687" duration="4462000" />
+      <workItem from="1629213297687" duration="4582000" />
+      <workItem from="1629271701874" duration="30717000" />
     </task>
     <servers />
   </component>

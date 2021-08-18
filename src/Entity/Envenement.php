@@ -43,6 +43,12 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  */
 class Envenement
 {
+    const EVENT_PER = 0;
+    const EVENT_AUD = 1;
+    const EVENT_FIL = 2;
+    const EVENT_OTHER = 3;
+    const EVENT_INFIL = 4;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -52,7 +58,7 @@ class Envenement
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", length=255)
      * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $typeEvenement;
@@ -119,6 +125,11 @@ class Envenement
      * @ORM\OneToMany(targetEntity=Attachements::class, mappedBy="envenement")
      */
     private $attachements;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titre;
 
 
 
@@ -306,6 +317,18 @@ class Envenement
     public function setAffaire(?Affaire $affaire): self
     {
         $this->affaire = $affaire;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
 
         return $this;
     }

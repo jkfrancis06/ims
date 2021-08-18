@@ -1,0 +1,907 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+
+{% block javascripts %}
+    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
+    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
+    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
+
+{% endblock %}
+
+ {% block stylesheets %}
+
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/theme/theme.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput-rtl.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
+
+
+     <style>
+         .dt-buttons{
+             margin-bottom: 1em!important;
+             margin-left: 0.5em!important;
+         }
+         #tab-content{
+             display: none;
+         }
+         #loader{
+             display: block;
+         }
+         #loading {
+             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
+             position: absolute;
+             top: 0;
+             left: 0;
+             height: 100%;
+             width: 100%;
+             z-index: 9999999;
+         }
+         .pagination .page-item .page-link{
+             color: white!important;
+         }
+         .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+             margin: 0;
+             padding: 0;
+             border: none;
+             box-shadow: none;
+             text-align: center;
+         }
+         .kv-avatar {
+             display: inline-block;
+         }
+         .kv-avatar .file-input {
+             display: table-cell;
+             width: 213px;
+         }
+         .kv-reqd {
+             color: red;
+             font-family: monospace;
+             font-weight: normal;
+         }
+
+         .kv-file-upload{
+             display: none;
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+
+    {% import _self as formMacros %}
+
+    {% if type == 1 %}
+
+        {% macro printTelephoneRow(telephone) %}
+            <div class="row js-personne-telephone-item">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(telephone.numero, "Numero de telephone : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(telephone.numero, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(telephone.numero) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-5">
+                    <div class="md-form">
+                        <div class="file-field">
+                            <div class="btn blue-gradient btn-sm float-left">
+                                <span><i class="fas fa-cloud-upload-alt mr-2" aria-hidden="true"></i>Choisir un fichier</span>
+                                {{ form_widget(telephone.fichierCdr, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" readonly type="text" placeholder="Uploader une image">
+                            </div>
+                        </div>
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(telephone.fichierCdr) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-2">
+                    <div style="margin-top: 1.2em" class="">
+                        <a href="#" class="btn btn-outline-danger js-remove-telephone">
+                            <span class="fa fa-trash"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endmacro %}
+
+
+        {% macro printAliasRow(aliases) %}
+            <div class="row js-personne-alias-item">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(aliases.alias, "Alias : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(aliases.alias, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(aliases.alias) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-2">
+                    <div style="margin-top: 1.2em" class="">
+                        <a href="#" class="btn btn-outline-danger js-remove-alias">
+                            <span class="fa fa-trash"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endmacro %}
+
+
+
+        <div style="margin-top: 1em; ">
+
+
+
+            {{ form_start(personneForm) }}
+
+            <div class="row">
+
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(personneForm) }}
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(personneForm.role, "Role de la personne : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(personneForm.role, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(personneForm.role) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5"></div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        <div class="kv-avatar">
+                            <div class="file-loading">
+                                {{ form_widget(personneForm.mainPicture,{'id':'mainPicture'},{'attr': {'class': ''}}) }}
+                            </div>
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(personneForm.mainPicture) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(personneForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(personneForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-12 mb-3">
+                    <div id="personne_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 5em" class="col col-12">
+                    <div class="row">
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.nom, "Nom : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.nom, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.nom) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.prenom, "Prenoms : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.prenom, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.prenom) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.dateNaissance, '', {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.dateNaissance, {'attr': {'class': 'form-control js-datepicker'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.dateNaissance) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.sexe, "Sexe : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.sexe, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.sexe) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.numPassport, "Numero de passport : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.numPassport, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.numPassport) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.numCarte, "Numero de carte : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.numCarte, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.numCarte) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.nationalite, "Nationalite : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.nationalite, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.nationalite) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                <div class="file-loading">
+                                    {{ form_widget(personneForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                                </div>
+
+                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.attachements) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col col-5 mt-4">
+                            <div class="card">
+                                <!-- Card content -->
+                                <div class="card-body">
+
+                                    <div class="telephone row js-personne-telephone-wrapper" data-index="{{ personneForm.telephone|length > 0 ? personneForm.telephone|last.vars.name + 1 : 0 }}"
+                                         data-prototype="{{ formMacros.printTelephoneRow(personneForm.telephone.vars.prototype)|e('html_attr') }}">
+
+                                        <div class="col col-12">
+                                            <button type="button" class="add_item_link btn blue-gradient js-personne-telephone-add" data-collection-holder-class="telephone">
+                                                <span class="fa fa-plus-circle"></span>
+                                                Ajouter un numero de telephone</button>
+                                        </div>
+
+                                        <div class="col col-12">
+                                            {% for telephone in personneForm.telephone %}
+
+                                                {{ formMacros.printTelephoneRow(telephone) }}
+
+                                            {% endfor %}
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="col col-5 mt-4 mb-5">
+                            <div class="card">
+
+                                <!-- Card content -->
+                                <div class="card-body">
+
+                                    <div class="alias row js-personne-alias-wrapper" data-index="{{ personneForm.aliases|length > 0 ? personneForm.aliases|last.vars.name + 1 : 0 }}"
+                                         data-prototype="{{ formMacros.printAliasRow(personneForm.aliases.vars.prototype)|e('html_attr') }}">
+
+                                        <div class="col col-12">
+                                            <button type="button" class="btn blue-gradient js-personne-alias-add" data-collection-holder-class="alias">
+                                                <span class="fa fa-plus-circle"></span>
+                                                Ajouter un alias</button>
+                                        </div>
+
+                                        <div class="col col-12">
+                                            {% for alias in personneForm.aliases %}
+
+                                                {{ formMacros.printAliasRow(alias) }}
+
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col col-12">
+                            <div class="row">
+                                <div class="col col-2">
+                                    {{ form_row(personneForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                                </div>
+                                <div class="col col-2">
+                                    {{ form_row(personneForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_end(personneForm) }}
+        </div>
+
+
+    {% endif %}
+
+
+
+    <!--- Type vehicule  --->
+
+
+    {% if type == 2 %}
+
+
+        <div style="margin-top: 1em; ">
+
+
+            {{ form_start(vehiculeForm) }}
+
+            <div class="row">
+
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(vehiculeForm) }}
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(vehiculeForm.role, "Role du vehicule : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(vehiculeForm.role, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(vehiculeForm.role) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5"></div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        <div class="kv-avatar">
+                            <div class="file-loading">
+                                {{ form_widget(vehiculeForm.mainPicture,{'id':'mainPicture'},{'attr': {'class': ''}}) }}
+                            </div>
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(vehiculeForm.mainPicture) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(vehiculeForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(vehiculeForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-12 mb-3">
+                    <div id="personne_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 5em" class="col col-12">
+                    <div class="row">
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.description, "Nom : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.description, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.description) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.description2, "Description : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.description2, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.description2) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.categorie, "Categorie : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.categorie, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.categorie) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(vehiculeForm.immatriculation, "Immatriculation : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(vehiculeForm.immatriculation, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.immatriculation) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                <div class="file-loading">
+                                    {{ form_widget(vehiculeForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                                </div>
+
+                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(vehiculeForm.attachements) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-12">
+                            <div class="row">
+                                <div class="col col-2">
+                                    {{ form_row(vehiculeForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                                </div>
+                                <div class="col col-2">
+                                    {{ form_row(vehiculeForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_end(vehiculeForm) }}
+        </div>
+
+
+    {% endif %}
+
+
+
+
+
+
+    <!--- Type organisation  --->
+
+
+    {% if type == 3 %}
+
+
+        <div style="margin-top: 1em; ">
+
+
+            {{ form_start(organisationForm) }}
+
+            <div class="row">
+
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(organisationForm) }}
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(organisationForm.role, "Role de l'organisation : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(organisationForm.role, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(organisationForm.role) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5"></div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        <div class="kv-avatar">
+                            <div class="file-loading">
+                                {{ form_widget(organisationForm.mainPicture,{'id':'mainPicture'},{'attr': {'class': ''}}) }}
+                            </div>
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(organisationForm.mainPicture) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(organisationForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(organisationForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-12 mb-3">
+                    <div id="personne_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 5em" class="col col-12">
+                    <div class="row">
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(organisationForm.description, "Nom : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(organisationForm.description, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(organisationForm.description) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(organisationForm.description2, "Description : ", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(organisationForm.description2, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(organisationForm.description2) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                <div class="file-loading">
+                                    {{ form_widget(organisationForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                                </div>
+
+                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(organisationForm.attachements) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-12">
+                            <div class="row">
+                                <div class="col col-2">
+                                    {{ form_row(organisationForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                                </div>
+                                <div class="col col-2">
+                                    {{ form_row(organisationForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_end(organisationForm) }}
+        </div>
+
+
+    {% endif %}
+
+
+
+
+{% endblock %}
+
+
+
+
+
+    {% block botton_javascripts %}
+
+
+        <script>
+
+
+            $(document).ready(function () {
+                //parse data of editor in form
+
+
+                $("#personne_submit").on("click",function(){
+                    $("#resume").val($("#personne_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+                $("#vehicule_submit").on("click",function(){
+                    $("#resume").val($("#personne_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+
+                $("#organisation_submit").on("click",function(){
+                    $("#resume").val($("#personne_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+
+                // Quill
+
+                var quill = new Quill('#personne_editor', {
+                    modules: {
+                        toolbar: [
+                            [{ header: [1, 2, false] }],
+                            ['bold', 'italic', 'underline'],
+                            ['image', 'code-block']
+                        ]
+                    },
+                    placeholder: 'Compose an epic...',
+                    theme: 'snow' // or 'bubble'
+                });
+
+
+
+                quill.root.innerHTML = `{{ entite.resume | raw}}`
+
+
+
+
+
+
+
+
+
+                // Add a custom DropDown Menu to the Quill Editor's toolbar:
+
+
+
+            })
+
+
+
+            $(document).ready(function () {
+
+
+
+
+                $("#mainPicture").fileinput({
+                    language: "fr",
+                    overwriteInitial: true,
+                    maxFileSize: 1500,
+                    showClose: false,
+                    showCaption: false,
+                    showBrowse: false,
+                    browseOnZoneClick: true,
+                    removeLabel: '',
+                    removeIcon: '<i class="bi-x-lg"></i>',
+                    removeTitle: 'Cancel or reset changes',
+                    elErrorContainer: '#kv-avatar-errors-2',
+                    msgErrorClass: 'alert alert-block alert-danger',
+                    defaultPreviewContent: '<img height="200" width="200" src="{{ asset('/upload/') }}{{ entite.mainPicture }}" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+                    layoutTemplates: {main2: '{preview} '  + ' {remove} {browse}'},
+                    allowedFileExtensions: ["jpg", "png", "gif","jpeg"]
+                });
+
+                var url = window.location.origin;
+
+                var initData = [
+                    {% for attachement in entite.attachements %}
+                    url+"{{ asset('/upload/') }}{{ entite.mainPicture }}",
+                    {% endfor %}
+                ]
+
+                var data =  [
+
+                    {% for attachement in entite.attachements %}
+                    {
+                        key: {{ attachement.id }},
+                        size: '{{ attachement.sizeInByte() }}',
+                        caption: '{{ attachement.name }}',
+                        downloadUrl: url+"{{ asset('/upload/') }}{{ attachement.name }}",
+                        url: "{{ path('delete_entite_attachement', {id: attachement.id }) }}",
+                        extra: {id: {{ attachement.id }}}
+
+                    },
+                    {% endfor %}
+                ]
+                console.log(initData)
+                console.log(data)
+
+                $("#attachements").fileinput({
+                    theme: "explorer",
+                    language: "fr",
+                    uploadUrl: "#",
+                    showUpload: false,
+                    showRemove: true,
+                    maxFileSize: 1000000,
+                    removeFromPreviewOnError: true,
+                    overwriteInitial: false,
+                    previewFileIcon: '<i class="fas fa-file"></i>',
+                    initialPreview: initData,
+                    initialPreviewConfig: data,
+                    preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
+                    previewFileIconSettings: { // configure your icon file extensions
+                        'doc': '<i class="fas fa-file-word text-primary"></i>',
+                        'xls': '<i class="fas fa-file-excel text-success"></i>',
+                        'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
+                        'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
+                        'zip': '<i class="fas fa-file-archive text-muted"></i>',
+                        'htm': '<i class="fas fa-file-code text-info"></i>',
+                        'txt': '<i class="fas fa-file-text text-info"></i>',
+                        'mov': '<i class="fas fa-file-video text-warning"></i>',
+                        'mp3': '<i class="fas fa-file-audio text-warning"></i>',
+                        // note for these file types below no extension determination logic
+                        // has been configured (the keys itself will be used as extensions)
+                        'jpg': '<i class="fas fa-file-image text-danger"></i>',
+                        'gif': '<i class="fas fa-file-image text-muted"></i>',
+                        'png': '<i class="fas fa-file-image text-primary"></i>'
+                    },
+                    previewFileExtSettings: { // configure the logic for determining icon file extensions
+                        'doc': function(ext) {
+                            return ext.match(/(doc|docx)$/i);
+                        },
+                        'xls': function(ext) {
+                            return ext.match(/(xls|xlsx)$/i);
+                        },
+                        'ppt': function(ext) {
+                            return ext.match(/(ppt|pptx)$/i);
+                        },
+                        'zip': function(ext) {
+                            return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+                        },
+                        'htm': function(ext) {
+                            return ext.match(/(htm|html)$/i);
+                        },
+                        'txt': function(ext) {
+                            return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+                        },
+                        'mov': function(ext) {
+                            return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+                        },
+                        'mp3': function(ext) {
+                            return ext.match(/(mp3|wav)$/i);
+                        }
+                    }
+                });
+
+
+
+                var $wrapper = $('.js-personne-telephone-wrapper');
+                $wrapper.on('click', '.js-remove-telephone', function(e) {
+                    e.preventDefault();
+                    $(this).closest('.js-personne-telephone-item')
+                        .fadeOut()
+                        .remove();
+                });
+                $wrapper.on('click', '.js-personne-telephone-add', function(e) {
+                    e.preventDefault();
+                    // Get the data-prototype explained earlier
+                    var prototype = $wrapper.data('prototype');
+                    // get the new index
+                    var index = $wrapper.data('index');
+                    // Replace '__name__' in the prototype's HTML to
+                    // instead be a number based on how many items we have
+                    var newForm = prototype.replace(/__name__/g, index);
+                    // increase the index with one for the next item
+                    $wrapper.data('index', index + 1);
+                    // Display the form in the page before the "new" link
+                    $(this).after(newForm);
+                });
+
+
+                var $alias_wrapper = $('.js-personne-alias-wrapper');
+                $alias_wrapper.on('click', '.js-remove-alias', function(e) {
+                    e.preventDefault();
+                    $(this).closest('.js-personne-alias-item')
+                        .fadeOut()
+                        .remove();
+                });
+                $alias_wrapper.on('click', '.js-personne-alias-add', function(e) {
+                    e.preventDefault();
+                    // Get the data-prototype explained earlier
+                    var alias_prototype = $alias_wrapper.data('prototype');
+                    // get the new index
+                    var alias_index = $alias_wrapper.data('index');
+                    // Replace '__name__' in the prototype's HTML to
+                    // instead be a number based on how many items we have
+                    var newAliasForm = alias_prototype.replace(/__name__/g, alias_index);
+                    // increase the index with one for the next item
+                    $alias_wrapper.data('index', alias_index + 1);
+                    // Display the form in the page before the "new" link
+                    $(this).after(newAliasForm);
+                });
+
+
+
+
+
+            })
+
+        </script>
+    {% endblock %}

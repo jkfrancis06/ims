@@ -34,5 +34,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Organisation extends Entites
 {
-    
+
+    public function isOrganisation(){
+        return true;
+    }
+
 }
