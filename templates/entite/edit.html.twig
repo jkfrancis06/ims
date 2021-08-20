@@ -725,21 +725,7 @@
                     theme: 'snow' // or 'bubble'
                 });
 
-
-
                 quill.root.innerHTML = `{{ entite.resume | raw}}`
-
-
-
-
-
-
-
-
-
-                // Add a custom DropDown Menu to the Quill Editor's toolbar:
-
-
 
             })
 
@@ -772,7 +758,7 @@
 
                 var initData = [
                     {% for attachement in entite.attachements %}
-                    url+"{{ asset('/upload/') }}{{ entite.mainPicture }}",
+                        url+"{{ asset('/upload/') }}{{ attachement.name }}",
                     {% endfor %}
                 ]
 

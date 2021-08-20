@@ -45,7 +45,42 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
+
+
         $lipsum = new LoremIpsum();
+
+        $departement = new Departement();
+        $departement->setNom("Administration");
+        $departement->setDescription("Administration des utilisateurs");
+
+        $manager->persist($departement);
+        $manager->flush();
+
+
+        $user = new Utilisateur();
+        $user->setNom('Admin');
+        $user->setPrenom('Systeme');
+        $user->setUsername('sysadmin');
+        $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+        $plainPassword ='Admin@123';
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $plainPassword));
+        $user->setIsActive(true);
+        $user->setNiveauAccreditation(1);
+        $user->setIsDeleted(false);
+        $user->setIsActive(true);
+        $user->setDepartement($departement);
+        $user->setRoles([
+            'ROLE_USER',
+            'USER_VIEW_DEP',
+            'ROLE_ADMIN',
+            'ROLE_CREATOR',
+            'USER_VIEW_AFF'
+        ]);
+        $manager->persist($user);
+        $manager->flush();
+
+
+        /*$lipsum = new LoremIpsum();
 
         $departement = $manager->getRepository(Departement::class)->find(4);
 
@@ -80,7 +115,7 @@ class AppFixtures extends Fixture
 
 
 
-        $utilisateur_repo = $manager->getRepository(Utilisateur::class);
+        /*$utilisateur_repo = $manager->getRepository(Utilisateur::class);
 
         $utilisateurs = $utilisateur_repo->findAll();
 

@@ -44,7 +44,7 @@ class EnvenementType extends AbstractType
             ])
             ->add('titre',TextType::class, [
                 'label' => 'Titre : ',
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new NotBlank()
                 ],
@@ -58,15 +58,20 @@ class EnvenementType extends AbstractType
                 'required' => false,
             ])
             ->add('startAt', DateTimeType::class, [
-                'required' => false,
+                'required' => true,
                 'label' => 'Date de debut: ',
                 'html5' => false,
                 'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy HH:mm:ss',
                 // adds a class that can be selected in JavaScript
                 'attr' => [
                     'class' => 'js-datepicker',
                     'placeholder' => 'Selectionner un interval de date'
-                ]
+                ],
+                'constraints' => [
+                    new NotBlank()
+                ],
+
 
             ])
             ->add('endAt', DateTimeType::class, [
@@ -74,6 +79,8 @@ class EnvenementType extends AbstractType
                 'label' => 'Date de fin: ',
                 'html5' => false,
                 'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy HH:mm:ss',
+
                 // adds a class that can be selected in JavaScript
                 'attr' => [
                     'class' => 'js-datepicker',
@@ -87,6 +94,7 @@ class EnvenementType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'by_reference' => false,
+                'placeholder' => true,
                 'choice_label' => function(Entites $entites){
                     if ($entites instanceof Personne){
                         $data =  $entites->getDescription() . '  ' . $entites->getDescription2();
@@ -112,8 +120,8 @@ class EnvenementType extends AbstractType
                 'class'    => Utilisateur::class,
                 'required' => false,
                 'multiple' => true,
+                'placeholder' => true,
                 'choice_label' => function (Utilisateur $utilisateur) {
-
                     return $utilisateur->getNom() . '  ' . $utilisateur->getPrenom();
                 },
                 'by_reference' => false

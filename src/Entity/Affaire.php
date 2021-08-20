@@ -521,4 +521,9 @@ class Affaire
     }
 
 
+    public function __toString()
+    {
+        return $this->numeroMatricule .' / '. $this->nom;
+    }
+
 }

@@ -164,7 +164,7 @@ class Utilisateur implements UserInterface
 
     /**
      * @MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="utilisateurs")
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="utilisateurs",cascade={"persist", "remove"})
      * @Groups({"envenement:read","utilisateur:read","utilisateur:write","affaire:read","canConsult:read","affaireDirected:read"})
      */
     private $departement;
@@ -215,6 +215,11 @@ s    */
      */
     private $isDeleted;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DepartementDirector::class, mappedBy="utilisateur", orphanRemoval=true)
+     */
+    private $departementDirectors;
+
 
 
 
@@ -235,6 +240,7 @@ s    */
         $this->taches = new ArrayCollection();
         $this->tacheUtilisateurs = new ArrayCollection();
         $this->affaireDirecteds = new ArrayCollection();
+        $this->departementDirectors = new ArrayCollection();
 
     }
 
@@ -632,4 +638,39 @@ s    */
         return $this;
     }
 
+    /**
+     * @return Collection|DepartementDirector[]
+     */
+    public function getDepartementDirectors(): Collection
+    {
+        return $this->departementDirectors;
+    }
+
+    public function addDepartementDirector(DepartementDirector $departementDirector): self
+    {
+        if (!$this->departementDirectors->contains($departementDirector)) {
+            $this->departementDirectors[] = $departementDirector;
+            $departementDirector->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepartementDirector(DepartementDirector $departementDirector): self
+    {
+        if ($this->departementDirectors->removeElement($departementDirector)) {
+            // set the owning side to null (unless already changed)
+            if ($departementDirector->getUtilisateur() === $this) {
+                $departementDirector->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->nom .' '. $this->prenom;
+    }
 }

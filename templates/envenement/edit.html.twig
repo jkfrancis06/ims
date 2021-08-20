@@ -1,0 +1,355 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+
+{% block javascripts %}
+    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
+    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
+    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
+
+{% endblock %}
+
+ {% block stylesheets %}
+
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/theme/theme.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput-rtl.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
+
+
+     <style>
+         .dt-buttons{
+             margin-bottom: 1em!important;
+             margin-left: 0.5em!important;
+         }
+         #tab-content{
+             display: none;
+         }
+         #loader{
+             display: block;
+         }
+         #loading {
+             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
+             position: absolute;
+             top: 0;
+             left: 0;
+             height: 100%;
+             width: 100%;
+             z-index: 9999999;
+         }
+         .pagination .page-item .page-link{
+             color: white!important;
+         }
+         .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+             margin: 0;
+             padding: 0;
+             border: none;
+             box-shadow: none;
+             text-align: center;
+         }
+         .kv-avatar {
+             display: inline-block;
+         }
+         .kv-avatar .file-input {
+             display: table-cell;
+             width: 213px;
+         }
+         .kv-reqd {
+             color: red;
+             font-family: monospace;
+             font-weight: normal;
+         }
+
+         .kv-file-upload{
+             display: none;
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+
+
+
+        <div style="margin-top: 1em; ">
+
+
+            {{ form_start(envenementForm) }}
+
+            <div class="row">
+
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(envenementForm) }}
+                    </div>
+                </div>
+
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.typeEvenement, "Type de l'evenement: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.typeEvenement, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-ins'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.typeEvenement) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.titre, "Titre de l'evenement: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.titre, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.titre) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.localisation, "Adresse / Lieu: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.localisation, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.localisation) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.geoLocalisation, "Coodonnees GPS: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.geoLocalisation, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.geoLocalisation) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.startAt, "Date de debut: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.startAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.startAt) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.endAt, "Date de fin: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.endAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.endAt) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-10 mb-3 mt-4">
+                    <div id="event_editor" style="color: inherit">
+                    </div>
+                </div>
+
+
+                <div class="col col-5 mt-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.entite, "Entites impliques: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.entite, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-default'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.entite) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-5 mt-5">
+                    <div class="mb-3">
+                        {{ form_label(envenementForm.utilisateur, "Agents impliques: ", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(envenementForm.utilisateur, {'attr': {'class': 'mdb-select md-form colorful-select dropdown-dark'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.utilisateur) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-5 mt-4" style="display: none">
+                    <div class="mb-3">
+                        {{ form_widget(envenementForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.resume) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-10">
+                    <div class="mb-3">
+                        <div class="file-loading">
+                            {{ form_widget(envenementForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
+                        </div>
+
+                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.attachements) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-12">
+                    <div class="row">
+                        <div class="col col-2">
+                            {{ form_row(envenementForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                        </div>
+                        <div class="col col-2">
+                            {{ form_row(envenementForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_end(envenementForm) }}
+        </div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+    {% block botton_javascripts %}
+
+
+        <script>
+
+
+            $(document).ready(function () {
+                //parse data of editor in form
+
+
+                $("#envenement_submit").on("click",function(){
+                    $("#resume").val($("#event_editor .ql-editor").html());
+                    console.log( $("#resume").val())
+
+                })
+
+
+
+                // Quill
+
+                var quill = new Quill('#event_editor', {
+                    modules: {
+                        toolbar: [
+                            [{ header: [1, 2, false] }],
+                            ['bold', 'italic', 'underline'],
+                            ['image', 'code-block']
+                        ]
+                    },
+                    placeholder: 'Compose an epic...',
+                    theme: 'snow' // or 'bubble'
+                });
+
+                quill.root.innerHTML = `{{ envenement.resume | raw}}`
+
+            })
+
+
+            var url = window.location.origin;
+
+            var initData = [
+                {% for attachement in envenement.attachements %}
+                url+"{{ asset('/upload/') }}{{ attachement.name }}",
+                {% endfor %}
+            ]
+
+            var data =  [
+
+                {% for attachement in envenement.attachements %}
+                {
+                    key: {{ attachement.id }},
+                    size: '{{ attachement.sizeInByte() }}',
+                    caption: '{{ attachement.name }}',
+                    downloadUrl: url+"{{ asset('/upload/') }}{{ attachement.name }}",
+                    url: "{{ path('delete_entite_attachement', {id: attachement.id }) }}",
+                    extra: {id: {{ attachement.id }}}
+
+                },
+                {% endfor %}
+            ]
+
+            $("#attachements").fileinput({
+                theme: "explorer",
+                language: "fr",
+                uploadUrl: "#",
+                showUpload: false,
+                showRemove: true,
+                maxFileSize: 1000000,
+                removeFromPreviewOnError: true,
+                overwriteInitial: false,
+                previewFileIcon: '<i class="fas fa-file"></i>',
+                initialPreview: initData,
+                initialPreviewConfig: data,
+                preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
+                previewFileIconSettings: { // configure your icon file extensions
+                    'doc': '<i class="fas fa-file-word text-primary"></i>',
+                    'xls': '<i class="fas fa-file-excel text-success"></i>',
+                    'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
+                    'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
+                    'zip': '<i class="fas fa-file-archive text-muted"></i>',
+                    'htm': '<i class="fas fa-file-code text-info"></i>',
+                    'txt': '<i class="fas fa-file-text text-info"></i>',
+                    'mov': '<i class="fas fa-file-video text-warning"></i>',
+                    'mp3': '<i class="fas fa-file-audio text-warning"></i>',
+                    // note for these file types below no extension determination logic
+                    // has been configured (the keys itself will be used as extensions)
+                    'jpg': '<i class="fas fa-file-image text-danger"></i>',
+                    'gif': '<i class="fas fa-file-image text-muted"></i>',
+                    'png': '<i class="fas fa-file-image text-primary"></i>'
+                },
+                previewFileExtSettings: { // configure the logic for determining icon file extensions
+                    'doc': function(ext) {
+                        return ext.match(/(doc|docx)$/i);
+                    },
+                    'xls': function(ext) {
+                        return ext.match(/(xls|xlsx)$/i);
+                    },
+                    'ppt': function(ext) {
+                        return ext.match(/(ppt|pptx)$/i);
+                    },
+                    'zip': function(ext) {
+                        return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+                    },
+                    'htm': function(ext) {
+                        return ext.match(/(htm|html)$/i);
+                    },
+                    'txt': function(ext) {
+                        return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+                    },
+                    'mov': function(ext) {
+                        return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+                    },
+                    'mp3': function(ext) {
+                        return ext.match(/(mp3|wav)$/i);
+                    }
+                }
+            });
+        </script>
+
+    {% endblock %}

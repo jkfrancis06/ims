@@ -80,7 +80,7 @@ class Departement
 
     /**
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="departement")
+     * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="departement",cascade={"persist", "remove"})
      * @Groups("departement:read","departement:write")
      */
     private $utilisateurs;
@@ -92,12 +92,18 @@ class Departement
      */
     private $affaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DepartementDirector::class, mappedBy="departement", orphanRemoval=true)
+     */
+    private $departementDirectors;
+
 
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->ceatedAt = new \DateTime();
         $this->affaires = new ArrayCollection();
+        $this->departementDirectors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,6 +162,8 @@ class Departement
             $utilisateur->setDepartement($this);
         }
 
+        $utilisateur->setDepartement($this);
+
         return $this;
     }
 
@@ -201,4 +209,38 @@ class Departement
         return $this;
     }
 
+    /**
+     * @return Collection|DepartementDirector[]
+     */
+    public function getDepartementDirectors(): Collection
+    {
+        return $this->departementDirectors;
+    }
+
+    public function addDepartementDirector(DepartementDirector $departementDirector): self
+    {
+        if (!$this->departementDirectors->contains($departementDirector)) {
+            $this->departementDirectors[] = $departementDirector;
+            $departementDirector->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepartementDirector(DepartementDirector $departementDirector): self
+    {
+        if ($this->departementDirectors->removeElement($departementDirector)) {
+            // set the owning side to null (unless already changed)
+            if ($departementDirector->getDepartement() === $this) {
+                $departementDirector->setDepartement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return "".$this->nom;
+    }
 }

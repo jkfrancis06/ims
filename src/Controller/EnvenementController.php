@@ -8,6 +8,7 @@ use App\Entity\Envenement;
 use App\Form\EnvenementType;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -32,6 +33,18 @@ class EnvenementController extends AbstractController
         $envenementForm = $this->createForm(EnvenementType::class,$envenement);
 
         $envenementForm->handleRequest($request);
+
+        if ($envenementForm->isSubmitted()){  // si la date de fin est inferieure a la date de debut generer une erreur de formulaure
+            if ($envenementForm->get('endAt')->getData() != null){
+                $start = $envenementForm->get('startAt')->getData()->getTimeStamp();
+                $end = $envenementForm->get('endAt')->getData()->getTimeStamp();
+                if ($start > $end){
+                    $fileError = new FormError("La date de debut ne doit pas etre superieure a la date de fin");
+                    $envenementForm->get('endAt')->addError($fileError);
+                }
+            }
+
+        }
 
         if($envenementForm->isSubmitted() && $envenementForm->isValid()){
 
@@ -60,5 +73,97 @@ class EnvenementController extends AbstractController
             'active' => 'affaire',
             'envenementForm' => $envenementForm->createView(),
         ]);
+    }
+
+
+
+
+    /**
+     * @Route("/affaire/{id}/e/{event_id}", name="envenement_edit")
+     */
+    public function editEvent ($id, $event_id, Request $request,FileUploader $fileUploader): Response
+    {
+
+        $affaire = $this->getDoctrine()->getManager()->getRepository(Affaire::class)->find($id);
+        $envenement = $this->getDoctrine()->getManager()->getRepository(Envenement::class)->find($event_id);
+
+        if ($affaire == null || $envenement == null){
+            throw new NotFoundHttpException("Non trouve");
+        }
+
+
+        $envenementForm = $this->createForm(EnvenementType::class,$envenement);
+
+        $envenementForm->handleRequest($request);
+
+        if ($envenementForm->isSubmitted()){  // si la date de fin est inferieure a la date de debut generer une erreur de formulaure
+            if ($envenementForm->get('endAt')->getData() != null){
+                $start = $envenementForm->get('startAt')->getData()->getTimeStamp();
+                $end = $envenementForm->get('endAt')->getData()->getTimeStamp();
+                if ($start > $end){
+                    $fileError = new FormError("La date de debut ne doit pas etre superieure a la date de fin");
+                    $envenementForm->get('endAt')->addError($fileError);
+                }
+            }
+
+        }
+
+        if($envenementForm->isSubmitted() && $envenementForm->isValid()){
+
+
+            if ($envenementForm->get('attachements')->getData() != null){ //
+                foreach ($envenementForm->get('attachements')->getData() as $data){
+                    $found = false;
+                    foreach ($envenement->getAttachements() as $value){
+                        if ($value->getName() == $data){
+                            $found = true;
+                            break;
+                        }
+                    }
+                    if (!$found){
+                        $fileName = $fileUploader->upload($data);
+                        $attachement = new Attachements();
+                        $attachement->setName($fileName);
+                        $attachement->setType(1);
+                        $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
+                        $envenement->addAttachement($attachement);
+                    }
+                }
+            }
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('edit_evenement', 'L\'evenement a été crée modifie succès');
+            return $this->redirectToRoute('affaire_details', array('id' => $affaire->getId()));
+
+        }
+
+        return $this->render('envenement/edit.html.twig', [
+            'controller_name' => 'EnvenementController',
+            'active' => 'affaire',
+            'envenement' => $envenement,
+            'envenementForm' => $envenementForm->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/envenement/d/{id}", name="delete_event")
+     */
+    public function deleteEvent($id,Request $request)
+    {
+        $event = $this->getDoctrine()->getManager()->getRepository(Envenement::class)->find($id);
+        if ($event != null){
+            $affaire_id = $event->getAffaire()->getId();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($event);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('delete_event', 'L\'evenement a été supprime avec succès');
+            return $this->redirectToRoute('affaire_details', array('id' => $affaire_id));
+        }else{
+            return $this->redirectToRoute('dashboard');
+        }
+
     }
 }

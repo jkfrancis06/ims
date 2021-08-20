@@ -1,66 +1,75 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Hello AffaireRapportController!{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
 
+        <link rel="stylesheet" href="{{ absolute_url(asset('/assets/bootstrap.css')) }}" />
+        <link rel="stylesheet" href="{{ absolute_url(asset('/assets/bootstrap-theme.css')) }}" />
+        <script  src="{{ absolute_url(asset('/assets/jquery.js')) }}"></script>
+        <script  src="{{ absolute_url(asset('/assets/bootstrap.js')) }}"></script>
 
-{% block stylesheets %}
+        <style>
+            body{
+                margin: 0;
+                font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+            }
+        </style>
 
-    <style>
-
-
-
-       /* body:before {
-            content: "";
-            position: absolute;
-            z-index: 9999;
-            top: 0;
-            opacity: 0.2;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background:
-                    url('{{ absolute_url(asset('/img/confidentiel.png')) }}')
-                    0 0/100% 100vh;
-        }*/
-        .break-after {
-            page-break-after: always;
-        }
-
-       secret {
-            color: black;
-            background-color: black;
-            white-space:nowrap;
-            -moz-transform: rotate(.8deg) skewx(-12deg);
-            -moz-box-shadow:3px 0 2px #444;
-            border:1px dotted #555;
-            background: -moz-linear-gradient(180deg, #000, #222);
-        }
-
-
-        secret:first-child {
-            -moz-transform: rotate(-.8deg);
-        }
-        secret:first-child + .redacted {
-            -moz-transform: rotate(3deg);
-        }
-
-        secret::-moz-selection {
-            background:#e6ff3f;
-        }
-    </style>
-
-{% endblock %}
-
-{% block javascripts %}
-    <script  src="{{ absolute_url(asset('/assets/bootstrap.js')) }}"></script>
-{% endblock %}
-
-{% block body %}
+        <style>
 
 
 
+            /* body:before {
+                 content: "";
+                 position: absolute;
+                 z-index: 9999;
+                 top: 0;
+                 opacity: 0.2;
+                 bottom: 0;
+                 left: 0;
+                 right: 0;
+                 background:
+                         url('{{ absolute_url(asset('/img/confidentiel.png')) }}')
+                        0 0/100% 100vh;
+            }*/
+            .break-after {
+                page-break-after: always;
+            }
 
-    <div class="container mt-4">
+            secret {
+                color: black;
+                background-color: black;
+                white-space:nowrap;
+                -moz-transform: rotate(.8deg) skewx(-12deg);
+                -moz-box-shadow:3px 0 2px #444;
+                border:1px dotted #555;
+                background: -moz-linear-gradient(180deg, #000, #222);
+            }
+
+
+            secret:first-child {
+                -moz-transform: rotate(-.8deg);
+            }
+            secret:first-child + .redacted {
+                -moz-transform: rotate(3deg);
+            }
+
+            secret::-moz-selection {
+                background:#e6ff3f;
+            }
+        </style>
+
+        <script  src="{{ absolute_url(asset('/assets/bootstrap.js')) }}"></script>
+
+
+
+    </head>
+    <body>
+
+
+        <div class="container mt-4">
 
 
         <div class="row break-after" style="margin-top: 4em">
@@ -137,86 +146,163 @@
 
                             <div class="row" style="padding: 10px">
 
-                                <div class="col col-xs-12 text-center text-uppercase" style="font-weight: bold">
-                                    {% if entite.role  == "Témoin" %}
-                                        Source
-                                    {% else %}
-                                        {{ entite.role }}
-                                    {% endif %}
 
+
+                                <div class="col col-xs-12 text-center text-uppercase" style="font-weight: bold">
+                                    {% if constant('ROLE_SUSPECT', entite)  == entite.role %}
+                                        Suspect
+                                    {% endif %}
+                                    {% if constant('ROLE_INTEREST', entite) == entite.role %}
+                                        personne d'interet
+                                    {% endif %}
+                                    {% if constant('ROLE_VICTIME', entite) == entite.role %}
+                                        victime
+                                    {% endif %}
+                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                        source
+                                    {% endif %}
                                 </div>
 
                                 <div class="col col-xs-8">
                                     <div class="row">
                                         <div class="col col-xs-12">
-                                            <span style="font-weight: bold">Nom: </span>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.nom }}</secret>
-                                            {% else %}
-                                                <span class="text-uppercase">{{ entite.nom }}</span>
-                                            {% endif %}
 
-                                        </div>
-
-                                        <div class="col col-xs-12" style="margin-top: 1em">
-                                            <span style="font-weight: bold">Prenoms: </span>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.prenom }}</secret>
-                                            {% else %}
-                                                <span class="text-uppercase">{{ entite.prenom }}</span>
-                                            {% endif %}
-                                        </div>
-
-                                        <div class="col col-xs-12" style="margin-top: 1em">
-                                            <span style="font-weight: bold"> Alias: </span>
-                                            {% for alias in entite.aliases %}
-                                                {% if entite.role  == "Témoin" %}
-                                                    <secret class="text-uppercase">{{ alias.alias }}</secret>
+                                            {% if entite.isPersonne() is defined %}
+                                                <span style="font-weight: bold">Nom: </span>
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.nom }}</secret>
                                                 {% else %}
-                                                    <span class="text-uppercase">{{ alias.alias }}</span>
+                                                    <span class="text-uppercase">{{ entite.nom }}</span>
                                                 {% endif %}
-                                            {% endfor %}
-                                        </div>
-
-                                        <div class="col col-xs-12" style="margin-top: 1em">
-                                            <span style="font-weight: bold">Date et lieu de naissance: </span>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }} &nbsp;&nbsp;  {{ entite.lieuNaissance }}</secret>
                                             {% else %}
-                                                <span class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }} &nbsp;&nbsp; {{ entite.lieuNaissance }}</span>
+                                                <span style="font-weight: bold">Nom: </span>
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.description }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.description }}</span>
+                                                {% endif %}
                                             {% endif %}
+
+
                                         </div>
 
+
                                         <div class="col col-xs-12" style="margin-top: 1em">
-                                            <span style="font-weight: bold">Numero de passport: </span>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.numPassport }}</secret>
+
+
+                                            {% if entite.isPersonne() is defined %}
+                                                <span style="font-weight: bold">Prenoms: </span>
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.prenom }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.prenom }}</span>
+                                                {% endif %}
                                             {% else %}
-                                                <span class="text-uppercase">{{ entite.numPassport }}</span>
+                                                <span style="font-weight: bold">Description: </span>
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.description2 }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.description2 }}</span>
+                                                {% endif %}
                                             {% endif %}
-                                        </div>
 
-                                        <div class="col col-xs-12" style="margin-top: 1em">
-                                            <span style="font-weight: bold">Numero de carte: </span>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.numCarte }}</secret>
-                                            {% else %}
-                                                <span class="text-uppercase">{{ entite.numCarte }}</span>
-                                            {% endif %}
-                                        </div>
-
-                                        <div class="col col-xs-12" style="margin-top: 1em">
-                                            <span style="font-weight: bold">Pays d'origine: </span>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.nationalite }}</secret>
-                                            {% else %}
-                                                <span class="text-uppercase">{{ entite.nationalite }}</span>
-                                            {% endif %}
                                         </div>
 
 
+                                        {% if entite.isPersonne() is defined %}
+                                            <div class="col col-xs-12" style="margin-top: 1em">
+                                                <span style="font-weight: bold"> Alias: </span>
+                                                {% for alias in entite.aliases %}
+                                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                        <secret class="text-uppercase">{{ alias.alias }}</secret>
+                                                    {% else %}
+                                                        <span class="text-uppercase">{{ alias.alias }}</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+
+
+                                        {% if entite.isPersonne() is defined %}
+                                            <div class="col col-xs-12" style="margin-top: 1em">
+                                                <span style="font-weight: bold">Date et lieu de naissance: </span>
+                                                {% if entite.dateNaissance is not null %}
+                                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                        <secret class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }}</secret>
+                                                    {% else %}
+                                                        <span class="text-uppercase">{{ entite.dateNaissance | date('d-m-Y') }}</span>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+
+                                        {% if entite.isPersonne() is defined %}
+                                            <div class="col col-xs-12" style="margin-top: 1em">
+                                                <span style="font-weight: bold">Numero de passport: </span>
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.numPassport }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.numPassport }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+
+                                        {% if entite.isPersonne() is defined %}
+                                            <div class="col col-xs-12" style="margin-top: 1em">
+                                                <span style="font-weight: bold">Numero de carte: </span>
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.numCarte }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.numCarte }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+
+                                        {% if entite.isPersonne() is defined %}
+                                            <div class="col col-xs-12" style="margin-top: 1em">
+                                                <span style="font-weight: bold">Pays d'origine: </span>
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.nationalite }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.nationalite }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+
+                                        {% if entite.isVehicule() is defined %}
+                                            {% if entite.isPersonne() is defined %}
+                                                <div class="col col-xs-12" style="margin-top: 1em">
+                                                    <span style="font-weight: bold">Immatriculation: </span>
+                                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                        <secret class="text-uppercase">{{ entite.immatriculation }}</secret>
+                                                    {% else %}
+                                                        <span class="text-uppercase">{{ entite.immatriculation }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if entite.isVehicule() is defined %}
+                                            {% if entite.isPersonne() is defined %}
+                                                <div class="col col-xs-12" style="margin-top: 1em">
+                                                    <span style="font-weight: bold">Categorie: </span>
+                                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                        <secret class="text-uppercase">{{ entite.categorie }}</secret>
+                                                    {% else %}
+                                                        <span class="text-uppercase">{{ entite.categorie }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+
+
+
                                         <div class="col col-xs-12" style="margin-top: 1em">
-                                            <span style="font-weight: bold">Description: </span>
+                                            <span style="font-weight: bold">Rapport initial: </span>
                                             <span>{{ entite.resume | raw }}</span>
 
                                         </div>
@@ -228,7 +314,21 @@
                                                 <ul>
                                                     {% for attachement in entite.attachements %}
                                                         <li>
-                                                            {{ attachement.description }}: Cf. ENT-{{ attachement.id }}{{ entite.id }}
+                                                            {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" or attachement.getExtension() == "gif" %}
+                                                                Image
+                                                            {% elseif attachement.getExtension() == "doc" or attachement.getExtension() == "docx"
+                                                                or attachement.getExtension() == "ppt" or attachement.getExtension() == "pptx"
+                                                                or attachement.getExtension() == "csv" or attachement.getExtension() == "xls" or attachement.getExtension() == "xlsx" or attachement.getExtension() == " xlsx "
+                                                                or attachement.getExtension() == "txt " or attachement.getExtension() == "pdf"%}
+                                                                Document
+                                                            {% elseif  attachement.getExtension() == "wav" or attachement.getExtension() == "mp3" %}
+                                                                Audio
+                                                            {% elseif attachement.getExtension() == "mp4" or attachement.getExtension() == "avi" or attachement.getExtension() == "mov" or attachement.getExtension() == "webw"  %}
+                                                                Video
+                                                            {% else %}
+                                                                Autre
+                                                            {% endif %}
+                                                            : Cf. ENT-{{ attachement.id }}{{ entite.id }}
                                                         </li>
                                                     {% endfor %}
                                                 </ul>
@@ -240,11 +340,7 @@
 
 
                                 <div class="col col-xs-4 text-center text-uppercase" style="font-weight: bold">
-                                    {% if entite.attachements|length > 0 %}
-                                        <img style="height: 10em;width: 10em" src="{{ absolute_url(asset('/upload/') )}}{{ entite.attachements[0].name }}" class="img-thumbnail" alt="...">
-                                    {% else %}
-                                        <img style="height: 10em;width: 10em" src="{{ absolute_url(asset('/img/user-unknown.png')) }}" class="img-thumbnail" alt="...">
-                                    {% endif %}
+                                    <img style="height: 10em;width: 10em" src="{{ absolute_url(asset('/upload/') )}}{{ entite.mainPicture }}" class="img-thumbnail" alt="...">
                                 </div>
 
 
@@ -274,15 +370,25 @@
 
                         <div class="row" style="padding: 10px">
 
+
+                            <div class="col col-xs-12">
+                                <span style="font-weight: bold">Titre: </span>
+                                <span>{{ envenement.titre }}</span>
+                            </div>
+
                             <div class="col col-xs-12">
                                 <span style="font-weight: bold">Lieu: </span>
                                 <span>{{ envenement.localisation }}</span>
                             </div>
 
+
+
                             <div class="col col-xs-12" style="margin-top: 1em">
                                 <span style="font-weight: bold">Date: </span>
                                 <span>{{ envenement.startAt | date('d-m-Y H:i:s') }}</span> &nbsp; - &nbsp;
-                                <span>{{ envenement.endAt | date('d-m-Y H:i:s') }}</span>
+                                {% if envenement.endAt is not null %}
+                                    <span>{{ envenement.endAt | date('d-m-Y H:i:s') }}</span>
+                                {% endif %}
                             </div>
 
                             <div class="col col-xs-12">
@@ -291,25 +397,35 @@
                                 <ul>
                                     {% for entite in envenement.entite %}
                                         <li>
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.nom }}</secret>
-                                            {% else %}
-                                                <span class="text-uppercase">{{ entite.nom }}</span>
-                                            {% endif %} &nbsp;
-
-                                            {% if entite.role  == "Témoin" %}
-                                                <secret class="text-uppercase">{{ entite.prenom }}</secret>
-                                            {% else %}
-                                                <span class="text-uppercase">{{ entite.prenom }}</span>
-                                            {% endif %} &nbsp;
-
-                                            {% for alias in entite.aliases %}
-                                                {% if entite.role  == "Témoin" %}
-                                                    <secret class="text-uppercase">{{ alias.alias }}</secret>
+                                            {% if entite.isPersonne() is defined %}
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.nom }}</secret>
                                                 {% else %}
-                                                    <span class="text-uppercase">{{ alias.alias }}</span>
-                                                {% endif %}
-                                            {% endfor %}
+                                                    <span class="text-uppercase">{{ entite.nom }}</span>
+                                                {% endif %} &nbsp;
+
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.prenom }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.prenom }}</span>
+                                                {% endif %} &nbsp;
+
+                                                {% for alias in entite.aliases %}
+                                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                        <secret class="text-uppercase">{{ alias.alias }}</secret>
+                                                    {% else %}
+                                                        <span class="text-uppercase">{{ alias.alias }}</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                                    <secret class="text-uppercase">{{ entite.description }}</secret> &nbsp; <secret class="text-uppercase">{{ entite.description2 }}</secret>
+                                                {% else %}
+                                                    <span class="text-uppercase">{{ entite.description }}</span> &nbsp; <secret class="text-uppercase">{{ entite.description2 }}</secret>
+                                                {% endif %} &nbsp;
+
+                                            {% endif %}
+
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -322,13 +438,28 @@
                                 <span>{{ envenement.resume | raw }}</span>
                             </div>
 
-                            {% if envenement.preuves|length > 0 %}
+                            {% if envenement.attachements|length > 0 %}
                                 <div class="col col-xs-12" style="margin-top: 1em">
                                     <span style="font-weight: bold">Pieces jointes: </span>
                                     <ul>
-                                        {% for attachement in envenement.preuves %}
+                                        {% for attachement in envenement.attachements %}
                                             <li>
 
+
+                                                {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" or attachement.getExtension() == "gif" %}
+                                                    Image
+                                                {% elseif attachement.getExtension() == "doc" or attachement.getExtension() == "docx"
+                                                    or attachement.getExtension() == "ppt" or attachement.getExtension() == "pptx"
+                                                    or attachement.getExtension() == "csv" or attachement.getExtension() == "xls" or attachement.getExtension() == "xlsx" or attachement.getExtension() == " xlsx "
+                                                    or attachement.getExtension() == "txt " or attachement.getExtension() == "pdf"%}
+                                                    Document
+                                                {% elseif  attachement.getExtension() == "wav" or attachement.getExtension() == "mp3" %}
+                                                    Audio
+                                                {% elseif attachement.getExtension() == "mp4" or attachement.getExtension() == "avi" or attachement.getExtension() == "mov" or attachement.getExtension() == "webw"  %}
+                                                    Video
+                                                {% else %}
+                                                    Autre
+                                                {% endif %} :
                                                 Cf. ENV-{{ attachement.id }}{{ envenement.id }}
                                             </li>
                                         {% endfor %}
@@ -360,9 +491,28 @@
 
                 {% if entite.attachements|length > 0 %}
                     {% for attachement in entite.attachements %}
-                        {% if attachement.description == "Image" %}
+                        {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
                             <div style=" page-break-after: always;">
                                 <h3>ENT-{{ attachement.id }}{{ entite.id }}</h3>
+                                <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="...">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+
+
+            {% endfor %}
+
+
+            {% for event in affaire.envenements %}
+
+
+                {% if event.attachements|length > 0 %}
+                    {% for attachement in event.attachements %}
+                        {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
+                            <div style=" page-break-after: always;">
+                                <h3>ENV-{{ attachement.id }}{{ event.id }}</h3>
                                 <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="...">
                             </div>
                         {% endif %}
@@ -380,5 +530,9 @@
 
     </div>
 
+    </body>
+</html>
 
-{% endblock %}
+
+
+

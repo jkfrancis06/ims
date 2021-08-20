@@ -110,6 +110,7 @@ class AffaireUtilisateur
 
     public function __construct(){
         $this->createdAt = new \DateTime();
+        $this->isRevoked = false;
     }
 
     public function getId(): ?int

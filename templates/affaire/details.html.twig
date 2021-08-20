@@ -50,6 +50,7 @@
 
     <div style="margin-top: 1em; ">
 
+        <!-- entite -->
 
         {% if entite is not null %}
 
@@ -225,7 +226,7 @@
                                                 </td>
                                             </tr>
 
-                                            {% if entite.isPersonne() is defined %}
+                                            {% if entite.isVehicule() is defined %}
                                                 <tr>
                                                     <td>
                                                         <span class="font-weight-bold">Categorie  : </span>
@@ -248,6 +249,15 @@
 
 
                                         {% endif %}
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Resume  : </span>
+                                            </td>
+                                            <td>
+                                                {{ entite.resume | raw }}
+                                            </td>
+                                        </tr>
 
                                     </table>
 
@@ -327,6 +337,221 @@
         {% endif %}
 
 
+
+
+        <!-- envenement -->
+
+        {% if envenement is not null %}
+
+            <!-- Modal entite -->
+            <div class="modal fade" id="envenementModal" tabindex="-1" role="dialog" aria-labelledby="envenementModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+                <div class="modal-dialog modal-lg modal-notify modal-info modal-dialog-scrollable" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <p class="heading lead">Evenement</p>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">×</span>
+                            </button>
+                        </div>
+
+                        <!--Body-->
+                        <div class="modal-body">
+
+                            <div class="">
+                                <!-- <i class="fas fa-window-close fa-4x mb-3 animated rotateIn"></i> -->
+
+                                <div>
+                                    <table class="table table-bordered text-left display">
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Type : </span>
+                                            </td>
+                                            <td class="text-uppercase">
+                                                {% if envenement.typeEvenement == constant('EVENT_PER', envenement)  %}
+                                                    <span class="font-weight-bold">perquisition</span>
+                                                {% endif %}
+
+                                                {% if envenement.typeEvenement == constant('EVENT_AUD', envenement)  %}
+                                                    <span class="font-weight-bold">audition</span>
+                                                {% endif %}
+
+                                                {% if envenement.typeEvenement == constant('EVENT_FIL', envenement)  %}
+                                                    <span class="font-weight-bold">filature</span>
+                                                {% endif %}
+
+                                                {% if envenement.typeEvenement == constant('EVENT_OTHER', envenement)  %}
+                                                    <span class="font-weight-bold">autre</span>
+                                                {% endif %}
+
+                                                {% if envenement.typeEvenement == constant('EVENT_INFIL', envenement)  %}
+                                                    <span class="font-weight-bold">infiltration</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Titre : </span>
+                                            </td>
+                                            <td>
+                                                {{ envenement.titre }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Lieu : </span>
+                                            </td>
+                                            <td>
+                                                {{ envenement.localisation }}
+                                            </td>
+                                        </tr>
+
+                                        {% if envenement.geoLocalisation is not null %}
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold">Coodonees  : </span>
+                                                </td>
+                                                <td>
+                                                    {{ envenement.geoLocalisation }}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Dates : </span>
+                                            </td>
+                                            <td>
+                                                {{ envenement.startAt|date('d-m-Y H:i:s') }}
+                                                {% if envenement.endAt is not null %}
+                                                    au &nbsp; {{ envenement.endAt|date('d-m-Y H:i:s') }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Entites : </span>
+                                            </td>
+                                            <td>
+
+                                                <ul class="list-group">
+                                                    {% for entite in envenement.entite %}
+                                                        <li class="list-group-item">
+                                                            <a href="{{ path('affaire_details_entite', {id: affaire.id, entite_id: entite.id }) }}" style="text-decoration: none">
+                                                                <span class="text-uppercase">{{ entite.description }}</span>&nbsp;<span class="text-uppercase">{{ entite.description2 }}</span>
+                                                            </a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Agents : </span>
+                                            </td>
+                                            <td>
+
+                                                <ul class="list-group">
+                                                    {% for utilisateur in envenement.utilisateur %}
+                                                        <li class="list-group-item disabled">
+                                                            <span class="text-uppercase">{{ utilisateur.nom }}</span>&nbsp;<span class="text-uppercase">{{ utilisateur.prenom }}</span>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">Resume : </span>
+                                            </td>
+                                            <td>
+                                                {{ envenement.resume | raw }}
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <table class="table table-bordered text-center">
+                                    <!-- Table head -->
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Nom
+                                        </th>
+                                        <th>
+                                            Type
+                                        </th>
+                                        <th>
+                                            Taille
+                                        </th>
+                                        <th>
+                                            Actions
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <!-- Table head -->
+
+                                    <!-- Table body -->
+                                    <tbody>
+                                    {% if envenement is not null %}
+                                        {% for file in envenement.attachements %}
+                                            <tr>
+                                                <th class="font-weight-bold">
+                                                    {{ file.name }}
+                                                </th>
+                                                <td class="text-center">
+                                                    {{ file.getThumbnail()| raw}}
+                                                </td>
+                                                <td>
+                                                    {{ file.getFileSize() }}
+                                                </td>
+                                                <td>
+                                                    <a download href="{{ asset('/upload/') }}{{ file.name }}" class="btn btn-outline-deep-purple">
+                                                        <i style="color: inherit" class="fas fa-file-download"></i>
+                                                        <span class="font-weight-bold">Telecharger</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    </tbody>
+                                    <!-- Table body -->
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Fermer</a>
+                        </div>
+                    </div>
+                    <!--Content-->
+                </div>
+            </div>
+            <!-- Modal entite -->
+
+        {% endif %}
+
+
         {% for message in app.session.flashbag.get('create_personne') %}
 
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -369,6 +594,29 @@
                 </button>
             </div>
         {% endfor %}
+
+
+        {% for message in app.session.flashbag.get('delete_event') %}
+
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
+
+        {% for message in app.session.flashbag.get('create_evenement') %}
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
 
 
 
@@ -549,7 +797,7 @@
 
 
 
-                               <table id="dtMaterialDesignExample" class="table text-left display" >
+                               <table id="dtMaterialDesignExample" class="table table-bordered table-striped text-left display" >
                                    <thead>
                                    <tr>
                                        <th class="th-sm">
@@ -622,7 +870,7 @@
                                                        {% set type = 3 %}
                                                    {% endif %}
 
-                                                   <a href="{{ path('affaire_details', {id: affaire.id, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-primary">
+                                                   <a href="{{ path('affaire_details_entite', {id: affaire.id, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-primary">
                                                        <i class="fa fa-eye"></i>
                                                    </a>
                                                    <a href="{{ path('update_entite', {id: affaire.id, type: type, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-deep-purple">
@@ -654,83 +902,136 @@
 
 
 
-                    <div class="row" style="margin-top: 1em">
+                    <div class="col col-12" style="margin-top: 1em">
 
-                        <div class="col col-12">
-                            <div class="card card-cascade">
-                                <div class="view view-cascade gradient-card-header blue-gradient">
+                        <div class="card card-cascade">
+                            <div class="view view-cascade gradient-card-header blue-gradient">
 
-                                    <h2 class="card-subtitle mb-3">Evenements</h2>
+                                <h2 class="card-subtitle mb-3">Evenements</h2>
 
-                                </div>
-                                <!-- Card content -->
-                                <div class="card-body card-body-cascade">
-
-
-
-                                    <div class="dropdown">
-
-                                        <!--Trigger-->
-                                        <a href="{{ path('envenement_create',{'id': affaire.id}) }}" class="btn btn-outline-primary" type="button">Ajouter un evenement</a>
-
-                                    </div>
-
-
-
-                                    <table id="dtMaterialDesignExample" class="table text-left display" >
-                                        <thead>
-                                        <tr>
-                                            <th class="th-sm">
-                                                Type
-                                            </th>
-                                            <th class="th-sm">
-                                                Titre
-                                            </th>
-                                            <th class="th-sm">
-                                                Dates
-                                            </th>
-                                            <th class="th-sm">
-                                                Localisation
-                                            </th>
-                                            <th class="th-sm">
-                                                Action
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for entite in affaire.envenements %}
-                                            <tr>
-                                                <td class="text-center">
-                                                </td>
-                                                <td class="text-uppercase"></td>
-
-                                                <td class="text-uppercase">
-                                                </td>
-
-                                                <td class="text-reset  ">
-                                                </td>
-
-                                                <td>
-                                                </td>
-
-                                            </tr>
-                                        {% endfor %}
-
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
-                        </div>
+                            <!-- Card content -->
+                            <div class="card-body card-body-cascade">
+
+                                <div class="dropdown">
+
+                                    <!--Trigger-->
+                                    <a href="{{ path('envenement_create',{'id': affaire.id}) }}" class="btn btn-outline-primary" type="button">Ajouter un evenement</a>
+
+                                </div>
+
+
+
+                                <table id="dtMaterialDesignExample" class="table text-left table-bordered table-striped display" >
+                                    <thead>
+                                    <tr>
+                                        <th class="th-sm">
+                                            Type
+                                        </th>
+                                        <th class="th-sm">
+                                            Titre
+                                        </th>
+                                        <th class="th-sm">
+                                            Entites
+                                        </th>
+                                        <th class="th-sm">
+                                            Dates
+                                        </th>
+                                        <th class="th-sm">
+                                            Localisation
+                                        </th>
+                                        <th class="th-sm">
+                                            Action
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for event in affaire.envenements %}
+                                        <tr>
+                                            <td class="text-center text-uppercase">
+                                                {% if event.typeEvenement == constant('EVENT_PER', event)  %}
+                                                    <span class="font-weight-bold">perquisition</span>
+                                                {% endif %}
+
+                                                {% if event.typeEvenement == constant('EVENT_AUD', event)  %}
+                                                    <span class="font-weight-bold">audition</span>
+                                                {% endif %}
+
+                                                {% if event.typeEvenement == constant('EVENT_FIL', event)  %}
+                                                    <span class="font-weight-bold">filature</span>
+                                                {% endif %}
+
+                                                {% if event.typeEvenement == constant('EVENT_OTHER', event)  %}
+                                                    <span class="font-weight-bold">autre</span>
+                                                {% endif %}
+
+                                                {% if event.typeEvenement == constant('EVENT_INFIL', event)  %}
+                                                    <span class="font-weight-bold">infiltration</span>
+                                                {% endif %}
+                                            </td>
+
+                                            <td class="text-uppercase">
+                                                {{ event.titre }}
+                                            </td>
+
+                                            <td>
+
+                                                <ul class="list-group">
+                                                    {% for entite in event.entite %}
+                                                        <li class="list-group-item">
+                                                            <a href="{{ path('affaire_details_entite', {id: affaire.id, entite_id: entite.id }) }}" style="text-decoration: none">
+                                                                <span class="text-uppercase">{{ entite.description }}</span>&nbsp;<span class="text-uppercase">{{ entite.description2 }}</span>
+                                                            </a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+
+                                            </td>
+
+                                            <td >
+                                                Du &nbsp; {{ event.startAt|date('d-m-Y H:i:s') }}
+                                                {% if event.endAt is not null %}
+                                                    au &nbsp; {{ event.endAt|date('d-m-Y H:i:s') }}
+                                                {% endif %}
+                                            </td>
+
+                                            <td class="text-reset  ">
+                                                {{ event.localisation }}
+                                            </td>
+
+                                            <td>
+                                                <a  href="{{ path('affaire_details_event', {id: affaire.id, event_id: event.id }) }}" class="btn-floating btn-sm btn-primary">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="{{ path('envenement_edit',{id: affaire.id , event_id: event.id }) }}" class="btn-floating btn-sm btn-deep-purple">
+                                                    <i class="fa fa-pen">
+                                                    </i>
+                                                </a>
+                                                <a href="{{ path('delete_event', {id: event.id }) }}" class="btn-floating btn-sm btn-danger" onclick="return confirm('Voulez vous vraiment supprimer cet evenement ?')">
+                                                    <i  class="fa fa-trash" ></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
 
                     </div>
 
                 </div>
             </div>
+            </div>
             <!-- Tab Evenement -->
 
             <!-- Tab Rapport -->
             <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
-                <div class="row" style="margin-top: 1em">
+                <div class="row" style="margin-top: 1em; margin-left: 2em">
+                    <a download  href="{{ path('affaire_rapport',{id:affaire.id}) }}" type="button" class="btn btn-outline-primary waves-effect">
+                        <i style="color: inherit" class="fa fa-cloud-download-alt"></i> Telecharger le rapport de dossier
+                    </a>
                 </div>
             </div>
             <!-- Tab Rapport -->
@@ -756,10 +1057,23 @@
                 {% if entite is not null %}
 
                 $('#entiteModal').modal('show');
+                $('#envenementModal').modal('hide');
+
+                {% endif %}
+
+                {% if envenement is not null %}
+
+                $('#entiteModal').modal('hide');
+                $('#envenementModal').modal('show');
+
 
                 {% endif %}
 
                 $('#entiteModal').on('hidden.bs.modal', function (event) {
+                    window.location = "{{ path('affaire_details', {id: affaire.id }) }}"
+                })
+
+                $('#envenementModal').on('hidden.bs.modal', function (event) {
                     window.location = "{{ path('affaire_details', {id: affaire.id }) }}"
                 })
 
