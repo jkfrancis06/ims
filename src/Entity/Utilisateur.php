@@ -15,6 +15,10 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use App\Validator as AppAssert;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
+
+
 
 
 
@@ -55,6 +59,7 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
  * )
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
  * @UniqueEntity(fields={"username"}, message="Cet utilisateur existe déjà !!")
+ *
  */
 class Utilisateur implements UserInterface
 {
@@ -108,17 +113,20 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @RollerworksPassword\PasswordStrength(minLength=7, minStrength=3)
      */
     private $password;
 
     /**
      * @SerializedName("password")
-     * @Groups({"utilisateur:read","utilisateur:write"})
+     * @Groups({"change-pass"})
+     * @RollerworksPassword\PasswordStrength(minLength=6, minStrength=1)
+     * @RollerworksPassword\PasswordRequirements(requireLetters=true, requireNumbers=true, requireCaseDiff=true)
      */
     private $plainPassword;
 
     /**
-     * @Groups({"put-reset-password:write", "put-reset-password:read"})
+     * @Groups({"change-pass"})
      * @Assert\NotBlank(groups={"put-reset-password"})
      * @SecurityAssert\UserPassword(
      *     message = "Wrong value for your current password",
@@ -164,7 +172,7 @@ class Utilisateur implements UserInterface
 
     /**
      * @MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="utilisateurs",cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="utilisateurs",cascade={"persist"})
      * @Groups({"envenement:read","utilisateur:read","utilisateur:write","affaire:read","canConsult:read","affaireDirected:read"})
      */
     private $departement;
@@ -668,9 +676,39 @@ s    */
         return $this;
     }
 
+    public function hasRoleAdmin()
+    {
+        return $this->hasRole('ROLE_ADMIN');
+    }
+
+    public function setHasRoleAdmin($isAdmin)
+    {
+        if (true == $isAdmin && false == $this->hasRole('ROLE_ADMIN')) {
+            array_push($this->roles,'ROLE_ADMIN');
+
+        }
+        if (false == $isAdmin && true == $this->hasRole('ROLE_ADMIN')) {
+            unset($this->roles[array_search('ROLE_ADMIN', $this->roles)]);
+            $this->roles = array_values($this->roles);
+
+        }
+    }
+
+
+    public function hasRole($string){
+        return in_array($string, $this->roles);
+    }
 
     public function __toString()
     {
         return $this->nom .' '. $this->prenom;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->nom.' '.$this->prenom,
+        ];
     }
 }

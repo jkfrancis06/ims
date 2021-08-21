@@ -122,7 +122,7 @@ class Affaire
 
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=true)
      * @Groups({"affaire:read", "affaire:write", "departement:read","utilisateur:read", "entite:read","canConsult:read","affaireDirected:read"})
      */
     private $createdAt;

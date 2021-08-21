@@ -14,32 +14,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/packages/easy_admin.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/Model/AffaireUtilisateurController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/affaire/create.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/envenement/edit.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EnvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EnvenementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/translation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/translation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AdminDashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AdminDashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AffaireCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AffaireCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AffaireDirectedCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AffaireDirectedCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AffaireUtilisateurCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AffaireUtilisateurCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/CanConsultCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/CanConsultCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DepartementCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DepartementCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UtilisateurCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/UtilisateurCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UploadController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Affaire.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Affaire.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Envenement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Envenement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/DepartementDirector.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/DepartementDirector.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/EnvenementType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EnvenementType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UtilisateurRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UtilisateurRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/CanConsultExistValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Validator/CanConsultExistValidator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entite/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,6 +209,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/uid" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
       <path value="$PROJECT_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
+      <path value="$PROJECT_DIR$/vendor/rollerworks/password-strength-validator" />
     </include_path>
   </component>
   <component name="ProjectId" id="1sZj2jYbXPenDlDt4S1Dz1etHDi" />
@@ -289,7 +287,8 @@
       <workItem from="1629375855655" duration="827000" />
       <workItem from="1629378532282" duration="2500000" />
       <workItem from="1629383728044" duration="10489000" />
-      <workItem from="1629441478588" duration="1024000" />
+      <workItem from="1629441478588" duration="10758000" />
+      <workItem from="1629529644831" duration="16998000" />
     </task>
     <servers />
   </component>

@@ -249,6 +249,9 @@
     "ramsey/uuid": {
         "version": "4.1.1"
     },
+    "rollerworks/password-strength-validator": {
+        "version": "v1.5.1"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {

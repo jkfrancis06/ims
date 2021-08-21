@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\User;
 
-use App\Entity\Affaire;
 use App\Entity\Departement;
-use App\Entity\DepartementDirector;
 use App\Entity\Utilisateur;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
@@ -26,13 +25,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
-use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 
 class UtilisateurCrudController extends AbstractCrudController
 {
@@ -57,9 +56,8 @@ class UtilisateurCrudController extends AbstractCrudController
     {
 
         return $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
-            ->remove(Crud::PAGE_DETAIL, Action::DELETE)
+            ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE)
             ->setPermission(Action::EDIT, 'ROLE_USER')
             ;
     }
@@ -85,23 +83,23 @@ class UtilisateurCrudController extends AbstractCrudController
 
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('nom'),
-            TextField::new('prenom'),
-            NumberField::new('niveauAccreditation'),
+            TextField::new('nom')->hideOnForm(),
+            TextField::new('prenom')->hideOnForm(),
+            NumberField::new('niveauAccreditation')->hideOnForm(),
             TextField::new('numeroMatricule')->hideOnForm(),
             TextField::new('username'),
-            TextField::new('plainPassword')->onlyOnForms()->setFormType(RepeatedType::class) ->setFormTypeOptions([
+            TextField::new('plainPassword')->onlyOnForms()->setFormType(RepeatedType::class)->setFormTypeOptions([
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Mot de passe:'],
+                'first_options' => ['label' => 'Nouveau Mot de passe:'],
                 'second_options' => ['label' => 'Confirmer mot de passe:'],
                 'first_name' => 'first_password',
                 'second_name' => 'second_password',
             ])
                 ->setRequired($pageName == Crud::PAGE_NEW),
-            BooleanField::new('isActive'),
-            BooleanField::new('isDeleted'),
-            ArrayField::new('roles'),
-            AssociationField::new('departement')->setFormTypeOptions(["choices" => $dep]),
+            BooleanField::new('isActive')->hideOnForm(),
+            BooleanField::new('isDeleted')->hideOnForm(),
+            ArrayField::new('roles')->hideOnForm(),
+            AssociationField::new('departement')->setFormTypeOptions(["choices" => $dep])->hideOnForm(),
         ];
     }
 
@@ -176,6 +174,18 @@ class UtilisateurCrudController extends AbstractCrudController
             $qb->setParameter('dep', $this->getUser()->getDepartement());
         }
         return $qb;
+    }
+
+
+    public function edit(AdminContext $context)
+    {
+        $response = parent::edit($context);
+
+        if ($response instanceof RedirectResponse) {
+            return $this->redirectToRoute('app_logout');
+        }
+
+        return $response;
     }
 
 }

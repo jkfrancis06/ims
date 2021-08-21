@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\DepartementDirectorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator as AppAssert;
+
 
 /**
  * @ORM\Entity(repositoryClass=DepartementDirectorRepository::class)
+ * @AppAssert\DepartementDirector()
  */
 class DepartementDirector
 {

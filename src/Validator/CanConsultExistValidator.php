@@ -27,7 +27,8 @@ class CanConsultExistValidator extends ConstraintValidator
 
         $exist = $this->entityManager->getRepository(CanConsult::class)->findBy([
             'affaire' => $canConsult->getAffaire(),
-            'utilisateur' => $canConsult->getUtilisateur()
+            'utilisateur' => $canConsult->getUtilisateur(),
+            'statut' => CanConsult::CONSULT_VALID
         ]);
 
         if ($exist != null) {

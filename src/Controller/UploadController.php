@@ -58,6 +58,16 @@ class UploadController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
 
     /**
+     * @Route("/pe")
+     *
+     */
+
+    public function tt(Request $request){
+        $var = $this->getDoctrine()->getManager()->getRepository(Utilisateur::class)->findByExampleField($this->getUser()->getDepartement());
+        return new Response(count($var));
+    }
+
+    /**
      * @Route("/personne-file/upload")
      *
      */

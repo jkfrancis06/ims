@@ -24,7 +24,8 @@ class AdminDashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        return $this->render('admin/dashboard.html.twig', [
+        ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -53,17 +54,20 @@ class AdminDashboardController extends AbstractDashboardController
             // by default, all backend URLs are generated as absolute URLs. If you
             // need to generate relative URLs instead, call this method
             ->generateRelativeUrls()
+
+            ->setTranslationDomain('fr');
+
             ;
     }
 
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::linkToDashboard('Dashboard', 'fa fa-home')->setPermission('ROLE_SUPER_ADMIN'),
 
             MenuItem::section('Departement'),
-            MenuItem::linkToCrud('Departement', 'fa fa-building', Departement::class),
-            MenuItem::linkToCrud('Chefs departement', 'fa fa-house-user', DepartementDirector::class),
+            MenuItem::linkToCrud('Departement', 'fa fa-building', Departement::class)->setPermission('ROLE_SUPER_ADMIN'),
+            MenuItem::linkToCrud('Chefs departement', 'fa fa-house-user', DepartementDirector::class)->setPermission('ROLE_SUPER_ADMIN'),
 
             MenuItem::section('Affaire'),
             MenuItem::linkToCrud('Affaire', 'fa fa-folder-open', Affaire::class),
@@ -72,8 +76,8 @@ class AdminDashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Gestion des consultants', 'fa fa-address-book', CanConsult::class),
 
 
-            MenuItem::section('Utilisateur'),
-            MenuItem::linkToCrud('Gestion des utilisateurs', 'fa fa-users', Utilisateur::class),
+            MenuItem::section('Utilisateur')->setPermission('ROLE_SUPER_ADMIN'),
+            MenuItem::linkToCrud('Gestion des utilisateurs', 'fa fa-users', Utilisateur::class)->setPermission('ROLE_SUPER_ADMIN'),
 
         ];
 

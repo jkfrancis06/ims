@@ -30,7 +30,14 @@ class DepartementCrudController extends AbstractCrudController
             AssociationField::new('utilisateurs')
                 ->setFormTypeOptions([
                     'by_reference' => false,
-                ]),
+                ])
+                ->formatValue(function ($value, $entity) {
+                    $str = $entity->getUtilisateurs()[0];
+                    for ($i = 1; $i < sizeof($entity->getUtilisateurs()); $i++) {
+                        $str = $str . ", " . $entity->getUtilisateurs()[$i];
+                    }
+                    return $str;
+                }),
         ];
     }
 
