@@ -8,6 +8,7 @@ use App\Entity\Personne;
 use App\Entity\Unite;
 use App\Entity\Utilisateur;
 use App\Entity\Vehicule;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -126,10 +127,25 @@ class EnvenementType extends AbstractType
                 },
                 'by_reference' => false
             ])
-            ->add('resume',TextType::class, [
-                'label' => 'Resume : ',
+            ->add('resume', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                    'language' => 'fr',
+                    'input_sync' => true,
+                    'extraPlugins' => 'wordcount',
+                ),
+                'plugins' => array(
+                    'wordcount' => array(
+                        'path'     => '/assets/wordcount/', // with trailing slash
+                        'filename' => 'plugin.js',
+                    ),
+                ),
                 'required' => true,
-            ])
+                'constraints' => [
+                    new NotBlank()
+                ]
+
+            ))
 
             ->add('attachements', FileType::class, [
                 'label' => 'Choisir un fichier',

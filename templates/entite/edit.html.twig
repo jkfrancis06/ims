@@ -186,7 +186,7 @@
                 </div>
 
 
-                <div class="col col-5 mt-4" style="display: none">
+                <div class="col col-10 mt-4">
                     <div class="mb-3">
                         {{ form_widget(personneForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
@@ -196,12 +196,6 @@
                 </div>
 
 
-
-
-                <div class="col col-12 mb-3">
-                    <div id="personne_editor" style="color: inherit">
-                    </div>
-                </div>
 
 
                 <div style="margin-top: 5em" class="col col-12">
@@ -436,9 +430,9 @@
                 </div>
 
 
-                <div class="col col-5 mt-4" style="display: none">
+                <div class="col col-10 mt-4">
                     <div class="mb-3">
-                        {{ form_widget(vehiculeForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(vehiculeForm.resume, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(vehiculeForm.resume) }}
                         </div>
@@ -594,9 +588,9 @@
                 </div>
 
 
-                <div class="col col-5 mt-4" style="display: none">
+                <div class="col col-10 mt-4">
                     <div class="mb-3">
-                        {{ form_widget(organisationForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(organisationForm.resume, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(organisationForm.resume) }}
                         </div>

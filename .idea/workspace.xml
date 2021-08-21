@@ -14,29 +14,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/css/wordcount.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/en.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/ka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/no.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/pt-br.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/zh-cn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/lang/zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/plugin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/samples/maxParagraphs.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/samples/wordcount.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/wordcount/samples/wordcountWithMaxCount.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/translation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/translation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AdminDashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AdminDashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AffaireCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AffaireCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AffaireDirectedCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AffaireDirectedCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/AffaireUtilisateurCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/AffaireUtilisateurCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/CanConsultCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/CanConsultCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DepartementCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DepartementCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UtilisateurCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/UtilisateurCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UploadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Affaire.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Affaire.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/DepartementDirector.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/DepartementDirector.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UtilisateurRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UtilisateurRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Validator/CanConsultExistValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Validator/CanConsultExistValidator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/AffaireType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/AffaireType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/EnvenementType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EnvenementType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/OrganisationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/OrganisationType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PersonneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PersonneType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/VehiculeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/VehiculeType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entite/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entite/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +246,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/affaire" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -236,11 +261,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets" />
       <recent name="$PROJECT_DIR$/templates/affaire" />
       <recent name="$PROJECT_DIR$/templates/envenement" />
       <recent name="$PROJECT_DIR$/public/assets/js/custom" />
       <recent name="$PROJECT_DIR$/templates/entite" />
-      <recent name="$PROJECT_DIR$/public/assets/js/fileinput/theme" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -288,7 +313,7 @@
       <workItem from="1629378532282" duration="2500000" />
       <workItem from="1629383728044" duration="10489000" />
       <workItem from="1629441478588" duration="10758000" />
-      <workItem from="1629529644831" duration="16998000" />
+      <workItem from="1629529644831" duration="19836000" />
     </task>
     <servers />
   </component>

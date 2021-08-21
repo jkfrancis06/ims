@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Entites;
 use App\Entity\Organisation;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -75,10 +76,25 @@ class OrganisationType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('resume',TextType::class, [
-                'label' => 'Resume : ',
-                'required' => false,
-            ])
+            ->add('resume', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                    'language' => 'fr',
+                    'input_sync' => true,
+                    'extraPlugins' => 'wordcount',
+                ),
+                'plugins' => array(
+                    'wordcount' => array(
+                        'path'     => '/assets/wordcount/', // with trailing slash
+                        'filename' => 'plugin.js',
+                    ),
+                ),
+                'required' => true,
+                'constraints' => [
+                    new NotBlank()
+                ]
+
+            ))
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('cancel', ResetType::class, ['label' => 'Annuler'])
         ;

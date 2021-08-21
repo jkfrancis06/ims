@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Affaire;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -47,6 +48,25 @@ class AffaireType extends AbstractType
             ->add('resume',TextType::class, [
                 'label' => 'Titre : ',
             ])
+            ->add('resume', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                    'language' => 'fr',
+                    'input_sync' => true,
+                    'extraPlugins' => 'wordcount',
+                ),
+                'plugins' => array(
+                    'wordcount' => array(
+                        'path'     => '/assets/wordcount/', // with trailing slash
+                        'filename' => 'plugin.js',
+                    ),
+                ),
+                'required' => true,
+                'constraints' => [
+                    new NotBlank()
+                ]
+
+            ))
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('cancel', ResetType::class, ['label' => 'Annuler'])
         ;

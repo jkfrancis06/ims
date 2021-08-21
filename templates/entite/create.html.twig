@@ -186,9 +186,9 @@
                 </div>
 
 
-                <div class="col col-5 mt-4" style="display: none">
+                <div class="col col-10 mt-4">
                     <div class="mb-3">
-                        {{ form_widget(personneForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(personneForm.resume, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(personneForm.resume) }}
                         </div>
@@ -198,13 +198,7 @@
 
 
 
-                <div class="col col-12 mb-3">
-                    <div id="personne_editor" style="color: inherit">
-                    </div>
-                </div>
-
-
-                <div style="margin-top: 5em" class="col col-12">
+                <div style="margin-top: 2em" class="col col-12">
                     <div class="row">
                         <div class="col col-5">
                             <div class="mb-3">
@@ -441,9 +435,9 @@
                 </div>
 
 
-                <div class="col col-5 mt-4" style="display: none">
+                <div class="col col-10 mt-4">
                     <div class="mb-3">
-                        {{ form_widget(vehiculeForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(vehiculeForm.resume, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(vehiculeForm.resume) }}
                         </div>
@@ -599,9 +593,9 @@
                 </div>
 
 
-                <div class="col col-5 mt-4" style="display: none">
+                <div class="col col-10 mt-4">
                     <div class="mb-3">
-                        {{ form_widget(organisationForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(organisationForm.resume, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(organisationForm.resume) }}
                         </div>
@@ -693,139 +687,6 @@
 
 
             $(document).ready(function () {
-                //parse data of editor in form
-
-
-                $("#personne_submit").on("click",function(){
-                    $("#resume").val($("#personne_editor .ql-editor").html());
-                    console.log( $("#resume").val())
-
-                })
-
-                $("#vehicule_submit").on("click",function(){
-                    $("#resume").val($("#personne_editor .ql-editor").html());
-                    console.log( $("#resume").val())
-
-                })
-
-
-                $("#organisation_submit").on("click",function(){
-                    $("#resume").val($("#personne_editor .ql-editor").html());
-                    console.log( $("#resume").val())
-
-                })
-
-
-                // Quill
-
-                var quill = new Quill('#personne_editor', {
-                    modules: {
-                        toolbar: [
-                            [{ header: [1, 2, false] }],
-                            ['bold', 'italic', 'underline'],
-                            ['image', 'code-block']
-                        ]
-                    },
-                    placeholder: 'Compose an epic...',
-                    theme: 'snow' // or 'bubble'
-                });
-
-
-                // Add a custom DropDown Menu to the Quill Editor's toolbar:
-
-                var entiteObj = [
-                    {% for entite in entites  %}
-                        {
-                            id : '{{ entite.id }}',
-                            nom : '{{ entite.description }}',
-                            prenoms : '{{ entite.description2 }}',
-                            aliases : [
-                                {% if entite.aliases is defined   %}
-                                    {% for alias in entite.aliases %}
-                                        '{{ alias.alias }}'
-                                    {% endfor %}
-                                {% endif %}
-                            ]
-                        },
-                    {% endfor %}
-                ];
-
-                console.log(entiteObj)
-
-                const dropDownItems = {
-
-                    {% for entite in entites  %}
-                        {% if entite.aliases is defined   %}
-                            '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}': '{{ entite.id }}',
-                        {% else %}
-                            '{{ entite.description }} {{ entite.description2 }}': '{{ entite.id }}',
-                        {% endif %}
-                    {% endfor %}
-
-                }
-
-                const myDropDown = new QuillToolbarDropDown({
-                    label: "Email Addresses",
-                    rememberSelection: false
-                })
-
-                myDropDown.setItems(dropDownItems)
-
-                myDropDown.onSelect = function(label, value, quill) {
-
-                    var range = quill.getSelection();
-
-                    var text = '';
-                    var tag = '';
-
-
-                    for (var i = 0; i<entiteObj.length; i++){
-                        if(entiteObj[i].id === value){
-                            if (entiteObj[i].nom === '' && entiteObj[i].prenoms === ''){
-                                text = entiteObj[i].aliases[0]
-                            }else {
-                                text = entiteObj[i].nom+' '+entiteObj[i].prenoms
-                            }
-                            tag = 'ent-'+entiteObj[i].id
-                            break;
-                        }
-                    }
-
-                    if (range == null) {
-                        register(text,tag)
-                        quill.insertEmbed(0, 'hashtag',value);
-                    }else {
-                        register()
-                        quill.insertEmbed(range.index, 'hashtag',value);
-                    }
-
-
-                    const { index, length } = quill.selection.savedRange
-                    quill.setSelection(index + value.length)
-                }
-
-                myDropDown.attach(quill)
-
-
-                function register(text,tag){
-
-                    var Embed = Quill.import('blots/embed');
-                    class QuillHashtag extends Embed {
-                        static create(value) {
-                            let node = super.create(value);
-                            node.innerHTML = `<span contenteditable=false>${text}</span>`;
-                            return node;
-                        }
-                    }
-                    QuillHashtag.blotName = 'hashtag';
-                    QuillHashtag.className = 'quill-hashtag';
-                    QuillHashtag.tagName = 'span';
-
-                    Quill.register({
-                        'formats/hashtag': QuillHashtag
-                    });
-                }
-
             })
 
         </script>

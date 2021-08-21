@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Entites;
 use App\Entity\Personne;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -72,10 +73,25 @@ class PersonneType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('resume',TextType::class, [
-                'label' => 'Resume : ',
-                'required' => false,
-            ])
+            ->add('resume', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                    'language' => 'fr',
+                    'input_sync' => true,
+                    'extraPlugins' => 'wordcount',
+                ),
+                'plugins' => array(
+                    'wordcount' => array(
+                        'path'     => '/assets/wordcount/', // with trailing slash
+                        'filename' => 'plugin.js',
+                    ),
+                ),
+                'required' => true,
+                'constraints' => [
+                    new NotBlank()
+                ]
+
+            ))
             ->add('nom', TextType::class, [
                 'label' => 'Nom : ',
                 'required' => false,
