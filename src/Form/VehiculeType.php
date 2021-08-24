@@ -84,7 +84,7 @@ class VehiculeType extends AbstractType
                     'uiColor' => '#ffffff',
                     'language' => 'fr',
                     'input_sync' => true,
-                    'extraPlugins' => 'wordcount',
+                    'extraPlugins' => 'wordcount,entiteinsert',
                 ),
                 'plugins' => array(
                     'wordcount' => array(

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Affaire;
+use App\Entity\Entites;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
+use PHPHtmlParser\Dom;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +23,41 @@ class AffaireRapportController extends AbstractController
         $affaire = $this->getDoctrine()->getManager()->getRepository(Affaire::class)->find($id);
 
 
+        $sentence = $affaire->getResume();
 
+        $dom = new Dom();
+
+        $entites = $affaire->getEntites();
+
+
+        foreach ($entites as $entite){
+
+            if ($entite->getRole() == Entites::ROLE_SOURCE || $entite->getRole() == Entites::ROLE_VICTIME){
+
+
+                $dom = new Dom;
+                $dom->loadStr($entite->getResume());
+                /** @var Dom\Node\InnerNode $a */
+                $a   = $dom->find('span')[0];
+                echo $a   ; // '<div class="all"><p>Hey bro, <a href="google.com">biz baz</a><br /> :)</p></div>'
+
+
+
+
+
+                /*foreach ($dom->getElementById($entite->getId()) as $p) {
+                    var_dump( $p->nodeValue);
+                } */
+            }
+
+
+
+
+        }
+
+
+
+        exit;
        /* return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire

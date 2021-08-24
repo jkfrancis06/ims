@@ -681,52 +681,93 @@
         <script>
 
 
-            $(document).ready(function () {
                 //parse data of editor in form
 
 
-                $("#personne_submit").on("click",function(){
-                    $("#resume").val($("#personne_editor .ql-editor").html());
-                    console.log( $("#resume").val())
-
-                })
-
-                $("#vehicule_submit").on("click",function(){
-                    $("#resume").val($("#personne_editor .ql-editor").html());
-                    console.log( $("#resume").val())
-
-                })
-
-
-                $("#organisation_submit").on("click",function(){
-                    $("#resume").val($("#personne_editor .ql-editor").html());
-                    console.log( $("#resume").val())
-
-                })
-
-
-                // Quill
-
-                var quill = new Quill('#personne_editor', {
-                    modules: {
-                        toolbar: [
-                            [{ header: [1, 2, false] }],
-                            ['bold', 'italic', 'underline'],
-                            ['image', 'code-block']
-                        ]
-                    },
-                    placeholder: 'Compose an epic...',
-                    theme: 'snow' // or 'bubble'
-                });
-
-                quill.root.innerHTML = `{{ entite.resume | raw}}`
-
-            })
-
 
 
             $(document).ready(function () {
 
+
+
+                CKEDITOR.config.allowedContent = true;
+
+                CKEDITOR.config.allowedContent = true;
+
+                CKEDITOR.config.extraAllowedContent = 'span(*)';
+
+
+
+                CKEDITOR.plugins.add('entiteinsert',
+                    {
+                        requires : ['richcombo'],
+                        init : function( editor )
+                        {
+                            var config = editor.config;
+
+                            // Gets the list of insertable strings from the settings.
+                            var strings = config.strinsert_strings;
+
+
+
+                            // add the menu to the editor
+                            editor.ui.addRichCombo('entiteinsert',
+                                {
+                                    label: 'Entites',
+                                    title: 'Entites',
+                                    toolbar: 'basicstyles,1',
+
+                                    panel: {
+                                        css: [ CKEDITOR.skin.getPath( 'editor' ) ].concat( config.contentsCss ),
+                                        multiSelect: false,
+                                        attributes: { 'aria-label': 'Entites' }
+                                    },
+
+                                    init: function() {
+                                        this.startGroup( 'Inserer une entite' );
+                                        {% for entite in entites %}
+
+                                        {% if entite.isPersonne() is defined %}
+
+                                        {% if entite.aliases|length > 0 %}
+
+                                        this.add( '<span id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}</span>', '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}' );
+
+                                        {% else %}
+
+                                        this.add('<span id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</span>', '{{ entite.description }} {{ entite.description2 }}' );
+
+                                        {% endif %}
+
+                                        {% else %}
+
+                                        this.add( '<span id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</span>', '{{ entite.description }} {{ entite.description2 }}' );
+
+                                        {% endif %}
+
+                                        {% endfor %}
+                                    },
+
+
+                                    onClick: function( value ) {
+
+
+                                        var newElement = CKEDITOR.dom.element.createFromHtml(value, editor.document);
+
+                                        editor.insertElement(newElement);
+
+                                    }
+
+                                });
+
+                            CKEDITOR.dtd.$removeEmpty.span = 0;
+
+                            CKEDITOR.editorConfig = function( config ) {
+                                config.extraAllowedContent = 'span(*)';
+                            }
+
+                        }
+                    });
 
 
 

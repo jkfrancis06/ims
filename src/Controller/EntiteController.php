@@ -72,9 +72,10 @@ class EntiteController extends AbstractController
 
 
             $mainPicture = $personneForm->get('mainPicture')->getData();
-            $mainPictureFileName = $fileUploader->upload($mainPicture);
-
-            $personne->setMainPicture($mainPictureFileName);
+            if ($mainPicture != null){
+                $mainPictureFileName = $fileUploader->upload($mainPicture);
+                $personne->setMainPicture($mainPictureFileName);
+            }
 
             $formAttachements = $personneForm->get('attachements')->getData();
             foreach ($formAttachements as $formAttachement){
@@ -101,9 +102,11 @@ class EntiteController extends AbstractController
         if ($vehiculeForm->isSubmitted() && $vehiculeForm->isValid()){
 
             $mainPicture = $vehiculeForm->get('mainPicture')->getData();
-            $mainPictureFileName = $fileUploader->upload($mainPicture);
 
-            $vehicule->setMainPicture($mainPictureFileName);
+            if ($mainPicture != null){
+                $mainPictureFileName = $fileUploader->upload($mainPicture);
+                $vehicule->setMainPicture($mainPictureFileName);
+            }
 
             $formAttachements = $vehiculeForm->get('attachements')->getData();
             foreach ($formAttachements as $formAttachement){
@@ -127,9 +130,11 @@ class EntiteController extends AbstractController
         if ($organisationForm->isSubmitted() && $organisationForm->isValid()){
 
             $mainPicture = $organisationForm->get('mainPicture')->getData();
-            $mainPictureFileName = $fileUploader->upload($mainPicture);
 
-            $organisation->setMainPicture($mainPictureFileName);
+            if ($mainPicture != null){
+                $mainPictureFileName = $fileUploader->upload($mainPicture);
+                $organisation->setMainPicture($mainPictureFileName);
+            }
 
             $formAttachements = $organisationForm->get('attachements')->getData();
             foreach ($formAttachements as $formAttachement){

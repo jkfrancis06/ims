@@ -179,7 +179,7 @@ abstract class Entites
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -191,7 +191,7 @@ abstract class Entites
         return $this->description2;
     }
 
-    public function setDescription2(string $description2): self
+    public function setDescription2(?string $description2): self
     {
         $this->description2 = $description2;
 
@@ -227,7 +227,7 @@ abstract class Entites
         return $this->mainPicture;
     }
 
-    public function setMainPicture(string $mainPicture): self
+    public function setMainPicture(?string $mainPicture): self
     {
         $this->mainPicture = $mainPicture;
 

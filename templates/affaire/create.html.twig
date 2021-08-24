@@ -209,6 +209,7 @@
 
 
 
+
 {% endblock %}
 
 
@@ -218,56 +219,5 @@
     {% block botton_javascripts %}
 
 
-        <script>
-
-
-            $(document).ready(function () {
-
-                CKEDITOR.replace( '#personne_resume', {
-                    toolbarGroups: [
-                        { name: 'mode' },
-                        { name: 'basicstyles' }
-                    ],
-                    on: {
-                        pluginsLoaded: function() {
-                            var editor = this,
-                                config = editor.config;
-
-                            editor.ui.addRichCombo( 'my-combo', {
-                                label: 'My Dropdown Label',
-                                title: 'My Dropdown Title',
-                                toolbar: 'basicstyles,0',
-
-                                panel: {
-                                    css: [ CKEDITOR.skin.getPath( 'editor' ) ].concat( config.contentsCss ),
-                                    multiSelect: false,
-                                    attributes: { 'aria-label': 'My Dropdown Title' }
-                                },
-
-                                init: function() {
-                                    this.startGroup( 'My Dropdown Group #1' );
-                                    this.add( '<p>This is a new paragraph.</p>', 'foo' );
-                                    this.add(  '<p>Bar.</p>', 'bar' );
-
-                                },
-
-                                onClick: function( value ) {
-                                    editor.focus();
-                                    editor.fire( 'saveSnapshot' );
-
-                                    editor.insertHtml( value );
-
-                                    editor.fire( 'saveSnapshot' );
-                                }
-                            } );
-                        }
-                    }
-                } );
-
-
-
-            })
-
-        </script>
 
     {% endblock %}
