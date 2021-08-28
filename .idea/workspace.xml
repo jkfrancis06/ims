@@ -14,23 +14,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Entites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entites.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/OrganisationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/OrganisationType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PersonneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PersonneType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/VehiculeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/VehiculeType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/details.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/entite/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/create.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/entite/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -296,7 +283,14 @@
       <workItem from="1629529644831" duration="19920000" />
       <workItem from="1629699247056" duration="5787000" />
       <workItem from="1629722364747" duration="3855000" />
-      <workItem from="1629786490131" duration="2863000" />
+      <workItem from="1629786490131" duration="6181000" />
+      <workItem from="1629880069713" duration="571000" />
+      <workItem from="1629957799437" duration="1510000" />
+      <workItem from="1630067496516" duration="115000" />
+      <workItem from="1630067643324" duration="3927000" />
+      <workItem from="1630142861202" duration="50000" />
+      <workItem from="1630142938319" duration="288000" />
+      <workItem from="1630143492564" duration="503000" />
     </task>
     <servers />
   </component>

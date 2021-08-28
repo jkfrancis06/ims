@@ -34,13 +34,10 @@ class AffaireRapportController extends AbstractController
 
             if ($entite->getRole() == Entites::ROLE_SOURCE || $entite->getRole() == Entites::ROLE_VICTIME){
 
+                $doc = new \DOMDocument();
+                $data = $doc->getElementsByTagName('ent');
 
-                $dom = new Dom;
-                $dom->loadStr($entite->getResume());
-                /** @var Dom\Node\InnerNode $a */
-                $a   = $dom->find('span')[0];
-                echo $a   ; // '<div class="all"><p>Hey bro, <a href="google.com">biz baz</a><br /> :)</p></div>'
-
+                var_dump($data);
 
 
 

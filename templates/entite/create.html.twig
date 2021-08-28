@@ -732,17 +732,17 @@
 
                                         {% if entite.aliases|length > 0 %}
 
-                                        this.add( '<span id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}</span>', '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}' );
+                                        this.add( '<ent id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}</ent>', '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}' );
 
                                         {% else %}
 
-                                        this.add('<span id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</span>', '{{ entite.description }} {{ entite.description2 }}' );
+                                        this.add('<ent id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</ent>', '{{ entite.description }} {{ entite.description2 }}' );
 
                                         {% endif %}
 
                                         {% else %}
 
-                                        this.add( '<span id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</span>', '{{ entite.description }} {{ entite.description2 }}' );
+                                        this.add( '<ent id="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</ent>', '{{ entite.description }} {{ entite.description2 }}' );
 
                                         {% endif %}
 
