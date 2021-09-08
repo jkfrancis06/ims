@@ -33,10 +33,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 
-class UtilisateurCrudController extends AbstractCrudController
+class UtilisateurCrudController //extends AbstractCrudController
 {
 
-    private $passwordEncoder;
+    /*private $passwordEncoder;
     private $entityManager;
 
 
@@ -65,11 +65,7 @@ class UtilisateurCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        /*
-         *
-         * Un role_admin ne peut ajouter des utilisateurs appartenant qu'a son departement
-         *
-         */
+
         if (in_array('ROLE_SUPER_ADMIN',$this->getUser()->getRoles())){
             $dep = $this->entityManager->getRepository(Departement::class)->findAll();
         }else{
@@ -112,34 +108,26 @@ class UtilisateurCrudController extends AbstractCrudController
         $this->addEncodePasswordEventListener($formBuilder);
 
         return $formBuilder;
-    }
+    } */
 
     /**
      * @required
      */
-    public function setEncoder(UserPasswordEncoderInterface $passwordEncoder): void
+    /*public function setEncoder(UserPasswordEncoderInterface $passwordEncoder): void
     {
         $this->passwordEncoder = $passwordEncoder;
     }
 
     protected function addEncodePasswordEventListener(FormBuilderInterface $formBuilder)
     {
-        $formBuilder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+        $formBuilder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) { */
             /** @var Utilisateur $user */
-            $user = $event->getData();
+            /*$user = $event->getData();
             if ($user->getPlainPassword()) {
                 $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()));
             }
         });
     }
-
-    public function createEntity(string $entityFqcn)
-    {
-        $utilisateur = new Utilisateur();
-        $utilisateur->setIsDeleted(false);
-        return $utilisateur;
-    }
-
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
@@ -165,18 +153,6 @@ class UtilisateurCrudController extends AbstractCrudController
     }
 
 
-    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
-    {
-
-        $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-        if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
-            $qb->where('entity.departement = :dep');
-            $qb->setParameter('dep', $this->getUser()->getDepartement());
-        }
-        return $qb;
-    }
-
-
     public function edit(AdminContext $context)
     {
         $response = parent::edit($context);
@@ -186,6 +162,6 @@ class UtilisateurCrudController extends AbstractCrudController
         }
 
         return $response;
-    }
+    }*/
 
 }

@@ -228,6 +228,11 @@ s    */
      */
     private $departementDirectors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="createdBy")
+     */
+    private $courriers;
+
 
 
 
@@ -249,6 +254,7 @@ s    */
         $this->tacheUtilisateurs = new ArrayCollection();
         $this->affaireDirecteds = new ArrayCollection();
         $this->departementDirectors = new ArrayCollection();
+        $this->courriers = new ArrayCollection();
 
     }
 
@@ -710,5 +716,35 @@ s    */
             'id' => $this->getId(),
             'name' => $this->nom.' '.$this->prenom,
         ];
+    }
+
+    /**
+     * @return Collection|Courrier[]
+     */
+    public function getCourriers(): Collection
+    {
+        return $this->courriers;
+    }
+
+    public function addCourrier(Courrier $courrier): self
+    {
+        if (!$this->courriers->contains($courrier)) {
+            $this->courriers[] = $courrier;
+            $courrier->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourrier(Courrier $courrier): self
+    {
+        if ($this->courriers->removeElement($courrier)) {
+            // set the owning side to null (unless already changed)
+            if ($courrier->getCreatedBy() === $this) {
+                $courrier->setCreatedBy(null);
+            }
+        }
+
+        return $this;
     }
 }

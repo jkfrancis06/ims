@@ -1,0 +1,369 @@
+{% extends 'nav-courrier.html.twig' %}
+
+{% block title %}Creer un courrier  {% endblock %}
+
+
+{% block javascripts %}
+    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
+    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
+    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
+{% endblock %}
+
+ {% block stylesheets %}
+
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
+
+     <style>
+         .dt-buttons{
+             margin-bottom: 1em!important;
+             margin-left: 0.5em!important;
+         }
+         #tab-content{
+             display: none;
+         }
+         #loader{
+             display: block;
+         }
+         #loading {
+             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
+             position: absolute;
+             top: 0;
+             left: 0;
+             height: 100%;
+             width: 100%;
+             z-index: 9999999;
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+
+
+
+
+    {%
+        form_theme courrierForm.piecejointe
+        'themes/jquery.collection.html.twig'  'themes/pieceJointe.html.twig'
+    %}
+
+    {%
+        form_theme courrierForm.isResponse
+        'bootstrap_4_layout.html.twig'
+    %}
+
+    {% form_theme courrierForm.isResponse'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.flux 'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.datecourrier'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.origine'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.destination'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.referenceInterne'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.sujet'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.contenu'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.type'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.affectation'bootstrap_4_layout.html.twig' %}
+    {% form_theme courrierForm.responseTo'bootstrap_4_layout.html.twig' %}
+
+
+
+
+
+    <div style="margin-top: 1em; ">
+
+
+        {{ form_start(courrierForm) }}
+
+        <div class="row">
+            <div class="col col-8">
+                <div class="text-danger">
+                    {{ form_errors(courrierForm) }}
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col col-5 mt-4" >
+                {{ form_label(courrierForm.isResponse, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                {{ form_widget(courrierForm.isResponse, {'attr': {'class': 'custom-control-input'}}) }}
+                <div class="form-error" style="color: red">
+                    {{ form_errors(courrierForm.isResponse) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-5 mt-4" >
+                <div class="mb-3">
+                    {{ form_label(courrierForm.responseTo, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.responseTo, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.responseTo) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.flux, "",{'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.flux, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.flux) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.origine, "",{'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.origine, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.origine) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.destination, "",{'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.destination, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.destination) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.datecourrier, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.datecourrier, {'attr': {'class': 'form-control js-datepicker'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.datecourrier) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.referenceInterne, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.referenceInterne, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.referenceInterne) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.type, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.type, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.type) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.affectation, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.affectation, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.affectation) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.sujet, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.sujet, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.sujet) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col col-12 mt-4" >
+                <div class="mb-3">
+                    {{ form_label(courrierForm.contenu, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.contenu, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.contenu) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-12 mt-4" >
+                <div class="mb-3">
+                    {{ form_label(courrierForm.commentaire, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.commentaire, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.commentaire) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col col-12 mt-4" >
+                <div class="mb-3">
+                    {{ form_label(courrierForm.piecejointe, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.piecejointe) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.piecejointe) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row" style="margin-top: 5em">
+            <div class="col col-12">
+                <div class="row">
+                    <div class="col col-2">
+                        {{ form_row(courrierForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
+                    </div>
+                    <div class="col col-2">
+                        {{ form_row(courrierForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(courrierForm) }}
+    </div>
+
+
+
+
+{% endblock %}
+
+
+
+{% block botton_javascripts %}
+
+    <script src="{{ asset('assets/js/jquery.collection.js') }}"></script>
+
+    <script type="text/javascript">
+        $('.piecejointe-collection').collection({
+            add: '<a href="#" class="btn btn-rounded btn-sm btn-primary"><span class="fa fa-plus-circle"></span> Ajouter une piece-jointe </a>',
+            remove: '<a href="#" class="btn btn-rounded btn-sm btn-danger"><span class="fa fa-plus-circle"></span> Supprimer la piece-jointe </a>',
+            allow_down:false,
+            allow_up:false
+        });
+    </script>
+
+    <script>
+
+
+
+        const FLUX_ENTRANT = 1;
+        const FLUX_SORTANT = 2;
+
+        function disableOrigine(val){
+            $('#courrier_origine').prop('disabled', val);
+            $('#courrier_origine').prop('required', val);
+        }
+
+        function disableDestination(val){
+            $('#courrier_destination').prop('disabled', val);
+            $('#courrier_destination').prop('required', val);
+        }
+
+        function disableResponse(val){
+            $('#courrier_responseTo').prop('disabled', val);
+            $('#courrier_responseTo').prop('required', val);
+        }
+
+        function disableFlux(val){
+            $('#courrier_flux').prop('disabled', val);
+            $('#courrier_flux').prop('required', val);
+        }
+
+
+        $(document).ready(function () {
+
+
+            if($('#courrier_isResponse').is(":checked")) {
+
+                disableFlux(true)
+
+                $('#courrier_flux').val(FLUX_SORTANT)
+
+                $('#courrier_origine').val('KM')
+
+                $('#courrier_origine').prop('disabled', true);
+
+                disableResponse(false)
+
+            }else {
+                disableFlux(false)
+                disableResponse(true)
+                $('#courrier_origine').prop('disabled', false);
+
+            }
+
+            $('#courrier_isResponse').change(function() {
+                if($(this).is(":checked")) {
+                    disableFlux(true)
+                    $('#courrier_flux').val(FLUX_SORTANT)
+
+                    $('#courrier_origine').val('KM')
+
+                    $('#courrier_origine').prop('disabled', true);
+
+                    disableResponse(false)
+
+
+                }else {
+                    disableFlux(false)
+                    disableResponse(true)
+                    $('#courrier_origine').prop('disabled', false);
+                }
+            });
+
+        })
+
+
+    </script>
+
+
+{% endblock %}
+

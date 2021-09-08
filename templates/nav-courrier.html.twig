@@ -1,0 +1,159 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+
+
+{% block javascripts %}
+    {#{{ encore_entry_script_tags('app') }}#}
+{% endblock %}
+
+{% block body %}
+
+
+
+    <header>
+
+        <!-- Sidebar navigation -->
+        <div id="slide-out" class="side-nav fixed">
+            <ul class="custom-scrollbar">
+
+                <li>
+                    <div class="logo-wrapper waves-light">
+                        <a href="{{ path('dashboard') }}">
+                            <img style="margin-left: 1em" src="{{ asset('/img/logo_1.png') }}"
+                                 class="flex-center">
+                        </a>
+                    </div>
+                </li>
+
+                <!--/.Search Form-->
+                <!-- Side navigation links -->
+                <li>
+                    <ul class="collapsible collapsible-accordion">
+
+                        {% if active == "courrier" %}
+                            <li>
+                                <a href="{{ path('courrier') }}" class="waves-effect active">
+                                    <i class="fas fa-home"></i>
+                                    Tableau de bord</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a  href="{{ path('courrier') }}" class="waves-effect">
+                                    <i class="fas fa-home"></i>
+                                    Tableau de bord</a>
+                            </li>
+                        {% endif %}
+
+                        {% if active == "mail" %}
+                            <li>
+                                <a href="{{ path('create-courrier') }}" class="waves-effect active">
+                                    <i class="fas fa-mail-bulk"></i>
+                                    Courriers</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ path('create-courrier') }}" class="waves-effect">
+                                    <i class="fas fa-mail-bulk"></i>
+                                    Courriers</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </li>
+                <!--/. Side navigation links -->
+            </ul>
+            <div class="sidenav-bg"></div>
+        </div>
+        <!-- Sidebar navigation -->
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg scrolling-navbar double-nav">
+
+            <!-- SideNav slide-out button -->
+            <div class="float-left">
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+            </div>
+
+
+            <!-- Navbar links -->
+            <ul class="nav navbar-nav nav-flex-icons ml-auto ">
+
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="nav-item" >
+                        <a style="color: black"  href="/admin" class="nav-link waves-effect" aria-expanded="false">
+                            <i class="mr-1 fa fa-building"></i>
+                            <span class="d-none d-md-inline-block">Espace adminstration</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+
+                <!-- Dropdown -->
+                <li class="nav-item dropdown " >
+                    <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="badge red">3</span> <i class="fas fa-bell"></i>
+                        <span class="d-none d-md-inline-block">Notifications</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink" >
+                        <a class="dropdown-item" href="#" style="color: white">
+                            <span>Nouvelle tache recue</span>
+                            <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 13 min</span>
+                        </a>
+                        <a class="dropdown-item" href="#" style="color: white">
+                            <span>Nouvelle tache recue</span>
+                            <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 33 min</span>
+                        </a>
+                        <a class="dropdown-item" href="#" style="color: white">
+                            <span>Une tache est cours d'expiration</span>
+                            <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 53 min</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a style="color: black" class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block">{{ app.user.nom }}&nbsp;{{ app.user.prenom }}</span>
+                    </a>
+                    {% set url = ea_url()
+                        .setDashboard('App\\Controller\\User\\UserDashbordController')
+                        .setController('App\\Controller\\User\\UtilisateurCrudController')
+                        .setAction('edit')
+                        .setEntityId(app.user.id) %}
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
+                        <a class="dropdown-item" href="{{ url }}">Parametres</a>
+                    </div>
+                </li>
+
+            </ul>
+            <!-- Navbar links -->
+
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+
+    <main>
+
+
+
+
+        <div style="width: 100%!important;">
+
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+    </main>
+
+    <!--/Main layout-->
+
+
+
+
+
+{% endblock %}

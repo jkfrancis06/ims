@@ -97,6 +97,11 @@ class Departement
      */
     private $departementDirectors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="affectation")
+     */
+    private $courriers;
+
 
     public function __construct()
     {
@@ -104,6 +109,7 @@ class Departement
         $this->ceatedAt = new \DateTime();
         $this->affaires = new ArrayCollection();
         $this->departementDirectors = new ArrayCollection();
+        $this->courriers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -242,5 +248,35 @@ class Departement
     public function __toString()
     {
         return "".$this->nom;
+    }
+
+    /**
+     * @return Collection|Courrier[]
+     */
+    public function getCourriers(): Collection
+    {
+        return $this->courriers;
+    }
+
+    public function addCourrier(Courrier $courrier): self
+    {
+        if (!$this->courriers->contains($courrier)) {
+            $this->courriers[] = $courrier;
+            $courrier->setAffectation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourrier(Courrier $courrier): self
+    {
+        if ($this->courriers->removeElement($courrier)) {
+            // set the owning side to null (unless already changed)
+            if ($courrier->getAffectation() === $this) {
+                $courrier->setAffectation(null);
+            }
+        }
+
+        return $this;
     }
 }

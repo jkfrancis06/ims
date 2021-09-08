@@ -30,6 +30,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $user;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -81,7 +82,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
                 'Nom d\'utilisateur incorrect'
             );
         }
-
+        $this->user = $user;
         return $user;
     }
 
@@ -110,7 +111,13 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
 
         $request->getSession()->getFlashBag()->add('login', 'Bienvenue');
 
-        return new RedirectResponse($this->urlGenerator->generate('dashboard'));
+        $user = $token->getUser();
+
+        if (in_array('ROLE_COURRIER', $this->user->getRoles())){
+            return new RedirectResponse($this->urlGenerator->generate('courrier'));
+        }else{
+            return new RedirectResponse($this->urlGenerator->generate('dashboard'));
+        }
     }
 
     protected function getLoginUrl()
