@@ -73,8 +73,10 @@ class AppFixtures extends Fixture
             'ROLE_USER',
             'USER_VIEW_DEP',
             'ROLE_ADMIN',
+            'ROLE_ADMIN',
             'ROLE_CREATOR',
-            'USER_VIEW_AFF'
+            'USER_VIEW_AFF',
+            'ROLE_SUPER_ADMIN'
         ]);
         $manager->persist($user);
         $manager->flush();
