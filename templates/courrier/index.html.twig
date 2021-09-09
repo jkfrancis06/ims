@@ -41,11 +41,73 @@
 
 
 
+    <div class="col col-12 mt-5">
+
+        <table id="elements" class="table table-striped table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Flux</th>
+                    <th scope="col">Origine</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Sujet</th>
+                    <th scope="col">Commentaires</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for courrier in courriers %}
+                    <tr>
+                        <td>{{ courrier.referenceInterne }}</td>
+                        <td>{{ courrier.datecourrier|date('d-m-Y') }}</td>
+                        <td>
+                            {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                                Entrant
+                            {% else %}
+                                Sortant
+                            {% endif %}
+                        </td>
+                        <td>{{ courrier.origine | country('fr') }}</td>
+                        <td>{{ courrier.destination | country('fr') }}</td>
+                        <td>
+                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                Courrier Officiel
+                            {% endif %}
+
+                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                Note de renseignement
+                            {% endif %}
+
+                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                Forum
+                            {% endif %}
+                        </td>
+                        <td>{{ courrier.sujet }}</td>
+                        <td>{{ courrier.commentaire|raw }}</td>
+                        <td>
+                            {% for pieces in courrier.piecejointe %}
+                                <a class="btn btn-sm btn-blue mt-1" download href="{{ path('download', {'name': pieces.filename}) }}">
+                                    <i class="fa fa-download"></i> {{ pieces.filename }}
+                                </a>
+                            {% endfor %}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
 
 
 
 
     {% block botton_javascripts %}
+
 
     {% endblock %}
 
