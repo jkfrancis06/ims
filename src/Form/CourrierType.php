@@ -45,7 +45,7 @@ class CourrierType extends AbstractType
             ])
             ->add('datecourrier', DateType::class, [
                 'required' => true,
-                'label' => 'Date de naissance: ',
+                'label' => 'Date de courrier: ',
                 'html5' => false,
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
@@ -94,10 +94,7 @@ class CourrierType extends AbstractType
                         'filename' => 'plugin.js',
                     ),
                 ),
-                'required' => true,
-                'constraints' => [
-                    new NotBlank()
-                ]
+                'required' => false,
 
             ))
 

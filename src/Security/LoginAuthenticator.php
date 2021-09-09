@@ -111,9 +111,9 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
 
         $request->getSession()->getFlashBag()->add('login', 'Bienvenue');
 
-        $user = $token->getUser();
 
         if (in_array('ROLE_COURRIER', $this->user->getRoles())){
+
             return new RedirectResponse($this->urlGenerator->generate('courrier'));
         }else{
             return new RedirectResponse($this->urlGenerator->generate('dashboard'));

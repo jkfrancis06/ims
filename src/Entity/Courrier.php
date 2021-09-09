@@ -48,7 +48,7 @@ class Courrier
     private $destination;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="courriers")
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="courriers",nullable=true)
      */
     private $affectation;
 
@@ -70,7 +70,7 @@ class Courrier
     private $sujet;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text",nullable=true)
      */
     private $contenu;
 
