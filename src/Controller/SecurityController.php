@@ -33,4 +33,18 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+
+    /**
+     * @Route("/secure-area", name="dmz")
+     */
+    public function dmz()
+    {
+
+        if($this->getUser()->hasRole('ROLE_COURRIER')){
+            return $this->redirect($this->generateUrl('courrier'));
+        }else{
+            return $this->redirect($this->generateUrl('dashboard'));
+        }
+    }
 }

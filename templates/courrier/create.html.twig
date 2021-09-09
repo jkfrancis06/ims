@@ -57,8 +57,6 @@
     {% form_theme courrierForm.isResponse'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.flux 'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.datecourrier'bootstrap_4_layout.html.twig' %}
-    {% form_theme courrierForm.origine'bootstrap_4_layout.html.twig' %}
-    {% form_theme courrierForm.destination'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.referenceInterne'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.sujet'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.contenu'bootstrap_4_layout.html.twig' %}
@@ -123,7 +121,7 @@
             <div class="col col-5">
                 <div class="mb-3">
                     {{ form_label(courrierForm.origine, "",{'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.origine, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(courrierForm.origine, {'attr': {'class': 'mdb-select md-form', 'searchable':'Rechercher un pays'}}) }}
                     <div class="form-error" style="color: red">
                         {{ form_errors(courrierForm.origine) }}
                     </div>
@@ -136,7 +134,7 @@
             <div class="col col-5">
                 <div class="mb-3">
                     {{ form_label(courrierForm.destination, "",{'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.destination, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(courrierForm.destination, {'attr': {'class': 'mdb-select md-form', 'searchable':'Rechercher un pays'}}) }}
                     <div class="form-error" style="color: red">
                         {{ form_errors(courrierForm.destination) }}
                     </div>

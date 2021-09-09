@@ -47,12 +47,6 @@ class Courrier
      */
     private $destination;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="courriers",nullable=true)
-     */
-    private $affectation;
-
-
 
     /**
      * @ORM\Column(type="date")
@@ -70,7 +64,7 @@ class Courrier
     private $sujet;
 
     /**
-     * @ORM\Column(type="text",nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contenu;
 
@@ -120,6 +114,11 @@ class Courrier
      */
     private $responses;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="courriers")
+     */
+    private $affectation;
+
 
 
 
@@ -167,18 +166,6 @@ class Courrier
     public function setDestination(string $destination): self
     {
         $this->destination = $destination;
-
-        return $this;
-    }
-
-    public function getAffectation(): ?Departement
-    {
-        return $this->affectation;
-    }
-
-    public function setAffectation(?Departement $affectation): self
-    {
-        $this->affectation = $affectation;
 
         return $this;
     }
@@ -372,6 +359,18 @@ class Courrier
                 $response->setResponseTo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAffectation(): ?Departement
+    {
+        return $this->affectation;
+    }
+
+    public function setAffectation(?Departement $affectation): self
+    {
+        $this->affectation = $affectation;
 
         return $this;
     }

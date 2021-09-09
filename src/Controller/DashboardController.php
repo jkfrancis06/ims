@@ -21,7 +21,12 @@ class DashboardController extends AbstractController
     public function redirectToIndex(Request $request)
     {
 
-        return $this->redirectToRoute('dashboard');
+        if($this->getUser()->hasRole('ROLE_COURRIER')){
+            return $this->redirect($this->generateUrl('courrier'));
+        }else{
+            return $this->redirect($this->generateUrl('dashboard'));
+        }
+        
     }
 
     /**

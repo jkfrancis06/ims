@@ -42,6 +42,44 @@ $(document).ready(function() {
     });
 
 
+    $('.js-datepicker').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+            format: 'DD-MM-YYYY',
+            "firstDay": 1,
+            "applyLabel": "Appliquer",
+            "cancelLabel": "Annuler",
+            "fromLabel": "De",
+            "toLabel": "A",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "Dim",
+                "Lun",
+                "Mar",
+                "Mer",
+                "Jeu",
+                "Ven",
+                "Sam"
+            ],
+            "monthNames": [
+                "Janvier",
+                "Fevrier",
+                "Mars",
+                "Avril",
+                "Mai",
+                "Juin",
+                "Juillet",
+                "Aout",
+                "Septembre",
+                "Octobre",
+                "Novembre",
+                "Decembre"
+            ],
+        },
+        maxDate: moment()
+    });
+
 
     $('#envenement_startAt').daterangepicker({
         singleDatePicker: true,

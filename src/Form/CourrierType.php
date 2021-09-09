@@ -134,7 +134,7 @@ class CourrierType extends AbstractType
             ])
 
             ->add('affectation', EntityType::class, [
-                'required' => true,
+                'required' => false,
                 'class' => Departement::class,
                 'placeholder' => 'Choisir une option',
                 'choice_label' => function(Departement $departement){
