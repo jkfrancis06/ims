@@ -14,15 +14,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/searchPanes.bootstrap5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/searchPanes.dataTables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/select.dataTables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/dataTables.searchPanes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/select.dataTables.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/highcharts/highcharts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courrier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,6 +307,9 @@
       <workItem from="1631190867354" duration="3240000" />
       <workItem from="1631257096775" duration="2694000" />
       <workItem from="1631289004143" duration="423000" />
+      <workItem from="1631364457295" duration="427000" />
+      <workItem from="1631515604091" duration="589000" />
+      <workItem from="1631523687734" duration="463000" />
     </task>
     <servers />
   </component>
