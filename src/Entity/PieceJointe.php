@@ -86,6 +86,12 @@ class PieceJointe
         return $this;
     }
 
+    public function getFileNameExt(){
+
+        return pathinfo($this->filename, PATHINFO_FILENAME);
+
+    }
+
     /**
      * @param UploadedFile $file - Uploaded File
      */

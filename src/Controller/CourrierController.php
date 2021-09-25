@@ -74,10 +74,12 @@ class CourrierController extends AbstractController
 
         if($courrierForm->isSubmitted() && $courrierForm->isValid()){
 
+            $courrier->setEntry(uniqid('entry_', true));
 
             foreach ($courrier->getPiecejointe() as $piecejointe){
-                $piecejointe->setFilename($fileUploader->upload($piecejointe->getFile(),$this->courrierDir));
+                $piecejointe->setFilename($fileUploader->upload($piecejointe->getFile(),$this->courrierDir.'/'.md5($courrier->getEntry())));
             }
+
 
             $courrier->setCreatedBy($this->getUser());
 

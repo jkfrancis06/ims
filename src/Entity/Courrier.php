@@ -119,6 +119,11 @@ class Courrier
      */
     private $affectation;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $entry;
+
 
 
 
@@ -371,6 +376,18 @@ class Courrier
     public function setAffectation(?Departement $affectation): self
     {
         $this->affectation = $affectation;
+
+        return $this;
+    }
+
+    public function getEntry(): ?string
+    {
+        return $this->entry;
+    }
+
+    public function setEntry(?string $entry): self
+    {
+        $this->entry = $entry;
 
         return $this;
     }
