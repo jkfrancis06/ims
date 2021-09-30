@@ -6,9 +6,12 @@ use App\Repository\CourrierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass=CourrierRepository::class)
+ * @UniqueEntity(fields={"referenceInterne"}, message="Un courrier de cette reference  existe deja !!")
  */
 class Courrier
 {
