@@ -81,14 +81,18 @@ class EntiteController extends AbstractController
             }
 
             $formAttachements = $personneForm->get('attachements')->getData();
-            foreach ($formAttachements as $formAttachement){
-                $fileName = $fileUploader->upload($formAttachement);
-                $attachement = new Attachements();
-                $attachement->setName($fileName);
-                $attachement->setType(1);
-                $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                $personne->addAttachement($attachement);
+
+            if ($formAttachements != null) {
+                foreach ($formAttachements as $formAttachement){
+                    $fileName = $fileUploader->upload($formAttachement);
+                    $attachement = new Attachements();
+                    $attachement->setName($fileName);
+                    $attachement->setType(1);
+                    $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
+                    $personne->addAttachement($attachement);
+                }
             }
+
             $personne->setDescription($personne->getNom());
             $personne->setDescription2($personne->getPrenom());
             $personne->setAffaire($affaire);
