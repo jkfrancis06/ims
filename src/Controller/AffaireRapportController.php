@@ -48,13 +48,10 @@ class AffaireRapportController extends AbstractController
                 'footer-html' => $footer,
                 'header-html' => $footer,
             )),
-            'Dossier'.$affaire->getNom().'.pdf',
+            'Dossier.pdf',
             'application/pdf',
             'attachment',
-            200,
-            [
-
-            ]
+            200
 
         );
 
