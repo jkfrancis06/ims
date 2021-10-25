@@ -57,7 +57,7 @@ class AffaireRapportController extends AbstractController
 
         return new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html, $pdfOptions),
-            200
+            "Dossier.pdf"
         );
     }
 }
