@@ -41,7 +41,7 @@ class AffaireRapportController extends AbstractController
 
         $footer = $this->renderView('affaire_rapport/confidentiel.html.twig');
 
-        $knpSnappyPdf->setOptions(['footer-right'=> '[page]']);
+        $knpSnappyPdf->setOption('footer-right', '[page]');
 
 
         $knp = new PdfResponse(
