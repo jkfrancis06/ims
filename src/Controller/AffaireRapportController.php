@@ -43,7 +43,7 @@ class AffaireRapportController extends AbstractController
 
         $knp = new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html, array(
-                'footer-center', 'Page [page]'
+                'footer-center' => 'Page [page]'
             )),
             'Dossier.pdf',
             'application/pdf',
