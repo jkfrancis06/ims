@@ -30,12 +30,12 @@ class AffaireRapportController extends AbstractController
         $entites = $affaire->getEntites();
 
 
-       return $this->render('affaire_rapport/index.html.twig', [
+       /* return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire
-        ]);
+        ]);*/
 
-        /*$html =  $this->renderView('affaire_rapport/index.html.twig', [
+        $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
         ]);
 
@@ -58,6 +58,6 @@ class AffaireRapportController extends AbstractController
         return new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html, $pdfOptions),
             "Dossier.pdf"
-        );*/
+        );
     }
 }
