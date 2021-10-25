@@ -66,8 +66,10 @@ class EntiteController extends AbstractController
             if ($personne->getTelephone() != null) {
                 foreach ($personne->getTelephone() as $telephone){
                     $fichierCdr = $personneForm->get('telephone')[$i]->get('fichierCdr')->getData();
-                    $fileName = $fileUploader->upload($fichierCdr);
-                    $telephone->setFichierCdr($fileName);
+                    if ($fichierCdr != null){
+                        $fileName = $fileUploader->upload($fichierCdr);
+                        $telephone->setFichierCdr($fileName);
+                    }
                     $i++;
                 }
             }
