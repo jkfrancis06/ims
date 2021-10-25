@@ -41,15 +41,23 @@ class AffaireRapportController extends AbstractController
 
         $footer = $this->renderView('affaire_rapport/confidentiel.html.twig');
 
-        $knpSnappyPdf->setOption('footer-right', '[page]');
+        $pdfOptions = array(
 
+            'footer-html'      => '<p>Page : [page] / [pageTo]</p>',
 
-        $knp = new PdfResponse(
-            $knpSnappyPdf->getOutputFromHtml($html)
+            'footer-font-size' => '10',
+            'page-size'        => 'A4',
+            'orientation'      => 'Portrait',
+            'margin-top'       => 10,
+            'margin-bottom'    => 20,
+            'margin-left'      => 15,
+            'margin-right'     => 15,
         );
 
 
-
-        return $knp;
+        return new PdfResponse(
+            $knpSnappyPdf->getOutputFromHtml($html, $pdfOptions),
+            200
+        );
     }
 }
