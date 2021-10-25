@@ -28,37 +28,7 @@ class AffaireRapportController extends AbstractController
         $dom = new Dom();
 
         $entites = $affaire->getEntites();
-
-
-        foreach ($entites as $entite){
-
-            if ($entite->getRole() == Entites::ROLE_SOURCE || $entite->getRole() == Entites::ROLE_VICTIME){
-
-                $doc = new \DOMDocument();
-                $data = $doc->getElementsByTagName('ent');
-
-                var_dump($data);
-
-
-
-
-                /*foreach ($dom->getElementById($entite->getId()) as $p) {
-                    var_dump( $p->nodeValue);
-                } */
-            }
-
-
-
-
-        }
-
-
-
-        exit;
-       /* return $this->render('affaire_rapport/index.html.twig', [
-            'controller_name' => 'AffaireRapportController',
-            'affaire' =>  $affaire
-        ]);*/
+        
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
