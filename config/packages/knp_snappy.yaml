@@ -1,0 +1,6 @@
+knp_snappy:
+  pdf:
+    enabled:    true
+    binary:     /usr/bin/wkhtmltopdf #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
+    options:    []
+    footer-right: 'Page [page]/[toPage]'
