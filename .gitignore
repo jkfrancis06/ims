@@ -1,4 +1,5 @@
 .idea
+.idea/
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -22,3 +23,5 @@
 /public/upload/*
 /public/upload/
 /public/upload/
+.idea/workspace.xml
+.idea/workspace.xml
