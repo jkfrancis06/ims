@@ -39,14 +39,11 @@ class AffaireRapportController extends AbstractController
             'affaire' =>  $affaire
         ]);
 
-        $footer = $this->renderView('affaire_rapport/confidentiel.html.twig', array(
-            //Variables for the template
-        ));
+        $footer = $this->renderView('affaire_rapport/confidentiel.html.twig');
 
         $knp = new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html, array(
                 'footer-html' => $footer,
-                'header-html' => $footer,
             )),
             'Dossier.pdf',
             'application/pdf',
