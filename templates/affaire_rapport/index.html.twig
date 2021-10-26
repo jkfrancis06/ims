@@ -33,6 +33,17 @@
                          url('{{ absolute_url(asset('/img/confidentiel.png')) }}')
                         0 0/100% 100vh;
             }*/
+
+            @page {
+                size: A4 !important;
+            }
+            @media print {
+                html, body {
+                    width: 210mm!important;
+                    height: 297mm!important;
+                }
+                /* ... the rest of the rules ... */
+            }
             .break-after {
                 page-break-after: always;
             }
@@ -125,9 +136,8 @@
 
             <hr>
 
-
             <div class="col col-xs-12" style="margin-top: 1em">
-                <span style="font-weight: bold">Préambule </span>
+                <span class="text-uppercase" style="font-weight: bold; font-size: 1.2em">Préambule </span>
                 <div  style="margin-top: 1em; border: 2px solid black; padding: 2em">
                     <span style="padding: 2em" class="text-uppercase"> {{ affaire.resume | raw }}</span>
                 </div>
@@ -139,7 +149,7 @@
 
         <div class="row break-after" style="margin-top: 3em; font-size: 1.2em">
 
-            <div class="col col-xs-12" style="margin-top: 1em; font-weight: bold">
+            <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
                 Entités
                 <hr>
             </div>
@@ -364,7 +374,7 @@
         <div class="row break-after" style="margin-top: 3em; font-size: 1.2em">
 
 
-            <div class="col col-xs-12" style="margin-top: 1em; font-weight: bold">
+            <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
                 Evenements
                 <hr>
             </div>
@@ -372,7 +382,7 @@
             {% for envenement in affaire.envenements %}
 
                 <div class="break-after">
-                    <div class="col col-xs-12"  style="margin-top: 1em; border: 2px solid black;page-break-inside: avoid!important; padding-right: 1em; padding-top: 1em; padding-left: 1em; padding-bottom: ">
+                    <div class="col col-xs-12"  style="margin-top: 1em; border: 2px solid black;page-break-inside: avoid!important; padding: 1em 1em;">
 
                         <div class="row">
 
@@ -487,7 +497,7 @@
         <div class="row break-after" style="margin-top: 3em; font-size: 1.2em">
 
 
-            <div class="col col-xs-12" style="margin-top: 1em; font-weight: bold">
+            <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
                 Pieces jointes (images)
                 <hr>
             </div>
@@ -498,9 +508,9 @@
                 {% if entite.attachements|length > 0 %}
                     {% for attachement in entite.attachements %}
                         {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
-                            <div style=" page-break-after: always;">
+                            <div style=" page-break-after: always;" class="text-center">
                                 <h3>ENT-{{ attachement.id }}{{ entite.id }}</h3>
-                                <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="...">
+                                <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="..." >
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -517,7 +527,7 @@
                 {% if event.attachements|length > 0 %}
                     {% for attachement in event.attachements %}
                         {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
-                            <div style=" page-break-after: always;">
+                            <div style=" page-break-after: always;" class="text-center">
                                 <h3>ENV-{{ attachement.id }}{{ event.id }}</h3>
                                 <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="...">
                             </div>

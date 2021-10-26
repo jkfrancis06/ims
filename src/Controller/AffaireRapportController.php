@@ -23,17 +23,41 @@ class AffaireRapportController extends AbstractController
         $affaire = $this->getDoctrine()->getManager()->getRepository(Affaire::class)->find($id);
 
 
-        $sentence = $affaire->getResume();
-
-        $dom = new Dom();
-
         $entites = $affaire->getEntites();
 
+        $evenements = $affaire->getEnvenements();
 
-       /* return $this->render('affaire_rapport/index.html.twig', [
+        //$pattern = '/\[\[[^}]*\]\]/';
+
+        foreach ($entites as $key => $entite) {
+
+            //preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
+
+            $text = preg_replace('/\[{2}(.*?)\]{2}/is' , 'XXXXXXXXXXXXX', $entite->getResume());
+
+
+            $entites[$key]->setResume($text);
+
+
+        }
+
+        foreach ($evenements as $key => $evenement) {
+
+            //preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
+
+            $text = preg_replace('/\[{2}(.*?)\]{2}/is' , 'XXXXXXXXXXXXX', $evenement->getResume());
+
+
+            $evenements[$key]->setResume($text);
+
+
+        }
+
+
+       /*return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire
-        ]);*/
+        ]); */
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
@@ -42,17 +66,18 @@ class AffaireRapportController extends AbstractController
         $footer = $this->renderView('affaire_rapport/confidentiel.html.twig');
 
         $pdfOptions = array(
-
-            'footer-html'      => '<p>Page : [page] / [pageTo]</p>',
-
             'footer-font-size' => '10',
             'page-size'        => 'A4',
             'orientation'      => 'Portrait',
-            'margin-top'       => 10,
+            'margin-top'       => 20,
             'margin-bottom'    => 20,
             'margin-left'      => 15,
             'margin-right'     => 15,
+            'footer-html' => $footer,
+            'header-html' => $footer,
         );
+
+        $knpSnappyPdf->setOption('footer-right', '[page]');
 
 
         return new PdfResponse(

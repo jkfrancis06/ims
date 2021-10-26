@@ -725,25 +725,26 @@
 
                                     init: function() {
                                         this.startGroup( 'Inserer une entite' );
+
                                         {% for entite in entites %}
 
-                                        {% if entite.isPersonne() is defined %}
+                                            {% if entite.isPersonne() is defined %}
 
-                                        {% if entite.aliases|length > 0 %}
+                                                {% if entite.aliases|length > 0 %}
 
-                                        this.add( '<span class="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}</span>', '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}' );
+                                                    this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}' );
 
-                                        {% else %}
+                                                {% else %}
 
-                                        this.add('<span class="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</span>', '{{ entite.description }} {{ entite.description2 }}' );
+                                                    this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }}' );
 
-                                        {% endif %}
+                                                {% endif %}
 
-                                        {% else %}
+                                            {% else %}
 
-                                        this.add( '<span class="ent-{{ entite.id }}">{{ entite.description }} {{ entite.description2 }}</span>', '{{ entite.description }} {{ entite.description2 }}' );
+                                                this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }}' );
 
-                                        {% endif %}
+                                            {% endif %}
 
                                         {% endfor %}
                                     },
@@ -752,7 +753,10 @@
                                     onClick: function( value ) {
 
 
-                                        var newElement = CKEDITOR.dom.element.createFromHtml(value, editor.document);
+                                        console.log(value)
+
+
+                                        var newElement = CKEDITOR.dom.element.createFromHtml("<span>" + value + "</span>", editor.document);
 
                                         editor.insertElement(newElement);
 
