@@ -105,10 +105,22 @@
 
 
 
-                <div class="titre text-center justify-content-center" style="margin-top: 7em; font-weight: bold; font-size: 2em">
-                    <span class="fs-4 fw-bold text-uppercase">RAPPORT DE RENSIGNEMENT</span> <br>
+                <div class="titre text-center justify-content-center" style="margin-top: 7em; font-weight: bold;">
+                    <span class="fs-4 fw-bold text-uppercase" style=" font-size: 2em">RAPPORT DE RENSIGNEMENT</span> <br>
 
-                    <span class="text-uppercase text-center" style="font-weight: bold; color:red !important; margin-top: 3em">Document confidentiel</span>
+                    <span class="text-uppercase text-center" style="font-weight: bold; color:red !important; margin-top: 3em;font-size: 2em">Document confidentiel</span>
+
+                    <div style="border: solid black; padding: 2em; font-size: 1.5em; margin-top: 4em">
+                        <span style="font-weight: normal" class="mt-3">Numero de dossier: </span>
+                        <span class="text-uppercase">{{ affaire.numeroMatricule }}</span> <br>
+
+                        <span style="font-weight: normal" class="mt-3">Affaire: </span>
+                        <span class="text-uppercase">{{ affaire.nom }}</span> <br>
+
+                        <span style="font-weight: normal" class="mt-3">Département: </span>
+                        <span class="text-uppercase">{{ affaire.departement.nom }}</span>
+                    </div>
+
 
                 </div>
 
@@ -118,26 +130,12 @@
 
         <div class="row break-after" style="margin-top: 3em; font-size: 1.2em">
 
-            <div class="col col-xs-12">
-                <span style="font-weight: bold">Numero de dossier: </span>
-                <span class="text-uppercase">{{ affaire.numeroMatricule }}</span>
+            <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
+                <h3>Préambule</h3>
+                <hr>
             </div>
 
             <div class="col col-xs-12" style="margin-top: 1em">
-                <span style="font-weight: bold">Affaire: </span>
-                <span class="text-uppercase">{{ affaire.nom }}</span>
-            </div>
-
-
-            <div class="col col-xs-12" style="margin-top: 1em">
-                <span style="font-weight: bold">Département: </span>
-                <span class="text-uppercase">{{ affaire.departement.nom }}</span>
-            </div>
-
-            <hr>
-
-            <div class="col col-xs-12" style="margin-top: 1em">
-                <span class="text-uppercase" style="font-weight: bold; font-size: 1.2em">Préambule </span>
                 <div  style="margin-top: 1em; border: 2px solid black; padding: 2em">
                     <span style="padding: 2em" class="text-uppercase"> {{ affaire.resume | raw }}</span>
                 </div>
@@ -150,7 +148,7 @@
         <div class="row break-after" style="margin-top: 3em; font-size: 1.2em">
 
             <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
-                Entités
+                <h3>Entités</h3>
                 <hr>
             </div>
 
@@ -375,7 +373,7 @@
 
 
             <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
-                Evenements
+                <h3>Evenements</h3>
                 <hr>
             </div>
 
@@ -498,7 +496,7 @@
 
 
             <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
-                Pieces jointes (images)
+                <h3>Pieces jointes (images)</h3>
                 <hr>
             </div>
 
