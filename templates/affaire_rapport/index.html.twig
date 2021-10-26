@@ -505,16 +505,20 @@
             {% for entite in affaire.entites %}
 
 
-                {% if entite.attachements|length > 0 %}
-                    {% for attachement in entite.attachements %}
-                        {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
-                            <div style=" page-break-after: always;" class="text-center">
-                                <h3>ENT-{{ attachement.id }}{{ entite.id }}</h3>
-                                <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="..." >
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+                <div class="d-flex align-items-center">
+                    {% if entite.attachements|length > 0 %}
+                        {% for attachement in entite.attachements %}
+                            {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
+                                <div style=" page-break-after: always;" class="text-center">
+                                    <h3>ENT-{{ attachement.id }}{{ entite.id }}</h3>
+                                    <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="..." >
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+
 
 
 
@@ -523,20 +527,18 @@
 
             {% for event in affaire.envenements %}
 
-
-                {% if event.attachements|length > 0 %}
-                    {% for attachement in event.attachements %}
-                        {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
-                            <div style=" page-break-after: always;" class="text-center">
-                                <h3>ENV-{{ attachement.id }}{{ event.id }}</h3>
-                                <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="...">
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-
-
+                <div class="d-flex align-items-center">
+                    {% if event.attachements|length > 0 %}
+                        {% for attachement in event.attachements %}
+                            {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
+                                <div style=" page-break-after: always;" class="text-center">
+                                    <h3>ENV-{{ attachement.id }}{{ event.id }}</h3>
+                                    <img src="{{ absolute_url(asset('/upload/') )}}{{ attachement.name }}" class="img-thumbnail" alt="...">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
             {% endfor %}
 
         </div>
