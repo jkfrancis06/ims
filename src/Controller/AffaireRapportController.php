@@ -81,9 +81,12 @@ class AffaireRapportController extends AbstractController
         );
 
 
-        $knpSnappyPdf->setTimeout(300);
-
         $knpSnappyPdf->setOption('footer-right', '[page]');
+
+
+        $knpSnappyPdf->setTimeout(3000);
+
+
 
 
         return new PdfResponse(
