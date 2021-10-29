@@ -222,6 +222,47 @@
                             </div>
                         </div>
 
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.taille, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.taille, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.taille) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-5">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.situationMatri, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.situationMatri, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.situationMatri) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.adresse, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.adresse, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.adresse) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-10">
+                            <div class="mb-3">
+                                {{ form_label(personneForm.otherInfos, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                                {{ form_widget(personneForm.otherInfos, {'attr': {'class': 'form-control'}}) }}
+                                <div class="form-error" style="color: red">
+                                    {{ form_errors(personneForm.otherInfos) }}
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="col col-10">
                             <div class="card">
                                 <div class="card-body">

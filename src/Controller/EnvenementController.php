@@ -16,6 +16,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EnvenementController extends AbstractController
 {
+
+    /**
+     * @var string
+     */
+    private $targetDirectory;
+
+    /**
+     * @var string
+     */
+    private $affaireDir;
+
+
+    public function __construct(string $affaireDir, string $targetDirectory)
+    {
+        $this->affaireDir = $affaireDir;
+        $this->targetDirectory = $targetDirectory;
+    }
+
     /**
      * @Route("/affaire/{id}/ev/c", name="envenement_create")
      */
@@ -59,7 +77,7 @@ class EnvenementController extends AbstractController
 
                     if ($formAttachement->getFile() != null) {
 
-                        $fileName = $fileUploader->upload($formAttachement->getFile());
+                        $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                         $formAttachement->setName($fileName);
 
@@ -135,7 +153,7 @@ class EnvenementController extends AbstractController
 
                     if ($formAttachement->getFile() != null) {
 
-                        $fileName = $fileUploader->upload($formAttachement->getFile());
+                        $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                         $formAttachement->setName($fileName);
 

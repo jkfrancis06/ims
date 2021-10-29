@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Attachements;
 use App\Entity\Courrier;
+use App\Entity\Entites;
 use App\Entity\PieceJointe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -26,10 +28,23 @@ class DownloadController extends AbstractController
      */
     private $courrierDir;
 
-    public function __construct(string $projectDir, string $courrierDir)
+    /**
+     * @var string
+     */
+    private $affaireDir;
+
+
+    /**
+     * @var string
+     */
+    private $targetDirectory;
+
+    public function __construct(string $projectDir, string $courrierDir, string  $affaireDir, string $targetDirectory)
     {
         $this->projectDir = $projectDir;
         $this->courrierDir = $courrierDir;
+        $this->affaireDir = $affaireDir;
+        $this->targetDirectory = $targetDirectory;
     }
 
 
@@ -184,20 +199,45 @@ class DownloadController extends AbstractController
     public function dummy(): Response
     {
 
-        $courriers = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findAll();
 
-        foreach ($courriers as $courrier){
+        mkdir($this->affaireDir);
 
-            $pieces = $courrier->getPiecejointe();
+        $attachements = $this->getDoctrine()->getManager()->getRepository(Attachements::class)->findAll();
 
-            mkdir($this->courrierDir.'/'.md5($courrier->getEntry()));
+        foreach ($attachements as $courrier){
 
-            if ($pieces != null){
+           // $pieces = $courrier->getPiecejointe();
 
-                foreach ($pieces as $piece){
-                    rename($this->courrierDir.'/'.$piece->getFilename(), $this->courrierDir.'/'.md5($courrier->getEntry()).'/'.$piece->getFilename());
-                }
 
+            mkdir($this->affaireDir.'/'.md5($courrier->getName()));
+
+            rename($this->targetDirectory.'/'.$courrier->getName(), $this->affaireDir.'/'.md5($courrier->getName()).'/'.$courrier->getName());
+
+        }
+
+        return new Response('ok');
+    }
+
+
+
+    /**
+     * @Route("/ddm2", name="dm2")
+     */
+    public function dummy2(): Response
+    {
+
+
+        $attachements = $this->getDoctrine()->getManager()->getRepository(Entites::class)->findAll();
+
+        foreach ($attachements as $courrier){
+
+            // $pieces = $courrier->getPiecejointe();
+
+            if (!file_exists($this->affaireDir.'/'.md5($courrier->getMainPicture()))) {
+
+                mkdir($this->affaireDir.'/'.md5($courrier->getMainPicture()));
+
+                rename($this->targetDirectory.'/'.$courrier->getMainPicture(), $this->affaireDir.'/'.md5($courrier->getMainPicture()).'/'.$courrier->getMainPicture());
             }
 
 
@@ -205,6 +245,7 @@ class DownloadController extends AbstractController
 
         return new Response('ok');
     }
+
 
 
 

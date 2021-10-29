@@ -275,56 +275,6 @@
 
                             <div>
 
-                                <table class="table table-bordered text-center">
-                                    <!-- Table head -->
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            Nom
-                                        </th>
-                                        <th>
-                                            Details
-                                        </th>
-                                        <th>
-                                            Taille
-                                        </th>
-                                        <th>
-                                            Actions
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <!-- Table head -->
-
-                                    <!-- Table body -->
-                                    <tbody>
-                                    {% if entite is not null %}
-                                        {% for file in entite.attachements %}
-                                            <tr>
-                                                <th class="font-weight-bold">
-                                                    {{ file.name }}
-                                                </th>
-                                                <td class="text-center">
-                                                    {{ file.getDescription()}}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ file.getThumbnail()| raw}}
-                                                </td>
-                                                <td>
-                                                    {{ file.getFileSize() }}
-                                                </td>
-                                                <td>
-                                                    <a download href="{{ asset('/upload/') }}{{ file.name }}" class="btn btn-outline-deep-purple">
-                                                        <i style="color: inherit" class="fas fa-file-download"></i>
-                                                        <span class="font-weight-bold">Telecharger</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    {% endif %}
-
-                                    </tbody>
-                                    <!-- Table body -->
-                                </table>
                             </div>
 
                         </div>
@@ -881,7 +831,7 @@
                                                        {% set type = 3 %}
                                                    {% endif %}
 
-                                                   <a href="{{ path('affaire_details_entite', {id: affaire.id, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-primary">
+                                                   <a href="{{ path('details_entite', {entite: entite.id }) }}" class="btn-floating btn-sm btn-primary">
                                                        <i class="fa fa-eye"></i>
                                                    </a>
                                                    <a href="{{ path('update_entite', {id: affaire.id, type: type, entite_id: entite.id }) }}" class="btn-floating btn-sm btn-deep-purple">

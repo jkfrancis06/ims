@@ -1,0 +1,360 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Details{% endblock %}
+
+{% block javascripts %}
+    <script  src="{{ asset('/assets/js/fileViewer.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Modal entite -->
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="fileContent"></div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="container-fluid mt-5">
+        <div class="row">
+
+            <div class="col col-12">
+                <div class="d-flex justify-content-center">
+                    <img style="width: 8em;height: 8em" src="{{ path('file_download', {'file': entite.mainPicture }) }}" class="img-thumbnail" alt="...">
+
+                </div>
+            </div>
+
+            <div class="col col-12 mt-5">
+
+                <table class="table text-left display table-bordered">
+
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold">Role  : </span>
+                        </td>
+                        <td>
+                               <span class="text-uppercase font-weight-bold">
+                                    {% if constant('ROLE_SUSPECT', entite)  == entite.role %}
+                                        Suspect
+                                    {% endif %}
+                                   {% if constant('ROLE_INTEREST', entite) == entite.role %}
+                                       personne d'interet
+                                   {% endif %}
+                                   {% if constant('ROLE_VICTIME', entite) == entite.role %}
+                                       victime
+                                   {% endif %}
+                                   {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                       source
+                                   {% endif %}
+                                </span>
+                        </td>
+                    </tr>
+
+                    {% if entite.isPersonne() is defined %}
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Nom et prenoms  : </span>
+                            </td>
+                            <td>
+                                <span class="text-uppercase">{{ entite.nom }} &nbsp {{ entite.prenom }}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Alias  : </span>
+                            </td>
+                            <td>
+                                   <span>
+                                       {% if entite.aliases is not null %}
+                                           {% for alias in entite.aliases %}
+                                               {{ alias.alias }}
+                                           {% endfor %}
+                                       {% endif %}
+                                   </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Telephones  : </span>
+                            </td>
+                            <td>
+                                    <span>
+                                       {% if entite.telephone is not null %}
+                                           {% for telephone in entite.telephone %}
+                                               <p>
+                                                   <span>{{ telephone.numero }}</span>
+                                               </p>
+                                           {% endfor %}
+                                       {% endif %}
+                                    </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Sexe  : </span>
+                            </td>
+                            <td>
+                                    <span>
+                                        {% if constant('SEXE_IND', entite) == entite.sexe %}
+                                            Indetermine
+                                        {% endif %}
+                                        {% if constant('SEXE_HOMME', entite) == entite.sexe %}
+                                            Homme
+                                        {% endif %}
+                                        {% if constant('SEXE_FEMME', entite) == entite.sexe %}
+                                            Femme
+                                        {% endif %}
+                                    </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Date de naissance  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.dateNaissance|date('d-m-Y') }}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Numero de passport  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.numPassport }} </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Numero de carte d'identite  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.numCarte }} </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Pays d'origine  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.nationalite }}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Taille  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.taille }}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Situation matrimoniale  : </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {% if constant('SIT_MARIE', entite) == entite.situationMatri %}
+                                        Marié
+                                    {% endif %}
+                                    {% if constant('SIT_DIVORCE', entite) == entite.situationMatri %}
+                                        Divorcé
+                                    {% endif %}
+                                    {% if constant('SIT_CELIBATAIRE', entite) == entite.situationMatri %}
+                                        Célibataire
+                                    {% endif %}
+                                    {% if constant('SIT_IND', entite) == entite.situationMatri %}
+                                        Indeterminé
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Adresse  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.adresse }}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Autres informations  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.otherInfos|raw }}</span>
+                            </td>
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Nom  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.description }}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="font-weight-bold">Description  : </span>
+                            </td>
+                            <td>
+                                <span>{{ entite.description2 }}</span>
+                            </td>
+                        </tr>
+
+                        {% if entite.isVehicule() is defined %}
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Categorie  : </span>
+                                </td>
+                                <td>
+                                    <span>{{ entite.categorie }}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">immatriculation  : </span>
+                                </td>
+                                <td>
+                                    <span>{{ entite.immatriculation }}</span>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+
+
+                    {% endif %}
+
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold">Resume  : </span>
+                        </td>
+                        <td>
+                            {{ entite.resume | raw }}
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="col col-12 mt-5">
+                <table class="table table-bordered text-center">
+                    <!-- Table head -->
+                    <thead>
+                    <tr>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Details
+                        </th>
+                        <th>
+                            Taille
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+                    <!-- Table head -->
+
+                    <!-- Table body -->
+                    <tbody>
+
+                        {% if entite is not null %}
+                            {% for file in entite.attachements %}
+                                <tr>
+                                    <th class="font-weight-bold">
+                                        {{ file.name }}
+                                    </th>
+                                    <td class="text-center">
+                                        {{ file.getDescription()}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ file.getThumbnail()| raw}}
+                                    </td>
+                                    <td>
+                                        {{ file.getFileSize() }}
+                                    </td>
+                                    <td>
+                                        <a download href="{{ path('attachement_download', {'attachement': file.id }) }}"
+                                           data-file-mame="{{ file.name }}"
+                                           class="btn btn-outline-deep-purple fileBtn">
+                                            <i style="color: inherit" class="fas fa-file"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+
+                    </tbody>
+                    <!-- Table body -->
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block botton_javascripts %}
+    
+    <script>
+       /* $(document).ready(function () {
+            $(".fileBtn").on('click',function (e) {
+
+                console.log($(this).attr('data-file'))
+
+                $('.fileContent').fileViewer({
+                    filePath: $(this).attr('data-file'),
+                    fileName: $(this).attr('data-file-mame'),
+                    generateId: true //Sets the id to element render, e.g: id="pdf-viewer"
+                })
+
+            })
+        }) */
+    </script>
+
+{% endblock %}

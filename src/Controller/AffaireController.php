@@ -118,7 +118,7 @@ class AffaireController extends AbstractController
 
         foreach ($entites as $key => $entite) {
 
-            preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
+            //preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
 
             $resume = $entite->getResume();
 

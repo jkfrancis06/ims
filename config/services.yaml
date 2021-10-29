@@ -13,6 +13,8 @@ services:
         bind:
             $projectDir: '%kernel.project_dir%'
             $courrierDir: '%kernel.project_dir%/ressources/private'
+            $affaireDir: '%kernel.project_dir%/ressources/affaires'
+            $targetDirectory: '%kernel.project_dir%/public/upload'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -79,6 +81,7 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%kernel.project_dir%/public/upload'
+            $affaireDir: '%kernel.project_dir%/ressources/affaires'
 
     foo:
         class: App\Enti\To\Foo

@@ -46,6 +46,11 @@ class Personne extends Entites
     const SEXE_HOMME = 'h';
     const SEXE_FEMME = 'f';
 
+    const SIT_MARIE = 1;
+    const SIT_DIVORCE = 2;
+    const SIT_CELIBATAIRE = 3;
+    const SIT_IND = null;
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"entite:read", "entite:write"})
@@ -66,7 +71,7 @@ class Personne extends Entites
 
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"entite:read", "entite:write"})
      */
     protected $sexe;
@@ -108,6 +113,22 @@ class Personne extends Entites
      * @ORM\ManyToMany(targetEntity=Telephone::class, inversedBy="personnes",cascade={"persist", "remove"})
      */
     private $telephone;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $taille;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $situationMatri;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adresse;
+
 
     public function __construct()
     {
@@ -281,7 +302,7 @@ class Personne extends Entites
         return $this->sexe;
     }
 
-    public function setSexe(string $sexe): self
+    public function setSexe(?string $sexe): self
     {
         $this->sexe = $sexe;
 
@@ -292,6 +313,44 @@ class Personne extends Entites
     public function isPersonne(){
         return true;
     }
+
+    public function getTaille(): ?int
+    {
+        return $this->taille;
+    }
+
+    public function setTaille(?int $taille): self
+    {
+        $this->taille = $taille;
+
+        return $this;
+    }
+
+    public function getSituationMatri(): ?int
+    {
+        return $this->situationMatri;
+    }
+
+    public function setSituationMatri(?int $situationMatri): self
+    {
+        $this->situationMatri = $situationMatri;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+
 
 
 }

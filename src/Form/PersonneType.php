@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -170,6 +171,43 @@ class PersonneType extends AbstractType
                     'class' => 'attachements',
                 ),
             ])
+
+            ->add('taille', IntegerType::class, [
+                'label' => 'Taille : ',
+                'required' => false,
+            ])
+            ->add('situationMatri', ChoiceType::class, [
+                'required' => false,
+                'label' => 'Situation matrimoniale : ',
+                'choices'  => [
+                    'Indetermine' => Personne::SIT_IND,
+                    'Celibataire' => Personne::SIT_CELIBATAIRE,
+                    'Marie' => Personne::SIT_MARIE,
+                    'Divorce' => Personne::SIT_DIVORCE,
+                ]
+            ])
+            ->add('adresse', TextType::class, [
+                'label' => 'Adresse : ',
+                'required' => false,
+            ])
+
+            ->add('otherInfos', CKEditorType::class, array(
+                'label' => 'Autres informations0. : ',
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                    'language' => 'fr',
+                    'input_sync' => true,
+                    'extraPlugins' => 'wordcount,entiteinsert',
+                ),
+                'plugins' => array(
+                    'wordcount' => array(
+                        'path'     => '/assets/wordcount/', // with trailing slash
+                        'filename' => 'plugin.js',
+                    ),
+                ),
+                'required' => false,
+
+            ))
 
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('cancel', ResetType::class, ['label' => 'Annuler'])

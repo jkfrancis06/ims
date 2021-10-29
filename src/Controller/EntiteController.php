@@ -24,6 +24,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EntiteController extends AbstractController
 {
+
+    /**
+     * @var string
+     */
+    private $targetDirectory;
+
+    /**
+     * @var string
+     */
+    private $affaireDir;
+
+
+    public function __construct(string $affaireDir, string $targetDirectory)
+    {
+        $this->affaireDir = $affaireDir;
+        $this->targetDirectory = $targetDirectory;
+    }
+
     /**
      * @Route("/affaire/{id}/ec/{type}", name="create_entite")
      */
@@ -66,7 +84,7 @@ class EntiteController extends AbstractController
 
                     if ($telephone->getFile() != null){
 
-                        $fileName = $fileUploader->upload($telephone->getFile());
+                        $fileName = $fileUploader->upload($telephone->getFile(),null,true);
 
                         $telephone->setFichierCdr($fileName);
                     }
@@ -76,7 +94,7 @@ class EntiteController extends AbstractController
 
             $mainPicture = $personneForm->get('mainPicture')->getData();
             if ($mainPicture != null){
-                $mainPictureFileName = $fileUploader->upload($mainPicture);
+                $mainPictureFileName = $fileUploader->upload($mainPicture,null,true);
                 $personne->setMainPicture($mainPictureFileName);
             }
 
@@ -88,7 +106,7 @@ class EntiteController extends AbstractController
 
                     if ($formAttachement->getFile() != null) {
 
-                        $fileName = $fileUploader->upload($formAttachement->getFile());
+                        $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                         $formAttachement->setName($fileName);
                         $formAttachement->setType(1);
@@ -117,7 +135,7 @@ class EntiteController extends AbstractController
             $mainPicture = $vehiculeForm->get('mainPicture')->getData();
 
             if ($mainPicture != null){
-                $mainPictureFileName = $fileUploader->upload($mainPicture);
+                $mainPictureFileName = $fileUploader->upload($mainPicture,null,true);
                 $vehicule->setMainPicture($mainPictureFileName);
             }
 
@@ -129,7 +147,7 @@ class EntiteController extends AbstractController
 
                     if ($formAttachement->getFile() != null) {
 
-                        $fileName = $fileUploader->upload($formAttachement->getFile());
+                        $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                         $formAttachement->setName($fileName);
                         $formAttachement->setType(1);
@@ -153,7 +171,7 @@ class EntiteController extends AbstractController
             $mainPicture = $organisationForm->get('mainPicture')->getData();
 
             if ($mainPicture != null){
-                $mainPictureFileName = $fileUploader->upload($mainPicture);
+                $mainPictureFileName = $fileUploader->upload($mainPicture,null,true);
                 $organisation->setMainPicture($mainPictureFileName);
             }
 
@@ -165,7 +183,7 @@ class EntiteController extends AbstractController
 
                     if ($formAttachement->getFile() != null) {
 
-                        $fileName = $fileUploader->upload($formAttachement->getFile());
+                        $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                         $formAttachement->setName($fileName);
                         $formAttachement->setType(1);
@@ -240,7 +258,7 @@ class EntiteController extends AbstractController
 
                     if ($personneForm->get('mainPicture')->getData() != null){  // nouvelle image
                        $mainPicture = $personneForm->get('mainPicture')->getData();
-                        $mainPictureFileName = $fileUploader->upload($mainPicture);
+                        $mainPictureFileName = $fileUploader->upload($mainPicture,null,true);
                         $entite->setMainPicture($mainPictureFileName);
                     }
 
@@ -255,7 +273,7 @@ class EntiteController extends AbstractController
 
                             if ($formAttachement->getFile() != null) {
 
-                                $fileName = $fileUploader->upload($formAttachement->getFile());
+                                $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                                 $formAttachement->setName($fileName);
                                 $formAttachement->setType(1);
@@ -271,7 +289,7 @@ class EntiteController extends AbstractController
 
                             if ($telephone->getFile() != null){
 
-                                $fileName = $fileUploader->upload($telephone->getFile());
+                                $fileName = $fileUploader->upload($telephone->getFile(),null,true);
 
                                 $telephone->setFichierCdr($fileName);
                             }
@@ -310,7 +328,7 @@ class EntiteController extends AbstractController
 
                     if ($vehiculeForm->get('mainPicture')->getData() != null){  // nouvelle image
                         $mainPicture = $vehiculeForm->get('mainPicture')->getData();
-                        $mainPictureFileName = $fileUploader->upload($mainPicture);
+                        $mainPictureFileName = $fileUploader->upload($mainPicture,null,true);
                         $entite->setMainPicture($mainPictureFileName);
                     }
 
@@ -323,7 +341,7 @@ class EntiteController extends AbstractController
 
                             if ($formAttachement->getFile() != null) {
 
-                                $fileName = $fileUploader->upload($formAttachement->getFile());
+                                $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                                 $formAttachement->setName($fileName);
                                 $formAttachement->setType(1);
@@ -359,7 +377,7 @@ class EntiteController extends AbstractController
 
                     if ($organisationForm->get('mainPicture')->getData() != null){  // nouvelle image
                         $mainPicture = $organisationForm->get('mainPicture')->getData();
-                        $mainPictureFileName = $fileUploader->upload($mainPicture);
+                        $mainPictureFileName = $fileUploader->upload($mainPicture,null,true);
                         $entite->setMainPicture($mainPictureFileName);
                     }
 
@@ -372,7 +390,7 @@ class EntiteController extends AbstractController
 
                             if ($formAttachement->getFile() != null) {
 
-                                $fileName = $fileUploader->upload($formAttachement->getFile());
+                                $fileName = $fileUploader->upload($formAttachement->getFile(),null,true);
 
                                 $formAttachement->setName($fileName);
 
@@ -448,6 +466,19 @@ class EntiteController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
+    }
+
+
+    /**
+     * @Route("/entite/details/{entite}", name="details_entite")
+     */
+    public function detailsEntie(Entites $entite,Request $request)
+    {
+        return $this->render('entite/details.html.twig', [
+            'controller_name' => 'EntiteController',
+            'active' => 'affaire',
+            'entite' => $entite,
+        ]);
     }
 
 }

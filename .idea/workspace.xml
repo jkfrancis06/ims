@@ -14,7 +14,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/assets/js/fileViewer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/entite/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DownloadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DownloadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EnvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EnvenementController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Entites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entites.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Personne.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Personne.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PersonneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PersonneType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FileUploader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileUploader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entite/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entite/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +230,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/themes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/entite" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -229,13 +245,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/entite" />
       <recent name="$PROJECT_DIR$/templates/themes" />
       <recent name="$PROJECT_DIR$/public/assets/js" />
       <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/templates/affaire_rapport" />
-      <recent name="$PROJECT_DIR$/public/img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/upload" />
       <recent name="$PROJECT_DIR$/public/assets/css/datatables" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
@@ -341,7 +358,7 @@
       <workItem from="1634893351295" duration="203000" />
       <workItem from="1635179833597" duration="23170000" />
       <workItem from="1635314400160" duration="13841000" />
-      <workItem from="1635403433555" duration="13316000" />
+      <workItem from="1635403433555" duration="32177000" />
     </task>
     <servers />
   </component>

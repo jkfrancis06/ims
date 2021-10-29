@@ -156,6 +156,11 @@ abstract class Entites
      */
     private $rapportFinal;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $otherInfos;
+
 
 
     public function __construct(){
@@ -408,6 +413,18 @@ abstract class Entites
     public function setRapportFinal(?string $rapportFinal): self
     {
         $this->rapportFinal = $rapportFinal;
+
+        return $this;
+    }
+
+    public function getOtherInfos(): ?string
+    {
+        return $this->otherInfos;
+    }
+
+    public function setOtherInfos(?string $otherInfos): self
+    {
+        $this->otherInfos = $otherInfos;
 
         return $this;
     }

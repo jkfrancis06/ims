@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Affaire;
 use App\Entity\Entites;
+use App\Entity\Personne;
+use App\Entity\Vehicule;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use PHPHtmlParser\Dom;
@@ -27,17 +29,16 @@ class AffaireRapportController extends AbstractController
 
         $evenements = $affaire->getEnvenements();
 
-        //$pattern = '/\[\[[^}]*\]\]/';
+        $pattern = '/\[{2}(.*?)\]{2}/is';
+
 
         foreach ($entites as $key => $entite) {
 
             //preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
 
-            $text = preg_replace('/\[{2}(.*?)\]{2}/is' , 'XXXXXXXXXXXXX', $entite->getResume());
+            // if ($entite->getRole() == Entites::ROLE_SOURCE) {}
 
-
-            $entites[$key]->setResume($text);
-
+            $entites[$key] = $this->hideSensitiveInformations($entite);
 
         }
 
@@ -47,17 +48,45 @@ class AffaireRapportController extends AbstractController
 
             $text = preg_replace('/\[{2}(.*?)\]{2}/is' , 'XXXXXXXXXXXXX', $evenement->getResume());
 
+            $resume = $evenement->getResume();
 
-            $evenements[$key]->setResume($text);
+            $value = preg_replace_callback($pattern,function ($matches){
 
+                $string = str_replace(array('[[',']]'),'',$matches[0]);
+
+                $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(intval($string));
+
+
+                if ($entite == null){
+                    return $matches[0];
+                }else{
+                    if ($entite->getRole() == Entites::ROLE_SOURCE) {
+                        return "[ XXXXXXXXXXXXXX ]";
+                    }else if ($entite instanceof Personne){
+                        return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                    }else {
+                        return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                    }
+                }
+            },$resume);
+
+            $evenement->setResume($value);
+
+            $eventEntites = $evenement->getEntite();
+
+            foreach ($eventEntites as $entite) {
+
+                $eventEntites[$key] = $this->hideSensitiveInformations($entite);
+
+            }
 
         }
 
 
-       /*return $this->render('affaire_rapport/index.html.twig', [
+       return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire
-        ]); */
+        ]);
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
@@ -94,4 +123,91 @@ class AffaireRapportController extends AbstractController
             "Dossier.pdf"
         );
     }
+
+    private function hideSensitiveInformations(Entites $entite) {
+
+        $pattern = '/\[{2}(.*?)\]{2}/is';
+
+        /*
+             * Edit resume content
+             */
+        $resume = $entite->getResume();
+
+        $value = preg_replace_callback($pattern,function ($matches){
+
+            $string = str_replace(array('[[',']]'),'',$matches[0]);
+
+            $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(intval($string));
+
+
+            if ($entite == null){
+                return $matches[0];
+            }else{
+                if ($entite->getRole() == Entites::ROLE_SOURCE) {
+                    return "[ XXXXXXXXXXXXXX ]";
+                }else if ($entite instanceof Personne){
+                    return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                }else {
+                    return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                }
+            }
+        },$resume);
+
+        $entite->setResume($value);
+
+        if ($entite->getRole() == Entites::ROLE_SOURCE) {
+
+            if ($entite instanceof Personne){
+                $entite->setNom('XXXXXXXXXXXXXXXXXXXX');
+                $entite->setPrenom('XXXXXXXXXXXXXXXXXXX');
+
+                foreach ($entite->getAliases() as $alias){
+                    $alias->setAlias('XXXXXXXXXXXXXXXXXXX');
+                }
+
+                foreach ($entite->getTelephone() as $telephone){
+                    $telephone->setNumero('XXXXXXXXXXXXXXXXXXX');
+                }
+
+                $entite->setSexe('XXXXXXXXXXXXXXXXXX');
+
+                $entite->setDateNaissance(null);
+
+                $entite->setLieuNaissance('XXXXXXXXXXXXXXXXXX');
+
+                $entite->setNumCarte('XXXXXXXXXXXXXXXXXX');
+
+                $entite->setNumPassport('XXXXXXXXXXXXXXXXXX');
+
+                $entite->setTaille(0);
+
+                $entite->setSituationMatri(Personne::SIT_IND);
+
+                $entite->setAdresse('XXXXXXXXXXXXXXXXXXXXXX');
+
+            }
+
+            if ($entite instanceof Vehicule){
+                $entite->setCat('XXXXXXXXXXXXXXXXXXXX');
+                $entite->setImmatriculation('XXXXXXXXXXXXXXXXXXX');
+            }
+
+
+            $entite->setMainPicture("icon-default.png");
+
+
+            $entite->setResume('XXXXXXXXXXXXXXXXXX');
+
+
+            $entite->setOtherInfos('XXXXXXXXXXXXXXXXXXXX');
+
+        }
+
+
+        return $entite;
+
+
+
+    }
+
 }

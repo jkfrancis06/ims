@@ -13,14 +13,16 @@ class FileUploader
 
     private $targetDirectory;
     private $slugger;
+    private $affaireDir;
 
-    public function __construct($targetDirectory, SluggerInterface $slugger)
+    public function __construct($targetDirectory, SluggerInterface $slugger, string $affaireDir)
     {
         $this->targetDirectory = $targetDirectory;
+        $this->affaireDir = $affaireDir;
         $this->slugger = $slugger;
     }
 
-    public function upload(UploadedFile $file, $dir = null)
+    public function upload(UploadedFile $file, $dir = null, $newFormat = false)
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
@@ -46,6 +48,10 @@ class FileUploader
         } catch (FileException $e) {
             return $error = true;
         } */
+
+        if ($newFormat) {
+            rename($this->targetDirectory.'/'.$fileName, $this->affaireDir.'/'.md5($fileName).'/'.$fileName);
+        }
 
         return $fileName;
     }
