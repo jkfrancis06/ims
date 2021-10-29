@@ -25,4 +25,9 @@ class AliasType extends AbstractType
             'data_class' => Alias::class,
         ]);
     }
+
+    public function getBlockPrefix()
+    {
+        return 'AliasType';
+    }
 }

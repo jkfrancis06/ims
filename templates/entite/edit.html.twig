@@ -72,69 +72,14 @@
 
 {% block content %}
 
+    {% form_theme personneForm.attachements 'themes/attachements.html.twig' 'jquery.collection.html.twig' %}
+    {% form_theme personneForm.telephone 'themes/telephone.html.twig' 'jquery.collection.html.twig' %}
+    {% form_theme personneForm.aliases 'themes/alias.html.twig' 'jquery.collection.html.twig' %}
+
+
     {% import _self as formMacros %}
 
     {% if type == 1 %}
-
-        {% macro printTelephoneRow(telephone) %}
-            <div class="row js-personne-telephone-item">
-                <div class="col col-5">
-                    <div class="mb-3">
-                        {{ form_label(telephone.numero, "Numero de telephone : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                        {{ form_widget(telephone.numero, {'attr': {'class': 'form-control'}}) }}
-                        <div class="form-error" style="color: red">
-                            {{ form_errors(telephone.numero) }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-5">
-                    <div class="md-form">
-                        <div class="file-field">
-                            <div class="btn blue-gradient btn-sm float-left">
-                                <span><i class="fas fa-cloud-upload-alt mr-2" aria-hidden="true"></i>Choisir un fichier</span>
-                                {{ form_widget(telephone.fichierCdr, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" readonly type="text" placeholder="Uploader une image">
-                            </div>
-                        </div>
-                        <div class="form-error" style="color: red">
-                            {{ form_errors(telephone.fichierCdr) }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-2">
-                    <div style="margin-top: 1.2em" class="">
-                        <a href="#" class="btn btn-outline-danger js-remove-telephone">
-                            <span class="fa fa-trash"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {% endmacro %}
-
-
-        {% macro printAliasRow(aliases) %}
-            <div class="row js-personne-alias-item">
-                <div class="col col-5">
-                    <div class="mb-3">
-                        {{ form_label(aliases.alias, "Alias : ", {'label_attr': {'class': 'intitule_label'}}) }}
-                        {{ form_widget(aliases.alias, {'attr': {'class': 'form-control'}}) }}
-                        <div class="form-error" style="color: red">
-                            {{ form_errors(aliases.alias) }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-2">
-                    <div style="margin-top: 1.2em" class="">
-                        <a href="#" class="btn btn-outline-danger js-remove-alias">
-                            <span class="fa fa-trash"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {% endmacro %}
-
 
 
         <div style="margin-top: 1em; ">
@@ -188,7 +133,7 @@
 
                 <div class="col col-10 mt-4">
                     <div class="mb-3">
-                        {{ form_widget(personneForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(personneForm.resume, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(personneForm.resume) }}
                         </div>
@@ -198,7 +143,7 @@
 
 
 
-                <div style="margin-top: 5em" class="col col-12">
+                <div style="margin-top: 2em" class="col col-12">
                     <div class="row">
                         <div class="col col-5">
                             <div class="mb-3">
@@ -224,7 +169,7 @@
                         <div class="col col-5">
                             <div class="mb-3">
                                 {{ form_label(personneForm.dateNaissance, '', {'label_attr': {'class': 'intitule_label'}}) }}
-                                {{ form_widget(personneForm.dateNaissance, {'attr': {'class': 'form-control js-datepicker'}}) }}
+                                {{ form_widget(personneForm.dateNaissance, {'attr': {'class': 'form-control'}}) }}
                                 <div class="form-error" style="color: red">
                                     {{ form_errors(personneForm.dateNaissance) }}
                                 </div>
@@ -276,84 +221,32 @@
                         </div>
 
                         <div class="col col-10">
-                            <div class="mb-3">
-                                <div class="file-loading">
-                                    {{ form_widget(personneForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
-                                </div>
-
-                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
-
-                                <div class="form-error" style="color: red">
-                                    {{ form_errors(personneForm.attachements) }}
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="col col-5 mt-4">
                             <div class="card">
-                                <!-- Card content -->
                                 <div class="card-body">
-
-                                    <div class="telephone row js-personne-telephone-wrapper" data-index="{{ personneForm.telephone|length > 0 ? personneForm.telephone|last.vars.name + 1 : 0 }}"
-                                         data-prototype="{{ formMacros.printTelephoneRow(personneForm.telephone.vars.prototype)|e('html_attr') }}">
-
-                                        <div class="col col-12">
-                                            <button type="button" class="add_item_link btn blue-gradient js-personne-telephone-add" data-collection-holder-class="telephone">
-                                                <span class="fa fa-plus-circle"></span>
-                                                Ajouter un numero de telephone</button>
-                                        </div>
-
-                                        <div class="col col-12">
-                                            {% for telephone in personneForm.telephone %}
-
-                                                {{ formMacros.printTelephoneRow(telephone) }}
-
-                                            {% endfor %}
-                                        </div>
-
-
-                                    </div>
-
+                                    {{ form_widget(personneForm.attachements)}}
                                 </div>
-
                             </div>
                         </div>
 
 
-
-                        <div class="col col-5 mt-4 mb-5">
+                        <div class="col col-10 mt-3">
                             <div class="card">
-
-                                <!-- Card content -->
                                 <div class="card-body">
-
-                                    <div class="alias row js-personne-alias-wrapper" data-index="{{ personneForm.aliases|length > 0 ? personneForm.aliases|last.vars.name + 1 : 0 }}"
-                                         data-prototype="{{ formMacros.printAliasRow(personneForm.aliases.vars.prototype)|e('html_attr') }}">
-
-                                        <div class="col col-12">
-                                            <button type="button" class="btn blue-gradient js-personne-alias-add" data-collection-holder-class="alias">
-                                                <span class="fa fa-plus-circle"></span>
-                                                Ajouter un alias</button>
-                                        </div>
-
-                                        <div class="col col-12">
-                                            {% for alias in personneForm.aliases %}
-
-                                                {{ formMacros.printAliasRow(alias) }}
-
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-
+                                    {{ form_widget(personneForm.telephone)}}
                                 </div>
+                            </div>
+                        </div>
 
+                        <div class="col col-10 mt-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    {{ form_widget(personneForm.aliases)}}
+                                </div>
                             </div>
                         </div>
 
 
-                        <div class="col col-12">
+                        <div class="col col-12 mt-4">
                             <div class="row">
                                 <div class="col col-2">
                                     {{ form_row(personneForm.cancel,{'attr':{'class': 'btn btn-outline-secondary form-btn'}}) }}
@@ -681,7 +574,65 @@
         <script>
 
 
-                //parse data of editor in form
+            $('.custom-file input').change(function (e) {
+                if (e.target.files.length) {
+                    $(this).next('.custom-file-label').html(e.target.files[0].name);
+                }
+            });
+
+            $('.attachements').collection({
+                up: '<a href="#">&#x25B2;</a>',
+                down: '<a href="#">&#x25BC;</a>',
+                add: '<a class="btn btn-sm btn-default" href="#">' +
+                    '<span class="fa fa-plus-circle"></span> Ajouter une piece jointe</a>',
+                remove: '<a href="#">[ - ]</a>',
+                duplicate: '<a href="#">[ # ]</a>',
+                allow_up: false,
+                allow_down: false,
+                after_add: function(collection, element) {
+                    $('.custom-file input').change(function (e) {
+                        if (e.target.files.length) {
+                            $(this).next('.custom-file-label').html(e.target.files[0].name);
+                        }
+                    });
+                },
+            });
+
+            $('.telephones').collection({
+                up: '<a href="#">&#x25B2;</a>',
+                down: '<a href="#">&#x25BC;</a>',
+                add: '<a class="btn btn-sm btn-default" href="#">' +
+                    '<span class="fa fa-plus-circle"></span> Ajouter un numero</a>',
+                remove: '<a href="#">[ - ]</a>',
+                duplicate: '<a href="#">[ # ]</a>',
+                allow_up: false,
+                allow_down: false,
+                after_add: function(collection, element) {
+                    $('.custom-file input').change(function (e) {
+                        if (e.target.files.length) {
+                            $(this).next('.custom-file-label').html(e.target.files[0].name);
+                        }
+                    });
+                },
+            });
+
+            $('.aliases').collection({
+                up: '<a href="#">&#x25B2;</a>',
+                down: '<a href="#">&#x25BC;</a>',
+                add: '<a class="btn btn-sm btn-default" href="#">' +
+                    '<span class="fa fa-plus-circle"></span> Ajouter un alias</a>',
+                remove: '<a href="#">[ - ]</a>',
+                duplicate: '<a href="#">[ # ]</a>',
+                allow_up: false,
+                allow_down: false,
+                after_add: function(collection, element) {
+                    $('.custom-file input').change(function (e) {
+                        if (e.target.files.length) {
+                            $(this).next('.custom-file-label').html(e.target.files[0].name);
+                        }
+                    });
+                },
+            });
 
 
 

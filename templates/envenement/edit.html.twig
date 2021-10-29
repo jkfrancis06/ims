@@ -4,20 +4,13 @@
 
 
 {% block javascripts %}
-    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
-    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
-    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
 
 {% endblock %}
 
  {% block stylesheets %}
-
-     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
-     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput.min.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/theme/theme.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput-rtl.min.css') }}" />
-     <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
 
 
      <style>
@@ -72,9 +65,12 @@
 
 {% block content %}
 
+    {% form_theme envenementForm.attachements 'themes/attachements.html.twig' 'jquery.collection.html.twig' %}
 
 
-        <div style="margin-top: 1em; ">
+
+
+    <div style="margin-top: 1em; ">
 
 
             {{ form_start(envenementForm) }}
@@ -137,7 +133,7 @@
                 <div class="col col-5">
                     <div class="mb-3">
                         {{ form_label(envenementForm.startAt, "Date de debut: ", {'label_attr': {'class': 'intitule_label'}}) }}
-                        {{ form_widget(envenementForm.startAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        {{ form_widget(envenementForm.startAt, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(envenementForm.startAt) }}
                         </div>
@@ -147,7 +143,7 @@
                 <div class="col col-5">
                     <div class="mb-3">
                         {{ form_label(envenementForm.endAt, "Date de fin: ", {'label_attr': {'class': 'intitule_label'}}) }}
-                        {{ form_widget(envenementForm.endAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        {{ form_widget(envenementForm.endAt, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(envenementForm.endAt) }}
                         </div>
@@ -156,10 +152,6 @@
 
 
 
-                <div class="col col-10 mb-3 mt-4">
-                    <div id="event_editor" style="color: inherit">
-                    </div>
-                </div>
 
 
                 <div class="col col-5 mt-5">
@@ -184,9 +176,9 @@
 
 
 
-                <div class="col col-5 mt-4" style="display: none">
+                <div class="col col-10 mt-4">
                     <div class="mb-3">
-                        {{ form_widget(envenementForm.resume,{'id':'resume'}, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(envenementForm.resume,{'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(envenementForm.resume) }}
                         </div>
@@ -194,16 +186,10 @@
                 </div>
 
 
-                <div class="col col-10">
-                    <div class="mb-3">
-                        <div class="file-loading">
-                            {{ form_widget(envenementForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
-                        </div>
-
-                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
-
-                        <div class="form-error" style="color: red">
-                            {{ form_errors(envenementForm.attachements) }}
+                <div class="col col-10 mt-5 mb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_widget(envenementForm.attachements)}}
                         </div>
                     </div>
                 </div>
@@ -243,112 +229,116 @@
             $(document).ready(function () {
                 //parse data of editor in form
 
-
-                $("#envenement_submit").on("click",function(){
-                    $("#resume").val($("#event_editor .ql-editor").html());
-                    console.log( $("#resume").val())
-
-                })
-
-
-
-                // Quill
-
-                var quill = new Quill('#event_editor', {
-                    modules: {
-                        toolbar: [
-                            [{ header: [1, 2, false] }],
-                            ['bold', 'italic', 'underline'],
-                            ['image', 'code-block']
-                        ]
-                    },
-                    placeholder: 'Compose an epic...',
-                    theme: 'snow' // or 'bubble'
+                $('.custom-file input').change(function (e) {
+                    if (e.target.files.length) {
+                        $(this).next('.custom-file-label').html(e.target.files[0].name);
+                    }
                 });
 
-                quill.root.innerHTML = `{{ envenement.resume | raw}}`
-
-            })
-
-
-            var url = window.location.origin;
-
-            var initData = [
-                {% for attachement in envenement.attachements %}
-                url+"{{ asset('/upload/') }}{{ attachement.name }}",
-                {% endfor %}
-            ]
-
-            var data =  [
-
-                {% for attachement in envenement.attachements %}
-                {
-                    key: {{ attachement.id }},
-                    size: '{{ attachement.sizeInByte() }}',
-                    caption: '{{ attachement.name }}',
-                    downloadUrl: url+"{{ asset('/upload/') }}{{ attachement.name }}",
-                    url: "{{ path('delete_entite_attachement', {id: attachement.id }) }}",
-                    extra: {id: {{ attachement.id }}}
-
-                },
-                {% endfor %}
-            ]
-
-            $("#attachements").fileinput({
-                theme: "explorer",
-                language: "fr",
-                uploadUrl: "#",
-                showUpload: false,
-                showRemove: true,
-                maxFileSize: 1000000,
-                removeFromPreviewOnError: true,
-                overwriteInitial: false,
-                previewFileIcon: '<i class="fas fa-file"></i>',
-                initialPreview: initData,
-                initialPreviewConfig: data,
-                preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
-                previewFileIconSettings: { // configure your icon file extensions
-                    'doc': '<i class="fas fa-file-word text-primary"></i>',
-                    'xls': '<i class="fas fa-file-excel text-success"></i>',
-                    'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
-                    'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
-                    'zip': '<i class="fas fa-file-archive text-muted"></i>',
-                    'htm': '<i class="fas fa-file-code text-info"></i>',
-                    'txt': '<i class="fas fa-file-text text-info"></i>',
-                    'mov': '<i class="fas fa-file-video text-warning"></i>',
-                    'mp3': '<i class="fas fa-file-audio text-warning"></i>',
-                    // note for these file types below no extension determination logic
-                    // has been configured (the keys itself will be used as extensions)
-                    'jpg': '<i class="fas fa-file-image text-danger"></i>',
-                    'gif': '<i class="fas fa-file-image text-muted"></i>',
-                    'png': '<i class="fas fa-file-image text-primary"></i>'
-                },
-                previewFileExtSettings: { // configure the logic for determining icon file extensions
-                    'doc': function(ext) {
-                        return ext.match(/(doc|docx)$/i);
+                $('.attachements').collection({
+                    up: '<a href="#">&#x25B2;</a>',
+                    down: '<a href="#">&#x25BC;</a>',
+                    add: '<a class="btn btn-sm btn-default" href="#">' +
+                        '<span class="fa fa-plus-circle"></span> Ajouter une piece jointe</a>',
+                    remove: '<a href="#">[ - ]</a>',
+                    duplicate: '<a href="#">[ # ]</a>',
+                    allow_up: false,
+                    allow_down: false,
+                    after_add: function(collection, element) {
+                        $('.custom-file input').change(function (e) {
+                            if (e.target.files.length) {
+                                $(this).next('.custom-file-label').html(e.target.files[0].name);
+                            }
+                        });
                     },
-                    'xls': function(ext) {
-                        return ext.match(/(xls|xlsx)$/i);
-                    },
-                    'ppt': function(ext) {
-                        return ext.match(/(ppt|pptx)$/i);
-                    },
-                    'zip': function(ext) {
-                        return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
-                    },
-                    'htm': function(ext) {
-                        return ext.match(/(htm|html)$/i);
-                    },
-                    'txt': function(ext) {
-                        return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
-                    },
-                    'mov': function(ext) {
-                        return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
-                    },
-                    'mp3': function(ext) {
-                        return ext.match(/(mp3|wav)$/i);
-                    }
-                }
+                });
+
+
+
+                CKEDITOR.config.allowedContent = true;
+
+                CKEDITOR.config.allowedContent = true;
+
+                CKEDITOR.config.extraAllowedContent = 'span(*)';
+
+
+
+                CKEDITOR.plugins.add('entiteinsert',
+                    {
+                        requires : ['richcombo'],
+                        init : function( editor )
+                        {
+                            var config = editor.config;
+
+                            // Gets the list of insertable strings from the settings.
+                            var strings = config.strinsert_strings;
+
+
+
+                            // add the menu to the editor
+                            editor.ui.addRichCombo('entiteinsert',
+                                {
+                                    label: 'Entites',
+                                    title: 'Entites',
+                                    toolbar: 'basicstyles,1',
+
+                                    panel: {
+                                        css: [ CKEDITOR.skin.getPath( 'editor' ) ].concat( config.contentsCss ),
+                                        multiSelect: false,
+                                        attributes: { 'aria-label': 'Entites' }
+                                    },
+
+                                    init: function() {
+
+                                        this.startGroup( 'Inserer une entite' );
+
+                                        {% for entite in entites %}
+
+                                        {% if entite.isPersonne() is defined %}
+
+                                        {% if entite.aliases|length > 0 %}
+
+                                        this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}' );
+
+                                        {% else %}
+
+                                        this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }}' );
+
+                                        {% endif %}
+
+                                        {% else %}
+
+                                        this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }}' );
+
+                                        {% endif %}
+
+                                        {% endfor %}
+                                    },
+
+
+                                    onClick: function( value ) {
+
+                                        console.log(value)
+
+
+                                        var newElement = CKEDITOR.dom.element.createFromHtml("<span>" + value + "</span>", editor.document);
+
+                                        editor.insertElement(newElement);
+
+
+                                    }
+
+                                });
+
+                            CKEDITOR.dtd.$removeEmpty.span = 0;
+
+                            CKEDITOR.editorConfig = function( config ) {
+                                config.extraAllowedContent = 'span(*)';
+                            }
+
+                        }
+                    });
+
             });
         </script>
 

@@ -8,6 +8,7 @@ use App\Entity\AffaireUtilisateur;
 use App\Entity\CanConsult;
 use App\Entity\Entites;
 use App\Entity\Envenement;
+use App\Entity\Personne;
 use App\Form\AffaireType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -108,6 +109,61 @@ class AffaireController extends AbstractController
         $user = $this->getUser();
 
         $affaire = $this->getDoctrine()->getManager()->getRepository(Affaire::class)->find($id);
+
+        $entites = $affaire->getEntites();
+
+        $evenements = $affaire->getEnvenements();
+
+        $pattern = '/\[{2}(.*?)\]{2}/is';
+
+        foreach ($entites as $key => $entite) {
+
+            preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
+
+            $resume = $entite->getResume();
+
+            $value = preg_replace_callback($pattern,function ($matches){
+
+                $string = str_replace(array('[[',']]'),'',$matches[0]);
+
+                $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(intval($string));
+
+                if ($entite == null){
+                    return $matches[0];
+                }else{
+                    if ($entite instanceof Personne){
+                        return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                    }
+                    return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                }
+            },$resume);
+
+            $entite->setResume($value);
+
+
+
+
+
+            //$text = preg_replace('/\[{2}(.*?)\]{2}/is' , 'XXXXXXXXXXXXX', $entite->getResume());
+
+
+           // $entites[$key]->setResume($text);
+
+
+        }
+
+
+        /*foreach ($evenements as $key => $evenement) {
+
+            //preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
+
+            $text = preg_replace('/\[{2}(.*?)\]{2}/is' , 'XXXXXXXXXXXXX', $evenement->getResume());
+
+
+            $evenements[$key]->setResume($text);
+
+
+        } */
 
         $entite = null;
 

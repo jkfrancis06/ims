@@ -122,7 +122,7 @@ class Envenement
     private $geoLocalisation;
 
     /**
-     * @ORM\OneToMany(targetEntity=Attachements::class, mappedBy="envenement",cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Attachements::class, mappedBy="envenement", orphanRemoval=true,cascade={"persist", "remove"})
      */
     private $attachements;
 

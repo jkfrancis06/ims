@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Attachements;
 use App\Entity\Entites;
 use App\Entity\Personne;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -58,7 +59,7 @@ class PersonneType extends AbstractType
 
 
             ])
-            ->add('attachements', FileType::class, [
+            /*->add('attachements', FileType::class, [
                 'label' => 'Choisir un fichier',
                 'mapped' => false,
                 'multiple' => true,
@@ -72,7 +73,7 @@ class PersonneType extends AbstractType
                         ],
                     ]),
                 ]
-            ])
+            ])*/
             ->add('resume', CKEditorType::class, array(
                 'config' => array(
                     'uiColor' => '#ffffff',
@@ -103,13 +104,11 @@ class PersonneType extends AbstractType
             ->add('dateNaissance', DateType::class, [
                 'required' => false,
                 'label' => 'Date de naissance: ',
-                'html5' => false,
+                'html5' => true,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
                 // adds a class that can be selected in JavaScript
                 'attr' => [
-                    'class' => 'js-datepicker',
-                    'placeholder' => 'Selectionner un interval de date'
+                    'placeholder' => 'Selectionner une date'
                 ]
 
             ])
@@ -139,11 +138,12 @@ class PersonneType extends AbstractType
             ->add('telephone', CollectionType::class, [
                 'required' => false,
                 'entry_type' => TelephoneType::class,
-                'block_name' => 'telephone_lists',
-                'entry_options' => ['label' => false],
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'attr' => array(
+                    'class' => 'telephones',
+                ),
             ])
 
             ->add('aliases', CollectionType::class, [
@@ -154,6 +154,21 @@ class PersonneType extends AbstractType
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'attr' => array(
+                    'class' => 'aliases',
+                ),
+            ])
+
+
+            ->add('attachements', CollectionType::class, [
+                'required' => false,
+                'entry_type' => AttachementsType::class,
+                'allow_add' => true,
+                'prototype' => true,
+                'allow_delete' => true,
+                'attr' => array(
+                    'class' => 'attachements',
+                ),
             ])
 
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])

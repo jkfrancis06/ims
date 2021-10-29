@@ -7,6 +7,7 @@ use App\Repository\TelephoneRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ApiResource()
@@ -35,6 +36,12 @@ class Telephone
      * @ORM\ManyToMany(targetEntity=Personne::class, mappedBy="telephone")
      */
     public $personnes;
+
+    /**
+     * @var UploadedFile
+     */
+    protected $file;
+
 
     public function __construct()
     {
@@ -95,5 +102,21 @@ class Telephone
         }
 
         return $this;
+    }
+
+    /**
+     * @param UploadedFile $file - Uploaded File
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

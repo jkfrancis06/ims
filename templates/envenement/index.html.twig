@@ -4,20 +4,14 @@
 
 
 {% block javascripts %}
-    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
-    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
-    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
 
 {% endblock %}
 
  {% block stylesheets %}
 
-     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
-     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput.min.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/theme/theme.css') }}" />
      <link rel="stylesheet" href="{{ asset('/assets/css/fileinput/fileinput-rtl.min.css') }}" />
-     <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
 
 
      <style>
@@ -72,9 +66,11 @@
 
 {% block content %}
 
+    {% form_theme envenementForm.attachements 'themes/attachements.html.twig' 'jquery.collection.html.twig' %}
 
 
-        <div style="margin-top: 1em; ">
+
+    <div style="margin-top: 1em; ">
 
 
             {{ form_start(envenementForm) }}
@@ -137,7 +133,7 @@
                 <div class="col col-5">
                     <div class="mb-3">
                         {{ form_label(envenementForm.startAt, "Date de debut: ", {'label_attr': {'class': 'intitule_label'}}) }}
-                        {{ form_widget(envenementForm.startAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        {{ form_widget(envenementForm.startAt, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(envenementForm.startAt) }}
                         </div>
@@ -147,7 +143,7 @@
                 <div class="col col-5">
                     <div class="mb-3">
                         {{ form_label(envenementForm.endAt, "Date de fin: ", {'label_attr': {'class': 'intitule_label'}}) }}
-                        {{ form_widget(envenementForm.endAt, {'attr': {'class': 'form-control eventFormPicker'}}) }}
+                        {{ form_widget(envenementForm.endAt, {'attr': {'class': 'form-control'}}) }}
                         <div class="form-error" style="color: red">
                             {{ form_errors(envenementForm.endAt) }}
                         </div>
@@ -156,14 +152,11 @@
 
 
 
-                <div class="col col-10 mb-3 mt-4">
-
-                    <div class="col col-10 mt-4">
-                        <div class="mb-3">
-                            {{ form_widget(envenementForm.resume, {'attr': {'class': 'form-control'}}) }}
-                            <div class="form-error" style="color: red">
-                                {{ form_errors(envenementForm.resume) }}
-                            </div>
+                <div class="col col-10 mt-4">
+                    <div class="mb-3">
+                        {{ form_widget(envenementForm.resume, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(envenementForm.resume) }}
                         </div>
                     </div>
                 </div>
@@ -193,17 +186,10 @@
 
 
 
-
-                <div class="col col-10">
-                    <div class="mb-3">
-                        <div class="file-loading">
-                            {{ form_widget(envenementForm.attachements,{'id':'attachements'},{'attr': {'class': ''}}) }}
-                        </div>
-
-                        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
-
-                        <div class="form-error" style="color: red">
-                            {{ form_errors(envenementForm.attachements) }}
+                <div class="col col-10 mt-5 mb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_widget(envenementForm.attachements)}}
                         </div>
                     </div>
                 </div>
@@ -238,6 +224,117 @@
 
 
         <script>
+            $(document).ready(function () {
 
-        <script  src="{{ asset('/assets/js/custom/eventForm.js') }}"></script>
+                $('.custom-file input').change(function (e) {
+                    if (e.target.files.length) {
+                        $(this).next('.custom-file-label').html(e.target.files[0].name);
+                    }
+                });
+
+                $('.attachements').collection({
+                    up: '<a href="#">&#x25B2;</a>',
+                    down: '<a href="#">&#x25BC;</a>',
+                    add: '<a class="btn btn-sm btn-default" href="#">' +
+                        '<span class="fa fa-plus-circle"></span> Ajouter une piece jointe</a>',
+                    remove: '<a href="#">[ - ]</a>',
+                    duplicate: '<a href="#">[ # ]</a>',
+                    allow_up: false,
+                    allow_down: false,
+                    after_add: function(collection, element) {
+                        $('.custom-file input').change(function (e) {
+                            if (e.target.files.length) {
+                                $(this).next('.custom-file-label').html(e.target.files[0].name);
+                            }
+                        });
+                    },
+                });
+
+                CKEDITOR.config.allowedContent = true;
+
+                CKEDITOR.config.allowedContent = true;
+
+                CKEDITOR.config.extraAllowedContent = 'span(*)';
+
+
+
+                CKEDITOR.plugins.add('entiteinsert',
+                    {
+                        requires : ['richcombo'],
+                        init : function( editor )
+                        {
+                            var config = editor.config;
+
+                            // Gets the list of insertable strings from the settings.
+                            var strings = config.strinsert_strings;
+
+
+
+                            // add the menu to the editor
+                            editor.ui.addRichCombo('entiteinsert',
+                                {
+                                    label: 'Entites',
+                                    title: 'Entites',
+                                    toolbar: 'basicstyles,1',
+
+                                    panel: {
+                                        css: [ CKEDITOR.skin.getPath( 'editor' ) ].concat( config.contentsCss ),
+                                        multiSelect: false,
+                                        attributes: { 'aria-label': 'Entites' }
+                                    },
+
+                                    init: function() {
+
+                                        this.startGroup( 'Inserer une entite' );
+
+                                        {% for entite in entites %}
+
+                                        {% if entite.isPersonne() is defined %}
+
+                                        {% if entite.aliases|length > 0 %}
+
+                                        this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }} alias {{ entite.aliases[0].alias }}' );
+
+                                        {% else %}
+
+                                        this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }}' );
+
+                                        {% endif %}
+
+                                        {% else %}
+
+                                        this.add('[[{{ entite.id }}]]', '{{ entite.description }} {{ entite.description2 }}' );
+
+                                        {% endif %}
+
+                                        {% endfor %}
+                                    },
+
+
+                                    onClick: function( value ) {
+
+                                        console.log(value)
+
+
+                                        var newElement = CKEDITOR.dom.element.createFromHtml("<span>" + value + "</span>", editor.document);
+
+                                        editor.insertElement(newElement);
+
+
+                                    }
+
+                                });
+
+                            CKEDITOR.dtd.$removeEmpty.span = 0;
+
+                            CKEDITOR.editorConfig = function( config ) {
+                                config.extraAllowedContent = 'span(*)';
+                            }
+
+                        }
+                    });
+
+            })
+        </script>
+
     {% endblock %}

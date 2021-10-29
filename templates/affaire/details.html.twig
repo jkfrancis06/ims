@@ -77,7 +77,13 @@
 
                                 <div>
 
-                                    <table class="table text-left display">
+                                    <div class="d-flex justify-content-center mb-5">
+                                        <img src="{{ asset('/upload/') }}{{ entite.mainPicture }}" alt="thumbnail" class="img-thumbnail"
+                                             style="width: 8em;height: 8em">
+                                    </div>
+
+
+                                    <table class="table text-left display table-bordered">
 
                                         <tr>
                                             <td>
@@ -264,10 +270,6 @@
 
                                 </div>
 
-                                <div class="mb-2">
-                                    <img src="{{ asset('/upload/') }}{{ entite.mainPicture }}" alt="thumbnail" class="img-thumbnail"
-                                         style="width: 8em;height: 8em">
-                                </div>
 
                             </div>
 
@@ -281,7 +283,7 @@
                                             Nom
                                         </th>
                                         <th>
-                                            Type
+                                            Details
                                         </th>
                                         <th>
                                             Taille
@@ -301,6 +303,9 @@
                                                 <th class="font-weight-bold">
                                                     {{ file.name }}
                                                 </th>
+                                                <td class="text-center">
+                                                    {{ file.getDescription()}}
+                                                </td>
                                                 <td class="text-center">
                                                     {{ file.getThumbnail()| raw}}
                                                 </td>
@@ -496,6 +501,9 @@
                                             Nom
                                         </th>
                                         <th>
+                                            Details
+                                        </th>
+                                        <th>
                                             Type
                                         </th>
                                         <th>
@@ -515,6 +523,9 @@
                                             <tr>
                                                 <th class="font-weight-bold">
                                                     {{ file.name }}
+                                                </th>
+                                                <th class="text-center">
+                                                    {{ file.description }}
                                                 </th>
                                                 <td class="text-center">
                                                     {{ file.getThumbnail()| raw}}

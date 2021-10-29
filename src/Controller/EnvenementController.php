@@ -46,17 +46,31 @@ class EnvenementController extends AbstractController
 
         }
 
+
+
         if($envenementForm->isSubmitted() && $envenementForm->isValid()){
 
-            $formAttachements = $envenementForm->get('attachements')->getData();
-            foreach ($formAttachements as $formAttachement){
-                $fileName = $fileUploader->upload($formAttachement);
-                $attachement = new Attachements();
-                $attachement->setName($fileName);
-                $attachement->setType(1);
-                $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                $envenement->addAttachement($attachement);
+            $formAttachements = $envenement->getAttachements();
+
+            if ($formAttachements != null) {
+
+                foreach ($formAttachements as $formAttachement){
+
+
+                    if ($formAttachement->getFile() != null) {
+
+                        $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                        $formAttachement->setName($fileName);
+
+                        $formAttachement->setType(1);
+
+                        $formAttachement->setEnvenement($envenement);
+                    }
+                }
             }
+
+
             $envenement->setAffaire($affaire);
 
             //var_dump($personne->getTelephone()->toArray());
@@ -71,6 +85,7 @@ class EnvenementController extends AbstractController
         return $this->render('envenement/index.html.twig', [
             'controller_name' => 'EnvenementController',
             'active' => 'affaire',
+            'entites' => $affaire->getEntites(),
             'envenementForm' => $envenementForm->createView(),
         ]);
     }
@@ -111,29 +126,28 @@ class EnvenementController extends AbstractController
         if($envenementForm->isSubmitted() && $envenementForm->isValid()){
 
 
-            if ($envenementForm->get('attachements')->getData() != null){ //
-                foreach ($envenementForm->get('attachements')->getData() as $data){
-                    $found = false;
-                    foreach ($envenement->getAttachements() as $value){
-                        if ($value->getName() == $data){
-                            $found = true;
-                            break;
-                        }
-                    }
-                    if (!$found){
-                        $fileName = $fileUploader->upload($data);
-                        $attachement = new Attachements();
-                        $attachement->setName($fileName);
-                        $attachement->setType(1);
-                        $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                        $envenement->addAttachement($attachement);
+            $formAttachements = $envenement->getAttachements();
+
+            if ($formAttachements != null) {
+
+                foreach ($formAttachements as $formAttachement){
+
+
+                    if ($formAttachement->getFile() != null) {
+
+                        $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                        $formAttachement->setName($fileName);
+
                     }
                 }
             }
 
 
             $em = $this->getDoctrine()->getManager();
+
             $em->flush();
+
             $request->getSession()->getFlashBag()->add('edit_evenement', 'L\'evenement a été crée modifie succès');
             return $this->redirectToRoute('affaire_details', array('id' => $affaire->getId()));
 
@@ -143,6 +157,7 @@ class EnvenementController extends AbstractController
             'controller_name' => 'EnvenementController',
             'active' => 'affaire',
             'envenement' => $envenement,
+            'entites' => $affaire->getEntites(),
             'envenementForm' => $envenementForm->createView(),
         ]);
     }

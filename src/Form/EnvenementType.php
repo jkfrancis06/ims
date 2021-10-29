@@ -12,6 +12,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -61,9 +62,8 @@ class EnvenementType extends AbstractType
             ->add('startAt', DateTimeType::class, [
                 'required' => true,
                 'label' => 'Date de debut: ',
-                'html5' => false,
+                'html5' => true,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy HH:mm:ss',
                 // adds a class that can be selected in JavaScript
                 'attr' => [
                     'class' => 'js-datepicker',
@@ -80,7 +80,6 @@ class EnvenementType extends AbstractType
                 'label' => 'Date de fin: ',
                 'html5' => false,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy HH:mm:ss',
 
                 // adds a class that can be selected in JavaScript
                 'attr' => [
@@ -132,7 +131,9 @@ class EnvenementType extends AbstractType
                     'uiColor' => '#ffffff',
                     'language' => 'fr',
                     'input_sync' => true,
-                    'extraPlugins' => 'wordcount',
+                    'extraPlugins' => 'wordcount,entiteinsert',
+                    //"removePlugins"=>"exportpdf",
+
                 ),
                 'plugins' => array(
                     'wordcount' => array(
@@ -147,20 +148,15 @@ class EnvenementType extends AbstractType
 
             ))
 
-            ->add('attachements', FileType::class, [
-                'label' => 'Choisir un fichier',
-                'mapped' => false,
-                'multiple' => true,
+            ->add('attachements', CollectionType::class, [
                 'required' => false,
-                'constraints' => [
-                    new All([
-                        'constraints' => [
-                            new File([
-                                'maxSize' => '20000M'
-                            ]),
-                        ],
-                    ]),
-                ]
+                'entry_type' => AttachementsType::class,
+                'allow_add' => true,
+                'prototype' => true,
+                'allow_delete' => true,
+                'attr' => array(
+                    'class' => 'attachements',
+                ),
             ])
 
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])

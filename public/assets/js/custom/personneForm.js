@@ -155,7 +155,7 @@ $(document).ready(function () {
      });*/
 
 
-    var $wrapper = $('.js-personne-telephone-wrapper');
+    /*var $wrapper = $('.js-personne-telephone-wrapper');
     $wrapper.on('click', '.js-remove-telephone', function(e) {
         e.preventDefault();
         $(this).closest('.js-personne-telephone-item')
@@ -198,7 +198,7 @@ $(document).ready(function () {
         $alias_wrapper.data('index', alias_index + 1);
         // Display the form in the page before the "new" link
         $(this).after(newAliasForm);
-    });
+    }); */
 
 
 

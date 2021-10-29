@@ -39,7 +39,6 @@ class EntiteController extends AbstractController
         $personne = new Personne();
         $vehicule = new Vehicule();
         $organisation = new Organisation();
-        $telephone = new Telephone();
 
         $personneForm = $this->createForm(PersonneType::class,$personne);
         $vehiculeForm = $this->createForm(VehiculeType::class,$vehicule);
@@ -51,29 +50,28 @@ class EntiteController extends AbstractController
         $vehiculeForm->handleRequest($request);
         $organisationForm->handleRequest($request);
 
-        if ($personneForm->isSubmitted()){
+        //if ($personneForm->isSubmitted()){
 
 
             /*$mainPicture = $personneForm->get('telephone')[0]->get('fichierCdr')->getData();
 
             var_dump($mainPicture); */
 
-        }
+       // }
 
         if ($personneForm->isSubmitted() && $personneForm->isValid()){
 
-            $i = 0;
             if ($personne->getTelephone() != null) {
                 foreach ($personne->getTelephone() as $telephone){
-                    $fichierCdr = $personneForm->get('telephone')[$i]->get('fichierCdr')->getData();
-                    if ($fichierCdr != null){
-                        $fileName = $fileUploader->upload($fichierCdr);
+
+                    if ($telephone->getFile() != null){
+
+                        $fileName = $fileUploader->upload($telephone->getFile());
+
                         $telephone->setFichierCdr($fileName);
                     }
-                    $i++;
                 }
             }
-
 
 
             $mainPicture = $personneForm->get('mainPicture')->getData();
@@ -82,16 +80,20 @@ class EntiteController extends AbstractController
                 $personne->setMainPicture($mainPictureFileName);
             }
 
-            $formAttachements = $personneForm->get('attachements')->getData();
+            $formAttachements = $personne->getAttachements();
 
             if ($formAttachements != null) {
                 foreach ($formAttachements as $formAttachement){
-                    $fileName = $fileUploader->upload($formAttachement);
-                    $attachement = new Attachements();
-                    $attachement->setName($fileName);
-                    $attachement->setType(1);
-                    $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                    $personne->addAttachement($attachement);
+
+
+                    if ($formAttachement->getFile() != null) {
+
+                        $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                        $formAttachement->setName($fileName);
+                        $formAttachement->setType(1);
+                        $formAttachement->setEntite($personne);
+                    }
                 }
             }
 
@@ -105,6 +107,8 @@ class EntiteController extends AbstractController
             $em->flush();
             $request->getSession()->getFlashBag()->add('create_personne', 'L\'element a été crée avec succès');
             return $this->redirectToRoute('affaire_details', array('id' => $affaire->getId()));
+
+
         }
 
 
@@ -117,15 +121,23 @@ class EntiteController extends AbstractController
                 $vehicule->setMainPicture($mainPictureFileName);
             }
 
-            $formAttachements = $vehiculeForm->get('attachements')->getData();
-            foreach ($formAttachements as $formAttachement){
-                $fileName = $fileUploader->upload($formAttachement);
-                $attachement = new Attachements();
-                $attachement->setName($fileName);
-                $attachement->setType(1);
-                $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                $vehicule->addAttachement($attachement);
+            $formAttachements = $vehicule->getAttachements();
+
+            if ($formAttachements != null) {
+                foreach ($formAttachements as $formAttachement){
+
+
+                    if ($formAttachement->getFile() != null) {
+
+                        $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                        $formAttachement->setName($fileName);
+                        $formAttachement->setType(1);
+                        $formAttachement->setEntite($vehicule);
+                    }
+                }
             }
+
             $vehicule->setAffaire($affaire);
             //var_dump($personne->getTelephone()->toArray());
             $em = $this->getDoctrine()->getManager();
@@ -145,15 +157,23 @@ class EntiteController extends AbstractController
                 $organisation->setMainPicture($mainPictureFileName);
             }
 
-            $formAttachements = $organisationForm->get('attachements')->getData();
-            foreach ($formAttachements as $formAttachement){
-                $fileName = $fileUploader->upload($formAttachement);
-                $attachement = new Attachements();
-                $attachement->setName($fileName);
-                $attachement->setType(1);
-                $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                $organisation->addAttachement($attachement);
+            $formAttachements = $organisation->getAttachements();
+
+            if ($formAttachements != null) {
+                foreach ($formAttachements as $formAttachement){
+
+
+                    if ($formAttachement->getFile() != null) {
+
+                        $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                        $formAttachement->setName($fileName);
+                        $formAttachement->setType(1);
+                        $formAttachement->setEntite($organisation);
+                    }
+                }
             }
+
             $organisation->setAffaire($affaire);
             //var_dump($personne->getTelephone()->toArray());
             $em = $this->getDoctrine()->getManager();
@@ -226,76 +246,44 @@ class EntiteController extends AbstractController
 
 
 
-                    if ($personneForm->get('attachements')->getData() != null){ //
-                        foreach ($personneForm->get('attachements')->getData() as $data){
-                            $found = false;
-                            foreach ($entite->getAttachements() as $value){
-                                if ($value->getName() == $data){
-                                    $found = true;
-                                    break;
-                                }
-                            }
-                            if (!$found){
-                                $fileName = $fileUploader->upload($data);
-                                $attachement = new Attachements();
-                                $attachement->setName($fileName);
-                                $attachement->setType(1);
-                                $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                                $entite->addAttachement($attachement);
+                    $formAttachements = $entite->getAttachements();
+
+                    if ($formAttachements != null) {
+
+                        foreach ($formAttachements as $formAttachement){
+
+
+                            if ($formAttachement->getFile() != null) {
+
+                                $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                                $formAttachement->setName($fileName);
+                                $formAttachement->setType(1);
+                                $formAttachement->setEntite($entite);
                             }
                         }
                     }
 
-                    $i = 0;
-                    foreach ($entite->getTelephone() as $telephone){
-                        if (!is_string($personneForm->get('telephone')[$i]->get('fichierCdr')->getData())){
-                            $fichierCdr = $personneForm->get('telephone')[$i]->get('fichierCdr')->getData();
-                            if ($fichierCdr != null){
-                                $fileName = $fileUploader->upload($fichierCdr);
+
+                    if ($entite->getTelephone() != null) {
+
+                        foreach ($entite->getTelephone() as $telephone){
+
+                            if ($telephone->getFile() != null){
+
+                                $fileName = $fileUploader->upload($telephone->getFile());
+
                                 $telephone->setFichierCdr($fileName);
-                                $i++;
                             }
-
                         }
                     }
+
 
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
                     $request->getSession()->getFlashBag()->add('create_personne', 'L\'element a été modifie avec succès');
                     return $this->redirectToRoute('affaire_details', array('id' => $affaire->getId()));
-                    /*$i = 0;
-                    foreach ($entite->getTelephone() as $telephone){
-                        $fichierCdr = $personneForm->get('telephone')[$i]->get('fichierCdr')->getData();
-                        $fileName = $fileUploader->upload($fichierCdr);
-                        $telephone->setFichierCdr($fileName);
-                        $i++;
-                    }
 
-
-                    $mainPicture = $personneForm->get('mainPicture')->getData();
-                    $mainPictureFileName = $fileUploader->upload($mainPicture);
-
-                    $entite->setMainPicture($mainPictureFileName);
-
-                    $formAttachements = $personneForm->get('attachements')->getData();
-                    foreach ($formAttachements as $formAttachement){
-                        $fileName = $fileUploader->upload($formAttachement);
-                        $attachement = new Attachements();
-                        $attachement->setName($fileName);
-                        $attachement->setType(1);
-                        $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                        $entite->addAttachement($attachement);
-                    }
-                    $entite->setDescription($entite->getNom());
-                    $entite->setDescription2($entite->getPrenom());
-                    $entite->setAffaire($affaire);
-
-                    //var_dump($personne->getTelephone()->toArray());
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($entite);
-                    $em->flush();
-                    $request->getSession()->getFlashBag()->add('create_personne', 'L\'element a été crée avec succès');
-                    return $this->redirectToRoute('affaire_details', array('id' => $affaire->getId())); */
                 }
 
                 $entitesList = $this->getDoctrine()->getManager()->getRepository(Entites::class)->findBy([
@@ -313,9 +301,11 @@ class EntiteController extends AbstractController
 
             }
 
-            if ($type == 2){
+            if ($type == 2) {
+
                 $vehiculeForm = $this->createForm(VehiculeType::class,$entite);
                 $vehiculeForm->handleRequest($request);
+
                 if ($vehiculeForm->isSubmitted() && $vehiculeForm->isValid()){
 
                     if ($vehiculeForm->get('mainPicture')->getData() != null){  // nouvelle image
@@ -323,25 +313,22 @@ class EntiteController extends AbstractController
                         $mainPictureFileName = $fileUploader->upload($mainPicture);
                         $entite->setMainPicture($mainPictureFileName);
                     }
-                    if ($vehiculeForm->get('attachements')->getData() != null){ //
-                        foreach ($vehiculeForm->get('attachements')->getData() as $data){
 
-                            $found = false;
-                            foreach ($entite->getAttachements() as $value){
-                                if ($value->getName() == $data){
-                                    $found = true;
-                                    break;
-                                }
-                            }
-                            if (!$found){
-                                $fileName = $fileUploader->upload($data);
-                                $attachement = new Attachements();
-                                $attachement->setName($fileName);
-                                $attachement->setType(1);
-                                $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                                $entite->addAttachement($attachement);
-                            }
+                    $formAttachements = $entite->getAttachements();
 
+                    if ($formAttachements != null) {
+
+                        foreach ($formAttachements as $formAttachement){
+
+
+                            if ($formAttachement->getFile() != null) {
+
+                                $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                                $formAttachement->setName($fileName);
+                                $formAttachement->setType(1);
+                                $formAttachement->setEntite($entite);
+                            }
                         }
                     }
                     $em = $this->getDoctrine()->getManager();
@@ -375,25 +362,27 @@ class EntiteController extends AbstractController
                         $mainPictureFileName = $fileUploader->upload($mainPicture);
                         $entite->setMainPicture($mainPictureFileName);
                     }
-                    if ($organisationForm->get('attachements')->getData() != null){ //
-                        foreach ($organisationForm->get('attachements')->getData() as $data){
-                            $found = false;
-                            foreach ($entite->getAttachements() as $value){
-                                if ($value->getName() == $data){
-                                    $found = true;
-                                    break;
-                                }
-                            }
-                            if (!$found){
-                                $fileName = $fileUploader->upload($data);
-                                $attachement = new Attachements();
-                                $attachement->setName($fileName);
-                                $attachement->setType(1);
-                                $attachement->setDescription(pathinfo($fileName, PATHINFO_EXTENSION));
-                                $entite->addAttachement($attachement);
+
+                    $formAttachements = $entite->getAttachements();
+
+                    if ($formAttachements != null) {
+
+                        foreach ($formAttachements as $formAttachement){
+
+
+                            if ($formAttachement->getFile() != null) {
+
+                                $fileName = $fileUploader->upload($formAttachement->getFile());
+
+                                $formAttachement->setName($fileName);
+
+                                $formAttachement->setType(1);
+
+                                $formAttachement->setEntite($entite);
                             }
                         }
                     }
+
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
                     $request->getSession()->getFlashBag()->add('create_organisation', 'L\'element a été modifie avec succès');

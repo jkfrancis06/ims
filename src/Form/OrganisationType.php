@@ -7,6 +7,7 @@ use App\Entity\Organisation;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -61,20 +62,15 @@ class OrganisationType extends AbstractType
                     ])
                 ],
             ])
-            ->add('attachements', FileType::class, [
-                'label' => 'Choisir un fichier',
-                'mapped' => false,
-                'multiple' => true,
+            ->add('attachements', CollectionType::class, [
                 'required' => false,
-                'constraints' => [
-                    new All([
-                        'constraints' => [
-                            new File([
-                                'maxSize' => '20000M'
-                            ]),
-                        ],
-                    ]),
-                ]
+                'entry_type' => AttachementsType::class,
+                'allow_add' => true,
+                'prototype' => true,
+                'allow_delete' => true,
+                'attr' => array(
+                    'class' => 'attachements',
+                ),
             ])
             ->add('resume', CKEditorType::class, array(
                 'config' => array(

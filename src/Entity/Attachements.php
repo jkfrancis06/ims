@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AttachementsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -74,6 +75,12 @@ class Attachements
      * @ORM\ManyToOne(targetEntity=Envenement::class, inversedBy="attachements")
      */
     private $envenement;
+
+
+    /**
+     * @var UploadedFile
+     */
+    protected $file;
 
 
 
@@ -242,6 +249,24 @@ class Attachements
             default:
                 return '<i class="fas fa-file text-primary"></i>';
         }
+    }
+
+
+
+    /**
+     * @param UploadedFile $file - Uploaded File
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 
 }
