@@ -54,10 +54,10 @@ class AffaireRapportController extends AbstractController
         }
 
 
-       return $this->render('affaire_rapport/index.html.twig', [
+       /*return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire
-        ]); 
+        ]); */
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
