@@ -50,7 +50,8 @@ class FileUploader
         } */
 
         if ($newFormat) {
-            rename($this->targetDirectory.'/'.$fileName, $this->affaireDir.'/'.md5($fileName).'/'.$fileName);
+            mkdir($this->affaireDir.'/'.md5($fileName));
+            rename($this->getTargetDirectory().'/'.$fileName, $this->affaireDir.'/'.md5($fileName).'/'.$fileName);
         }
 
         return $fileName;

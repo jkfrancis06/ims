@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Affaire;
 use App\Entity\Attachements;
+use App\Entity\Entites;
 use App\Entity\Envenement;
 use App\Form\EnvenementType;
 use App\Service\FileUploader;
+use App\Service\TextContentJob;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -199,4 +201,22 @@ class EnvenementController extends AbstractController
         }
 
     }
+
+
+    /**
+     * @Route("/envenement/details/{envenement}", name="details_envenement")
+     */
+    public function detailsEnvenement(Envenement $envenement,Request $request, TextContentJob $contentJob)
+    {
+
+        $envenement->setResume($contentJob->parseTextContent($envenement->getResume()));
+
+
+        return $this->render('envenement/details.html.twig', [
+            'controller_name' => 'EntiteController',
+            'active' => 'affaire',
+            'envenement' => $envenement,
+        ]);
+    }
+
 }

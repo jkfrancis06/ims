@@ -288,6 +288,7 @@
                         <th>
                             Details
                         </th>
+                        <th>Type</th>
                         <th>
                             Taille
                         </th>
@@ -311,10 +312,10 @@
                                         {{ file.getDescription()}}
                                     </td>
                                     <td class="text-center">
-                                        {{ file.getThumbnail()| raw}}
+                                        {{ FileSizeJob.getThumbnail(file)| raw}}
                                     </td>
                                     <td>
-                                        {{ file.getFileSize() }}
+                                        {{ FileSizeJob.getFileSize(file) }}
                                     </td>
                                     <td>
                                         <a download href="{{ path('attachement_download', {'attachement': file.id }) }}"

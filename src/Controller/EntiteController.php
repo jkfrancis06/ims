@@ -14,6 +14,7 @@ use App\Form\OrganisationType;
 use App\Form\PersonneType;
 use App\Form\VehiculeType;
 use App\Service\FileUploader;
+use App\Service\TextContentJob;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -78,19 +79,7 @@ class EntiteController extends AbstractController
        // }
 
         if ($personneForm->isSubmitted() && $personneForm->isValid()){
-
-            if ($personne->getTelephone() != null) {
-                foreach ($personne->getTelephone() as $telephone){
-
-                    if ($telephone->getFile() != null){
-
-                        $fileName = $fileUploader->upload($telephone->getFile(),null,true);
-
-                        $telephone->setFichierCdr($fileName);
-                    }
-                }
-            }
-
+            
 
             $mainPicture = $personneForm->get('mainPicture')->getData();
             if ($mainPicture != null){
@@ -283,20 +272,6 @@ class EntiteController extends AbstractController
                     }
 
 
-                    if ($entite->getTelephone() != null) {
-
-                        foreach ($entite->getTelephone() as $telephone){
-
-                            if ($telephone->getFile() != null){
-
-                                $fileName = $fileUploader->upload($telephone->getFile(),null,true);
-
-                                $telephone->setFichierCdr($fileName);
-                            }
-                        }
-                    }
-
-
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
                     $request->getSession()->getFlashBag()->add('create_personne', 'L\'element a été modifie avec succès');
@@ -472,8 +447,12 @@ class EntiteController extends AbstractController
     /**
      * @Route("/entite/details/{entite}", name="details_entite")
      */
-    public function detailsEntie(Entites $entite,Request $request)
+    public function detailsEntie(Entites $entite,Request $request, TextContentJob $contentJob)
     {
+
+        $entite->setResume($contentJob->parseTextContent($entite->getResume()));
+
+
         return $this->render('entite/details.html.twig', [
             'controller_name' => 'EntiteController',
             'active' => 'affaire',

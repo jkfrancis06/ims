@@ -19,23 +19,6 @@ class TelephoneType extends AbstractType
             ->add('numero', IntegerType::class, [
                 'label' => 'Numero de telephone : ',
             ])
-            ->add('file',FileType::class, [
-                'label' => 'Fichier Joint',
-
-                'multiple' => false,
-
-
-                // make it optional so you don't have to re-upload the  file
-                // every time you edit details
-                'required' => true,
-
-                'attr'     => [
-                    'mimeTypesMessage' => "Veuillez uploader un fichier image valide",
-                    'maxSizeMessage' => "Taille maximum de 1M",
-
-                ],
-
-            ])
         ;
     }
 

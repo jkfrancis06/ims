@@ -10,6 +10,7 @@ use App\Entity\Entites;
 use App\Entity\Envenement;
 use App\Entity\Personne;
 use App\Form\AffaireType;
+use App\Service\TextContentJob;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,7 +105,7 @@ class AffaireController extends AbstractController
      * @Route("/affaire/d/{id}/entite/{entite_id}", name="affaire_details_entite")
      * @Route("/affaire/d/{id}/evenement/{event_id}", name="affaire_details_event")
      */
-    public function affaireDetails($id,$entite_id = null, $event_id = null): Response
+    public function affaireDetails($id,$entite_id = null, $event_id = null, TextContentJob $contentJob): Response
     {
         $user = $this->getUser();
 
@@ -118,36 +119,7 @@ class AffaireController extends AbstractController
 
         foreach ($entites as $key => $entite) {
 
-            //preg_match_all('/\[{2}(.*?)\]{2}/is',$entite->getResume(),$match);
-
-            $resume = $entite->getResume();
-
-            $value = preg_replace_callback($pattern,function ($matches){
-
-                $string = str_replace(array('[[',']]'),'',$matches[0]);
-
-                $entite = $this->getDoctrine()->getManager()->getRepository(Entites::class)->find(intval($string));
-
-                if ($entite == null){
-                    return $matches[0];
-                }else{
-                    if ($entite instanceof Personne){
-                        return '['.$entite->getDescription().' '.$entite->getDescription().']';
-                    }
-                    return '['.$entite->getDescription().' '.$entite->getDescription().']';
-                }
-            },$resume);
-
-            $entite->setResume($value);
-
-
-
-
-
-            //$text = preg_replace('/\[{2}(.*?)\]{2}/is' , 'XXXXXXXXXXXXX', $entite->getResume());
-
-
-           // $entites[$key]->setResume($text);
+            $entite->setResume($contentJob->parseTextContent($entite->getResume()));
 
 
         }

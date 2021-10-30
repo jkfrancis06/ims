@@ -1,0 +1,226 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Details{% endblock %}
+
+{% block javascripts %}
+    <script  src="{{ asset('/assets/js/fileViewer.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container-fluid mt-5">
+        <div class="row">
+
+            <div class="col col-12 mt-5">
+
+                <div class="">
+                    <!-- <i class="fas fa-window-close fa-4x mb-3 animated rotateIn"></i> -->
+
+                    <div>
+                        <table class="table table-bordered text-left display">
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Type : </span>
+                                </td>
+                                <td class="text-uppercase">
+                                    {% if envenement.typeEvenement == constant('EVENT_PER', envenement)  %}
+                                        <span class="font-weight-bold">perquisition</span>
+                                    {% endif %}
+
+                                    {% if envenement.typeEvenement == constant('EVENT_AUD', envenement)  %}
+                                        <span class="font-weight-bold">audition</span>
+                                    {% endif %}
+
+                                    {% if envenement.typeEvenement == constant('EVENT_FIL', envenement)  %}
+                                        <span class="font-weight-bold">filature</span>
+                                    {% endif %}
+
+                                    {% if envenement.typeEvenement == constant('EVENT_OTHER', envenement)  %}
+                                        <span class="font-weight-bold">autre</span>
+                                    {% endif %}
+
+                                    {% if envenement.typeEvenement == constant('EVENT_INFIL', envenement)  %}
+                                        <span class="font-weight-bold">infiltration</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Titre : </span>
+                                </td>
+                                <td>
+                                    {{ envenement.titre }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Lieu : </span>
+                                </td>
+                                <td>
+                                    {{ envenement.localisation }}
+                                </td>
+                            </tr>
+
+                            {% if envenement.geoLocalisation is not null %}
+                                <tr>
+                                    <td>
+                                        <span class="font-weight-bold">Coodonees  : </span>
+                                    </td>
+                                    <td>
+                                        {{ envenement.geoLocalisation }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Dates : </span>
+                                </td>
+                                <td>
+                                    {{ envenement.startAt|date('d-m-Y H:i:s') }}
+                                    {% if envenement.endAt is not null %}
+                                        au &nbsp; {{ envenement.endAt|date('d-m-Y H:i:s') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Entites : </span>
+                                </td>
+                                <td>
+
+                                    <ul class="list-group">
+                                        {% for entite in envenement.entite %}
+                                            <li class="list-group-item">
+                                                <a href="{{ path('details_entite', {entite: entite.id }) }}" style="text-decoration: none">
+                                                    <span class="text-uppercase">{{ entite.description }}</span>&nbsp;<span class="text-uppercase">{{ entite.description2 }}</span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Agents : </span>
+                                </td>
+                                <td>
+
+                                    <ul class="list-group">
+                                        {% for utilisateur in envenement.utilisateur %}
+                                            <li class="list-group-item disabled">
+                                                <span class="text-uppercase">{{ utilisateur.nom }}</span>&nbsp;<span class="text-uppercase">{{ utilisateur.prenom }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="font-weight-bold">Resume : </span>
+                                </td>
+                                <td>
+                                    {{ envenement.resume | raw }}
+                                </td>
+                            </tr>
+
+                        </table>
+
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <table class="table table-bordered text-center">
+                        <!-- Table head -->
+                        <thead>
+                        <tr>
+                            <th>
+                                Nom
+                            </th>
+                            <th>
+                                Details
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Taille
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                        </thead>
+                        <!-- Table head -->
+
+                        <!-- Table body -->
+                        <tbody>
+                        {% if envenement is not null %}
+                            {% for file in envenement.attachements %}
+                                <tr>
+                                    <th class="font-weight-bold">
+                                        {{ file.name }}
+                                    </th>
+                                    <th class="text-center">
+                                        {{ file.description }}
+                                    </th>
+                                    <td class="text-center">
+                                        {{ FileSizeJob.getThumbnail(file)| raw}}
+                                    </td>
+                                    <td>
+                                        {{ FileSizeJob.getFileSize(file) }}
+                                    </td>
+                                    <td>
+                                        <a download href="{{ path('attachement_download', {'attachement': file.id }) }}" class="btn btn-outline-deep-purple">
+                                            <i style="color: inherit" class="fas fa-file-download"></i>
+                                            <span class="font-weight-bold">Telecharger</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+
+                        </tbody>
+                        <!-- Table body -->
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block botton_javascripts %}
+    
+    <script>
+       /* $(document).ready(function () {
+            $(".fileBtn").on('click',function (e) {
+
+                console.log($(this).attr('data-file'))
+
+                $('.fileContent').fileViewer({
+                    filePath: $(this).attr('data-file'),
+                    fileName: $(this).attr('data-file-mame'),
+                    generateId: true //Sets the id to element render, e.g: id="pdf-viewer"
+                })
+
+            })
+        }) */
+    </script>
+
+{% endblock %}
