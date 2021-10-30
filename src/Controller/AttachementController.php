@@ -61,4 +61,37 @@ class AttachementController extends AbstractController
 
         return $response;
     }
+
+
+    /**
+     * @Route("/at/base64-download/{attachement}", name="at_base64")
+     */
+    public function base64AttachementDownload(Attachements $attachement): Response
+    {
+        $img = file_get_contents(
+            $this->affaireDir.'/'.md5($attachement->getName()).'/'.$attachement->getName()
+        );
+
+        // Encode the image string data into base64
+        $data = base64_encode($img);
+
+        return new Response($data);
+
+    }
+
+    /**
+     * @Route("/at/base64-download/{file}", name="file_base64")
+     */
+    public function base64ImageDownload($file): Response
+    {
+        $img = file_get_contents(
+            $this->affaireDir.'/'.md5($file).'/'.$file
+        );
+
+        // Encode the image string data into base64
+        $data = base64_encode($img);
+
+        return new Response($data);
+
+    }
 }

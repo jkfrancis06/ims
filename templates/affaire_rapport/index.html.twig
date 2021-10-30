@@ -181,7 +181,7 @@
                                 </div>
 
                                 <div class="col col-xs-12 text-center text-uppercase" style="font-weight: bold; margin-top: 2em; margin-bottom: 2em">
-                                    <img style="height: 10em;width: 10em" src="{{ path('file_download', {'file': entite.mainPicture }) }}" class="img-thumbnail" alt="...">
+                                    <img style="height: 10em;width: 10em" src="{{ path('file_base64', {'file': entite.mainPicture }) }}" class="img-thumbnail" alt="...">
                                 </div>
 
 
@@ -393,21 +393,22 @@
                                                         {% if constant('ROLE_SOURCE', entite) != entite.role  %}
 
                                                             <li>
-                                                                {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" or attachement.getExtension() == "gif" %}
+
+                                                                {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" or FileSizeJob.getExtension(attachement) == "gif" %}
                                                                     Image
-                                                                {% elseif attachement.getExtension() == "doc" or attachement.getExtension() == "docx"
-                                                                    or attachement.getExtension() == "ppt" or attachement.getExtension() == "pptx"
-                                                                    or attachement.getExtension() == "csv" or attachement.getExtension() == "xls" or attachement.getExtension() == "xlsx" or attachement.getExtension() == " xlsx "
-                                                                    or attachement.getExtension() == "txt " or attachement.getExtension() == "pdf"%}
+                                                                {% elseif FileSizeJob.getExtension(attachement) == "doc" or FileSizeJob.getExtension(attachement) == "docx"
+                                                                    or FileSizeJob.getExtension(attachement) == "ppt" or FileSizeJob.getExtension(attachement) == "pptx"
+                                                                    or FileSizeJob.getExtension(attachement) == "csv" or FileSizeJob.getExtension(attachement) == "xls" or FileSizeJob.getExtension(attachement) == "xlsx" or FileSizeJob.getExtension(attachement) == " xlsx "
+                                                                    or FileSizeJob.getExtension(attachement) == "txt " or FileSizeJob.getExtension(attachement) == "pdf"%}
                                                                     Document
-                                                                {% elseif  attachement.getExtension() == "wav" or attachement.getExtension() == "mp3" %}
+                                                                {% elseif  FileSizeJob.getExtension(attachement) == "wav" or FileSizeJob.getExtension(attachement) == "mp3" %}
                                                                     Audio
-                                                                {% elseif attachement.getExtension() == "mp4" or attachement.getExtension() == "avi" or attachement.getExtension() == "mov" or attachement.getExtension() == "webw"  %}
+                                                                {% elseif FileSizeJob.getExtension(attachement) == "mp4" or FileSizeJob.getExtension(attachement) == "avi" or FileSizeJob.getExtension(attachement) == "mov" or FileSizeJob.getExtension(attachement) == "webw"  %}
                                                                     Video
                                                                 {% else %}
                                                                     Autre
-                                                                {% endif %}
-                                                                : Cf. ENT-{{ attachement.id }}{{ entite.id }}
+                                                                {% endif %} :
+                                                                Cf. ENT-{{ attachement.id }}{{ entite.id }}
                                                             </li>
 
                                                         {% endif %}
@@ -508,16 +509,16 @@
                                         {% for attachement in envenement.attachements %}
                                             <li>
 
-                                                {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" or attachement.getExtension() == "gif" %}
+                                                {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" or FileSizeJob.getExtension(attachement) == "gif" %}
                                                     Image
-                                                {% elseif attachement.getExtension() == "doc" or attachement.getExtension() == "docx"
-                                                    or attachement.getExtension() == "ppt" or attachement.getExtension() == "pptx"
-                                                    or attachement.getExtension() == "csv" or attachement.getExtension() == "xls" or attachement.getExtension() == "xlsx" or attachement.getExtension() == " xlsx "
-                                                    or attachement.getExtension() == "txt " or attachement.getExtension() == "pdf"%}
+                                                {% elseif FileSizeJob.getExtension(attachement) == "doc" or FileSizeJob.getExtension(attachement) == "docx"
+                                                    or FileSizeJob.getExtension(attachement) == "ppt" or FileSizeJob.getExtension(attachement) == "pptx"
+                                                    or FileSizeJob.getExtension(attachement) == "csv" or FileSizeJob.getExtension(attachement) == "xls" or FileSizeJob.getExtension(attachement) == "xlsx" or FileSizeJob.getExtension(attachement) == " xlsx "
+                                                    or FileSizeJob.getExtension(attachement) == "txt " or FileSizeJob.getExtension(attachement) == "pdf"%}
                                                     Document
-                                                {% elseif  attachement.getExtension() == "wav" or attachement.getExtension() == "mp3" %}
+                                                {% elseif  FileSizeJob.getExtension(attachement) == "wav" or FileSizeJob.getExtension(attachement) == "mp3" %}
                                                     Audio
-                                                {% elseif attachement.getExtension() == "mp4" or attachement.getExtension() == "avi" or attachement.getExtension() == "mov" or attachement.getExtension() == "webw"  %}
+                                                {% elseif FileSizeJob.getExtension(attachement) == "mp4" or FileSizeJob.getExtension(attachement) == "avi" or FileSizeJob.getExtension(attachement) == "mov" or FileSizeJob.getExtension(attachement) == "webw"  %}
                                                     Video
                                                 {% else %}
                                                     Autre
@@ -555,10 +556,10 @@
                     <div class="d-flex align-items-center">
                         {% if entite.attachements|length > 0 %}
                             {% for attachement in entite.attachements %}
-                                {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
+                                {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" %}
                                     <div style=" page-break-after: always;" class="text-center">
                                         <h3>ENT-{{ attachement.id }}{{ entite.id }}</h3>
-                                        <img src="{{ path('attachement_download', {'attachement': attachement.id }) }}" class="img-thumbnail" alt="..." >
+                                        <img src="{{ path('at_base64', {'attachement': attachement.id }) }}" class="img-thumbnail" alt="..." >
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -575,10 +576,10 @@
                 <div class="d-flex align-items-center">
                     {% if event.attachements|length > 0 %}
                         {% for attachement in event.attachements %}
-                            {% if attachement.getExtension() == "jpg" or attachement.getExtension() == "jpeg" or attachement.getExtension() == "png" %}
+                            {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" %}
                                 <div style=" page-break-after: always;" class="text-center">
                                     <h3>ENV-{{ attachement.id }}{{ event.id }}</h3>
-                                    <img src="{{ path('attachement_download', {'attachement': attachement.id }) }}" class="img-thumbnail" alt="...">
+                                    <img src="{{ path('at_base64', {'attachement': attachement.id }) }}" class="img-thumbnail" alt="...">
                                 </div>
                             {% endif %}
                         {% endfor %}

@@ -14,21 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Service/FileSizeJob.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/TextContentJob.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/envenement/details.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AttachementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AttachementController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EnvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EnvenementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Attachements.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Attachements.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TelephoneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TelephoneType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/FileUploader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileUploader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entite/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entite/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/themes/telephone.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/themes/telephone.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -356,7 +346,7 @@
       <workItem from="1634893351295" duration="203000" />
       <workItem from="1635179833597" duration="23170000" />
       <workItem from="1635314400160" duration="13841000" />
-      <workItem from="1635403433555" duration="38275000" />
+      <workItem from="1635403433555" duration="41753000" />
     </task>
     <servers />
   </component>

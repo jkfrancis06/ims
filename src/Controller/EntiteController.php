@@ -79,7 +79,7 @@ class EntiteController extends AbstractController
        // }
 
         if ($personneForm->isSubmitted() && $personneForm->isValid()){
-            
+
 
             $mainPicture = $personneForm->get('mainPicture')->getData();
             if ($mainPicture != null){
