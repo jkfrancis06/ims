@@ -19,7 +19,7 @@ class AffaireRapportController extends AbstractController
     /**
      * @var string
      */
-    private $targetDirectory;
+    private $projectDir;
 
     /**
      * @var string
@@ -27,10 +27,10 @@ class AffaireRapportController extends AbstractController
     private $affaireDir;
 
 
-    public function __construct(string $affaireDir, string $targetDirectory)
+    public function __construct(string $affaireDir, string $projectDir)
     {
         $this->affaireDir = $affaireDir;
-        $this->targetDirectory = $targetDirectory;
+        $this->projectDir = $projectDir;
     }
 
 
@@ -60,16 +60,24 @@ class AffaireRapportController extends AbstractController
             $entites[$key] = $this->hideSensitiveInformations($entite);
 
 
-            var_dump($entites[$key]->getMainPicture());
-            var_dump(md5($entites[$key]->getMainPicture()));
-
-            /*$entites[$key]->setBase64data(
-                base64_encode(
-                    file_get_contents(
-                        $this->affaireDir.'/'.md5($entites[$key]->getMainPicture()).'/'.$entites[$key]->getMainPicture()
+            if ($entite->getMainPicture() == "icon-default.png") {
+                $entites[$key]->setBase64data(
+                    base64_encode(
+                        file_get_contents(
+                            $this->projectDir.'/public/img/'.$entite->getMainPicture()
+                        )
                     )
-                )
-            );
+                );
+            }else{
+                $entites[$key]->setBase64data(
+                    base64_encode(
+                        file_get_contents(
+                            $this->affaireDir.'/'.md5($entite->getMainPicture()).'/'.$entite->getMainPicture()
+                        )
+                    )
+                );
+            }
+
 
 
             foreach ($entite->getAttachements() as $attachement) {
@@ -80,7 +88,7 @@ class AffaireRapportController extends AbstractController
                         )
                     )
                 );
-            }*/
+            }
 
         }
 
@@ -135,10 +143,10 @@ class AffaireRapportController extends AbstractController
         }
 
 
-       return $this->render('affaire_rapport/index.html.twig', [
+       /*return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire
-        ]);
+        ]);*/
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
