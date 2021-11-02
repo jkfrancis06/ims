@@ -15,6 +15,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AffaireRapportController extends AbstractController
 {
+
+    /**
+     * @var string
+     */
+    private $targetDirectory;
+
+    /**
+     * @var string
+     */
+    private $affaireDir;
+
+
+    public function __construct(string $affaireDir, string $targetDirectory)
+    {
+        $this->affaireDir = $affaireDir;
+        $this->targetDirectory = $targetDirectory;
+    }
+
+
     /**
      * @Route("/affaire/rapport/{id}", name="affaire_rapport")
      */
@@ -39,6 +58,24 @@ class AffaireRapportController extends AbstractController
             // if ($entite->getRole() == Entites::ROLE_SOURCE) {}
 
             $entites[$key] = $this->hideSensitiveInformations($entite);
+
+            $entites[$key]->setBase64data(
+                base64_encode(
+                    file_get_contents(
+                        $this->affaireDir.'/'.md5($entite->getMainPicture()).'/'.$entite->getMainPicture()
+                    )
+                )
+            );
+
+            foreach ($entite->getAttachements() as $attachement) {
+                $attachement->setBase64data(
+                    base64_encode(
+                        file_get_contents(
+                            $this->affaireDir.'/'.md5($attachement->getName()).'/'.$attachement->getName()
+                        )
+                    )
+                );
+            }
 
         }
 
@@ -80,13 +117,23 @@ class AffaireRapportController extends AbstractController
 
             }
 
+            foreach ($evenement->getAttachements() as $attachement) {
+                $attachement->setBase64data(
+                    base64_encode(
+                        file_get_contents(
+                            $this->affaireDir.'/'.md5($attachement->getName()).'/'.$attachement->getName()
+                        )
+                    )
+                );
+            }
+
         }
 
 
-       return $this->render('affaire_rapport/index.html.twig', [
+       /*return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire
-        ]);
+        ]);*/
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
@@ -105,14 +152,14 @@ class AffaireRapportController extends AbstractController
             'margin-bottom'    => 20,
             'margin-left'      => 15,
             'margin-right'     => 15,
-            //'footer-html' => $footer,
-           // 'header-html' => $header,
+            'footer-html' => $footer,
+            'header-html' => $header,
         );
 
 
         $knpSnappyPdf->setOption('footer-right', '[page]');
-        $knpSnappyPdf->setOption('enable-local-file-access', 'None');
-        $knpSnappyPdf->setOption('load-error-handling', 'ignore');
+       // $knpSnappyPdf->setOption('enable-local-file-access', 'None');
+       // $knpSnappyPdf->setOption('load-error-handling', 'ignore');
 
 
         $knpSnappyPdf->setTimeout(3000);

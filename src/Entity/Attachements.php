@@ -83,6 +83,9 @@ class Attachements
     protected $file;
 
 
+    protected $base64data;
+
+
 
     public function getId(): ?int
     {
@@ -168,6 +171,22 @@ class Attachements
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBase64data()
+    {
+        return $this->base64data;
+    }
+
+    /**
+     * @param mixed $base64data
+     */
+    public function setBase64data($base64data): void
+    {
+        $this->base64data = $base64data;
     }
 
 }

@@ -162,6 +162,10 @@ abstract class Entites
     private $otherInfos;
 
 
+    protected $base64data;
+
+
+
 
     public function __construct(){
         $this->createdAt = new \DateTime();
@@ -427,5 +431,21 @@ abstract class Entites
         $this->otherInfos = $otherInfos;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBase64data()
+    {
+        return $this->base64data;
+    }
+
+    /**
+     * @param mixed $base64data
+     */
+    public function setBase64data($base64data): void
+    {
+        $this->base64data = $base64data;
     }
 }

@@ -163,8 +163,6 @@
 
                             <div class="row" style="padding: 10px">
 
-
-
                                 <div class="col col-xs-12 text-center text-uppercase" style="font-weight: bold">
                                     {% if constant('ROLE_SUSPECT', entite)  == entite.role %}
                                         Suspect
@@ -180,8 +178,10 @@
                                     {% endif %}
                                 </div>
 
+
                                 <div class="col col-xs-12 text-center text-uppercase" style="font-weight: bold; margin-top: 2em; margin-bottom: 2em">
-                                    <img style="height: 10em;width: 10em" src="{{ path('file_base64', {'file': entite.mainPicture }) }}" class="img-thumbnail" alt="...">
+                                    <img style="height: 10em;width: 10em"
+                                         src="data:image/jpeg;base64,{{ entite.base64data }}" class="img-thumbnail" alt="...">
                                 </div>
 
 
@@ -559,7 +559,9 @@
                                 {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" %}
                                     <div style=" page-break-after: always;" class="text-center">
                                         <h3>ENT-{{ attachement.id }}{{ entite.id }}</h3>
-                                        <img src="{{ path('at_base64', {'attachement': attachement.id }) }}" class="img-thumbnail" alt="..." >
+                                        <img
+                                                src="data:image/jpeg;base64,{{ attachement.base64data }}"
+                                                class="img-thumbnail" alt="..." >
                                     </div>
                                 {% endif %}
                             {% endfor %}

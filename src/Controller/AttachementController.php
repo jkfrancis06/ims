@@ -64,7 +64,7 @@ class AttachementController extends AbstractController
 
 
     /**
-     * @Route("/at/base64-download/{attachement}", name="at_base64")
+     * @Route("/at/file-base64-download/{attachement}", name="at_base64")
      */
     public function base64AttachementDownload(Attachements $attachement): Response
     {
