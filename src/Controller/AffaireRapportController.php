@@ -63,7 +63,7 @@ class AffaireRapportController extends AbstractController
             var_dump($entites[$key]->getMainPicture());
             var_dump(md5($entites[$key]->getMainPicture()));
 
-            $entites[$key]->setBase64data(
+            /*$entites[$key]->setBase64data(
                 base64_encode(
                     file_get_contents(
                         $this->affaireDir.'/'.md5($entites[$key]->getMainPicture()).'/'.$entites[$key]->getMainPicture()
@@ -80,7 +80,7 @@ class AffaireRapportController extends AbstractController
                         )
                     )
                 );
-            }
+            }*/
 
         }
         exit;
