@@ -60,23 +60,13 @@ class AffaireRapportController extends AbstractController
             $entites[$key] = $this->hideSensitiveInformations($entite);
 
 
-            if ($entite->getMainPicture() == "icon-default.png") {
-                $entites[$key]->setBase64data(
-                    base64_encode(
-                        file_get_contents(
-                            $this->targetDirectory.'/'.$entite->getMainPicture()
-                        )
+            $entites[$key]->setBase64data(
+                base64_encode(
+                    file_get_contents(
+                        $this->affaireDir.'/'.md5($entite->getMainPicture()).'/'.$entite->getMainPicture()
                     )
-                );
-            }else{
-                $entites[$key]->setBase64data(
-                    base64_encode(
-                        file_get_contents(
-                            $this->affaireDir.'/'.md5($entite->getMainPicture()).'/'.$entite->getMainPicture()
-                        )
-                    )
-                );
-            }
+                )
+            );
 
 
 
