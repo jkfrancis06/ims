@@ -16,10 +16,6 @@
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AttachementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AttachementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Attachements.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Attachements.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Entites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entites.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -348,7 +344,7 @@
       <workItem from="1635179833597" duration="23170000" />
       <workItem from="1635314400160" duration="13841000" />
       <workItem from="1635403433555" duration="41952000" />
-      <workItem from="1635851100537" duration="3670000" />
+      <workItem from="1635851100537" duration="3890000" />
     </task>
     <servers />
   </component>
