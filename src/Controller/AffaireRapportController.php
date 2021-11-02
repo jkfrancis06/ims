@@ -60,13 +60,17 @@ class AffaireRapportController extends AbstractController
             $entites[$key] = $this->hideSensitiveInformations($entite);
 
 
-            $entites[$key]->setBase64data(
-                base64_encode(
-                    file_get_contents(
-                        $this->affaireDir.'/'.md5($entite->getMainPicture()).'/'.$entite->getMainPicture()
+            try {
+                $entites[$key]->setBase64data(
+                    base64_encode(
+                        file_get_contents(
+                            $this->affaireDir.'/'.md5($entite->getMainPicture()).'/'.$entite->getMainPicture()
+                        )
                     )
-                )
-            );
+                );
+            }catch (\Exception $exception){
+                
+            }
 
 
 
@@ -133,10 +137,10 @@ class AffaireRapportController extends AbstractController
         }
 
 
-       /*return $this->render('affaire_rapport/index.html.twig', [
+       return $this->render('affaire_rapport/index.html.twig', [
             'controller_name' => 'AffaireRapportController',
             'affaire' =>  $affaire
-        ]);*/
+        ]);
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
             'affaire' =>  $affaire
