@@ -174,8 +174,8 @@ class AffaireRapportController extends AbstractController
             'margin-bottom'    => 20,
             'margin-left'      => 15,
             'margin-right'     => 15,
-            //'footer-html' => $footer,
-            //'header-html' => $header,
+            'footer-html' => $footer,
+            'header-html' => $header,
         );
 
 
