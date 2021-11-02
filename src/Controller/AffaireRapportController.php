@@ -60,18 +60,13 @@ class AffaireRapportController extends AbstractController
             $entites[$key] = $this->hideSensitiveInformations($entite);
 
 
-            try {
-                $entites[$key]->setBase64data(
-                    base64_encode(
-                        file_get_contents(
-                            $this->affaireDir.'/'.md5($entite->getMainPicture()).'/'.$entite->getMainPicture()
-                        )
+            $entites[$key]->setBase64data(
+                base64_encode(
+                    file_get_contents(
+                        $this->affaireDir.'/'.md5($entites[$key]->getMainPicture()).'/'.$entites[$key]->getMainPicture()
                     )
-                );
-            }catch (\Exception $exception){
-                
-            }
-
+                )
+            );
 
 
             foreach ($entite->getAttachements() as $attachement) {
