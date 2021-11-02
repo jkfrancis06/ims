@@ -83,7 +83,6 @@ class AffaireRapportController extends AbstractController
             }*/
 
         }
-        exit;
 
         foreach ($evenements as $key => $evenement) {
 
