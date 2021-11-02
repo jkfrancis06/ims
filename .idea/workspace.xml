@@ -16,6 +16,14 @@
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EnvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EnvenementController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Attachements.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Attachements.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/AttachementsType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/AttachementsType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entite/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/envenement/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/envenement/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/themes/attachements.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/themes/attachements.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +223,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/envenement" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/img" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -230,11 +238,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/public/upload" />
       <recent name="$PROJECT_DIR$/templates/envenement" />
       <recent name="$PROJECT_DIR$/templates/entite" />
       <recent name="$PROJECT_DIR$/templates/themes" />
-      <recent name="$PROJECT_DIR$/public/assets/js" />
-      <recent name="$PROJECT_DIR$/templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/upload" />
@@ -344,7 +352,9 @@
       <workItem from="1635179833597" duration="23170000" />
       <workItem from="1635314400160" duration="13841000" />
       <workItem from="1635403433555" duration="41952000" />
-      <workItem from="1635851100537" duration="4638000" />
+      <workItem from="1635851100537" duration="9225000" />
+      <workItem from="1635862491821" duration="224000" />
+      <workItem from="1635869933989" duration="217000" />
     </task>
     <servers />
   </component>

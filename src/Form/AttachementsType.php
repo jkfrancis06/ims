@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Attachements;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -33,15 +34,23 @@ class AttachementsType extends AbstractType
                 ],
 
             ])
-            ->add('description',TextareaType::class,[
-                'required' => true,
-                'constraints' => [
-                    new NotBlank()
-                ],
-                'attr' => [
-                    'placeholder' => 'Ajouter une description'
-                ],
-            ])
+            ->add('description', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                    'language' => 'fr',
+                    'input_sync' => true,
+                    'extraPlugins' => 'wordcount,entiteinsert',
+                    //"removePlugins"=>"exportpdf",
+
+                ),
+                'plugins' => array(
+                    'wordcount' => array(
+                        'path'     => '/assets/wordcount/', // with trailing slash
+                        'filename' => 'plugin.js',
+                    ),
+                ),
+                'required' => false,
+            ))
         ;
     }
 

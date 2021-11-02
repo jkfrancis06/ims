@@ -254,6 +254,8 @@ class AffaireRapportController extends AbstractController
 
                 $entite->setSituationMatri(Personne::SIT_IND);
 
+                $entite->setNationalite('XXXXXXXXXXXXXXXXXXXXXX');
+
                 $entite->setAdresse('XXXXXXXXXXXXXXXXXXXXXX');
 
             }

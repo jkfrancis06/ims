@@ -159,6 +159,10 @@ class EnvenementController extends AbstractController
 
                         $formAttachement->setName($fileName);
 
+                        $formAttachement->setEnvenement($envenement);
+
+                        $formAttachement->setLastUpdate(new \DateTime());
+
                     }
                 }
             }
@@ -211,6 +215,10 @@ class EnvenementController extends AbstractController
 
         $envenement->setResume($contentJob->parseTextContent($envenement->getResume()));
 
+
+        foreach ($envenement->getAttachements() as $attachement) {
+            $attachement->setDescription($contentJob->parseTextContent($attachement->getDescription()));
+        }
 
         return $this->render('envenement/details.html.twig', [
             'controller_name' => 'EntiteController',

@@ -453,6 +453,10 @@ class EntiteController extends AbstractController
         $entite->setResume($contentJob->parseTextContent($entite->getResume()));
 
 
+        foreach ($entite->getAttachements() as $attachement) {
+            $attachement->setDescription($contentJob->parseTextContent($attachement->getDescription()));
+        }
+
         return $this->render('entite/details.html.twig', [
             'controller_name' => 'EntiteController',
             'active' => 'affaire',

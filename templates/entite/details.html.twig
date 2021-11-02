@@ -57,9 +57,9 @@
                         </td>
                         <td>
                                <span class="text-uppercase font-weight-bold">
-                                    {% if constant('ROLE_SUSPECT', entite)  == entite.role %}
-                                        Suspect
-                                    {% endif %}
+                                   {% if constant('ROLE_SUSPECT', entite)  == entite.role %}
+                                       Suspect
+                                   {% endif %}
                                    {% if constant('ROLE_INTEREST', entite) == entite.role %}
                                        personne d'interet
                                    {% endif %}
@@ -309,7 +309,7 @@
                                         {{ file.name }}
                                     </th>
                                     <td class="text-center">
-                                        {{ file.getDescription()}}
+                                        {{ file.description | raw }}
                                     </td>
                                     <td class="text-center">
                                         {{ FileSizeJob.getThumbnail(file)| raw}}

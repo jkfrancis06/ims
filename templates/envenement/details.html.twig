@@ -141,7 +141,7 @@
 
                 <div>
 
-                    <table class="table table-bordered text-center">
+                    <table class="table table-bordered">
                         <!-- Table head -->
                         <thead>
                         <tr>
@@ -172,8 +172,8 @@
                                     <th class="font-weight-bold">
                                         {{ file.name }}
                                     </th>
-                                    <th class="text-center">
-                                        {{ file.description }}
+                                    <th>
+                                        {{ file.description | raw }}
                                     </th>
                                     <td class="text-center">
                                         {{ FileSizeJob.getThumbnail(file)| raw}}
@@ -182,7 +182,7 @@
                                         {{ FileSizeJob.getFileSize(file) }}
                                     </td>
                                     <td>
-                                        <a download href="{{ path('attachement_download', {'attachement': file.id }) }}" class="btn btn-outline-deep-purple">
+                                        <a download href="{{ path('attachement_download', {'attachement': file.id }) }}" class="btn btn-sm btn-outline-deep-purple">
                                             <i style="color: inherit" class="fas fa-file-download"></i>
                                             <span class="font-weight-bold">Telecharger</span>
                                         </a>

@@ -59,7 +59,7 @@ class Attachements
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text")
      * @Groups({"entite:read","entite:write", "attachements:read","attachements:write","utilisateur:read","affaire:read"})
      */
     private $description;
@@ -85,6 +85,21 @@ class Attachements
 
     protected $base64data;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastUpdate;
+
+    public function __construct()
+    {
+        $this->type = 1;
+        $this->createdAt = new \DateTime();
+    }
 
 
     public function getId(): ?int
@@ -187,6 +202,30 @@ class Attachements
     public function setBase64data($base64data): void
     {
         $this->base64data = $base64data;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getLastUpdate(): ?\DateTimeInterface
+    {
+        return $this->lastUpdate;
+    }
+
+    public function setLastUpdate(?\DateTimeInterface $lastUpdate): self
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
     }
 
 }

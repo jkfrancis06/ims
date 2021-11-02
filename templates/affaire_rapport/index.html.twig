@@ -440,12 +440,12 @@
                         <div class="row">
 
 
-                            <div class="col col-xs-12">
+                            <div class="col col-xs-12" style="margin-top: 1em">
                                 <span style="font-weight: bold">Titre: </span>
                                 <span>{{ envenement.titre }}</span>
                             </div>
 
-                            <div class="col col-xs-12">
+                            <div class="col col-xs-12" style="margin-top: 1em">
                                 <span style="font-weight: bold">Lieu: </span>
                                 <span>{{ envenement.localisation }}</span>
                             </div>
@@ -460,7 +460,7 @@
                                 {% endif %}
                             </div>
 
-                            <div class="col col-xs-12">
+                            <div class="col col-xs-12" style="margin-top: 1em">
                                 <span style="font-weight: bold">Entites impliques: </span>
 
                                 <ul>
@@ -486,7 +486,7 @@
                             </div>
 
 
-                            <div class="col col-xs-11" style="padding-right: 2em">
+                            <div class="col col-xs-11" style="padding-right: 2em;margin-top: 1em">
                                 <span style="font-weight: bold">Resume: </span>
                                 <span>{{ envenement.resume | raw }}</span>
                             </div>
@@ -546,11 +546,23 @@
                         {% if entite.attachements|length > 0 %}
                             {% for attachement in entite.attachements %}
                                 {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" %}
-                                    <div style=" page-break-after: always;" class="text-center">
+                                    <div style=" page-break-after: always; margin-top: 3em;">
                                         <h3>ENT-{{ attachement.id }}{{ entite.id }}</h3>
-                                        <img
-                                                src="data:image/jpeg;base64,{{ attachement.base64data }}"
-                                                class="img-thumbnail" alt="..." >
+
+                                        <div>
+
+                                            {% if attachement.description is not null %}
+                                                <blockquote>
+                                                    {{ attachement.description }}
+                                                </blockquote>
+                                            {% endif %}
+
+                                            <div class="text-center">
+                                                <img src="data:image/jpeg;base64,{{ attachement.base64data }}"
+                                                        class="img-thumbnail" alt="..." >
+                                            </div>
+                                        </div>
+
                                     </div>
                                 {% endif %}
                             {% endfor %}
