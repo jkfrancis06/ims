@@ -24,19 +24,6 @@
 
 
 
-            /* body:before {
-                 content: "";
-                 position: absolute;
-                 z-index: 9999;
-                 top: 0;
-                 opacity: 0.2;
-                 bottom: 0;
-                 left: 0;
-                 right: 0;
-                 background:
-                         url('{{ absolute_url(asset('/img/confidentiel.png')) }}')
-                        0 0/100% 100vh;
-            }*/
 
             @page {
                 size: A4 !important;
@@ -99,7 +86,9 @@
                             <p class="fs-6 text-uppercase">Direction Nationale de la Documentation et de la Protection de l'Etat</p>
                         </div>
                         <div class="col col-12">
-                            <img height="150" width="150" src="{{ absolute_url(asset('/img/logo.png')) }}">
+                            <img height="150" width="150"
+                                 src="data:image/jpeg;base64,{{ logo }}"
+                            >
                         </div>
                     </div>
 

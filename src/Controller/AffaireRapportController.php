@@ -40,6 +40,14 @@ class AffaireRapportController extends AbstractController
     public function index($id, Pdf $knpSnappyPdf): Response
     {
 
+        $logo = base64_encode(
+            file_get_contents(
+                $this->projectDir.'/public/img/logo.png'
+            )
+        );
+
+
+
 
         $affaire = $this->getDoctrine()->getManager()->getRepository(Affaire::class)->find($id);
 
@@ -149,7 +157,8 @@ class AffaireRapportController extends AbstractController
         ]);*/
 
         $html =  $this->renderView('affaire_rapport/index.html.twig', [
-            'affaire' =>  $affaire
+            'affaire' =>  $affaire,
+            'logo' =>  $logo
         ]);
 
         $header = $this->renderView('affaire_rapport/confidentiel.html.twig');
