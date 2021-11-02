@@ -180,7 +180,7 @@ class AffaireRapportController extends AbstractController
 
 
         $knpSnappyPdf->setOption('footer-right', '[page]');
-        $knpSnappyPdf->setOption('enable-local-file-access', 'None');
+        $knpSnappyPdf->setOption("enable-local-file-access",true);
         $knpSnappyPdf->setOption('load-error-handling', 'ignore');
 
 
