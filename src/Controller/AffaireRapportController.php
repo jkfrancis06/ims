@@ -174,14 +174,14 @@ class AffaireRapportController extends AbstractController
             'margin-bottom'    => 20,
             'margin-left'      => 15,
             'margin-right'     => 15,
-            'footer-html' => $footer,
-            'header-html' => $header,
+            //'footer-html' => $footer,
+            //'header-html' => $header,
         );
 
 
         $knpSnappyPdf->setOption('footer-right', '[page]');
         $knpSnappyPdf->setOption('enable-local-file-access', 'None');
-       // $knpSnappyPdf->setOption('load-error-handling', 'ignore');
+        $knpSnappyPdf->setOption('load-error-handling', 'ignore');
 
 
         $knpSnappyPdf->setTimeout(3000);

@@ -570,7 +570,9 @@
                             {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" %}
                                 <div style=" page-break-after: always;" class="text-center">
                                     <h3>ENV-{{ attachement.id }}{{ event.id }}</h3>
-                                    <img src="{{ path('at_base64', {'attachement': attachement.id }) }}" class="img-thumbnail" alt="...">
+                                    <img
+                                            src="data:image/jpeg;base64,{{ attachement.base64data }}"
+                                            class="img-thumbnail" alt="...">
                                 </div>
                             {% endif %}
                         {% endfor %}
