@@ -36,15 +36,31 @@ class OrganisationRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Organisation
+    public function searchEntite($data)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb =  $this->createQueryBuilder('e');
+
+        // nom
+        $nom = strtolower($data['description']);
+
+
+
+        if ($nom != null){
+            $qb->andWhere("LOWER(e.description)  LIKE '%$nom%'");
+        }
+
+        // prenom
+        $prenom = strtolower($data['description2']);
+
+        if ($prenom != null){
+            $qb->andWhere("LOWER(e.description2) LIKE '%$prenom%'");
+        }
+
+
+        return $qb->getQuery()->getResult();
+
+
     }
-    */
+
+
 }

@@ -14,16 +14,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Entity/Search/EntitySearch.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CourrierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CourrierController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DepartementAffairesController.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EnvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EnvenementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Attachements.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Attachements.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/AttachementsType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/AttachementsType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntiteVerificationController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PersonneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PersonneType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/EntitesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/EntitesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/OrganisationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/OrganisationRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PersonneRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PersonneRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/VehiculeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/VehiculeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/confidentiel-footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/confidentiel-footer.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entite/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/envenement/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/envenement/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/themes/attachements.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/themes/attachements.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -354,7 +359,8 @@
       <workItem from="1635403433555" duration="41952000" />
       <workItem from="1635851100537" duration="9225000" />
       <workItem from="1635862491821" duration="224000" />
-      <workItem from="1635869933989" duration="217000" />
+      <workItem from="1635869933989" duration="16037000" />
+      <workItem from="1636036592506" duration="2229000" />
     </task>
     <servers />
   </component>

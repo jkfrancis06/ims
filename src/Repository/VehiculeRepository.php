@@ -36,15 +36,43 @@ class VehiculeRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Vehicule
+    public function searchEntite($data)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb =  $this->createQueryBuilder('e');
+
+        // nom
+        $nom = strtolower($data['description']);
+
+
+
+        if ($nom != null){
+            $qb->andWhere("LOWER(e.description)  LIKE '%$nom%'");
+        }
+
+        // prenom
+        $prenom = strtolower($data['description2']);
+
+        if ($prenom != null){
+            $qb->andWhere("LOWER(e.description2) LIKE '%$prenom%'");
+        }
+
+        // categorie
+        $categorie = strtolower($data['categorie']);
+
+        if ($categorie != null){
+            $qb->andWhere("LOWER(e.categorie) LIKE '%$categorie%'");
+        }
+
+        // immatriculation
+        $immatriculation = strtolower($data['immatriculation']);
+
+        if ($immatriculation != null){
+            $qb->andWhere("LOWER(e.immatriculation) LIKE '%$immatriculation%'");
+        }
+
+
+        return $qb->getQuery()->getResult();
+
+
     }
-    */
 }

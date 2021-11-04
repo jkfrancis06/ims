@@ -6,6 +6,7 @@ use App\Entity\Affaire;
 use App\Entity\Entites;
 use App\Entity\Personne;
 use App\Entity\Vehicule;
+use App\Service\TextContentJob;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use PHPHtmlParser\Dom;
@@ -37,7 +38,7 @@ class AffaireRapportController extends AbstractController
     /**
      * @Route("/affaire/rapport/{id}", name="affaire_rapport")
      */
-    public function index($id, Pdf $knpSnappyPdf): Response
+    public function index($id, Pdf $knpSnappyPdf,TextContentJob $contentJob): Response
     {
 
         $logo = base64_encode(
@@ -89,6 +90,8 @@ class AffaireRapportController extends AbstractController
 
 
             foreach ($entite->getAttachements() as $attachement) {
+
+
                 $attachement->setBase64data(
                     base64_encode(
                         file_get_contents(
@@ -96,6 +99,9 @@ class AffaireRapportController extends AbstractController
                         )
                     )
                 );
+
+                $attachement->setDescription($contentJob->parseTextContent($attachement->getDescription()));
+
             }
 
         }
@@ -139,6 +145,7 @@ class AffaireRapportController extends AbstractController
             }
 
             foreach ($evenement->getAttachements() as $attachement) {
+
                 $attachement->setBase64data(
                     base64_encode(
                         file_get_contents(
@@ -146,6 +153,9 @@ class AffaireRapportController extends AbstractController
                         )
                     )
                 );
+
+                $attachement->setDescription($contentJob->parseTextContent($attachement->getDescription()));
+
             }
 
         }

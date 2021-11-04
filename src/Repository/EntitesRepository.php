@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Entites;
+use App\Form\Search\EntitySearchType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -36,15 +37,30 @@ class EntitesRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Entites
+    public function searchEntite($data)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb =  $this->createQueryBuilder('e');
+
+        // nom
+        $nom = strtolower($data['description']);
+
+
+
+        if ($nom != null){
+            $qb->andWhere("LOWER(e.description)  LIKE '%$nom%'");
+        }
+
+        // prenom
+        $prenom = strtolower($data['description2']);
+
+        if ($prenom != null){
+            $qb->andWhere("LOWER(e.description2) LIKE '%$prenom%'");
+        }
+
+
+        return $qb->getQuery()->getResult();
+
+
     }
-    */
+
 }

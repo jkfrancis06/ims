@@ -1,0 +1,159 @@
+{% extends 'nav.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% form_theme searchForm 'bootstrap_4_layout.html.twig' %}
+
+
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Rechercher</li>
+        </ol>
+    </nav>
+
+    {{ form_start(searchForm) }}
+
+        <div class="row">
+
+
+            <div class="col col-8">
+                <div class="text-danger">
+                    {{ form_errors(searchForm) }}
+                </div>
+            </div>
+
+            <div class="col col-8">
+                <div class="mb-3">
+                    {{ form_label(searchForm.type, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(searchForm.type, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(searchForm.type) }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col col-8" id="form_content">
+
+                {% if searchForm.vars.value is not null and searchForm.vars.value.entity is not null %}
+                    {{ form_widget(searchForm.entity)}}
+                {% endif %}
+
+
+            </div>
+
+
+
+            <div class="col col-12">
+                {{ form_row(searchForm.submit,{'attr':{'class': 'btn btn-outline-success form-btn'}}) }}
+            </div>
+
+
+        </div>
+
+    {{ form_end(searchForm) }}
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Résultats de la recherche</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+
+        <div class="col col-12 mt-5">
+            <h6>{{ entites|length }} entités trouvées</h6>
+            <hr>
+        </div>
+
+        <div class="col col-12 mt-4">
+
+            <table class="table table-bordered table-striped table-hover">
+
+                <thead>
+                    <tr>
+                        <th>Nom / Descritiption</th>
+                        <th>Affaire</th>
+                        <th>Role</th>
+                        <th>Departement</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for entite in entites %}
+                        <tr>
+                            <td>{{ entite.description }}  {{ entite.description2 }}</td>
+                            <td>{{ entite.affaire.numeroMatricule }}</td>
+                            <td>
+                                <span class="text-uppercase font-weight-bold">
+                                   {% if constant('ROLE_SUSPECT', entite)  == entite.role %}
+                                       Suspect
+                                   {% endif %}
+                                    {% if constant('ROLE_INTEREST', entite) == entite.role %}
+                                        personne d'interet
+                                    {% endif %}
+                                    {% if constant('ROLE_VICTIME', entite) == entite.role %}
+                                        victime
+                                    {% endif %}
+                                    {% if constant('ROLE_SOURCE', entite) == entite.role %}
+                                        source
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td>{{ entite.affaire.departement.nom }}</td>
+                            <td>
+                                <a href="{{ path('details_entite', {entite: entite.id }) }}" class="btn-floating btn-sm btn-primary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+
+        var $search = $('#entity_search_type');
+        var $formContent = $('#form_content');
+        // When sport gets selected ...
+        $search.change(function() {
+
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$search.attr('name')] = $search.val();
+            // Submit data via AJAX to the form's action path.
+            console.log(data)
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+
+                    $formContent.html($(html).find('#entity_search_entity'))
+                    console.log($(html).find('#entity_search_entity'))
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

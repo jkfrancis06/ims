@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -191,20 +192,8 @@ class PersonneType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('otherInfos', CKEditorType::class, array(
-                'label' => 'Autres informations0. : ',
-                'config' => array(
-                    'uiColor' => '#ffffff',
-                    'language' => 'fr',
-                    'input_sync' => true,
-                    'extraPlugins' => 'wordcount,entiteinsert',
-                ),
-                'plugins' => array(
-                    'wordcount' => array(
-                        'path'     => '/assets/wordcount/', // with trailing slash
-                        'filename' => 'plugin.js',
-                    ),
-                ),
+            ->add('otherInfos', TextareaType::class, array(
+                'label' => 'Autres informations : ',
                 'required' => false,
 
             ))

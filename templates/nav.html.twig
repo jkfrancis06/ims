@@ -57,13 +57,13 @@
 
                         {% if active == "search" %}
                             <li>
-                                <a class="waves-effect active">
+                                <a href="{{ path('search_affaire') }}" class="waves-effect active">
                                     <i class="fas fa-search"></i>
                                     Recherche</a>
                             </li>
                         {% else %}
                             <li>
-                                <a class="waves-effect">
+                                <a href="{{ path('search_affaire') }}" class="waves-effect">
                                     <i class="fas fa-search"></i>
                                     Recherche</a>
                             </li>
@@ -113,7 +113,7 @@
                 {% endif %}
 
 
-                <!-- Dropdown -->
+                <!-- Dropdown
                 <li class="nav-item dropdown " >
                     <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
@@ -134,7 +134,7 @@
                             <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 53 min</span>
                         </a>
                     </div>
-                </li>
+                </li>-->
                 <li class="nav-item dropdown">
                     <a style="color: black" class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
