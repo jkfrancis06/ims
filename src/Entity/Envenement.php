@@ -64,13 +64,13 @@ class Envenement
     private $typeEvenement;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $localisation;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"envenement:read", "envenement:write","affaire:read", "entite:read"})
      */
     private $startAt;
@@ -163,7 +163,7 @@ class Envenement
         return $this->localisation;
     }
 
-    public function setLocalisation(string $localisation): self
+    public function setLocalisation(?string $localisation): self
     {
         $this->localisation = $localisation;
 
@@ -175,7 +175,7 @@ class Envenement
         return $this->startAt;
     }
 
-    public function setStartAt(\DateTimeInterface $startAt): self
+    public function setStartAt(?\DateTimeInterface $startAt): self
     {
         $this->startAt = $startAt;
 
