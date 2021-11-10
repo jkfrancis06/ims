@@ -37,7 +37,7 @@
 
             <div class="col col-8" id="form_content">
 
-                {% if searchForm.vars.value is not null and searchForm.vars.value.entity is not null %}
+                {% if searchForm.vars.value is not null and searchForm.vars.value.entity is defined %}
                     {{ form_widget(searchForm.entity)}}
                 {% endif %}
 

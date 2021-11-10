@@ -1,0 +1,26 @@
+﻿affaire;Affiche la liste des Dossiers
+affaire_create;Creer un dossier
+affaire_details;Voir les details du dossier
+affaire_details_entite;Voir les details d'une entite
+affaire_details_event;Voir les details d'un evenement
+affaire_rapport;Creer le rapport du dossier
+attachement_download;Telechargement de fichier
+file_download;Telechargement de fichier
+at_base64;Telechargement de fichier
+file_base64;Telechargement de fichier
+courrier;Tableau de bord courriers
+create-courrier;Creer un courrier
+home;Acceuil
+dashboard;Tableau de bord
+download;Telechargement de fichier
+xhr_show_image;Telechargement de fichier
+create_entite;Creer une entite
+update_entite;Modifier une entite
+delete_entite_attachement;Supprimer un fichier joint
+delete_entite;Supprimer une entite
+details_entite;Voir les details de l'entite
+envenement_create;Creer un evenement
+envenement_edit;Modifier un evenement
+delete_event;Suprrimer un evenement
+details_envenement;Details de l'evenement
+search_affaire;Rechercher un dossier

@@ -39,11 +39,17 @@ services:
 
     #App\EventListener\LoginListener:
     #    tags:
-    #        - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+     #       - { name: 'kernel.event_listener', event: security.authentication.failure, method: onAuthenticationFailure }
+
+
+    #app.listener.authentication_failure_event_listener:
+     #   class: App\EventListener\LoginListener
+      #  tags:
+       #     - { name: kernel.event_listener, event: security.authentication.failure, method: onAuthenticationFailure }
 
     App\EventListener\RouteEventListener:
         tags:
-            - { name: 'kernel.event_listener', event: kernel.response, method: onKernelRequest }
+            - { name: 'kernel.event_listener', event: kernel.controller, method: onKernelController }
 
 
     # add more service definitions when explicit configuration is needed

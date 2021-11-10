@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\LoginFailure;
 use App\Entity\UserSession;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -32,6 +35,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
     private $csrfTokenManager;
     private $passwordEncoder;
     private $user;
+    private $username;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -58,6 +62,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
+
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $credentials['username']
@@ -68,6 +73,9 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+
+        $this->username = $credentials['username'];
+
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
@@ -113,6 +121,36 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         $request->getSession()->getFlashBag()->add('login', 'Bienvenue');
 
         return new RedirectResponse($this->urlGenerator->generate('dmz'));
+
+    }
+
+
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    {
+
+        /*
+         * Logs all login attempts
+         */
+        $loginAttempt = new LoginFailure();
+
+        $loginAttempt->setUsername($this->username);
+
+        $loginAttempt->setClientIp($request->getClientIp());
+
+        $loginAttempt->setCreatedAt(new \DateTimeImmutable());
+
+        $this->entityManager->persist($loginAttempt);
+
+        $this->entityManager->flush();
+
+        if ($request->hasSession()) {
+            $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+        }
+
+        $url = $this->getLoginUrl();
+
+        return new RedirectResponse($url);
+
 
     }
 
