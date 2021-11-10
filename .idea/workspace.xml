@@ -14,20 +14,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/Search/EntitySearch.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventListener/LogoutListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/SessionLogoutHandler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CourrierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CourrierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DepartementAffairesController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntiteVerificationController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PersonneType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PersonneType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/EntitesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/EntitesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/OrganisationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/OrganisationRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PersonneRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PersonneRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/VehiculeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/VehiculeRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/confidentiel-footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/confidentiel-footer.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventListener/LoginListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/LoginListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nav-courrier.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav-courrier.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -228,7 +226,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/EventListener" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -243,11 +241,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/EventListener" />
       <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/public/upload" />
       <recent name="$PROJECT_DIR$/templates/envenement" />
       <recent name="$PROJECT_DIR$/templates/entite" />
-      <recent name="$PROJECT_DIR$/templates/themes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/upload" />
@@ -361,6 +359,10 @@
       <workItem from="1635862491821" duration="224000" />
       <workItem from="1635869933989" duration="16037000" />
       <workItem from="1636036592506" duration="2229000" />
+      <workItem from="1636102368147" duration="272000" />
+      <workItem from="1636117884345" duration="6900000" />
+      <workItem from="1636461304691" duration="5424000" />
+      <workItem from="1636475067267" duration="1673000" />
     </task>
     <servers />
   </component>

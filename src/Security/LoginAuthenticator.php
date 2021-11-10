@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\UserSession;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -100,14 +101,14 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         return $credentials['password'];
     }
 
-    public function onAuthenticationSuccess(
-        Request $request,
-        TokenInterface $token,
-        string $providerKey
-    ) {
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey) {
+
+        //$this->saveSession($request->getSession(),$token->getUser());
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
 
         $request->getSession()->getFlashBag()->add('login', 'Bienvenue');
 
@@ -118,5 +119,23 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+
+    private function saveSession($session,$user){
+
+        // Update  field .
+
+        $userSession = new UserSession();
+
+        $userSession->setUtilisateur($user);
+
+        $userSession->setStartAt(new \DateTimeImmutable());
+
+        $userSession->setSessionId($session->getId());
+
+        // Persist the data to database.
+        $this->entityManager->persist($userSession);
+        $this->entityManager->flush();
     }
 }

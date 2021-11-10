@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AffaireController extends AbstractController
 {
     /**
-     * @Route("/affaire/a/", name="affaire")
+     * @Route("/affaire/a/", name="affaire", options={"label"="COMMMON_CLIENTMANAGEMENT"})
      */
     public function index(): Response
     {

@@ -2,6 +2,7 @@
 
 namespace App\EventListener;
 
+use App\Entity\UserSession;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use App\Entity\Utilisateur;
@@ -23,13 +24,16 @@ class LoginListener
 
         // Update  field .
 
-        $user->setLastLoginForUser($user->getLastLogin());
+        $userSession = new UserSession();
 
+        $userSession->setUtilisateur($user);
 
-        $user->setLastLogin(new \DateTime());
+        $userSession->setStartAt(new \DateTimeImmutable());
+
+        $userSession->setSessionId($event->getRequest()->getSession()->getId());
 
         // Persist the data to database.
-        $this->em->persist($user);
+        $this->em->persist($userSession);
         $this->em->flush();
     }
 

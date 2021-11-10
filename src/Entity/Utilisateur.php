@@ -233,6 +233,11 @@ s    */
      */
     private $courriers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserSession::class, mappedBy="utilisateur")
+     */
+    private $userSessions;
+
 
 
 
@@ -255,6 +260,7 @@ s    */
         $this->affaireDirecteds = new ArrayCollection();
         $this->departementDirectors = new ArrayCollection();
         $this->courriers = new ArrayCollection();
+        $this->userSessions = new ArrayCollection();
 
     }
 
@@ -742,6 +748,36 @@ s    */
             // set the owning side to null (unless already changed)
             if ($courrier->getCreatedBy() === $this) {
                 $courrier->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSession[]
+     */
+    public function getUserSessions(): Collection
+    {
+        return $this->userSessions;
+    }
+
+    public function addUserSession(UserSession $userSession): self
+    {
+        if (!$this->userSessions->contains($userSession)) {
+            $this->userSessions[] = $userSession;
+            $userSession->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSession(UserSession $userSession): self
+    {
+        if ($this->userSessions->removeElement($userSession)) {
+            // set the owning side to null (unless already changed)
+            if ($userSession->getUtilisateur() === $this) {
+                $userSession->setUtilisateur(null);
             }
         }
 
