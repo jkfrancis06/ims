@@ -1,11 +1,11 @@
-/*! DataTables styling wrapper for Select
+/*! Bootstrap 4 styling wrapper for Select
  * ©2018 SpryMedia Ltd - datatables.net/license
  */
 
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
-		define( ['jquery', 'datatables.net-dt', 'datatables.net-select'], function ( $ ) {
+		define( ['jquery', 'datatables.net-bs4', 'datatables.net-select'], function ( $ ) {
 			return factory( $, window, document );
 		} );
 	}
@@ -17,7 +17,7 @@
 			}
 
 			if ( ! $ || ! $.fn.dataTable ) {
-				$ = require('datatables.net-dt')(root, $).$;
+				$ = require('datatables.net-bs4')(root, $).$;
 			}
 
 			if ( ! $.fn.dataTable.select ) {

@@ -13,6 +13,7 @@ services:
         bind:
             $projectDir: '%kernel.project_dir%'
             $courrierDir: '%kernel.project_dir%/ressources/private'
+            $ressourcesDir: '%kernel.project_dir%/ressources'
             $loggerDir: '%kernel.project_dir%/ressources/logger'
             $affaireDir: '%kernel.project_dir%/ressources/affaires'
             $targetDirectory: '%kernel.project_dir%/public/upload'

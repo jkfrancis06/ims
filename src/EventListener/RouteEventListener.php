@@ -2,7 +2,6 @@
 
 namespace App\EventListener;
 
-use http\Env\Response;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -18,20 +17,26 @@ class RouteEventListener
     protected $projectDir;
     protected $loggingFile;
     protected $security;
+    protected $ressourcesDir;
 
     const ROUTE_NAME = "routes_ims.csv";
 
-    public function __construct(LoggerInterface $logger, string $loggerDir, string $projectDir, Security $security)
+    public function __construct(LoggerInterface $logger, string $loggerDir,string $ressourcesDir, string $projectDir, Security $security)
     {
 
 
         $this->logger=$logger;
         $this->loggerDir = $loggerDir;
         $this->projectDir = $projectDir;
+        $this->ressourcesDir = $ressourcesDir;
         $this->loggingFile = 'log_'.date('d-m-Y').'.csv';
 
 
         $this->security = $security;
+
+        if (!file_exists($this->ressourcesDir)) {
+            mkdir($this->ressourcesDir);
+        }
 
         if (!file_exists($this->loggerDir)){
             mkdir($this->loggerDir);
