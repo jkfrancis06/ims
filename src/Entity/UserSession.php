@@ -23,7 +23,7 @@ class UserSession
     private $utilisateur;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $startAt;
 
@@ -59,7 +59,7 @@ class UserSession
         return $this->startAt;
     }
 
-    public function setStartAt(\DateTimeImmutable $startAt): self
+    public function setStartAt(?\DateTimeImmutable $startAt): self
     {
         $this->startAt = $startAt;
 

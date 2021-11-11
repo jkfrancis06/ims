@@ -2,14 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EntitesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 
 /**
@@ -22,40 +19,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     "Veh"="Vehicule",
  *     "Org"="Organisation"
  * })
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *              "access_control"="is_granted('ROLE_USER')"
- *           },
- *           "GET-AFFAIRE-ENTITES"={
- *              "method"="GET",
- *              "path"="/affaire-entites/get/{id}",
- *              "controller"="App\Controller\GetAffaireEntiteController",
- *              "denormalization_context"={
- *                 "groups"={"entite:write"}
- *              },
- *              "normalization_context"={"groups"={"entite:read"}},
- *          },
- *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "delete"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"entite:read"}},
- *     denormalizationContext={"groups"={"entite:write"}}
- *
- * )
- * @ApiFilter(SearchFilter::class,properties={"affaire.id":"exact","description":"iexact","description2":"iexact"})
  */
 abstract class Entites
 {

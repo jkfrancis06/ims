@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AffaireDirectedRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -11,31 +9,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
-/**
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *               "access_control"="is_granted('ROLE_USER')"
- *           },
- *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)",
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "delete"= {
- *               "access_control"="is_granted('USER_VIEW_AFF', object)",
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"affaireDirected:read"}},
- *     denormalizationContext={"groups"={"affaireDirected:write"}}
- * )
- * @ApiFilter(SearchFilter::class,properties={"affaire.id": "exact"})
  * @ORM\Entity(repositoryClass=AffaireDirectedRepository::class)
  */
 class AffaireDirected

@@ -2,14 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CanConsultRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator as AppAssert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Table(
@@ -18,30 +15,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *        @ORM\UniqueConstraint(name="utilisateur_consultation_unique", columns={"affaire_id", "utilisateur_id"})
  *    }
  * )
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *              "access_control"="is_granted('ROLE_USER')"
- *           },
- *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF',object)"
- *           }
- *      },
- *      itemOperations={
- *          "get"= {
- *             "access_control"="is_granted('USER_VIEW_AFF',object)"
- *           },
- *          "delete"= {
- *              "access_control"="is_granted('USER_VIEW_AFF',object)"
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF',object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"canConsult:read"}},
- *     denormalizationContext={"groups"={"canConsult:write"}}
- * )
- * @ApiFilter(SearchFilter::class,properties={"utilisateur.id": "exact"})
  * @ORM\Entity(repositoryClass=CanConsultRepository::class)
  * @AppAssert\AlreadyOnAffaire()
  */

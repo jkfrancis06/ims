@@ -2,30 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AliasRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *           },
- *          "post"= {
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *           },
- *          "delete"= {
- *           },
- *          "put"= {
- *           }
- *      },
- *     normalizationContext={"groups"={"alias:read"}},
- *     denormalizationContext={"groups"={"alias:write"}}
- * )
  * @ORM\Entity(repositoryClass=AliasRepository::class)
  */
 class Alias

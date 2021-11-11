@@ -1,0 +1,16 @@
+# See full config at https://github.com/backup-manager/symfony
+bm_backup_manager:
+    database:
+        development:
+            type: postgresql
+            host: localhost
+            port: 5432
+            user: admin
+            pass: sql
+            database: ims2
+            # If DSN is specified, it will override other values
+            #dsn: 'postgresql://admin:sql@127.0.0.1:5432/ims2'
+    storage:
+        local:
+            type: Local
+            root: '%kernel.project_dir%/db'

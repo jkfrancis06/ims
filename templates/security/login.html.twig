@@ -7,7 +7,6 @@
 
     <form method="post">
 
-
         <div class="container">
             <div class="row" style="margin-top: 20vh">
                 <div class="col col-3"></div>
@@ -43,7 +42,7 @@
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"
                                 >
-                                <button type="submit" class="btn btn-primary">Connexion</button>
+                                <button id="btn-one" type="submit" class="btn btn-primary">Connexion</button>
                             </form>
                         </div>
                     </div>
@@ -69,4 +68,15 @@
         #}
     </form>
 
+{% endblock %}
+
+
+{% block js %}
+    <script>
+
+
+
+
+
+    </script>
 {% endblock %}

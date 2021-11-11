@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DepartementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,39 +13,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- *  @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *               "access_control"="is_granted('ROLE_ADMIN')"
- *           },
- *           "GET-DEP-USERS"={
- *              "method"="GET",
- *              "path"="/departement-users/get",
- *              "access_control"="is_granted('ROLE_USER')",
- *              "controller"="App\Controller\GetDepartementUsersController",
- *              "denormalization_context"={
- *                 "groups"={"departement:write"}
- *              },
- *              "normalization_context"={"groups"={"departement:read"}},
- *          },
- *          "post"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           }
- *      },
- *      itemOperations={
- *          "get"= {
- *               "access_control"="is_granted('USER_VIEW_DEP', object)"
- *           },
- *          "delete"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           },
- *          "put"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           }
- *      },
- *     normalizationContext={"groups"={"departement:read"}},
- *     denormalizationContext={"groups"={"departement:write"}}
- * )
  * @ORM\Entity(repositoryClass=DepartementRepository::class)
  * @UniqueEntity(fields={"nom"}, message="Ce departement existe deja !!")
  */

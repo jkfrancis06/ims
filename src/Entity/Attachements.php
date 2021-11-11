@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AttachementsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -11,29 +10,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "post"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "delete"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_OWN_AFF', object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"attachements:read"}},
- *     denormalizationContext={"groups"={"attachements:write"}}
- * )
  * @ORM\Entity(repositoryClass=AttachementsRepository::class)
  */
 class Attachements

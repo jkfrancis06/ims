@@ -2,22 +2,23 @@
     "api-platform/api-pack": {
         "version": "v1.3.0"
     },
-    "api-platform/core": {
-        "version": "2.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "a93061567140e386f107be75340ac2aee3f86cbf"
-        },
-        "files": [
-            "config/packages/api_platform.yaml",
-            "config/routes/api_platform.yaml",
-            "src/Entity/.gitignore"
-        ]
-    },
     "apoutchika/loremipsum-bundle": {
         "version": "v1.0.3"
+    },
+    "backup-manager/backup-manager": {
+        "version": "3.0.1"
+    },
+    "backup-manager/symfony": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "4bb70c3f71c9bcd581e28724f50569af236df758"
+        },
+        "files": [
+            "config/packages/bm_backup_manager.yaml"
+        ]
     },
     "brick/math": {
         "version": "0.9.2"
@@ -132,9 +133,6 @@
     "egulias/email-validator": {
         "version": "3.1.1"
     },
-    "fig/link-util": {
-        "version": "1.1.2"
-    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
@@ -186,6 +184,12 @@
     "lcobucci/jwt": {
         "version": "4.1.4"
     },
+    "league/flysystem": {
+        "version": "1.1.5"
+    },
+    "league/mime-type-detection": {
+        "version": "1.8.0"
+    },
     "lexik/jwt-authentication-bundle": {
         "version": "2.5",
         "recipe": {
@@ -227,6 +231,9 @@
     },
     "ninsuo/symfony-collection": {
         "version": "2.1.33"
+    },
+    "nyholm/dsn": {
+        "version": "2.0.0"
     },
     "paquettg/php-html-parser": {
         "version": "3.1.1"
@@ -723,8 +730,5 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
-    },
-    "willdurand/negotiation": {
-        "version": "3.0.0"
     }
 }

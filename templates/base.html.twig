@@ -162,6 +162,8 @@
 
         <script  src="{{ asset('/assets/js/axios/axios.min.js') }}"></script>
 
+        <script  src="{{ asset('/assets/js/validate/jquery.validate.js') }}"></script>
+
 
         <script  src="{{ asset('/assets/js/datatables/datatables.js') }}"></script>
 
@@ -181,6 +183,35 @@
                 $(".wrap").fadeOut("slow");
             });
 
+            $('a').click(function(e){
+
+                var $href = $(this).attr('href');
+
+                if ($href !== undefined && !$href.startsWith('#')) {
+
+                    e.preventDefault()
+
+                    $(".wrap").fadeIn("slow");
+
+
+                    window.location.href = $href;
+
+                    $(".wrap").fadeOut("slow");
+
+
+
+                }
+            });
+
+            // Form button loader
+
+            $( "form" ).submit(function( event ) {
+
+                if ($(this).valid()) { // in case you have some validation
+                    $(this).find(":submit").html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Chargement...').addClass('disabled');
+                }
+
+            });
 
             // SideNav Initialization
             $(document).ready(function() {

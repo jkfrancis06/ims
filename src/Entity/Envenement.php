@@ -2,44 +2,15 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EnvenementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 
 /**
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *               "access_control"="is_granted('ROLE_USER')"
- *           },
- *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)",
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "delete"= {
- *               "access_control"="is_granted('USER_VIEW_AFF', object)",
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"envenement:read"}},
- *     denormalizationContext={"groups"={"envenement:write"}}
- * )
  * @ORM\Entity(repositoryClass=EnvenementRepository::class)
- * @ApiFilter(SearchFilter::class,properties={"affaire.id": "exact"})
- * @ApiFilter(OrderFilter::class,properties={"startAt": "asc"})
  */
 class Envenement
 {

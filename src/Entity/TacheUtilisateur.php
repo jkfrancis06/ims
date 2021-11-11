@@ -2,35 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TacheUtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *               "access_control"="is_granted('ROLE_ADMIN')"
- *           },
- *          "post"= {
- *              "access_control"="is_granted('ROLE_USER')",
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "delete"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"tacheUtilisateur:read"}},
- *     denormalizationContext={"groups"={"tacheUtilisateur:write"}}
- * )
  * @ORM\Entity(repositoryClass=TacheUtilisateurRepository::class)
  */
 class TacheUtilisateur

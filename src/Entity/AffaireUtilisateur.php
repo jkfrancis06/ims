@@ -2,59 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AffaireUtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator as AppAssert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ORM\Table(
- *    name="affaire_utilisateur",
- *    uniqueConstraints={
- *        @ORM\UniqueConstraint(name="assignment_unique", columns={"affaire_id", "utilisateur_id"})
- *    }
- * )
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *           },
- *          "post"= {
- *              "access_control"="is_granted('USER_VIEW_AFF',object)",
- *           },
- *          "BULK-AFFAIRE_UTILISATEURS"={
- *              "method"="POST",
- *              "path"="/api/affaire_utilisateurs/bulk",
- *              "access_control"="is_granted('USER_VIEW_AFF')",
- *              "controller"="App\Controller\CreateBulkAffaireUtilisateursController",
- *              "denormalization_context"={
- *                 "groups"={"affaireUtilisateur:write"}
- *              },
- *              "normalization_context"={"groups"={"affaireUtilisateur:read"}},
- *          }
- *      },
- *      itemOperations={
- *          "get"= {
- *           },
- *          "delete"= {
- *              "access_control"="is_granted('USER_VIEW_AFF',object)",
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF')",
- *           }
- *      },
- *     normalizationContext={"groups"={"affaireUtilisateur:read"}},
- *     denormalizationContext={"groups"={"affaireUtilisateur:write"}}
- * )
  * @ORM\Entity(repositoryClass=AffaireUtilisateurRepository::class)
  * @AppAssert\InDepartement()
  * @AppAssert\UtilisateurAffaireExist()
- * @ApiFilter(SearchFilter::class, properties={
- *     "affaire.id": "exact"
- * })
  */
 class AffaireUtilisateur
 {

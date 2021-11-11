@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AffaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,46 +11,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\TermFilter;
-use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\MatchFilter;
 
 
 /**
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *               "access_control"="is_granted('ROLE_USER')"
- *           },
- *          "GET-USER-AFFAIRE"={
- *              "method"="GET",
- *              "path"="/utilisateur/affaire/get",
- *              "access_control"="is_granted('ROLE_USER')",
- *              "controller"="App\Controller\GetUserAffaireController",
- *              "denormalization_context"={
- *                 "groups"={"affaire:write"}
- *              },
- *              "normalization_context"={"groups"={"affaire:read"}},
- *          },
- *          "post"= {
- *              "access_control"="is_granted('ROLE_USER')",
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "delete"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"affaire:read"}},
- *     denormalizationContext={"groups"={"affaire:write"}}
- * )
- * @ApiFilter(SearchFilter::class,properties={"nom":"ipartial","numeroMatricule":"ipartial","departement.id": "exact"})
  * @ORM\Table(name="affaire")
  * @ORM\Entity(repositoryClass=AffaireRepository::class)
  * @UniqueEntity(fields={"nom"}, message="Une affaire de ce nom existe deja !!")

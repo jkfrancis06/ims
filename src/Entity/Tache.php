@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TacheRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,53 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *      collectionOperations={
- *         "CREATED-TASK"={
- *              "method"="get",
- *              "path"="/utilisateur/task-created",
- *              "access_control"="is_granted('ROLE_USER')",
- *              "access_control_message"="Acces denied",
- *              "controller"="App\Controller\GetUserCreatedTasksController",
- *              "denormalization_context"={
- *                 "groups"={"get-created-task:write"}
- *              },
- *              "normalization_context"={"groups"={"get-created-task:read"}},
- *          },
- *
- *          "USER-TASK"={
- *              "method"="get",
- *              "path"="/utilisateur/tasks",
- *              "access_control"="is_granted('ROLE_USER')",
- *              "access_control_message"="Acces denied",
- *              "controller"="App\Controller\GetUserTasksController",
- *              "denormalization_context"={
- *                 "groups"={"get-task:write"}
- *              },
- *              "normalization_context"={"groups"={"get-task:read"}},
- *          },
- *
- *          "get"= {
- *               "access_control"="is_granted('ROLE_ADMIN')"
- *           },
- *          "post"= {
- *              "access_control"="is_granted('ROLE_USER')",
- *           },
- *      },
- *      itemOperations={
- *          "get"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           },
- *          "delete"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           },
- *          "put"= {
- *              "access_control"="is_granted('USER_VIEW_AFF', object)"
- *           }
- *      },
- *     normalizationContext={"groups"={"tache:read"}},
- *     denormalizationContext={"groups"={"tache:write"}}
- * )
  * @ORM\Entity(repositoryClass=TacheRepository::class)
  */
 class Tache

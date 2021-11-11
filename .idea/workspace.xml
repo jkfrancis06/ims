@@ -14,16 +14,166 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/font/montserrat.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/img/bounceball.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/bm_backup_manager.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/jquery.validate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ar.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_az.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_az.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_bg.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_bn_BD.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_bn_BD.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ca.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_cs.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_da.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_de.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_el.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_es.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_es_AR.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_es_AR.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_es_PE.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_es_PE.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_et.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_et.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_eu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_fa.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_fi.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_fr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ge.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ge.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_gl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_gl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_he.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_hr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_hu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_hy_AM.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_hy_AM.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_id.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_id.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_is.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_is.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_it.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ja.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ka.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_kk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_kk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ko.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_lt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_lt.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_lv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_lv.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_mk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_mk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_my.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_my.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_nl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_no.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_no.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_pl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_pt_BR.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_pt_BR.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_pt_PT.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_pt_PT.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ro.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ru.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sd.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_si.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_si.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sr_lat.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sr_lat.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_sv.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_th.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_th.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_tj.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_tj.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_tr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_uk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ur.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_ur.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_vi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_vi.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_zh.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_zh_TW.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/messages_zh_TW.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_de.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_es_CL.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_es_CL.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_fi.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_it.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_nl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/validate/localization/methods_pt.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/pro/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/pro/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/log_05-11-2021.csv" beforeDir="false" afterPath="$PROJECT_DIR$/public/log_05-11-2021.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventListener/LoginListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/LoginListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/api_platform.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes/api_platform.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Affaire.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Affaire.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/AffaireDirected.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AffaireDirected.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AffaireUtilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Alias.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Alias.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Attachements.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Attachements.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/CanConsult.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CanConsult.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Entites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entites.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Envenement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Envenement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Organisation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Organisation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Personne.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Personne.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/RelatedTo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/RelatedTo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Tache.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Tache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/TacheUtilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TacheUtilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Telephone.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Telephone.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/UserSession.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/UserSession.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Vehicule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Vehicule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/search/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,67 +220,16 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/symfony/uid" />
-      <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
-      <path value="$PROJECT_DIR$/vendor/symfony/config" />
-      <path value="$PROJECT_DIR$/vendor/symfony/notifier" />
-      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
-      <path value="$PROJECT_DIR$/vendor/symfony/intl" />
-      <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php81" />
-      <path value="$PROJECT_DIR$/vendor/symfony/asset" />
-      <path value="$PROJECT_DIR$/vendor/symfony/cache" />
-      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bridge" />
-      <path value="$PROJECT_DIR$/vendor/symfony/validator" />
-      <path value="$PROJECT_DIR$/vendor/symfony/dotenv" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
-      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
-      <path value="$PROJECT_DIR$/vendor/symfony/form" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
-      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/framework-bundle" />
-      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
-      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-code" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-eventmanager" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy-bundle" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy" />
-      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
-      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
-      <path value="$PROJECT_DIR$/vendor/ninsuo/symfony-collection" />
-      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
-      <path value="$PROJECT_DIR$/vendor/nelmio/cors-bundle" />
-      <path value="$PROJECT_DIR$/vendor/namshi/jose" />
-      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
-      <path value="$PROJECT_DIR$/vendor/brick/math" />
-      <path value="$PROJECT_DIR$/vendor/twig/twig" />
-      <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
-      <path value="$PROJECT_DIR$/vendor/psr/link" />
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
-      <path value="$PROJECT_DIR$/vendor/psr/cache" />
-      <path value="$PROJECT_DIR$/vendor/fig/link-util" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
       <path value="$PROJECT_DIR$/vendor/sonata-project/intl-bundle" />
+      <path value="$PROJECT_DIR$/vendor/backup-manager/symfony" />
+      <path value="$PROJECT_DIR$/vendor/backup-manager/backup-manager" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/pascaldevink/shortuuid" />
       <path value="$PROJECT_DIR$/vendor/friendsofphp/proxy-manager-lts" />
-      <path value="$PROJECT_DIR$/vendor/api-platform/core" />
       <path value="$PROJECT_DIR$/vendor/rollerworks/password-strength-validator" />
-      <path value="$PROJECT_DIR$/vendor/willdurand/negotiation" />
       <path value="$PROJECT_DIR$/vendor/joshtronic/php-loremipsum" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
@@ -212,6 +311,59 @@
       <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
+      <path value="$PROJECT_DIR$/vendor/symfony/uid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/notifier" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/intl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/framework-bundle" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-code" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-eventmanager" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/nyholm/dsn" />
+      <path value="$PROJECT_DIR$/vendor/ninsuo/symfony-collection" />
+      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/nelmio/cors-bundle" />
+      <path value="$PROJECT_DIR$/vendor/namshi/jose" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
+      <path value="$PROJECT_DIR$/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/link" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
     </include_path>
   </component>
   <component name="ProjectId" id="1sZj2jYbXPenDlDt4S1Dz1etHDi" />
@@ -223,7 +375,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/EventListener" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/pro" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -238,11 +390,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/pro" />
+      <recent name="$PROJECT_DIR$/public/assets/js/validate" />
       <recent name="$PROJECT_DIR$/src/EventListener" />
       <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/public/upload" />
-      <recent name="$PROJECT_DIR$/templates/envenement" />
-      <recent name="$PROJECT_DIR$/templates/entite" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/upload" />
@@ -361,7 +513,9 @@
       <workItem from="1636461304691" duration="5424000" />
       <workItem from="1636475067267" duration="1673000" />
       <workItem from="1636554651449" duration="925000" />
-      <workItem from="1636558876424" duration="9288000" />
+      <workItem from="1636558876424" duration="9553000" />
+      <workItem from="1636615260376" duration="3352000" />
+      <workItem from="1636631595056" duration="6286000" />
     </task>
     <servers />
   </component>

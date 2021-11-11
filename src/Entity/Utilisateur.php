@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,42 +20,7 @@ use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksP
 
 
 
-
 /**
- * @ApiResource(
- *      collectionOperations={
- *          "get"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           },
- *          "post"= {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           } *      },
- *      itemOperations={
- *          "get" = {
- *              "access_control"="is_granted('ROLE_ADMIN') or object == user",
- *           },
- *          "delete" = {
- *               "access_control"="is_granted('ROLE_ADMIN')",
- *           },
- *          "put" = {
- *               "access_control"="is_granted('ROLE_USER') and object == user",
- *           },
- *          "CHANGE-PASSWORD"={
- *              "method"="PUT",
- *              "path"="/utilisateur/change-password/{id}",
- *              "access_control"="is_granted('ROLE_USER') and object == user",
- *              "access_control_message"="Only the user can change its password",
- *              "controller"="App\Controller\ChangeUtilisateurPasswordController",
- *              "denormalization_context"={
- *                 "groups"={"put-reset-password:write"}
- *              },
- *              "validation_groups"={"validation-password"},
- *              "normalization_context"={"groups"={"put-reset-password:read"}},
- *          }
- *      },
- *     normalizationContext={"groups"={"utilisateur:read"},"enable_max_depth"=true},
- *     denormalizationContext={"groups"={"utilisateur:write"}}
- * )
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
  * @UniqueEntity(fields={"username"}, message="Cet utilisateur existe déjà !!")
  *
