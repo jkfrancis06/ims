@@ -35,7 +35,7 @@ class Attachements
     private $type;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      * @Groups({"entite:read","entite:write", "attachements:read","attachements:write","utilisateur:read","affaire:read"})
      */
     private $description;
