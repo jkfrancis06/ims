@@ -267,9 +267,9 @@
                                     {% if entite.isPersonne() is defined %}
                                         <span style="font-weight: bold">Situation Matrimoniale: </span>
                                         <span>
-                                                    {% if constant('SIT_MARIE', entite) == entite.situationMatri %}
-                                                        Marié
-                                                    {% endif %}
+                                            {% if constant('SIT_MARIE', entite) == entite.situationMatri %}
+                                                Marié
+                                            {% endif %}
                                             {% if constant('SIT_DIVORCE', entite) == entite.situationMatri %}
                                                 Divorcé
                                             {% endif %}
@@ -360,6 +360,13 @@
                                 {% endif %}
 
 
+
+
+                                <div class="col col-xs-11" style="margin-top: 1em;">
+                                    <span style="font-weight: bold">Rapport initial: </span>
+                                    <span>{{ entite.resume | raw }}</span>
+
+                                </div>
 
 
 
