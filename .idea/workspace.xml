@@ -14,18 +14,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/buttons.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/searchPanes.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/datatables/select.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/dataTables.select.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/datatables/searchPanes.bootstrap4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/test/backup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/test/backup.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/test/backup.sql.gz" beforeDir="false" afterPath="$PROJECT_DIR$/db/test/backup.sql.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/datatables/select.dataTables.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/datatables/select.bootstrap4.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courrier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,10 +63,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/composer.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Controller/AffaireRapportController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Entity/Affaire.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Entity/Utilisateur.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Entity/Affaire.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Controller/AffaireRapportController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
     <include_path>
@@ -216,6 +214,8 @@
       <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/damienharper/auditor-bundle" />
+      <path value="$PROJECT_DIR$/vendor/damienharper/auditor" />
     </include_path>
   </component>
   <component name="ProjectId" id="1sZj2jYbXPenDlDt4S1Dz1etHDi" />
@@ -368,6 +368,8 @@
       <workItem from="1636558876424" duration="9553000" />
       <workItem from="1636615260376" duration="3352000" />
       <workItem from="1636631595056" duration="10047000" />
+      <workItem from="1637335555732" duration="3820000" />
+      <workItem from="1637391715559" duration="4766000" />
     </task>
     <servers />
   </component>

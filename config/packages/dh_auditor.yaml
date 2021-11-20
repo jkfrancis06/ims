@@ -1,0 +1,48 @@
+# Full configuration reference available at:
+# https://damienharper.github.io/auditor-docs/docs/auditor-bundle/configuration/reference.html
+dh_auditor:
+    timezone: 'Africa/Nairobi'
+
+    role_checker: 'dh_auditor.role_checker'
+
+    # Invokable service (callable) that provides user information
+    user_provider: 'dh_auditor.user_provider'
+
+    # Invokable service (callable) that provides security information (IP, firewall name, etc)
+    security_provider: 'dh_auditor.security_provider'
+
+    enabled: true
+
+    providers:
+        doctrine:
+            table_prefix: ~
+            table_suffix: '_audit'
+            viewer: true
+
+            entities:
+                App\Entity\Affaire: ~
+                App\Entity\AffaireDirected: ~
+                App\Entity\AffaireUtilisateur: ~
+                App\Entity\Affectation: ~
+                App\Entity\Alias: ~
+                App\Entity\Attachements: ~
+                App\Entity\CanConsult: ~
+                App\Entity\Courrier: ~
+                App\Entity\Departement: ~
+                App\Entity\DepartementDirector: ~
+                App\Entity\Entites: ~
+                App\Entity\Envenement: ~
+                App\Entity\PieceJointe: ~
+                App\Entity\Tache: ~
+                App\Entity\TacheUtilisateur: ~
+                App\Entity\Telephone: ~
+                App\Entity\Utilisateur: ~
+                App\Entity\Personne: ~
+                App\Entity\Vehicule: ~
+                App\Entity\Organisation: ~
+
+            auditing_services:
+                - '@doctrine.orm.default_entity_manager'
+
+            storage_services:
+                - '@doctrine.orm.default_entity_manager'

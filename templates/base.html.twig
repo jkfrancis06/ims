@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="{{ asset('/assets/css/fa/all.css') }}" />
         <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap-icons.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('/assets/css/datatables/datatables.css') }}" />
-        <link rel="stylesheet" href="{{ asset('/assets/css/quill/quill-snow.css') }}" />
         <script  src="{{ asset('/assets/js/pro/jquery.js') }}"></script>
 
         <script src="{{ asset('/assets/js/jquery.collection.js') }}"></script>
@@ -167,16 +166,10 @@
 
         <script  src="{{ asset('/assets/js/datatables/datatables.js') }}"></script>
 
-
-
-        <script  src="{{ asset('/assets/js/quill/quill.js') }}"></script>
-        <script  src="{{ asset('/assets/js/quill/DynamicQuillTools.js') }}"></script>
-        <script  src="{{ asset('/assets/js/custom/tab.js') }}"></script>
-        <script  src="{{ asset('/assets/js/fileinput/plugins/piexif.js') }}"></script>
-        <script  src="{{ asset('/assets/js/fileinput/plugins/sortable.js') }}"></script>
         <script  src="{{ asset('/assets/js/fileinput/fileinput.js') }}"></script>
         <script  src="{{ asset('/assets/js/fileinput/locales/fr.js') }}" type="text/javascript"></script>
         <script  src="{{ asset('/assets/js/fileinput/theme/theme.js') }}"></script>
+
 
         <script>
             $(window).on("load",function(){
@@ -219,18 +212,10 @@
 
                 $(".button-collapse").sideNav();
 
-                var container = document.querySelector('.custom-scrollbar');
-                var ps = new PerfectScrollbar(container, {
-                    wheelSpeed: 2,
-                    wheelPropagation: true,
-                    minScrollbarLength: 20
-                });
 
                 $('.mdb-select').materialSelect();
 
 
-                //popup buttons
-                $('#btnTopLeft').on('click', );
 
                 //$('.file-upload').file_upload();
 
