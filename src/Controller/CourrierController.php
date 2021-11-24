@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Affaire;
 use App\Entity\Courrier;
 use App\Entity\Departement;
 use App\Form\CourrierType;
 use App\Service\FileUploader;
+use DH\Auditor\Provider\Doctrine\DoctrineProvider;
+use DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,10 +30,16 @@ class CourrierController extends AbstractController
      */
     private $courrierDir;
 
-    public function __construct(string $projectDir, string $courrierDir)
+    /**
+     * @var DoctrineProvider
+     */
+    private $provider;
+
+    public function __construct(string $projectDir, string $courrierDir, DoctrineProvider $provider)
     {
         $this->projectDir = $projectDir;
         $this->courrierDir = $courrierDir;
+        $this->provider = $provider;
     }
 
     /**

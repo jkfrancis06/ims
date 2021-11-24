@@ -1,0 +1,10 @@
+{% extends 'nav-courrier.html.twig' %}
+
+{% block title %}Edit {{ intel_partner.name }}{% endblock %}
+
+{% block content %}
+    <h1>Edit {{ intel_partner.name }}</h1>
+
+    {{ include('intel_partner/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

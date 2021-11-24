@@ -127,6 +127,16 @@ class Courrier
      */
     private $entry;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=IntelPartner::class, inversedBy="courriers")
+     */
+    private $sender;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=IntelPartner::class, inversedBy="recuCourriers")
+     */
+    private $receiver;
+
 
 
 
@@ -184,7 +194,7 @@ class Courrier
         return $this->datecourrier;
     }
 
-    public function setDatecourrier(\DateTimeInterface $datecourrier): self
+    public function setDatecourrier(?\DateTimeInterface $datecourrier): self
     {
         $this->datecourrier = $datecourrier;
 
@@ -220,7 +230,7 @@ class Courrier
         return $this->contenu;
     }
 
-    public function setContenu(string $contenu): self
+    public function setContenu(?string $contenu): self
     {
         $this->contenu = $contenu;
 
@@ -391,6 +401,30 @@ class Courrier
     public function setEntry(?string $entry): self
     {
         $this->entry = $entry;
+
+        return $this;
+    }
+
+    public function getSender(): ?IntelPartner
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?IntelPartner $sender): self
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    public function getReceiver(): ?IntelPartner
+    {
+        return $this->receiver;
+    }
+
+    public function setReceiver(?IntelPartner $receiver): self
+    {
+        $this->receiver = $receiver;
 
         return $this;
     }

@@ -200,8 +200,14 @@
 
             $( "form" ).submit(function( event ) {
 
-                if ($(this).valid()) { // in case you have some validation
-                    $(this).find(":submit").html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Chargement...').addClass('disabled');
+                if ($(this).valid()) {
+
+                    const $btn = $(this).find(":submit");
+
+                    if ($(this).attr('onsubmit') === undefined ) {
+                        $btn.html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Chargement...').addClass('disabled');
+                    }
+
                 }
 
             });

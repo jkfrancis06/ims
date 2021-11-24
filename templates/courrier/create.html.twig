@@ -42,6 +42,8 @@
 {% block content %}
 
 
+    {% form_theme courrierForm 'bootstrap_4_layout.html.twig' %}
+
 
 
     {%
@@ -49,20 +51,15 @@
         'themes/jquery.collection.html.twig'  'themes/pieceJointe.html.twig'
     %}
 
-    {%
-        form_theme courrierForm.isResponse
-        'bootstrap_4_layout.html.twig'
-    %}
 
-    {% form_theme courrierForm.isResponse'bootstrap_4_layout.html.twig' %}
+
+
     {% form_theme courrierForm.flux 'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.datecourrier'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.referenceInterne'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.sujet'bootstrap_4_layout.html.twig' %}
-    {% form_theme courrierForm.contenu'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.type'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.affectation'bootstrap_4_layout.html.twig' %}
-    {% form_theme courrierForm.responseTo'bootstrap_4_layout.html.twig' %}
 
 
 
@@ -83,7 +80,7 @@
 
 
 
-        <div class="row">
+        {# <div class="row">
             <div class="col col-5 mt-4" >
                 {{ form_label(courrierForm.isResponse, "", {'label_attr': {'class': 'intitule_label'}}) }}
                 {{ form_widget(courrierForm.isResponse, {'attr': {'class': 'custom-control-input'}}) }}
@@ -100,18 +97,6 @@
                     {{ form_widget(courrierForm.responseTo, {'attr': {'class': 'form-control'}}) }}
                     <div class="form-error" style="color: red">
                         {{ form_errors(courrierForm.responseTo) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.flux, "",{'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.flux, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.flux) }}
                     </div>
                 </div>
             </div>
@@ -142,7 +127,28 @@
             </div>
 
         </div>
+        #}
 
+        <div class="row">
+            <div class="col col-5">
+                <div class="mb-3">
+                    {{ form_label(courrierForm.flux, "",{'label_attr': {'class': 'intitule_label'}}) }}
+                    {{ form_widget(courrierForm.flux, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-error" style="color: red">
+                        {{ form_errors(courrierForm.flux) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col col-5 mb-3">
+                <div id="formLabel"></div>
+                <div id="formContent"></div>
+            </div>
+        </div>
 
 
         <div class="row">
@@ -204,20 +210,6 @@
                     {{ form_widget(courrierForm.sujet, {'attr': {'class': 'form-control'}}) }}
                     <div class="form-error" style="color: red">
                         {{ form_errors(courrierForm.sujet) }}
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="row">
-            <div class="col col-12 mt-4" >
-                <div class="mb-3">
-                    {{ form_label(courrierForm.contenu, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.contenu, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.contenu) }}
                     </div>
                 </div>
             </div>
@@ -291,73 +283,38 @@
     <script>
 
 
-
-        const FLUX_ENTRANT = 1;
-        const FLUX_SORTANT = 2;
-
-        function disableOrigine(val){
-            $('#courrier_origine').prop('disabled', val);
-            $('#courrier_origine').prop('required', val);
-        }
-
-        function disableDestination(val){
-            $('#courrier_destination').prop('disabled', val);
-            $('#courrier_destination').prop('required', val);
-        }
-
-        function disableResponse(val){
-            $('#courrier_responseTo').prop('disabled', val);
-            $('#courrier_responseTo').prop('required', val);
-        }
-
-        function disableFlux(val){
-            $('#courrier_flux').prop('disabled', val);
-            $('#courrier_flux').prop('required', val);
-        }
+        var $flux = $('#courrier_flux');
+        // When sport gets selected ...
+        $flux.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$flux.attr('name')] = $flux.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
 
 
-        $(document).ready(function () {
+                    if ($(html).find('#courrier_receiver').length > 0) {
 
+                        $('#formLabel').html('<label class="intitule_label required" for="courrier_flux">Destinataire : </label>')
 
-            if($('#courrier_isResponse').is(":checked")) {
+                        $('#formContent').html($(html).find('#courrier_receiver'))
+                    }
 
-                disableFlux(true)
+                    if ($(html).find('#courrier_sender').length > 0) {
 
-                $('#courrier_flux').val(FLUX_SORTANT)
+                        $('#formLabel').html('<label class="intitule_label required" for="courrier_flux">Expéditeur : </label>')
 
-                $('#courrier_origine').val('KM')
-
-                $('#courrier_origine').prop('disabled', true);
-
-                disableResponse(false)
-
-            }else {
-                disableFlux(false)
-                disableResponse(true)
-                $('#courrier_origine').prop('disabled', false);
-
-            }
-
-            $('#courrier_isResponse').change(function() {
-                if($(this).is(":checked")) {
-                    disableFlux(true)
-                    $('#courrier_flux').val(FLUX_SORTANT)
-
-                    $('#courrier_origine').val('KM')
-
-                    $('#courrier_origine').prop('disabled', true);
-
-                    disableResponse(false)
-
-
-                }else {
-                    disableFlux(false)
-                    disableResponse(true)
-                    $('#courrier_origine').prop('disabled', false);
+                        $('#formContent').html($(html).find('#courrier_sender'))
+                    }
                 }
             });
-
-        })
+        });
 
 
     </script>

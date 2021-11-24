@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Courrier;
 use App\Entity\Departement;
 use App\Entity\Entites;
+use App\Entity\IntelPartner;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -27,10 +29,11 @@ class CourrierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('isResponse', CheckboxType::class, [
+           /* ->add('isResponse', CheckboxType::class, [
                 'label'    => 'Ce courrier est une reponse?',
                 'required' => false,
-            ])
+            ]) */
+
             ->add('flux', ChoiceType::class, [
                 'placeholder' => 'Choisir une option',
                 'required' => true,
@@ -43,6 +46,7 @@ class CourrierType extends AbstractType
                     new NotBlank()
                 ],
             ])
+
             ->add('datecourrier', DateType::class, [
                 'required' => true,
                 'label' => 'Date de courrier: ',
@@ -56,7 +60,8 @@ class CourrierType extends AbstractType
                 ]
 
             ])
-            ->add('origine',CountryType::class,[
+
+           /* ->add('origine',CountryType::class,[
                 'required' => true,
                 'label' => 'Pays d\'origine : ',
                 'constraints' => [
@@ -70,7 +75,7 @@ class CourrierType extends AbstractType
                 'constraints' => [
                     new NotBlank()
                 ],
-            ])
+            ]) */
 
             ->add('referenceInterne', TextType::class, [
                 'label' => 'Reference du courrier : ',
@@ -80,7 +85,7 @@ class CourrierType extends AbstractType
                 'label' => 'Sujet du courrier : ',
                 'required' => true,
             ])
-            ->add('contenu', CKEditorType::class, array(
+           /* ->add('contenu', CKEditorType::class, array(
                 'label' => 'Contenu du courrier : ',
                 'config' => array(
                     'uiColor' => '#ffffff',
@@ -96,7 +101,7 @@ class CourrierType extends AbstractType
                 ),
                 'required' => false,
 
-            ))
+            ))*/
 
             ->add('commentaire', CKEditorType::class, array(
                 'label' => 'Commentaires : ',
@@ -141,7 +146,7 @@ class CourrierType extends AbstractType
                     return $departement->getNom();
                 }
             ])
-            ->add('responseTo', EntityType::class, [
+            /*->add('responseTo', EntityType::class, [
                 'label' => 'Courrier',
                 'required' => false,
                 'class' => Courrier::class,
@@ -149,7 +154,7 @@ class CourrierType extends AbstractType
                 'choice_label' => function(Courrier $courrier){
                     return $courrier->getSujet();
                 }
-            ])
+            ]) */
             ->add('piecejointe', CollectionType::class, [
                 'required' => true,
                 'entry_type' => PieceJointeType::class,
@@ -164,9 +169,66 @@ class CourrierType extends AbstractType
                     'class' => "piecejointe-collection",
                 ),
             ])
+
+
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('cancel', ResetType::class, ['label' => 'Annuler'])
         ;
+
+
+        $formModifier = function (FormInterface $form,  $flux = null) {
+
+            if($flux == Courrier::FLUX_SORTANT) {
+
+                $form->add('receiver', EntityType::class, [
+                    'required' => false,
+                    'class' => IntelPartner::class,
+                    'label' => 'Destinataire : ',
+                    'placeholder' => 'Choisir une option',
+                    'choice_label' => function(IntelPartner $intelPartner){
+                        return $intelPartner->getName();
+                    }
+                ]);
+
+            }
+
+            if($flux == Courrier::FLUX_ENTRANT) {
+
+
+                $form->add('sender', EntityType::class, [
+                    'required' => false,
+                    'label' => 'Expediteur : ',
+                    'class' => IntelPartner::class,
+                    'placeholder' => 'Choisir une option',
+                    'choice_label' => function(IntelPartner $intelPartner){
+                        return $intelPartner->getName();
+                    }
+                ]);
+
+            }
+        };
+
+
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getFlux());
+            }
+        );
+
+
+        $builder->get('flux')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+
+                $flux = $event->getForm()->getData();
+
+                $formModifier($event->getForm()->getParent(), $flux);
+            }
+        );
 
     }
 

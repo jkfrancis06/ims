@@ -1,0 +1,35 @@
+{% extends 'nav-courrier.html.twig' %}
+
+{% block title %}Details {{ intel_partner.name }}{% endblock %}
+
+{% block content %}
+    <h5>Details {{ intel_partner.name }}</h5>
+
+    <hr>
+
+
+    {{ include('intel_partner/_delete_form.html.twig') }}
+
+    <table class="table table-hover table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ intel_partner.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ intel_partner.description | raw }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ intel_partner.country | country('fr') }}</td>
+            </tr>
+            <tr>
+                <th>Date de creation</th>
+                <td>{{ intel_partner.createdAt ? intel_partner.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

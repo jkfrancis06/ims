@@ -49,6 +49,20 @@
 
                         {% if active == "mail" %}
                             <li>
+                                <a href="{{ path('intel_partner_index') }}" class="waves-effect active">
+                                    <i class="fas fa-users"></i>
+                                    Partenaires</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ path('intel_partner_index') }}" class="waves-effect">
+                                    <i class="fas fa-users"></i>
+                                    Partenaires</a>
+                            </li>
+                        {% endif %}
+
+                        {% if active == "mail" %}
+                            <li>
                                 <a href="{{ path('create-courrier') }}" class="waves-effect active">
                                     <i class="fas fa-mail-bulk"></i>
                                     Courriers</a>
