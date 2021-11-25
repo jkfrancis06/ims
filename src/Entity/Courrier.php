@@ -41,12 +41,12 @@ class Courrier
     private $flux;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $origine;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $destination;
 
@@ -142,6 +142,7 @@ class Courrier
 
     public function __construct()
     {
+        $this->isResponse = false;
         $this->piecejointe = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->responses = new ArrayCollection();
@@ -169,7 +170,7 @@ class Courrier
         return $this->origine;
     }
 
-    public function setOrigine(string $origine): self
+    public function setOrigine(?string $origine): self
     {
         $this->origine = $origine;
 
@@ -181,7 +182,7 @@ class Courrier
         return $this->destination;
     }
 
-    public function setDestination(string $destination): self
+    public function setDestination(?string $destination): self
     {
         $this->destination = $destination;
 

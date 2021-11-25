@@ -50,12 +50,10 @@ class CourrierType extends AbstractType
             ->add('datecourrier', DateType::class, [
                 'required' => true,
                 'label' => 'Date de courrier: ',
-                'html5' => false,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'html5' => true,
                 // adds a class that can be selected in JavaScript
                 'attr' => [
-                    'class' => 'js-datepicker',
                     'placeholder' => 'Selectionner une date'
                 ]
 
@@ -138,14 +136,14 @@ class CourrierType extends AbstractType
                 ],
             ])
 
-            ->add('affectation', EntityType::class, [
+            /*->add('affectation', EntityType::class, [
                 'required' => false,
                 'class' => Departement::class,
                 'placeholder' => 'Choisir une option',
                 'choice_label' => function(Departement $departement){
                     return $departement->getNom();
                 }
-            ])
+            ])*/
             /*->add('responseTo', EntityType::class, [
                 'label' => 'Courrier',
                 'required' => false,

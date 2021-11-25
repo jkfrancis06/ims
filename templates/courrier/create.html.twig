@@ -42,7 +42,17 @@
 {% block content %}
 
 
-    {% form_theme courrierForm 'bootstrap_4_layout.html.twig' %}
+    {% if courrierForm.sender is defined %}
+
+        {% form_theme courrierForm.sender 'bootstrap_4_layout.html.twig' %}
+
+    {% endif %}
+
+    {% if courrierForm.reciever is defined %}
+
+        {% form_theme courrierForm.reciever 'bootstrap_4_layout.html.twig' %}
+
+    {% endif %}
 
 
 
@@ -59,7 +69,6 @@
     {% form_theme courrierForm.referenceInterne'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.sujet'bootstrap_4_layout.html.twig' %}
     {% form_theme courrierForm.type'bootstrap_4_layout.html.twig' %}
-    {% form_theme courrierForm.affectation'bootstrap_4_layout.html.twig' %}
 
 
 
@@ -155,7 +164,7 @@
             <div class="col col-5">
                 <div class="mb-3">
                     {{ form_label(courrierForm.datecourrier, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.datecourrier, {'attr': {'class': 'form-control js-datepicker'}}) }}
+                    {{ form_widget(courrierForm.datecourrier, {'attr': {'class': 'form-control'}}) }}
                     <div class="form-error" style="color: red">
                         {{ form_errors(courrierForm.datecourrier) }}
                     </div>
@@ -187,20 +196,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.affectation, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.affectation, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.affectation) }}
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <div class="row">
@@ -272,15 +267,35 @@
     <script src="{{ asset('assets/js/jquery.collection.js') }}"></script>
 
     <script type="text/javascript">
-        $('.piecejointe-collection').collection({
-            add: '<a href="#" class="btn btn-rounded btn-sm btn-primary"><span class="fa fa-plus-circle"></span> Ajouter une piece-jointe </a>',
-            remove: '<a href="#" class="btn btn-rounded btn-sm btn-danger"><span class="fa fa-plus-circle"></span> Supprimer la piece-jointe </a>',
-            allow_down:false,
-            allow_up:false
-        });
+
+        $(function(){
+
+            $('.custom-file input').change(function (e) {
+                if (e.target.files.length) {
+                    $(this).next('.custom-file-label').html(e.target.files[0].name);
+                }
+            });
+
+            $('.piecejointe-collection').collection({
+                add: '<a href="#" class="btn btn-rounded btn-sm btn-primary"><span class="fa fa-plus-circle"></span> Ajouter une piece-jointe </a>',
+                remove: '<a href="#" class="btn btn-rounded btn-sm btn-danger"><span class="fa fa-plus-circle"></span> Supprimer la piece-jointe </a>',
+                allow_down:false,
+                allow_up:false,
+                after_add: function(collection, element) {
+                    $('.custom-file input').change(function (e) {
+                        if (e.target.files.length) {
+                            $(this).next('.custom-file-label').html(e.target.files[0].name);
+                        }
+                    });
+                },
+            });
+        })
+
+
     </script>
 
     <script>
+
 
 
         var $flux = $('#courrier_flux');

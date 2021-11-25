@@ -49,17 +49,25 @@ class CourrierController extends AbstractController
     {
 
 
-        $courriers = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findBy([
-
+        $reception = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findBy([
+            'flux' => Courrier::FLUX_ENTRANT
         ],
         [
             'createdAt' => 'DESC'
         ]);
 
+        $envoi = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findBy([
+            'flux' => Courrier::FLUX_SORTANT
+        ],
+            [
+                'createdAt' => 'DESC'
+            ]);
+
         return $this->render('courrier/index.html.twig', [
             'controller_name' => 'CourrierController',
             'active' => 'courrier',
-            'courriers' => $courriers
+            'envoi' => $envoi,
+            'reception' => $reception,
         ]);
     }
 

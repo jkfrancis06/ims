@@ -18,10 +18,9 @@
       <change beforePath="$PROJECT_DIR$/src/Controller/CourrierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CourrierController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Courrier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Courrier.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/CourrierType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CourrierType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire/create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/courrier/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nav-courrier.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav-courrier.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/courrier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/themes/pieceJointe.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/themes/pieceJointe.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -372,6 +371,9 @@
       <workItem from="1637731637397" duration="484000" />
       <workItem from="1637734833821" duration="1545000" />
       <workItem from="1637739514604" duration="9439000" />
+      <workItem from="1637817502245" duration="299000" />
+      <workItem from="1637823435589" duration="302000" />
+      <workItem from="1637823912463" duration="4426000" />
     </task>
     <servers />
   </component>
