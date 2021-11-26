@@ -179,8 +179,9 @@
             $('a').click(function(e){
 
                 var $href = $(this).attr('href');
+                var $lightbox = $(this).attr('data-lightbox');
 
-                if ($href !== undefined && !$href.startsWith('#')) {
+                if ($href !== undefined && !$href.startsWith('#') && $lightbox === undefined) {
 
                     e.preventDefault()
 

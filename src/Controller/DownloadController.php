@@ -6,6 +6,7 @@ use App\Entity\Attachements;
 use App\Entity\Courrier;
 use App\Entity\Entites;
 use App\Entity\PieceJointe;
+use Spatie\PdfToImage\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -65,107 +66,37 @@ class DownloadController extends AbstractController
     }
 
     /**
-     * @Route("/c/xhr-show", name="xhr_show_image")
+     * @Route("/c/xhr-show/{piece}", name="xhr_show_image")
      */
-    public function xhrShowImage(Request $request):Response
+    public function xhrShowImage(PieceJointe $piece,Request $request):Response
     {
 
-        $json_data = $request->getContent();
-
-        $data = json_decode($json_data,true);
-
-        $output = [];
-
-        if (isset($data['piece_id']) && $data['piece_id'] != null){
-
-            $piece_id = intval($data['piece_id']);
-
-            $piece = $this->getDoctrine()->getManager()->getRepository(PieceJointe::class)->find($piece_id);
-
-            if ($piece != null) {
-
-                /*
-                 * Check if base 64 files are already created
-                 */
-
-                $targetDir = $this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/base64';
-
-                if (!file_exists($targetDir)) {
-
-                    mkdir($this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/base64', 0777, true);
-
-                    $im = new \Imagick($this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/'.$piece->getFilename()) ;
-
-                    $pages = $im->getNumberImages();
-
-                    $imagick = new \Imagick();
-
-                    $imagick->readImage($this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/'.$piece->getFilename());
-
-                    $imagick->setImageFormat('jpg');
-
-                    foreach($imagick as $i=>$imagick) {
-
-                        $path = $targetDir.'/'.($i+1).".jpg";
-
-                        $imagick->writeImage($path);
-
-                        $data = file_get_contents($path);
-
-                        array_push($output,base64_encode($data));
-                    }
-                    $imagick->clear();
-
-                }elseif ($this->is_dir_empty($targetDir)){
-
-                    $im = new \Imagick($this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/'.$piece->getFilename()) ;
-
-                    $pages = $im->getNumberImages();
-
-                    $imagick = new \Imagick();
 
 
-                    $imagick->readImage($this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/'.$piece->getFilename());
+        if (file_exists($this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/'.$piece->getFilename())) {
 
-                    $imagick->setImageFormat('jpg');
+            $pdf = new Pdf($this->courrierDir.'/'.md5($piece->getCourrier()->getEntry()).'/'.$piece->getFilename());
 
-                    foreach($imagick as $i=>$imagick) {
+            $pdf->setOutputFormat('png');
 
-                        $path = $targetDir.'/'.($i+1).".jpg";
+            $pdf->setCompressionQuality(100);
 
-                        $imagick->writeImage($path);
+            $pages = $pdf->getNumberOfPages();
 
-                        $data = file_get_contents($path);
+            mkdir($this->courrierDir.'/'.md5($piece->getFilename()));
 
-                        array_push($output,base64_encode($data));
-                    }
-                    $imagick->clear();
+            $dir = $this->courrierDir.'/'.md5($piece->getFilename());
 
-                }else{
+            for ($i = 1; $i <= $pages; $i++) {
 
-                    $files = scandir($targetDir);
-
-                    foreach ($files as $file){
-
-
-                        if (pathinfo($targetDir.'/'.$file,PATHINFO_EXTENSION) == 'jpg'){
-
-                            $path = $targetDir.'/'.$file;
-                            $data = file_get_contents($path);
-                            array_push($output,base64_encode($data));
-                        }
-                    }
-
-
-                }
-
-
-
+                $imageName = $i.'.png';
+                $saveImgTo = $dir. '/' . $imageName;
+                $pdf->setPage($i)->saveImage($saveImgTo);
             }
 
         }
 
-        return new JsonResponse($output);
+        return new Response('ok');
 
     }
 

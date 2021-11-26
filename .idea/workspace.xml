@@ -14,9 +14,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/courrier/view.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/images/close.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/images/loading.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/images/next.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/images/prev.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/lightbox/lightbox.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/lightbox/lightbox.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/assert/mdb-lightbox-ui.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/mdb-lightbox-ui.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CourrierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CourrierController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DownloadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DownloadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/courrier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/courrier/view.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/view.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +71,11 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/Entity/Affaire.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/composer.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Controller/AffaireRapportController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Entity/Utilisateur.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Entity/Affaire.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Controller/AffaireRapportController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
     <include_path>
@@ -209,6 +225,7 @@
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/damienharper/auditor-bundle" />
       <path value="$PROJECT_DIR$/vendor/damienharper/auditor" />
+      <path value="$PROJECT_DIR$/vendor/spatie/pdf-to-image" />
     </include_path>
   </component>
   <component name="ProjectId" id="1sZj2jYbXPenDlDt4S1Dz1etHDi" />
@@ -220,7 +237,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -235,17 +252,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets" />
+      <recent name="$PROJECT_DIR$/public/assets/js/lightbox" />
+      <recent name="$PROJECT_DIR$/public/assets/css/lightbox" />
+      <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/src/Controller" />
-      <recent name="$PROJECT_DIR$/public/assets/js/datatables" />
-      <recent name="$PROJECT_DIR$/public/assets/css/datatables" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/db/test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/css" />
+      <recent name="$PROJECT_DIR$/templates/assert" />
       <recent name="$PROJECT_DIR$/src/Controller/Courrier" />
       <recent name="$PROJECT_DIR$/public/upload" />
       <recent name="$PROJECT_DIR$/public/assets/css/datatables" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -371,6 +389,8 @@
       <workItem from="1637823435589" duration="302000" />
       <workItem from="1637823912463" duration="4426000" />
       <workItem from="1637912598794" duration="2357000" />
+      <workItem from="1637921902490" duration="1404000" />
+      <workItem from="1637923425892" duration="5047000" />
     </task>
     <servers />
   </component>

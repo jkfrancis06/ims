@@ -332,6 +332,9 @@
     "sonata-project/intl-bundle": {
         "version": "2.10.1"
     },
+    "spatie/pdf-to-image": {
+        "version": "2.1.0"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

@@ -29,6 +29,7 @@
         "rollerworks/password-strength-validator": "^1.5",
         "sensio/framework-extra-bundle": "^5.1",
         "sonata-project/intl-bundle": "^2.10",
+        "spatie/pdf-to-image": "^2.1",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.2.*",
         "symfony/console": "5.2.*",

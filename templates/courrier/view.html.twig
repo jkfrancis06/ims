@@ -2,9 +2,193 @@
 
 {% block title %}{{ courrier.referenceInterne }}{% endblock %}
 
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('/assets/css/lightbox/lightbox.min.css') }}" />
+
+{% endblock %}
+
+
+{% macro responseTo(courrier) %}
+
+    <blockquote class="blockquote mt-3">
+
+        {% if courrier.responseTo is not null %}
+
+            {{  _self.responseTo(courrier.responseTo) }}
+
+        {% endif %}
+
+        <div class="row">
+            <div class="col col-12">
+                <h6>{{ courrier.referenceInterne }} : {{ courrier.sujet }}</h6>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col col-12">
+
+                <table>
+
+                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                        <tr>
+                            <td style="color: grey">De:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td style="color: grey">A:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                        </tr>
+                    {% endif %}
+
+                    <tr>
+                        <td style="color: grey">Date:</td>
+                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                    </tr>
+
+                    <tr>
+                        <td style="color: grey">Type:</td>
+                        <td>
+                            &nbsp;&nbsp;
+                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                <span>Courrier Officiel</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                <span>Note de renseignement</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                <span>Forum</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="col col-8 mt-3">
+
+                {{ courrier.commentaire|raw }}
+
+            </div>
+
+        </div>
+
+    </blockquote>
+
+
+{% endmacro %}
+
+
+{% macro displayCourrier(courrier) %}
+
+        {% if courrier.responseTo is not null %}
+           {{  _self.responseTo(courrier.responseTo) }}
+        {% endif %}
+
+        <div class="row mt-3">
+            <div class="col col-12">
+                <h6>{{ courrier.referenceInterne }} : {{ courrier.sujet }}</h6>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col col-12">
+
+                <table>
+
+                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                        <tr>
+                            <td style="color: grey">De:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td style="color: grey">A:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                        </tr>
+                    {% endif %}
+
+                    <tr>
+                        <td style="color: grey">Date:</td>
+                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                    </tr>
+
+                    <tr>
+                        <td style="color: grey">Type:</td>
+                        <td>
+                            &nbsp;&nbsp;
+                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                <span>Courrier Officiel</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                <span>Note de renseignement</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                <span>Forum</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="col col-8 mt-3">
+
+                {{ courrier.commentaire|raw }}
+
+
+            </div>
+
+        </div>
+
+
+{% endmacro %}
+
 {% block content %}
 
-    <h3>Ajouter un nouveau partenaire</h3>
-    <hr>
+
+    {{ _self.displayCourrier(courrier) }}
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="mdb-lightbox-ui"></div>
+
+            <div class="mdb-lightbox">
+
+                <figure class="col-md-4">
+
+                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" data-lightbox="image-1" data-title="My caption">Image #1</a>
+                    </a>
+                </figure>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block botton_javascripts %}
+
+    <script src="{{ asset('/assets/js/lightbox/lightbox.min.js') }}">
+
+    </script>
 
 {% endblock %}

@@ -128,4 +128,22 @@ class CourrierController extends AbstractController
             'courrierForm' => $courrierForm->createView()
         ]);
     }
+
+
+
+
+    /**
+     * @Route("/c/d/{courrier}", name="view_courrier")
+     */
+    public function viewCourrier(Courrier $courrier): Response
+    {
+
+
+        return $this->render('courrier/view.html.twig', [
+            'controller_name' => 'CourrierController',
+            'active' => 'courrier',
+            'courrier' => $courrier,
+        ]);
+    }
+
 }
