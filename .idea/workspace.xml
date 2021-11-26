@@ -14,24 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/images/close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/images/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/images/next.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/images/prev.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/lightbox/lightbox.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/lightbox/lightbox.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/assert/mdb-lightbox-ui.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/mdb-lightbox-ui.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/FileToImg.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CourrierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CourrierController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DownloadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DownloadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courrier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/courrier/view.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/view.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -390,7 +377,7 @@
       <workItem from="1637823912463" duration="4426000" />
       <workItem from="1637912598794" duration="2357000" />
       <workItem from="1637921902490" duration="1404000" />
-      <workItem from="1637923425892" duration="5047000" />
+      <workItem from="1637923425892" duration="5885000" />
     </task>
     <servers />
   </component>

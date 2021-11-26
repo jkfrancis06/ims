@@ -4,3 +4,4 @@ twig:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     globals:
         FileSizeJob: '@App\Service\FileSizeJob'
+        FileToImg: '@App\Service\FileToImg'

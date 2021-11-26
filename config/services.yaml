@@ -99,6 +99,9 @@ services:
             $targetDirectory: '%kernel.project_dir%/public/upload'
             $affaireDir: '%kernel.project_dir%/ressources/affaires'
 
+    App\Service\FileToImg:
+        arguments:
+
     foo:
         class: App\Enti\To\Foo
         arguments: [ '%kernel.project_dir%' ]

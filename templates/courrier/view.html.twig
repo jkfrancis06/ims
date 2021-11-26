@@ -151,6 +151,11 @@
 
             </div>
 
+            {% for pieces in courrier.piecejointe %}
+                {{ FileToImg.convert(pieces) }}
+            {% endfor %}
+
+
         </div>
 
 
