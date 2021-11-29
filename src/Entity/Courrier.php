@@ -137,11 +137,17 @@ class Courrier
      */
     private $receiver;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastUpdate;
+
 
 
 
     public function __construct()
     {
+        $this->lastUpdate = new \DateTime();
         $this->isResponse = false;
         $this->piecejointe = new ArrayCollection();
         $this->createdAt = new \DateTime();
@@ -426,6 +432,18 @@ class Courrier
     public function setReceiver(?IntelPartner $receiver): self
     {
         $this->receiver = $receiver;
+
+        return $this;
+    }
+
+    public function getLastUpdate(): ?\DateTimeInterface
+    {
+        return $this->lastUpdate;
+    }
+
+    public function setLastUpdate(?\DateTimeInterface $lastUpdate): self
+    {
+        $this->lastUpdate = $lastUpdate;
 
         return $this;
     }

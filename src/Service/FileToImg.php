@@ -6,6 +6,8 @@ use App\Entity\PieceJointe;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Spatie\PdfToImage\Pdf;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class FileToImg
 {
@@ -56,13 +58,40 @@ class FileToImg
 
             $pdf->setCompressionQuality(100);
 
-            mkdir($this->courrierDir.'/'.md5($piece->getFilename()));
+            if (!file_exists($this->courrierDir.'/conv_'.md5($piece->getFilename()))) {
+                mkdir($this->courrierDir.'/conv_'.md5($piece->getFilename()));
+            }
 
-            $dir = $this->courrierDir.'/'.md5($piece->getFilename());
+            $dir = $this->courrierDir.'/conv_'.md5($piece->getFilename());
 
             $pdf->saveAllPagesAsImages($dir);
 
         }
+
+    }
+
+    public function getConvertedFiles(PieceJointe $piece){
+
+        $path = $this->courrierDir.'/conv_'.md5($piece->getFilename());
+
+        if (file_exists($path)) {
+
+            return array_diff(scandir($path), array('.', '..'));
+
+        }else {
+
+            return null;
+        }
+
+    }
+
+    public function getFile(PieceJointe $piece, $file) {
+
+        $path = $this->courrierDir.'/conv_'.md5($piece->getFilename()).'/'.$file;
+
+
+        return $path;
+
 
     }
 

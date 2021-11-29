@@ -5,3 +5,4 @@ twig:
     globals:
         FileSizeJob: '@App\Service\FileSizeJob'
         FileToImg: '@App\Service\FileToImg'
+        CourrierJob: '@App\Service\CourrierJob'

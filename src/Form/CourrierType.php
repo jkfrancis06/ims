@@ -174,7 +174,25 @@ class CourrierType extends AbstractType
         ;
 
 
-        $formModifier = function (FormInterface $form,  $flux = null) {
+        $formModifier = function (FormInterface $form,  $flux = null,$entity) {
+
+
+            $defaultData = null;
+
+            $disabled = false;
+
+            if ($entity->getResponseTo() != null) {
+
+                if ($entity->getResponseTo()->getSender() != null) {
+                    $defaultData = $entity->getResponseTo()->getSender();
+                    $disabled = true;
+                }
+                if ($entity->getResponseTo()->getReceiver() != null) {
+                    $defaultData = $entity->getResponseTo()->getReceiver();
+                    $disabled = true;
+                }
+
+            }
 
             if($flux == Courrier::FLUX_SORTANT) {
 
@@ -182,6 +200,8 @@ class CourrierType extends AbstractType
                     'required' => false,
                     'class' => IntelPartner::class,
                     'label' => 'Destinataire : ',
+                    'data' => $defaultData,
+                    'disabled' => $disabled,
                     'placeholder' => 'Choisir une option',
                     'choice_label' => function(IntelPartner $intelPartner){
                         return $intelPartner->getName();
@@ -196,6 +216,8 @@ class CourrierType extends AbstractType
                 $form->add('sender', EntityType::class, [
                     'required' => false,
                     'label' => 'Expediteur : ',
+                    'data' => $defaultData,
+                    'disabled' => $disabled,
                     'class' => IntelPartner::class,
                     'placeholder' => 'Choisir une option',
                     'choice_label' => function(IntelPartner $intelPartner){
@@ -213,7 +235,7 @@ class CourrierType extends AbstractType
             function (FormEvent $event) use ($formModifier) {
                 $data = $event->getData();
 
-                $formModifier($event->getForm(), $data->getFlux());
+                $formModifier($event->getForm(), $data->getFlux(),$data);
             }
         );
 
@@ -224,7 +246,7 @@ class CourrierType extends AbstractType
 
                 $flux = $event->getForm()->getData();
 
-                $formModifier($event->getForm()->getParent(), $flux);
+                $formModifier($event->getForm()->getParent(), $flux,$event->getForm()->getParent()->getData());
             }
         );
 

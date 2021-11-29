@@ -6,30 +6,49 @@
 {% block stylesheets %}
 
     <link rel="stylesheet" href="{{ asset('/assets/css/lightbox/lightbox.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/assets/css/jqueryui/jquery-ui.min.css') }}" />
+
+    <style>
+        .example-image {
+            width: 7rem;
+            border-radius: var(--border-radius);
+        }
+    </style>
 
 {% endblock %}
 
 
-{% macro responseTo(courrier) %}
+{% block javascripts %}
+    <script  src="{{ asset('/assets/js/jqueryui/jquery-ui.min.js') }}"></script>
 
-    <blockquote class="blockquote mt-3">
 
-        {% if courrier.responseTo is not null %}
 
-            {{  _self.responseTo(courrier.responseTo) }}
+{% endblock %}
 
-        {% endif %}
 
+
+{% macro responseTo(courrier,it) %}
+
+    {% set num = it %}
+
+    {% if courrier.responseTo is not null %}
+
+        {% set it = it-1 %}
+
+        {{  _self.responseTo(courrier.responseTo,it) }}
+
+    {% endif %}
+
+    <h3>
+        <span style="margin-left:{{ num }}em;">
+            From: {{ courrier.referenceInterne }} : {{ courrier.sujet }}
+        </span>
+    </h3>
+
+    <div>
         <div class="row">
-            <div class="col col-12">
-                <h6>{{ courrier.referenceInterne }} : {{ courrier.sujet }}</h6>
-                <hr>
-            </div>
-        </div>
 
-        <div class="row">
-
-            <div class="col col-12">
+            <div class="col col-8">
 
                 <table>
 
@@ -72,15 +91,206 @@
 
             </div>
 
+            <div class="col col-4">
+                <div class="d-flex justify-content-end">
+
+
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                        <a href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
+                           style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
+                            <i class="fa fa-reply"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <div class="col col-8 mt-3">
 
                 {{ courrier.commentaire|raw }}
 
+                <hr>
+
             </div>
+
+
+
+            <div class="col col-12">
+                <small>{{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes</small>
+            </div>
+
+
+            {% for pieces in courrier.piecejointe %}
+
+                <div class="col col-12 mt-2">
+
+                    <div style="border:  solid black; border-radius: 15px">
+
+                        {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+                        {% if convertedFiles is not null %}
+
+                            {% for files in convertedFiles %}
+
+                                {% set test = FileToImg.getFile(pieces,files) %}
+
+                                <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                                    <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                                </a>
+
+                            {% endfor %}
+
+                        {% endif %}
+                    </div>
+
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endmacro %}
+
+
+{% macro responses(courrier,key) %}
+
+    <h3>
+        <span style="margin-left: {{ key+1 }}em">Re : {{ courrier.referenceInterne }} : {{ courrier.sujet }}</span>
+    </h3>
+    <div>
+        <div style="margin-left: {{ key+1 }}em" class="row blockquote">
+
+            <div class="col col-8">
+
+                <table>
+
+                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                        <tr>
+                            <td style="color: grey">De:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td style="color: grey">A:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                        </tr>
+                    {% endif %}
+
+                    <tr>
+                        <td style="color: grey">Date:</td>
+                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                    </tr>
+
+                    <tr>
+                        <td style="color: grey">Type:</td>
+                        <td>
+                            &nbsp;&nbsp;
+                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                <span>Courrier Officiel</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                <span>Note de renseignement</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                <span>Forum</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="col col-4">
+                <div class="d-flex justify-content-end">
+
+
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                        <a href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
+                           style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
+                            <i class="fa fa-reply"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-12 mt-3">
+
+                {{ courrier.commentaire|raw }}
+
+                <hr>
+
+            </div>
+
+
+
+            <div class="col col-12">
+                <small>{{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes</small>
+            </div>
+
+
+            {% for pieces in courrier.piecejointe %}
+
+                <div class="col col-12 mt-2">
+
+                    <div style="border:  solid black; border-radius: 15px">
+
+                        {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+                        {% if convertedFiles is not null %}
+
+                            {% for files in convertedFiles %}
+
+                                {% set test = FileToImg.getFile(pieces,files) %}
+
+                                <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                                    <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                                </a>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
 
         </div>
 
-    </blockquote>
+    </div>
+
+
+    {% if courrier.responses is not null %}
+
+        {% for response in courrier.responses %}
+            {{  _self.responses(response,key+1) }}
+        {% endfor %}
+
+    {% endif %}
 
 
 {% endmacro %}
@@ -88,75 +298,157 @@
 
 {% macro displayCourrier(courrier) %}
 
+    <div id="accordion">
+
         {% if courrier.responseTo is not null %}
-           {{  _self.responseTo(courrier.responseTo) }}
+            {% set num = CourrierJob.count(courrier) %}
+            {{  _self.responseTo(courrier.responseTo,num) }}
         {% endif %}
 
-        <div class="row mt-3">
-            <div class="col col-12">
-                <h6>{{ courrier.referenceInterne }} : {{ courrier.sujet }}</h6>
-                <hr>
+        <h3 class="mainCourrier" style="background: #3d8e33; color: white">
+            {{ courrier.referenceInterne }} : {{ courrier.sujet }}
+        </h3>
+
+        <div>
+            <div class="row">
+
+
+
+                <div class="col col-8">
+
+                    <table>
+
+                        {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                            <tr>
+                                <td style="color: grey">De:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td style="color: grey">A:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <td style="color: grey;">Date:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Crée le:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.createdAt ? courrier.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Dernière modification:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.lastUpdate ? courrier.lastUpdate|date('d-m-Y H:i:s') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Type:</td>
+                            <td class="font-weight-bold">
+                                &nbsp;&nbsp;
+                                {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                    <span>Courrier Officiel</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                    <span>Note de renseignement</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                    <span>Forum</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div class="col col-4">
+                    <div class="d-flex justify-content-end">
+
+
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                            <a href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
+                               style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
+                                <i class="fa fa-reply"></i>
+                            </a>
+                            <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-8 mt-3">
+
+                    {{ courrier.commentaire|raw }}
+
+                    <hr>
+
+                </div>
+
+
+
+                <div class="col col-12">
+                    {{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes
+                </div>
+
+
+                {% for pieces in courrier.piecejointe %}
+
+                    <div class="col col-12 mt-2">
+
+                        <div style="border:  solid black; border-radius: 15px">
+
+                            {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+                            {% if convertedFiles is not null %}
+
+                                {% for files in convertedFiles %}
+
+                                    {% set test = FileToImg.getFile(pieces,files) %}
+
+                                    <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                                        <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                                    </a>
+
+                                {% endfor %}
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
             </div>
+
         </div>
 
-        <div class="row">
+        {% if courrier.responses is not null %}
 
-            <div class="col col-12">
+            {% for index,response in courrier.responses %}
 
-                <table>
+                {{  _self.responses(response, 1) }}
 
-                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
-                        <tr>
-                            <td style="color: grey">De:</td>
-                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td style="color: grey">A:</td>
-                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
-                        </tr>
-                    {% endif %}
-
-                    <tr>
-                        <td style="color: grey">Date:</td>
-                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
-                    </tr>
-
-                    <tr>
-                        <td style="color: grey">Type:</td>
-                        <td>
-                            &nbsp;&nbsp;
-                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
-                                <span>Courrier Officiel</span>
-                            {% endif %}
-
-                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
-                                <span>Note de renseignement</span>
-                            {% endif %}
-
-                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
-                                <span>Forum</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-
-                </table>
-
-            </div>
-
-            <div class="col col-8 mt-3">
-
-                {{ courrier.commentaire|raw }}
-
-
-            </div>
-
-            {% for pieces in courrier.piecejointe %}
-                {{ FileToImg.convert(pieces) }}
             {% endfor %}
 
+        {% endif %}
 
-        </div>
+    </div>
+
 
 
 {% endmacro %}
@@ -167,25 +459,6 @@
     {{ _self.displayCourrier(courrier) }}
 
 
-    <div class="row">
-        <div class="col-md-12">
-
-            <div class="mdb-lightbox-ui"></div>
-
-            <div class="mdb-lightbox">
-
-                <figure class="col-md-4">
-
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" data-lightbox="image-1" data-title="My caption">Image #1</a>
-                    </a>
-                </figure>
-
-
-            </div>
-
-        </div>
-    </div>
-
 
 {% endblock %}
 
@@ -194,6 +467,23 @@
 
     <script src="{{ asset('/assets/js/lightbox/lightbox.min.js') }}">
 
+    </script>
+
+    <script>
+        $( function() {
+            $( "#accordion" ).accordion({
+                heightStyle: "content",
+                collapsible: true
+            });
+
+            var index = $('.mainCourrier').index();
+
+            index=index/2; //index is zero based for jquery ui.
+            console.log(index)
+            $( "#accordion" ).accordion( "option", "active", index );
+
+
+        } );
     </script>
 
 {% endblock %}

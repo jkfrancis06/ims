@@ -102,6 +102,9 @@ services:
     App\Service\FileToImg:
         arguments:
 
+    App\Service\CourrierJob:
+        arguments:
+
     foo:
         class: App\Enti\To\Foo
         arguments: [ '%kernel.project_dir%' ]

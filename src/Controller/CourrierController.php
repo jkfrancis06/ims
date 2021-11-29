@@ -6,6 +6,7 @@ use App\Entity\Affaire;
 use App\Entity\Courrier;
 use App\Entity\Departement;
 use App\Form\CourrierType;
+use App\Service\FileToImg;
 use App\Service\FileUploader;
 use DH\Auditor\Provider\Doctrine\DoctrineProvider;
 use DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader;
@@ -74,11 +75,24 @@ class CourrierController extends AbstractController
 
 
     /**
-     * @Route("/c/n", name="create-courrier")
+     * @Route("/c/n/{responseTo}", name="create-courrier")
      */
-    public function create(Request $request, FileUploader $fileUploader): Response
+    public function create($responseTo = null , Request $request, FileUploader $fileUploader, FileToImg $fileToImg): Response
     {
+
+
+        if ($responseTo != null) {
+
+            $responseTo = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->find(intval($responseTo));
+
+        }
+
         $courrier = new Courrier();
+
+        if ($responseTo != null) {
+            $courrier->setResponseTo($responseTo);
+
+        }
 
         $courrierForm = $this->createForm(CourrierType::class,$courrier);
 
@@ -93,10 +107,44 @@ class CourrierController extends AbstractController
 
         if($courrierForm->isSubmitted() && $courrierForm->isValid()){
 
+            $defaultData = null;
+
+            if ($courrier->getResponseTo() != null) {
+
+                if ($courrier->getResponseTo()->getSender() != null) {
+                    $defaultData = $courrier->getResponseTo()->getSender();
+                }
+                if ($courrier->getResponseTo()->getReceiver() != null) {
+                    $defaultData = $courrier->getResponseTo()->getReceiver();
+                }
+
+            }
+
+            if ($courrier->getFlux() == Courrier::FLUX_ENTRANT) {
+
+                if ($responseTo != null) {
+
+                    $courrier->setSender($defaultData);
+
+                }
+
+            }
+
+            if ($courrier->getFlux() == Courrier::FLUX_SORTANT) {
+
+                if ($responseTo != null) {
+
+                    $courrier->setReceiver($defaultData);
+
+                }
+
+            }
+
             $courrier->setEntry(uniqid('entry_', true));
 
             foreach ($courrier->getPiecejointe() as $piecejointe){
                 $piecejointe->setFilename($fileUploader->upload($piecejointe->getFile(),$this->courrierDir.'/'.md5($courrier->getEntry())));
+                $fileToImg->convert($piecejointe);
             }
 
 
@@ -117,6 +165,7 @@ class CourrierController extends AbstractController
 
 
             $request->getSession()->getFlashBag()->add('courrier_create', 'Le courrier a été cree avec succès');
+
             return $this->redirectToRoute('courrier');
 
 
@@ -125,6 +174,7 @@ class CourrierController extends AbstractController
         return $this->render('courrier/create.html.twig', [
             'controller_name' => 'CourrierController',
             'active' => 'courrier',
+            'responseTo' => $responseTo,
             'courrierForm' => $courrierForm->createView()
         ]);
     }
@@ -144,6 +194,33 @@ class CourrierController extends AbstractController
             'active' => 'courrier',
             'courrier' => $courrier,
         ]);
+    }
+
+
+    /**
+     * @Route("/c/all", name="all_courrier")
+     */
+    public function allCourrier(FileToImg $fileToImg): Response
+    {
+
+
+        $courriers = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findAll();
+
+        foreach ($courriers as $courrier) {
+
+            if ($courrier->getPiecejointe() != null ) {
+
+                foreach ($courrier->getPiecejointe() as $piecejointe) {
+                    $fileToImg->convert($piecejointe);
+                }
+
+            }
+
+
+
+        }
+
+        return new Response('ok');
     }
 
 }

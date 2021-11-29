@@ -4,42 +4,458 @@
 
 
 {% block javascripts %}
-    <script  src="{{ asset('/assets/js/datepicker/moment.min.js') }}"></script>
-    <script  src="{{ asset('/assets/js/datepicker/daterangepicker.js') }}"></script>
-    <script  src="{{ asset('/assets/js/custom/picker.js') }}"></script>
+
+    <script  src="{{ asset('/assets/js/jqueryui/jquery-ui.min.js') }}"></script>
+
+
 {% endblock %}
 
  {% block stylesheets %}
 
-     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.dataTables.css') }}" />
-     <link rel="stylesheet" href="{{ asset('/assets/css/datatables/buttons.bootstrap5.css') }}" />
-     <link rel="stylesheet" href="{{ asset('/assets/css/datepicker/daterangepicker.css') }}" />
-
+     <link rel="stylesheet" href="{{ asset('/assets/css/lightbox/lightbox.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('/assets/css/jqueryui/jquery-ui.min.css') }}" />
      <style>
-         .dt-buttons{
-             margin-bottom: 1em!important;
-             margin-left: 0.5em!important;
-         }
-         #tab-content{
-             display: none;
-         }
-         #loader{
-             display: block;
-         }
-         #loading {
-             background: url('{{ asset('/assets/img/loader.gif') }}') no-repeat center center;
-             position: absolute;
-             top: 0;
-             left: 0;
-             height: 100%;
-             width: 100%;
-             z-index: 9999999;
+         .example-image {
+             width: 7rem;
+             border-radius: var(--border-radius);
          }
      </style>
  {% endblock %}
 
 
+
+{% macro responseTo(courrier,it) %}
+
+    {% set num = it %}
+
+    {% if courrier.responseTo is not null %}
+
+        {% set it = it-1 %}
+
+        {{  _self.responseTo(courrier.responseTo,it) }}
+
+    {% endif %}
+
+    <h3>
+        <span style="margin-left:{{ num }}em;">
+            From: {{ courrier.referenceInterne }} : {{ courrier.sujet }}
+        </span>
+    </h3>
+
+    <div>
+        <div class="row">
+
+            <div class="col col-8">
+
+                <table>
+
+                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                        <tr>
+                            <td style="color: grey">De:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td style="color: grey">A:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                        </tr>
+                    {% endif %}
+
+                    <tr>
+                        <td style="color: grey">Date:</td>
+                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                    </tr>
+
+                    <tr>
+                        <td style="color: grey">Type:</td>
+                        <td>
+                            &nbsp;&nbsp;
+                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                <span>Courrier Officiel</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                <span>Note de renseignement</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                <span>Forum</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="col col-4">
+                <div class="d-flex justify-content-end">
+
+
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
+                            <i class="fa fa-reply"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-8 mt-3">
+
+                {{ courrier.commentaire|raw }}
+
+                <hr>
+
+            </div>
+
+
+
+            <div class="col col-12">
+                <small>{{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes</small>
+            </div>
+
+
+            {% for pieces in courrier.piecejointe %}
+
+                <div class="col col-12 mt-2">
+
+                    <div style="border:  solid black; border-radius: 15px">
+
+                        {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+                        {% if convertedFiles is not null %}
+
+                            {% for files in convertedFiles %}
+
+                                {% set test = FileToImg.getFile(pieces,files) %}
+
+                                <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                                    <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                                </a>
+
+                            {% endfor %}
+
+                        {% endif %}
+                    </div>
+
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endmacro %}
+
+
+{% macro responses(courrier,key) %}
+
+    <h3>
+        <span style="margin-left: {{ key+1 }}em">Re : {{ courrier.referenceInterne }} : {{ courrier.sujet }}</span>
+    </h3>
+    <div>
+        <div style="margin-left: {{ key+1 }}em" class="row blockquote">
+
+            <div class="col col-8">
+
+                <table>
+
+                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                        <tr>
+                            <td style="color: grey">De:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td style="color: grey">A:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                        </tr>
+                    {% endif %}
+
+                    <tr>
+                        <td style="color: grey">Date:</td>
+                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                    </tr>
+
+                    <tr>
+                        <td style="color: grey">Type:</td>
+                        <td>
+                            &nbsp;&nbsp;
+                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                <span>Courrier Officiel</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                <span>Note de renseignement</span>
+                            {% endif %}
+
+                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                <span>Forum</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="col col-4">
+                <div class="d-flex justify-content-end">
+
+
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
+                            <i class="fa fa-reply"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-12 mt-3">
+
+                {{ courrier.commentaire|raw }}
+
+                <hr>
+
+            </div>
+
+
+
+            <div class="col col-12">
+                <small>{{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes</small>
+            </div>
+
+
+            {% for pieces in courrier.piecejointe %}
+
+                <div class="col col-12 mt-2">
+
+                    <div style="border:  solid black; border-radius: 15px">
+
+                        {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+                        {% if convertedFiles is not null %}
+
+                            {% for files in convertedFiles %}
+
+                                {% set test = FileToImg.getFile(pieces,files) %}
+
+                                <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                                    <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                                </a>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    {% if courrier.responses is not null %}
+
+        {% for response in courrier.responses %}
+            {{  _self.responses(response,key+1) }}
+        {% endfor %}
+
+    {% endif %}
+
+
+{% endmacro %}
+
+
+{% macro displayCourrier(courrier) %}
+
+    <div id="accordion">
+
+        {% if courrier.responseTo is not null %}
+            {% set num = CourrierJob.count(courrier) %}
+            {{  _self.responseTo(courrier.responseTo,num) }}
+        {% endif %}
+
+        <h3 class="mainCourrier" style="background: #3d8e33; color: white">
+            {{ courrier.referenceInterne }} : {{ courrier.sujet }}
+        </h3>
+
+        <div>
+            <div class="row">
+
+
+
+                <div class="col col-8">
+
+                    <table>
+
+                        {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                            <tr>
+                                <td style="color: grey">De:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td style="color: grey">A:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <td style="color: grey;">Date:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Crée le:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.createdAt ? courrier.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Dernière modification:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.lastUpdate ? courrier.lastUpdate|date('d-m-Y H:i:s') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Type:</td>
+                            <td class="font-weight-bold">
+                                &nbsp;&nbsp;
+                                {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                    <span>Courrier Officiel</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                    <span>Note de renseignement</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                    <span>Forum</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div class="col col-4">
+                    <div class="d-flex justify-content-end">
+
+
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                            <a style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
+                                <i class="fa fa-reply"></i>
+                            </a>
+                            <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-8 mt-3">
+
+                    {{ courrier.commentaire|raw }}
+
+                    <hr>
+
+                </div>
+
+
+
+                <div class="col col-12">
+                    {{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes
+                </div>
+
+
+                {% for pieces in courrier.piecejointe %}
+
+                    <div class="col col-12 mt-2">
+
+                        <div style="border:  solid black; border-radius: 15px">
+
+                            {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+                            {% if convertedFiles is not null %}
+
+                                {% for files in convertedFiles %}
+
+                                    {% set test = FileToImg.getFile(pieces,files) %}
+
+                                    <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                                        <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                                    </a>
+
+                                {% endfor %}
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+        {% if courrier.responses is not null %}
+
+            {% for index,response in courrier.responses %}
+
+                {{  _self.responses(response, 1) }}
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+
+
+{% endmacro %}
+
+
+
 {% block content %}
+
+
+    {% if responseTo is not null %}
+        {{ _self.displayCourrier(responseTo) }}
+    {% endif %}
+
 
 
     {% if courrierForm.sender is defined %}
@@ -48,9 +464,9 @@
 
     {% endif %}
 
-    {% if courrierForm.reciever is defined %}
+    {% if courrierForm.receiver is defined %}
 
-        {% form_theme courrierForm.reciever 'bootstrap_4_layout.html.twig' %}
+        {% form_theme courrierForm.receiver 'bootstrap_4_layout.html.twig' %}
 
     {% endif %}
 
@@ -74,169 +490,153 @@
 
 
 
-    <div style="margin-top: 1em; ">
+    <div  style="margin-left:{{ responseTo ? '4em' : '' }} ;margin-top: 1em; ">
 
+
+        {% if responseTo is not null %}
+
+            <div class="row mt-5">
+
+                <div class="col col-12">
+                    <h5 class="font-weight-bold">Re: {{ responseTo.referenceInterne }} : {{ responseTo.sujet }}</h5>
+                </div>
+            </div>
+
+            <hr>
+
+        {% else %}
+
+            <div class="row">
+
+                <div class="col col-12">
+                    <h5 class="font-weight-bold">Nouveau courrier</h5>
+                </div>
+
+            </div>
+
+            <hr>
+
+        {% endif %}
 
         {{ form_start(courrierForm) }}
 
-        <div class="row">
-            <div class="col col-8">
-                <div class="text-danger">
-                    {{ form_errors(courrierForm) }}
-                </div>
-            </div>
-        </div>
-
-
-
-        {# <div class="row">
-            <div class="col col-5 mt-4" >
-                {{ form_label(courrierForm.isResponse, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                {{ form_widget(courrierForm.isResponse, {'attr': {'class': 'custom-control-input'}}) }}
-                <div class="form-error" style="color: red">
-                    {{ form_errors(courrierForm.isResponse) }}
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col col-5 mt-4" >
-                <div class="mb-3">
-                    {{ form_label(courrierForm.responseTo, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.responseTo, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.responseTo) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.origine, "",{'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.origine, {'attr': {'class': 'mdb-select md-form', 'searchable':'Rechercher un pays'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.origine) }}
+        <div class="{{ responseTo ? 'blockquote' : '' }}" style="font-size: medium!important;">
+            <div class="row">
+                <div class="col col-8">
+                    <div class="text-danger">
+                        {{ form_errors(courrierForm) }}
                     </div>
                 </div>
             </div>
 
-        </div>
 
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.destination, "",{'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.destination, {'attr': {'class': 'mdb-select md-form', 'searchable':'Rechercher un pays'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.destination) }}
+            <div class="row">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(courrierForm.flux, "",{'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(courrierForm.flux, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(courrierForm.flux) }}
+                        </div>
                     </div>
                 </div>
             </div>
 
-        </div>
-        #}
 
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.flux, "",{'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.flux, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.flux) }}
+
+            <div class="row">
+                <div class="col col-5 mb-3">
+                    <div id="formLabel"></div>
+                    <div id="formContent"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(courrierForm.datecourrier, "", {'label_attr': {'class': 'intitule_label'}}) }}
+
+                        {% if responseTo is not null %}
+                            {{ form_widget(courrierForm.datecourrier, {'attr': {'class': 'form-control','min':responseTo.datecourrier|date("Y-m-d") }}) }}
+                        {% else %}
+                            {{ form_widget(courrierForm.datecourrier, {'attr': {'class': 'form-control'}}) }}
+                        {% endif %}
+
+
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(courrierForm.datecourrier) }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-
-        <div class="row">
-            <div class="col col-5 mb-3">
-                <div id="formLabel"></div>
-                <div id="formContent"></div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.datecourrier, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.datecourrier, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.datecourrier) }}
+            <div class="row">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(courrierForm.referenceInterne, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(courrierForm.referenceInterne, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(courrierForm.referenceInterne) }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.referenceInterne, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.referenceInterne, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.referenceInterne) }}
+            <div class="row">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(courrierForm.type, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(courrierForm.type, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(courrierForm.type) }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.type, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.type, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.type) }}
+            <div class="row">
+                <div class="col col-5">
+                    <div class="mb-3">
+                        {{ form_label(courrierForm.sujet, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(courrierForm.sujet, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(courrierForm.sujet) }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col col-5">
-                <div class="mb-3">
-                    {{ form_label(courrierForm.sujet, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.sujet, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.sujet) }}
+            <div class="row">
+                <div class="col col-12 mt-4" >
+                    <div class="mb-3">
+                        {{ form_label(courrierForm.commentaire, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(courrierForm.commentaire, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(courrierForm.commentaire) }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col col-12 mt-4" >
-                <div class="mb-3">
-                    {{ form_label(courrierForm.commentaire, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.commentaire, {'attr': {'class': 'form-control'}}) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.commentaire) }}
+
+
+            <div class="row">
+                <div class="col col-12 mt-4" >
+                    <div class="mb-3">
+                        {{ form_label(courrierForm.piecejointe, "", {'label_attr': {'class': 'intitule_label'}}) }}
+                        {{ form_widget(courrierForm.piecejointe) }}
+                        <div class="form-error" style="color: red">
+                            {{ form_errors(courrierForm.piecejointe) }}
+                        </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
-
-
-
-        <div class="row">
-            <div class="col col-12 mt-4" >
-                <div class="mb-3">
-                    {{ form_label(courrierForm.piecejointe, "", {'label_attr': {'class': 'intitule_label'}}) }}
-                    {{ form_widget(courrierForm.piecejointe) }}
-                    <div class="form-error" style="color: red">
-                        {{ form_errors(courrierForm.piecejointe) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
 
 
         <div class="row" style="margin-top: 5em">
@@ -266,6 +666,10 @@
 
     <script src="{{ asset('assets/js/jquery.collection.js') }}"></script>
 
+    <script src="{{ asset('/assets/js/lightbox/lightbox.min.js') }}">
+
+    </script>
+
     <script type="text/javascript">
 
         $(function(){
@@ -289,6 +693,18 @@
                     });
                 },
             });
+
+            $( "#accordion" ).accordion({
+                heightStyle: "content",
+                collapsible: true
+            });
+
+            var index = $('.mainCourrier').index();
+
+            index=index/2; //index is zero based for jquery ui.
+            console.log(index)
+            $( "#accordion" ).accordion( "option", "active", index );
+
         })
 
 
@@ -306,13 +722,14 @@
             // Simulate form data, but only include the selected sport value.
             var data = {};
             data[$flux.attr('name')] = $flux.val();
+
+            console.log($form.attr('action'))
             // Submit data via AJAX to the form's action path.
             $.ajax({
                 url : $form.attr('action'),
                 type: $form.attr('method'),
                 data : data,
                 success: function(html) {
-
 
                     if ($(html).find('#courrier_receiver').length > 0) {
 
