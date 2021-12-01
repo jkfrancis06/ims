@@ -70,6 +70,8 @@ class FileToImg
 
     }
 
+
+
     public function getConvertedFiles(PieceJointe $piece){
 
         $path = $this->courrierDir.'/conv_'.md5($piece->getFilename());
@@ -85,13 +87,10 @@ class FileToImg
 
     }
 
+
     public function getFile(PieceJointe $piece, $file) {
 
-        $path = $this->courrierDir.'/conv_'.md5($piece->getFilename()).'/'.$file;
-
-
-        return $path;
-
+        return $this->courrierDir.'/conv_'.md5($piece->getFilename()).'/'.$file;
 
     }
 

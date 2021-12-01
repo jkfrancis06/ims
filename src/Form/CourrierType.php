@@ -256,6 +256,7 @@ class CourrierType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Courrier::class,
+            'validation_groups' => ''
         ]);
     }
 }

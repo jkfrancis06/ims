@@ -46,10 +46,19 @@
 
 
 
-
-
     <div class="col col-12 mt-5">
 
+
+
+        {% for message in app.session.flashbag.get('delete_create') %}
+
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
 
         {% for message in app.session.flashbag.get('courrier_create') %}
 
@@ -62,14 +71,18 @@
         {% endfor %}
 
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-pills " id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="reception-tab" data-toggle="tab" href="#reception" role="tab" aria-controls="reception"
-                   aria-selected="true">Boîte de réception</a>
+                   aria-selected="true">
+                    <i class="fa fa-inbox mr-2"></i>Boîte de réception
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="envoi-tab" data-toggle="tab" href="#envoi" role="tab" aria-controls="envoi"
-                   aria-selected="false">Boîte d'envoi</a>
+                   aria-selected="false">
+                    <i class="fas fa-paper-plane mr-2"></i>Boîte d'envoi
+                </a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -124,9 +137,12 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ path('view_courrier',{courrier:courrier.id}) }}">Voir</a>
                                     <a class="dropdown-item" href="{{ path('create-courrier',{responseTo:courrier.id}) }}">Répondre</a>
-                                    <a class="dropdown-item" href="#">Modifier</a>
+                                    <a class="dropdown-item" href="{{ path('edit_courrier',{courrier:courrier.id}) }}">Modifier</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Supprimer</a>
+                                    <a class="dropdown-item"
+                                       href="{{ path('delete_courrier',{courrier:courrier.id}) }}"
+                                       onclick="return confirm('Confirmez-vous la suppression?')"
+                                       >Supprimer</a>
                                 </div>
                                 {# {% for pieces in courrier.piecejointe %}
                                     <!-- Button trigger modal -->
@@ -194,9 +210,12 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ path('view_courrier',{courrier:courrier.id}) }}">Voir</a>
                                     <a class="dropdown-item" href="{{ path('create-courrier',{responseTo:courrier.id}) }}">Répondre</a>
-                                    <a class="dropdown-item" href="#">Modifier</a>
+                                    <a class="dropdown-item" href="{{ path('edit_courrier',{courrier:courrier.id}) }}">Modifier</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Supprimer</a>
+                                    <a class="dropdown-item"
+                                       href="{{ path('delete_courrier',{courrier:courrier.id}) }}"
+                                       onclick="return confirm('Confirmez-vous la suppression?')"
+                                    >Supprimer</a>
                                 </div>
                                 {# {% for pieces in courrier.piecejointe %}
                                     <!-- Button trigger modal -->

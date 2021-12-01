@@ -107,4 +107,13 @@ class PieceJointe
     {
         return $this->file;
     }
+
+    public function __toInt(): ?int
+    {
+        return $this->getId();
+    }
+
+    public function __toString(){
+        return strval($this->getId());
+    }
 }

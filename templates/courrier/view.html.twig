@@ -26,6 +26,30 @@
 {% endblock %}
 
 
+{% macro btngroup(courrier) %}
+
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+        <a style="border-radius: 0!important;" type="button"
+           href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
+           class="btn btn-primary btn-sm">
+            <i class="fa fa-reply"></i>
+        </a>
+        <a style="border-radius: 0!important;" type="button"
+           href="{{ path('edit_courrier',{courrier:courrier.id}) }}"
+           class="btn btn-cyan btn-sm">
+            <i class="fa fa-edit"></i>
+        </a>
+        <a style="border-radius: 0!important;" type="button"
+           href="{{ path('delete_courrier',{courrier:courrier.id}) }}"
+           onclick="return confirm('Confirmez-vous la suppression?')"
+           class="btn btn-danger btn-sm">
+            <i class="fa fa-trash"></i>
+        </a>
+    </div>
+
+{% endmacro %}
+
 
 {% macro responseTo(courrier,it) %}
 
@@ -41,7 +65,7 @@
 
     <h3>
         <span style="margin-left:{{ num }}em;">
-            From: {{ courrier.referenceInterne }} : {{ courrier.sujet }}
+            {{ courrier.referenceInterne }} : {{ courrier.sujet }}
         </span>
     </h3>
 
@@ -97,16 +121,8 @@
 
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
 
-                        <a href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
-                           style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
-                            <i class="fa fa-reply"></i>
-                        </a>
-                        <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        {{ _self.btngroup(courrier)  }}
+
                     </div>
                 </div>
             </div>
@@ -128,32 +144,7 @@
 
             {% for pieces in courrier.piecejointe %}
 
-                <div class="col col-12 mt-2">
-
-                    <div style="border:  solid black; border-radius: 15px">
-
-                        {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
-
-                        {% if convertedFiles is not null %}
-
-                            {% for files in convertedFiles %}
-
-                                {% set test = FileToImg.getFile(pieces,files) %}
-
-                                <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
-
-                                    <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
-
-                                </a>
-
-                            {% endfor %}
-
-                        {% endif %}
-                    </div>
-
-
-
-                </div>
+                {{ _self.displayFile(pieces) }}
 
             {% endfor %}
 
@@ -218,19 +209,8 @@
                 <div class="d-flex justify-content-end">
 
 
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    {{ _self.btngroup(courrier)  }}
 
-                        <a href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
-                           style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
-                            <i class="fa fa-reply"></i>
-                        </a>
-                        <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                    </div>
                 </div>
             </div>
 
@@ -251,31 +231,7 @@
 
             {% for pieces in courrier.piecejointe %}
 
-                <div class="col col-12 mt-2">
-
-                    <div style="border:  solid black; border-radius: 15px">
-
-                        {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
-
-                        {% if convertedFiles is not null %}
-
-                            {% for files in convertedFiles %}
-
-                                {% set test = FileToImg.getFile(pieces,files) %}
-
-                                <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
-
-                                    <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
-
-                                </a>
-
-                            {% endfor %}
-
-                        {% endif %}
-
-                    </div>
-
-                </div>
+                {{ _self.displayFile(pieces) }}
 
             {% endfor %}
 
@@ -292,6 +248,35 @@
 
     {% endif %}
 
+
+{% endmacro %}
+
+{% macro displayFile(pieces) %}
+
+    <div class="col col-12 mt-2">
+
+        <div style="border:  solid black; border-radius: 15px">
+
+            {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+            {% if convertedFiles is not null %}
+
+                {% for files in convertedFiles %}
+
+
+                    <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                        <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                    </a>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
 
 {% endmacro %}
 
@@ -373,16 +358,8 @@
 
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
 
-                            <a href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
-                               style="border-radius: 0!important;" type="button" class="btn btn-primary btn-sm">
-                                <i class="fa fa-reply"></i>
-                            </a>
-                            <a style="border-radius: 0!important;" type="button" class="btn btn-cyan btn-sm">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a style="border-radius: 0!important;" type="button" class="btn btn-danger btn-sm">
-                                <i class="fa fa-trash"></i>
-                            </a>
+                            {{ _self.btngroup(courrier)  }}
+
                         </div>
                     </div>
                 </div>

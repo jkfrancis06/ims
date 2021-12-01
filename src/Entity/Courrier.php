@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CourrierRepository::class)
- * @UniqueEntity(fields={"referenceInterne"}, message="Un courrier de cette reference  existe deja !!")
+ * @UniqueEntity(fields={"referenceInterne"}, message="Un courrier de cette reference  existe deja !!",groups={"create"})
  */
 class Courrier
 {
@@ -141,6 +141,11 @@ class Courrier
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastUpdate;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isDeleted;
 
 
 
@@ -444,6 +449,18 @@ class Courrier
     public function setLastUpdate(?\DateTimeInterface $lastUpdate): self
     {
         $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

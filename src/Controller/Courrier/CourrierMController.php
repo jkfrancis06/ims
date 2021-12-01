@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Courrier;
 
 use App\Entity\Affaire;
 use App\Entity\Courrier;
 use App\Entity\Departement;
+use App\Form\CourrierEditType;
 use App\Form\CourrierType;
 use App\Service\FileToImg;
 use App\Service\FileUploader;
@@ -12,13 +13,13 @@ use DH\Auditor\Provider\Doctrine\DoctrineProvider;
 use DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-
-class CourrierController extends AbstractController
+class CourrierMController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
 
     /**
@@ -51,14 +52,16 @@ class CourrierController extends AbstractController
 
 
         $reception = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findBy([
-            'flux' => Courrier::FLUX_ENTRANT
+            'flux' => Courrier::FLUX_ENTRANT,
+            'isDeleted' => false
         ],
-        [
-            'createdAt' => 'DESC'
-        ]);
+            [
+                'createdAt' => 'DESC'
+            ]);
 
         $envoi = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findBy([
-            'flux' => Courrier::FLUX_SORTANT
+            'flux' => Courrier::FLUX_SORTANT,
+            'isDeleted' => false
         ],
             [
                 'createdAt' => 'DESC'
@@ -83,7 +86,10 @@ class CourrierController extends AbstractController
 
         if ($responseTo != null) {
 
-            $responseTo = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->find(intval($responseTo));
+            $responseTo = $this->getDoctrine()->getManager()->getRepository(Courrier::class)->findOneBy([
+                'id' => intval($responseTo),
+                'isDeleted' => false
+            ]);
 
         }
 
@@ -94,7 +100,7 @@ class CourrierController extends AbstractController
 
         }
 
-        $courrierForm = $this->createForm(CourrierType::class,$courrier);
+        $courrierForm = $this->createForm(CourrierType::class,$courrier,['validation_groups'=>'create']);
 
         $courrierForm->handleRequest($request);
 
@@ -142,9 +148,11 @@ class CourrierController extends AbstractController
 
             $courrier->setEntry(uniqid('entry_', true));
 
-            foreach ($courrier->getPiecejointe() as $piecejointe){
-                $piecejointe->setFilename($fileUploader->upload($piecejointe->getFile(),$this->courrierDir.'/'.md5($courrier->getEntry())));
-                $fileToImg->convert($piecejointe);
+            if ($courrier->getPiecejointe() != null) {
+                foreach ($courrier->getPiecejointe() as $piecejointe){
+                    $piecejointe->setFilename($fileUploader->upload($piecejointe->getFile(),$this->courrierDir.'/'.md5($courrier->getEntry())));
+                    $fileToImg->convert($piecejointe);
+                }
             }
 
 
@@ -183,17 +191,99 @@ class CourrierController extends AbstractController
 
 
     /**
+     * @Route("/c/deleted/{courrier}", name="delete_courrier")
+     */
+    public function deleteCourrier(Courrier $courrier,Request $request): Response
+    {
+
+        $courrier->setIsDeleted(true);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('delete_create', 'Le courrier a été supprimé avec succès');
+
+        return $this->redirectToRoute('courrier');
+
+
+    }
+
+
+    /**
      * @Route("/c/d/{courrier}", name="view_courrier")
      */
     public function viewCourrier(Courrier $courrier): Response
     {
 
+        if (!$courrier->getIsDeleted()) {
+            return $this->render('courrier/view.html.twig', [
+                'controller_name' => 'CourrierController',
+                'active' => 'courrier',
+                'courrier' => $courrier,
+            ]);
+        }else{
+           throw new NotFoundHttpException('Non trouve');
+        }
 
-        return $this->render('courrier/view.html.twig', [
-            'controller_name' => 'CourrierController',
-            'active' => 'courrier',
-            'courrier' => $courrier,
-        ]);
+
+    }
+
+
+    /**
+     * @Route("/c/edit/{courrier}", name="edit_courrier")
+     */
+    public function editCourrier(Courrier $courrier, Request $request, FileUploader $fileUploader, FileToImg $fileToImg): Response
+    {
+
+
+        if (!$courrier->getIsDeleted()) {
+
+            $editForm = $this->createForm(CourrierEditType::class,$courrier);
+
+            $editForm->handleRequest($request);
+
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+                $courrier->setEntry(uniqid('entry_', true));
+
+                if ($courrier->getPiecejointe() != null) {
+                    foreach ($courrier->getPiecejointe() as $piecejointe){
+                        if ($piecejointe->getFile() != null ) {
+                            $piecejointe->setFilename($fileUploader->upload($piecejointe->getFile(),$this->courrierDir.'/'.md5($courrier->getEntry())));
+                            $fileToImg->convert($piecejointe);
+                        }
+                    }
+                }
+
+
+                $courrier->setLastUpdate(new \DateTime());
+
+                $em = $this->getDoctrine()->getManager();
+
+                $em->flush();
+
+
+                $request->getSession()->getFlashBag()->add('courrier_create', 'Le courrier a été modifié avec succès');
+
+                return $this->redirectToRoute('courrier');
+
+            }
+
+            return $this->render('courrier/edit.html.twig', [
+                'controller_name' => 'CourrierController',
+                'active' => 'courrier',
+                'courrier' => $courrier,
+                'courrierForm' => $editForm->createView(),
+            ]);
+
+        }else{
+
+            throw new NotFoundHttpException('Non trouve');
+
+        }
+
+
     }
 
 
