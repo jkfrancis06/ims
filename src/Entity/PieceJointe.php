@@ -30,7 +30,7 @@ class PieceJointe
 
     /**
      * @ORM\ManyToOne(targetEntity=Courrier::class, inversedBy="piecejointe")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn()
      */
     private $courrier;
 

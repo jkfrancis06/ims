@@ -1,0 +1,24 @@
+
+{% macro btngroup(courrier) %}
+
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+        <a style="border-radius: 0!important;" type="button"
+           href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
+           class="btn btn-primary btn-sm">
+            <i class="fa fa-reply"></i>
+        </a>
+        <a style="border-radius: 0!important;" type="button"
+           href="{{ path('edit_courrier',{courrier:courrier.id}) }}"
+           class="btn btn-cyan btn-sm">
+            <i class="fa fa-edit"></i>
+        </a>
+        <a style="border-radius: 0!important;" type="button"
+           href="{{ path('delete_courrier',{courrier:courrier.id}) }}"
+           onclick="return confirm('Confirmez-vous la suppression?')"
+           class="btn btn-danger btn-sm">
+            <i class="fa fa-trash"></i>
+        </a>
+    </div>
+
+{% endmacro %}

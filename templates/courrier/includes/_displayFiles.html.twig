@@ -1,0 +1,29 @@
+
+{% macro displayFile(pieces) %}
+
+    <div class="col col-12 mt-2">
+
+        <div style="border:  solid black; border-radius: 15px">
+
+            {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+            {% if convertedFiles is not null %}
+
+                {% for files in convertedFiles %}
+
+
+                    <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                        <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                    </a>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+{% endmacro %}

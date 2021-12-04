@@ -14,21 +14,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fa/all.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fa/fontawesome.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Courrier/CourrierMController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/courrier/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/themes/pieceJointeEdit.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_btnGroup.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_main.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_responseTo.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_responses.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fa/all.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fa/all.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fa/fontawesome.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fa/fontawesome.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CourrierController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Courrier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Courrier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Courrier/CourrierMController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Courrier/CourrierMController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/PieceJointe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/PieceJointe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/CourrierType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CourrierType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/FileToImg.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileToImg.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/courrier/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/courrier/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/edit.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/courrier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/courrier/view.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/view.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/nav-courrier.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav-courrier.html.twig" afterDir="false" />
@@ -395,7 +389,12 @@
       <workItem from="1638340966757" duration="2484000" />
       <workItem from="1638355158569" duration="986000" />
       <workItem from="1638360148960" duration="923000" />
-      <workItem from="1638367906701" duration="9313000" />
+      <workItem from="1638367906701" duration="9892000" />
+      <workItem from="1638429314477" duration="130000" />
+      <workItem from="1638448798591" duration="259000" />
+      <workItem from="1638519899021" duration="520000" />
+      <workItem from="1638618785361" duration="185000" />
+      <workItem from="1638630094931" duration="6433000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,152 @@
+
+
+
+{% macro displayCourrier(courrier) %}
+
+    {% import 'courrier/includes/_responses.html.twig' as responses %}
+    {% import 'courrier/includes/_btnGroup.html.twig' as btn %}
+    {% import 'courrier/includes/_responseTo.html.twig' as responseTo %}
+
+
+    <div id="accordion">
+
+        {% if courrier.responseTo is not null %}
+            {% set num = CourrierJob.count(courrier) %}
+            {{  responseTo.responseTo(courrier.responseTo,num) }}
+        {% endif %}
+
+        <h3 class="mainCourrier" style="background: #3d8e33; color: white">
+            {{ courrier.referenceInterne }} : {{ courrier.sujet }}
+        </h3>
+
+        <div>
+            <div class="row">
+                <div class="col col-8">
+                    <table>
+                        {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                            <tr>
+                                <td style="color: grey">De:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td style="color: grey">A:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <td style="color: grey;">Date:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Crée le:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.createdAt ? courrier.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Dernière modification:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.lastUpdate ? courrier.lastUpdate|date('d-m-Y H:i:s') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Type:</td>
+                            <td class="font-weight-bold">
+                                &nbsp;&nbsp;
+                                {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                    <span>Courrier Officiel</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                    <span>Note de renseignement</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                    <span>Forum</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div class="col col-4">
+                    <div class="d-flex justify-content-end">
+
+
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                            {{ btn.btngroup(courrier)  }}
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-8 mt-3">
+
+                    {{ courrier.commentaire|raw }}
+
+                    <hr>
+
+                </div>
+
+
+
+                <div class="col col-12">
+                    {{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes
+                </div>
+
+
+                {% for pieces in courrier.piecejointe %}
+
+                    <div class="col col-12 mt-2">
+
+                        <div style="border:  solid black; border-radius: 15px">
+
+                            {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
+
+                            {% if convertedFiles is not null %}
+
+                                {% for files in convertedFiles %}
+
+                                    {% set test = FileToImg.getFile(pieces,files) %}
+
+                                    <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
+
+                                        <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
+
+                                    </a>
+
+                                {% endfor %}
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+        {% if courrier.responses is not null %}
+
+            {% for index,response in courrier.responses %}
+
+                {{  responses.responses(response, 1) }}
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+
+
+{% endmacro %}

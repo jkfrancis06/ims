@@ -139,7 +139,7 @@
                                     <a class="dropdown-item" href="{{ path('create-courrier',{responseTo:courrier.id}) }}">Répondre</a>
                                     <a class="dropdown-item" href="{{ path('edit_courrier',{courrier:courrier.id}) }}">Modifier</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item"
+                                    <a class="red-text dropdown-item"
                                        href="{{ path('delete_courrier',{courrier:courrier.id}) }}"
                                        onclick="return confirm('Confirmez-vous la suppression?')"
                                        >Supprimer</a>
@@ -173,32 +173,32 @@
                         <th style="width: 15%">Sujet</th>
                         <th>Contenu</th>
                         <th style="width: 5%"></th>
-                        <th style="width: 8%"></th>
+                        <th style="width: 5%"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for courrier in reception %}
+                    {% for env in envoi %}
                         <tr>
-                            <td>{{ courrier.referenceInterne }}</td>
-                            <td>{{ courrier.datecourrier|date('d-m-Y') }}</td>
-                            <td>{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                            <td>{{ env.referenceInterne }}</td>
+                            <td>{{ env.datecourrier|date('d-m-Y') }}</td>
+                            <td>{{ env.sender ? env.sender.name : '' }}</td>
                             <td>
-                                {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                {% if constant('COURRIER_OFF', env) == env.type %}
                                     <span>Courrier Officiel</span>
                                 {% endif %}
 
-                                {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                {% if constant('COURRIER_NOTE', env) == env.type %}
                                     <span>Note de renseignement</span>
                                 {% endif %}
 
-                                {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                {% if constant('COURRIER_FORUM', env) == env.type %}
                                     <span>Forum</span>
                                 {% endif %}
                             </td>
-                            <td>{{ courrier.sujet }}</td>
-                            <td >{{ courrier.commentaire|raw }}</td>
+                            <td>{{ env.sujet }}</td>
+                            <td >{{ env.commentaire|raw }}</td>
                             <td class="font-weight-bold">
-                                {{ courrier.piecejointe ? courrier.piecejointe|length : 0 }} <i class="fa fa-paperclip"></i>
+                                {{ env.piecejointe ? env.piecejointe|length : 0 }} <i class="fa fa-paperclip"></i>
                             </td>
                             <td>
 
@@ -208,14 +208,15 @@
                                 </button>
 
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ path('view_courrier',{courrier:courrier.id}) }}">Voir</a>
-                                    <a class="dropdown-item" href="{{ path('create-courrier',{responseTo:courrier.id}) }}">Répondre</a>
-                                    <a class="dropdown-item" href="{{ path('edit_courrier',{courrier:courrier.id}) }}">Modifier</a>
+                                    <a class="dropdown-item" href="{{ path('view_courrier',{courrier:env.id}) }}">Voir</a>
+                                    <a class="dropdown-item" href="{{ path('create-courrier',{responseTo:env.id}) }}">Répondre</a>
+                                    <a class="dropdown-item" href="{{ path('edit_courrier',{courrier:env.id}) }}">Modifier</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item"
-                                       href="{{ path('delete_courrier',{courrier:courrier.id}) }}"
-                                       onclick="return confirm('Confirmez-vous la suppression?')"
-                                    >Supprimer</a>
+                                    <a  class="red-text dropdown-item"
+                                       href="{{ path('delete_courrier',{courrier:env.id}) }}"
+                                       onclick="return confirm('Confirmez-vous la suppression?')">
+                                        Supprimer
+                                    </a>
                                 </div>
                                 {# {% for pieces in courrier.piecejointe %}
                                     <!-- Button trigger modal -->
@@ -299,7 +300,6 @@
                         pageSize: 'LEGAL'
                     }
                 ],
-                "order": [[ 1, "asc" ]],
                 "language": {
                     "sProcessing":     "Traitement en cours...",
                     "sSearch":         "Rechercher&nbsp;:",
@@ -333,7 +333,6 @@
                         pageSize: 'LEGAL'
                     }
                 ],
-                "order": [[ 1, "asc" ]],
                 "language": {
                     "sProcessing":     "Traitement en cours...",
                     "sSearch":         "Rechercher&nbsp;:",

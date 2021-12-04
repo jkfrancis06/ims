@@ -1,5 +1,14 @@
 {% extends 'nav-courrier.html.twig' %}
 
+{% import 'courrier/includes/_responses.html.twig' as responses %}
+
+{% import 'courrier/includes/_responseTo.html.twig' as responseTo %}
+
+{% import 'courrier/includes/_main.html.twig' as main %}
+
+{% import 'courrier/includes/_displayFiles.html.twig' as displayFiles %}
+
+
 {% block title %}Modifier {{ courrier.referenceInterne}}  {% endblock %}
 
 
@@ -23,271 +32,24 @@
  {% endblock %}
 
 
-{% macro btngroup(courrier) %}
 
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
 
-        <a style="border-radius: 0!important;" type="button"
-           href="{{ path('create-courrier',{responseTo:courrier.id}) }}"
-           class="btn btn-primary btn-sm">
-            <i class="fa fa-reply"></i>
-        </a>
-        <a style="border-radius: 0!important;" type="button"
-           href="{{ path('edit_courrier',{courrier:courrier.id}) }}"
-           class="btn btn-cyan btn-sm">
-            <i class="fa fa-edit"></i>
-        </a>
-        <a style="border-radius: 0!important;" type="button"
-           href="{{ path('delete_courrier',{courrier:courrier.id}) }}"
-           onclick="return confirm('Confirmez-vous la suppression?')"
-           class="btn btn-danger btn-sm">
-            <i class="fa fa-trash"></i>
-        </a>
-    </div>
 
-{% endmacro %}
 
 
-{% macro responseTo(courrier,it) %}
 
-    {% set num = it %}
 
-    {% if courrier.responseTo is not null %}
-
-        {% set it = it-1 %}
-
-        {{  _self.responseTo(courrier.responseTo,it) }}
-
-    {% endif %}
-
-    <h3>
-        <span style="margin-left:{{ num }}em;">
-           {{ courrier.referenceInterne }} : {{ courrier.sujet }}
-        </span>
-    </h3>
-
-    <div>
-        <div class="row">
-
-            <div class="col col-8">
-
-                <table>
-
-                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
-                        <tr>
-                            <td style="color: grey">De:</td>
-                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td style="color: grey">A:</td>
-                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
-                        </tr>
-                    {% endif %}
-
-                    <tr>
-                        <td style="color: grey">Date:</td>
-                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
-                    </tr>
-
-                    <tr>
-                        <td style="color: grey">Type:</td>
-                        <td>
-                            &nbsp;&nbsp;
-                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
-                                <span>Courrier Officiel</span>
-                            {% endif %}
-
-                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
-                                <span>Note de renseignement</span>
-                            {% endif %}
-
-                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
-                                <span>Forum</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-
-                </table>
-
-            </div>
-
-            <div class="col col-4">
-                <div class="d-flex justify-content-end">
-
-
-                    {{ _self.btngroup(courrier)  }}
-
-                </div>
-            </div>
-
-            <div class="col col-8 mt-3">
-
-                {{ courrier.commentaire|raw }}
-
-                <hr>
-
-            </div>
-
-
-
-            <div class="col col-12">
-                <small>{{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes</small>
-            </div>
-
-
-            {% for pieces in courrier.piecejointe %}
-
-                {{ _self.displayFile(pieces) }}
-
-            {% endfor %}
-
-        </div>
-    </div>
-
-{% endmacro %}
-
-
-{% macro responses(courrier,key) %}
-
-    <h3>
-        <span style="margin-left: {{ key+1 }}em">Re : {{ courrier.referenceInterne }} : {{ courrier.sujet }}</span>
-    </h3>
-
-    <div>
-        <div style="margin-left: {{ key+1 }}em" class="row blockquote">
-
-            <div class="col col-8">
-
-                <table>
-
-                    {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
-                        <tr>
-                            <td style="color: grey">De:</td>
-                            <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td style="color: grey">A:</td>
-                            <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
-                        </tr>
-                    {% endif %}
-
-                    <tr>
-                        <td style="color: grey">Date:</td>
-                        <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
-                    </tr>
-
-                    <tr>
-                        <td style="color: grey">Type:</td>
-                        <td>
-                            &nbsp;&nbsp;
-                            {% if constant('COURRIER_OFF', courrier) == courrier.type %}
-                                <span>Courrier Officiel</span>
-                            {% endif %}
-
-                            {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
-                                <span>Note de renseignement</span>
-                            {% endif %}
-
-                            {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
-                                <span>Forum</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-
-                </table>
-
-            </div>
-
-            <div class="col col-4">
-                <div class="d-flex justify-content-end">
-
-
-                    {{ _self.btngroup(courrier)  }}
-
-                </div>
-            </div>
-
-            <div class="col col-12 mt-3">
-
-                {{ courrier.commentaire|raw }}
-
-                <hr>
-
-            </div>
-
-
-
-            <div class="col col-12">
-                <small>{{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes</small>
-            </div>
-
-
-            {% for pieces in courrier.piecejointe %}
-
-                {{ _self.displayFile(pieces) }}
-
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-
-    {% if courrier.responses is not null %}
-
-        {% for response in courrier.responses %}
-            {{  _self.responses(response,key+1) }}
-        {% endfor %}
-
-    {% endif %}
-
-
-{% endmacro %}
-
-
-
-{% macro displayFile(pieces) %}
-
-    <div class="col col-12 mt-2">
-
-        <div style="border:  solid black; border-radius: 15px">
-
-            {% set convertedFiles = FileToImg.getConvertedFiles(pieces) %}
-
-            {% if convertedFiles is not null %}
-
-                {% for files in convertedFiles %}
-
-
-                    <a href="{{ path('assert',{ piece:pieces.id , file:files }) }}" data-lightbox="{{ pieces.id }}">
-
-                        <img class="example-image" src="{{ path('assert',{ piece:pieces.id , file:files }) }}" alt="{{ files }}">
-
-                    </a>
-
-                {% endfor %}
-
-            {% endif %}
-
-        </div>
-
-    </div>
-
-{% endmacro %}
 
 
 
 {% block content %}
 
 
-    {% if courrier.responseTo is not null %}
+    {% if courrier.responseTo is not null and courrier.responseTo|length > 0 %}
         {% set num = CourrierJob.count(courrier) %}
 
         <div id="accordion">
-            {{  _self.responseTo(courrier.responseTo,num) }}
+            {{  responseTo.responseTo(courrier.responseTo,num) }}
         </div>
 
 
@@ -487,16 +249,15 @@
 
     <div class="mt-5"></div>
 
-    {% if responseTo is not null and responseTo.responses is not null %}
+    {% if courrier.responses is not null and courrier.responses|length > 0 %}
 
         <div id="accordion_response">
             {% for index,response in courrier.responses %}
 
-                {{  _self.responses(response, 1) }}
+                {{  responses.responses(response, 1) }}
 
             {% endfor %}
         </div>
-
 
 
     {% endif %}
@@ -543,7 +304,7 @@
             {% for key,pieces in courrier.piecejointe %}
 
 
-                $('#item_courrier_edit_piecejointe_{{ key }}').html(`{{ _self.displayFile(pieces) }}`)
+                $('#item_courrier_edit_piecejointe_{{ key }}').html(`{{ displayFiles.displayFile(pieces) }}`)
 
 
 

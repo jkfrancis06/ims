@@ -1,0 +1,135 @@
+
+{% macro responseTo(courrier,it) %}
+
+
+    {% import 'courrier/includes/_btnGroup.html.twig' as btn %}
+    {% import 'courrier/includes/_displayFiles.html.twig' as displayFiles %}
+
+    {% set num = it %}
+
+    {% if courrier.responseTo is not null %}
+
+        {% set it = it-1 %}
+
+        {{  _self.responseTo(courrier.responseTo,it) }}
+
+    {% endif %}
+
+
+    {% if courrier.isDeleted == false %}
+
+        <h3>
+            <span style="margin-left:{{ num }}em;">
+                {{ courrier.referenceInterne }} : {{ courrier.sujet }}
+            </span>
+        </h3>
+
+    {% else %}
+        <h3>
+            <span style="font-style: italic">[Ce courrier a été supprimé]</span>
+        </h3>
+    {% endif %}
+
+
+
+
+    <div>
+
+        {% if courrier.isDeleted == false %}
+
+            <div class="row">
+
+                <div class="col col-8">
+
+                    <table>
+
+                        {% if constant('FLUX_ENTRANT', courrier) == courrier.flux %}
+                            <tr>
+                                <td style="color: grey">De:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.sender ? courrier.sender.name : '' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td style="color: grey">A:</td>
+                                <td>&nbsp;&nbsp;{{ courrier.receiver ? courrier.receiver.name : '' }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <td style="color: grey">Date:</td>
+                            <td>&nbsp;&nbsp;{{ courrier.datecourrier ? courrier.datecourrier|date('d-m-Y') : '' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="color: grey">Type:</td>
+                            <td>
+                                &nbsp;&nbsp;
+                                {% if constant('COURRIER_OFF', courrier) == courrier.type %}
+                                    <span>Courrier Officiel</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_NOTE', courrier) == courrier.type %}
+                                    <span>Note de renseignement</span>
+                                {% endif %}
+
+                                {% if constant('COURRIER_FORUM', courrier) == courrier.type %}
+                                    <span>Forum</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div class="col col-4">
+                    <div class="d-flex justify-content-end">
+
+
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+                            {{ btn.btngroup(courrier)  }}
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-8 mt-3">
+
+                    {{ courrier.commentaire|raw }}
+
+                    <hr>
+
+                </div>
+
+
+
+                <div class="col col-12">
+                    <small>{{ courrier.piecejointe ? courrier.piecejointe|length  : '0' }} pièces jointes</small>
+                </div>
+
+
+                {% for pieces in courrier.piecejointe %}
+
+                    {{ displayFiles.displayFile(pieces) }}
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+
+            <div class="row">
+
+                <div class="col col-8">
+                    <span style="font-style: italic">[Ce courrier a été supprimé]</span>
+                </div>
+
+            </div>
+
+
+        {% endif %}
+    </div>
+
+{% endmacro %}

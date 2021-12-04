@@ -204,7 +204,9 @@ class CourrierMController extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
 
         $request->getSession()->getFlashBag()->add('delete_create', 'Le courrier a été supprimé avec succès');
 
-        return $this->redirectToRoute('courrier');
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
 
 
     }
