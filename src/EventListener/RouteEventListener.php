@@ -25,7 +25,7 @@ class RouteEventListener
     {
 
 
-        $this->logger=$logger;
+       /* $this->logger=$logger;
         $this->loggerDir = $loggerDir;
         $this->projectDir = $projectDir;
         $this->ressourcesDir = $ressourcesDir;
@@ -40,13 +40,13 @@ class RouteEventListener
 
         if (!file_exists($this->loggerDir)){
             mkdir($this->loggerDir);
-        }
+        }*/
     }
 
     public function onKernelController(ControllerEvent $event){
 
 
-        $response = $event->getRequest();
+       /* $response = $event->getRequest();
 
         $pattern = "_wdt";
 
@@ -54,14 +54,14 @@ class RouteEventListener
 
         if ($this->security->getUser() != null){
             $user = $this->security->getUser()->getId();
-        }
+        }*/
 
 
         /*
          * Parser le fichier de correspondance des routes
          */
 
-        $routes = [];
+       /* $routes = [];
 
 
         if (file_exists($this->projectDir.'/public/'.self::ROUTE_NAME)) {
@@ -115,7 +115,7 @@ class RouteEventListener
             fclose($file);
 
             $this->logger->critical($this->loggerDir);
-        }
+        }*/
 
 
 

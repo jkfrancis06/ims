@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\Entites;
 use App\Entity\Envenement;
 use App\Entity\Personne;
+use App\Entity\SousDossier;
 use App\Entity\Unite;
 use App\Entity\Utilisateur;
 use App\Entity\Vehicule;
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -29,6 +31,8 @@ class EnvenementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entity = $builder->getData();
+
         $builder
             ->add('typeEvenement', ChoiceType::class, [
                 'required' => true,
@@ -78,7 +82,7 @@ class EnvenementType extends AbstractType
             ->add('endAt', DateTimeType::class, [
                 'required' => false,
                 'label' => 'Date de fin: ',
-                'html5' => false,
+                'html5' => true,
                 'widget' => 'single_text',
 
                 // adds a class that can be selected in JavaScript
@@ -95,6 +99,12 @@ class EnvenementType extends AbstractType
                 'multiple' => true,
                 'by_reference' => false,
                 'placeholder' => true,
+                'query_builder' => function (EntityRepository $er) use ($entity) {
+                    return $er->createQueryBuilder('e')
+                        ->leftJoin('e.affaire', 'a')
+                        ->where('a = :affaire')
+                        ->setParameter('affaire',$entity->getAffaire());
+                },
                 'choice_label' => function(Entites $entites){
                     if ($entites instanceof Personne){
                         $data =  $entites->getDescription() . '  ' . $entites->getDescription2();
@@ -121,6 +131,13 @@ class EnvenementType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'placeholder' => true,
+                'query_builder' => function (EntityRepository $er) use ($entity) {
+                    return $er->createQueryBuilder('u')
+                        ->leftJoin('u.affaireUtilisateurs', 'au')
+                        ->leftJoin('au.affaire', 'a')
+                        ->where('a = :affaire')
+                        ->setParameter('affaire',$entity->getAffaire());
+                },
                 'choice_label' => function (Utilisateur $utilisateur) {
                     return $utilisateur->getNom() . '  ' . $utilisateur->getPrenom();
                 },

@@ -72,15 +72,16 @@
 
 {% block content %}
 
-    {% form_theme personneForm.attachements 'themes/attachements.html.twig' 'jquery.collection.html.twig' %}
-    {% form_theme personneForm.telephone 'themes/telephone.html.twig' 'jquery.collection.html.twig' %}
-    {% form_theme personneForm.aliases 'themes/alias.html.twig' 'jquery.collection.html.twig' %}
+
 
 
     {% import _self as formMacros %}
 
     {% if type == 1 %}
 
+        {% form_theme personneForm.attachements 'themes/attachements.html.twig' 'jquery.collection.html.twig' %}
+        {% form_theme personneForm.telephone 'themes/telephone.html.twig' 'jquery.collection.html.twig' %}
+        {% form_theme personneForm.aliases 'themes/alias.html.twig' 'jquery.collection.html.twig' %}
 
         <div style="margin-top: 1em; ">
 
@@ -310,10 +311,14 @@
 
 
 
+
+
     <!--- Type vehicule  --->
 
 
     {% if type == 2 %}
+
+        {% form_theme vehiculeForm.attachements 'themes/attachements.html.twig' 'jquery.collection.html.twig' %}
 
 
         <div style="margin-top: 1em; ">
@@ -472,6 +477,8 @@
 
 
     {% if type == 3 %}
+
+        {% form_theme organisationForm.attachements 'themes/attachements.html.twig' 'jquery.collection.html.twig' %}
 
 
         <div style="margin-top: 1em; ">

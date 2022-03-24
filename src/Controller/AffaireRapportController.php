@@ -201,7 +201,7 @@ class AffaireRapportController extends AbstractController
 
         return new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html, $pdfOptions),
-            "Dossier.pdf"
+            $affaire->getNumeroMatricule().".pdf"
         );
     }
 
@@ -227,9 +227,9 @@ class AffaireRapportController extends AbstractController
                 if ($entite->getRole() == Entites::ROLE_SOURCE) {
                     return "[ XXXXXXXXXXXXXX ]";
                 }else if ($entite instanceof Personne){
-                    return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                    return '['.$entite->getDescription().' '.$entite->getDescription2().']';
                 }else {
-                    return '['.$entite->getDescription().' '.$entite->getDescription().']';
+                    return '['.$entite->getDescription().' '.$entite->getDescription2().']';
                 }
             }
         },$resume);

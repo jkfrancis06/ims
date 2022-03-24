@@ -34,7 +34,7 @@ class TextContentJob
                 return [];
             }else{
                 if ($entite instanceof Personne){
-                    return '['.$entite->getDescription().' '.$entite->getDescription2().']';
+                    return '['.$entite->getNom().' '.$entite->getPrenom().']';
                 }
                 return '['.$entite->getDescription().' '.$entite->getDescription2().']';
             }

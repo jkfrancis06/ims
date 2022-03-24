@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class PieceJointeType extends AbstractType
 {
@@ -18,11 +19,25 @@ class PieceJointeType extends AbstractType
 
                 'multiple' => false,
 
-                'required' => false,
+                'required' => true,
 
                 'attr'     => [
                     'accept' => 'application/pdf , application/x-pdf',
                     'mimeTypesMessage' => "Veuillez uploader un fichier fichier valide",
+
+                ],
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10M',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'disallowEmptyMessage' => "Veuillez uploader un fichier fichier valide",
+
+                    ])
                 ],
 
             ])

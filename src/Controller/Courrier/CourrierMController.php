@@ -78,7 +78,7 @@ class CourrierMController extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
 
 
     /**
-     * @Route("/c/n/{responseTo}", name="create-courrier")
+     * @Route("/c/n/{responseTo}", name="create-courrier", defaults={"responseTo" = null})
      */
     public function create($responseTo = null , Request $request, FileUploader $fileUploader, FileToImg $fileToImg): Response
     {
@@ -109,6 +109,8 @@ class CourrierMController extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
                 $error = new FormError("Veuillez specifier le courrier auquel repondre");
                 $courrierForm->get('responseTo')->addError($error);
             }
+
+
         }
 
         if($courrierForm->isSubmitted() && $courrierForm->isValid()){

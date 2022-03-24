@@ -153,6 +153,7 @@ class Courrier
     public function __construct()
     {
         $this->lastUpdate = new \DateTime();
+        $this->isDeleted = false;
         $this->isResponse = false;
         $this->piecejointe = new ArrayCollection();
         $this->createdAt = new \DateTime();

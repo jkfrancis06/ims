@@ -133,10 +133,15 @@
         </div>
 
         <div class="row">
-            <div class="col col-xs-12 text-uppercase" style="margin-top: 1em; font-weight: bold;font-size: 1.2em">
-                <h3>Entités</h3>
-                <hr>
+
+            <div class="titre text-center justify-content-center" style="margin-top: 7em; font-weight: bold;">
+                <span class="fs-4 fw-bold text-uppercase" style=" font-size: 2em">ENTITES</span> <br>
+
+
+
             </div>
+
+
         </div>
 
         <div class="row" style="margin-top: 3em; font-size: 1.2em;page-break-after: always!important;">
@@ -396,7 +401,13 @@
                                                         {% else %}
                                                             Autre
                                                         {% endif %} :
-                                                        Cf. ENT-{{ attachement.id }}{{ entite.id }}
+                                                        Cf. ENT-{{ attachement.id }}{{ entite.id }} :
+
+                                                        {% if attachement.description is not null %}
+                                                            <blockquote>
+                                                                {{ attachement.description | raw }}
+                                                            </blockquote>
+                                                        {% endif %}
                                                     </li>
 
                                                 {% endif %}
@@ -503,7 +514,13 @@
                                             {% else %}
                                                 Autre
                                             {% endif %} :
-                                            Cf. ENV-{{ attachement.id }}{{ envenement.id }}
+                                            Cf. ENV-{{ attachement.id }}{{ envenement.id }} :
+
+                                            {% if attachement.description is not null %}
+                                                <blockquote>
+                                                    {{ attachement.description | raw }}
+                                                </blockquote>
+                                            {% endif %}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -545,12 +562,12 @@
 
                                             {% if attachement.description is not null %}
                                                 <blockquote>
-                                                    {{ attachement.description }}
+                                                    {{ attachement.description | raw }}
                                                 </blockquote>
                                             {% endif %}
 
                                             <div class="text-center">
-                                                <img src="data:image/jpeg;base64,{{ attachement.base64data }}"
+                                                <img src="data:image/jpeg;base64,{{ attachement.base64data }}"  height="500"
                                                         class="img-thumbnail" alt="..." >
                                             </div>
                                         </div>
@@ -574,8 +591,15 @@
                             {% if FileSizeJob.getExtension(attachement) == "jpg" or FileSizeJob.getExtension(attachement) == "jpeg" or FileSizeJob.getExtension(attachement) == "png" %}
                                 <div style=" page-break-after: always;" class="text-center">
                                     <h3>ENV-{{ attachement.id }}{{ event.id }}</h3>
+
+                                    {% if attachement.description is not null %}
+                                        <blockquote>
+                                            {{ attachement.description | raw }}
+                                        </blockquote>
+                                    {% endif %}
+
                                     <img
-                                            src="data:image/jpeg;base64,{{ attachement.base64data }}"
+                                            src="data:image/jpeg;base64,{{ attachement.base64data }}" height="500"
                                             class="img-thumbnail" alt="...">
                                 </div>
                             {% endif %}
@@ -585,7 +609,6 @@
             {% endfor %}
 
         </div>
-
 
 
 

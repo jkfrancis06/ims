@@ -14,17 +14,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_btnGroup.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_main.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_responseTo.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/courrier/includes/_responses.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ims.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ims.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Courrier/CourrierMController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Courrier/CourrierMController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/PieceJointe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/PieceJointe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courrier/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courrier/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courrier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courrier/view.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/view.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EnvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EnvenementController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Courrier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Courrier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/EnvenementType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EnvenementType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PieceJointeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PieceJointeType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FileToImg.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileToImg.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/TextContentJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/TextContentJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entite/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/nav-courrier.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav-courrier.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,11 +71,11 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/composer.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Entity/Utilisateur.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Entity/Affaire.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Controller/AffaireRapportController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/composer.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Entity/Utilisateur.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
     <include_path>
@@ -219,6 +226,7 @@
       <path value="$PROJECT_DIR$/vendor/damienharper/auditor-bundle" />
       <path value="$PROJECT_DIR$/vendor/damienharper/auditor" />
       <path value="$PROJECT_DIR$/vendor/spatie/pdf-to-image" />
+      <path value="$PROJECT_DIR$/vendor/lexik/form-filter-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1sZj2jYbXPenDlDt4S1Dz1etHDi" />
@@ -394,7 +402,56 @@
       <workItem from="1638448798591" duration="259000" />
       <workItem from="1638519899021" duration="520000" />
       <workItem from="1638618785361" duration="185000" />
-      <workItem from="1638630094931" duration="6433000" />
+      <workItem from="1638630094931" duration="6465000" />
+      <workItem from="1638644172946" duration="109000" />
+      <workItem from="1638781375351" duration="196000" />
+      <workItem from="1638787676905" duration="569000" />
+      <workItem from="1638794562041" duration="236000" />
+      <workItem from="1638862519251" duration="156000" />
+      <workItem from="1639135095870" duration="46000" />
+      <workItem from="1639139637290" duration="605000" />
+      <workItem from="1639210120395" duration="808000" />
+      <workItem from="1639229064421" duration="426000" />
+      <workItem from="1639247050833" duration="107000" />
+      <workItem from="1639247332435" duration="23000" />
+      <workItem from="1639254103385" duration="18000" />
+      <workItem from="1640101368712" duration="962000" />
+      <workItem from="1640105046222" duration="1137000" />
+      <workItem from="1640190445106" duration="164000" />
+      <workItem from="1640770275569" duration="5338000" />
+      <workItem from="1641037970679" duration="406000" />
+      <workItem from="1641198481431" duration="177000" />
+      <workItem from="1641562639060" duration="9000" />
+      <workItem from="1642618895306" duration="605000" />
+      <workItem from="1642669777346" duration="599000" />
+      <workItem from="1642675306197" duration="2443000" />
+      <workItem from="1642703510379" duration="581000" />
+      <workItem from="1642705449711" duration="2311000" />
+      <workItem from="1642777149626" duration="1209000" />
+      <workItem from="1642787192396" duration="585000" />
+      <workItem from="1642788795901" duration="607000" />
+      <workItem from="1642957803299" duration="611000" />
+      <workItem from="1642963807041" duration="30000" />
+      <workItem from="1643220876384" duration="840000" />
+      <workItem from="1643381650546" duration="14000" />
+      <workItem from="1643382391631" duration="577000" />
+      <workItem from="1643450891176" duration="503000" />
+      <workItem from="1644420314015" duration="76000" />
+      <workItem from="1644496518266" duration="598000" />
+      <workItem from="1644590640059" duration="22000" />
+      <workItem from="1644590678099" duration="583000" />
+      <workItem from="1644592037856" duration="199000" />
+      <workItem from="1644777111397" duration="26000" />
+      <workItem from="1646487416484" duration="23000" />
+      <workItem from="1646681634634" duration="18000" />
+      <workItem from="1646732656970" duration="28000" />
+      <workItem from="1646732851151" duration="7000" />
+      <workItem from="1647858731319" duration="95000" />
+      <workItem from="1647860284354" duration="10000" />
+      <workItem from="1647860364929" duration="21000" />
+      <workItem from="1648028900510" duration="2174000" />
+      <workItem from="1648111310734" duration="2111000" />
+      <workItem from="1648122042531" duration="523000" />
     </task>
     <servers />
   </component>

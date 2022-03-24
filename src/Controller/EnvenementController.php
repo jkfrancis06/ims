@@ -50,6 +50,8 @@ class EnvenementController extends AbstractController
 
         $envenement = new Envenement();
 
+        $envenement->setAffaire($affaire);
+
         $envenementForm = $this->createForm(EnvenementType::class,$envenement);
 
         $envenementForm->handleRequest($request);

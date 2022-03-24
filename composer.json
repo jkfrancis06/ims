@@ -19,6 +19,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.3",
         "joshtronic/php-loremipsum": "dev-master",
         "knplabs/knp-snappy-bundle": "^1.8",
+        "lexik/form-filter-bundle": "^7.0",
         "lexik/jwt-authentication-bundle": "^2.11",
         "nelmio/cors-bundle": "^2.1",
         "nesbot/carbon": "^2.48",

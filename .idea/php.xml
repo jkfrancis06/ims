@@ -149,6 +149,7 @@
       <path value="$PROJECT_DIR$/vendor/damienharper/auditor-bundle" />
       <path value="$PROJECT_DIR$/vendor/damienharper/auditor" />
       <path value="$PROJECT_DIR$/vendor/spatie/pdf-to-image" />
+      <path value="$PROJECT_DIR$/vendor/lexik/form-filter-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

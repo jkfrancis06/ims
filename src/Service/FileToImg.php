@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Attachements;
 use App\Entity\PieceJointe;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -63,6 +64,31 @@ class FileToImg
             }
 
             $dir = $this->courrierDir.'/conv_'.md5($piece->getFilename());
+
+            $pdf->saveAllPagesAsImages($dir);
+
+        }
+
+    }
+
+
+    public function convertAt(Attachements $attachement) {
+
+        if (file_exists($this->affaireDir.'/'.md5($attachement->getName()).'/'.$attachement->getName())) {
+
+            $pdf = new Pdf($this->affaireDir.'/'.md5($attachement->getName()).'/'.$attachement->getName());
+
+            $pdf->setOutputFormat('png');
+
+            $pdf->setResolution(300);
+
+            $pdf->setCompressionQuality(100);
+
+            if (!file_exists($this->affaireDir.'/conv_'.md5($attachement->getName()))) {
+                mkdir($this->affaireDir.'/conv_'.md5($attachement->getName()));
+            }
+
+            $dir = $this->affaireDir.'/conv_'.md5($attachement->getName());
 
             $pdf->saveAllPagesAsImages($dir);
 
