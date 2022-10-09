@@ -19,20 +19,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AffaireRapportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Courrier/CourrierMController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Courrier/CourrierMController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EnvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EnvenementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Courrier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Courrier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/RouteEventListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/EnvenementType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EnvenementType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PieceJointeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PieceJointeType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/FileToImg.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileToImg.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/TextContentJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/TextContentJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/affaire_rapport/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entite/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entite/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nav-courrier.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nav-courrier.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/courrier/includes/_displayFiles.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courrier/includes/_displayFiles.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,11 +58,11 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/Entity/Affaire.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Controller/AffaireRapportController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/composer.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Entity/Utilisateur.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Controller/AffaireRapportController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Entity/Affaire.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
     <include_path>
@@ -227,6 +214,7 @@
       <path value="$PROJECT_DIR$/vendor/damienharper/auditor" />
       <path value="$PROJECT_DIR$/vendor/spatie/pdf-to-image" />
       <path value="$PROJECT_DIR$/vendor/lexik/form-filter-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1sZj2jYbXPenDlDt4S1Dz1etHDi" />
@@ -451,7 +439,29 @@
       <workItem from="1647860364929" duration="21000" />
       <workItem from="1648028900510" duration="2174000" />
       <workItem from="1648111310734" duration="2111000" />
-      <workItem from="1648122042531" duration="523000" />
+      <workItem from="1648122042531" duration="1365000" />
+      <workItem from="1648285523521" duration="257000" />
+      <workItem from="1648836677944" duration="75000" />
+      <workItem from="1648837052520" duration="7000" />
+      <workItem from="1655118554944" duration="8000" />
+      <workItem from="1656438803910" duration="69000" />
+      <workItem from="1656439057188" duration="30000" />
+      <workItem from="1656439099575" duration="7000" />
+      <workItem from="1656439119376" duration="1237000" />
+      <workItem from="1656510217632" duration="1527000" />
+      <workItem from="1656521501873" duration="22000" />
+      <workItem from="1656604701006" duration="1283000" />
+      <workItem from="1657211689864" duration="46320000" />
+      <workItem from="1657522270812" duration="446000" />
+      <workItem from="1658761264573" duration="278000" />
+      <workItem from="1658954353684" duration="885000" />
+      <workItem from="1660815590607" duration="325000" />
+      <workItem from="1660817394906" duration="905000" />
+      <workItem from="1660818547630" duration="825000" />
+      <workItem from="1660839046446" duration="1158000" />
+      <workItem from="1660898477192" duration="511000" />
+      <workItem from="1665341641020" duration="10000" />
+      <workItem from="1665341668450" duration="886000" />
     </task>
     <servers />
   </component>
