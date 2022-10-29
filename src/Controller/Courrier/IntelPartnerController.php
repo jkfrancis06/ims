@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Courrier;
 
 use App\Entity\IntelPartner;
 use App\Form\IntelPartnerType;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/intel/partner")
+ * @Route("/c/intel/partner")
  */
 class IntelPartnerController extends AbstractController
 {

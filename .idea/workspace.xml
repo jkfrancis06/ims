@@ -13,7 +13,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="" />
+    <list default="true" id="729fc44a-64b2-4f8b-88c5-a15c52b76e9b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/IntelPartnerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Courrier/IntelPartnerController.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -241,9 +244,9 @@
       <recent name="$PROJECT_DIR$/public/assets/css/jqueryui" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Controller/Courrier" />
       <recent name="$PROJECT_DIR$/public/assets/css" />
       <recent name="$PROJECT_DIR$/templates/assert" />
-      <recent name="$PROJECT_DIR$/src/Controller/Courrier" />
       <recent name="$PROJECT_DIR$/public/upload" />
       <recent name="$PROJECT_DIR$/public/assets/css/datatables" />
     </key>
@@ -456,6 +459,7 @@
       <workItem from="1665341641020" duration="10000" />
       <workItem from="1665341668450" duration="1890000" />
       <workItem from="1665393175503" duration="506000" />
+      <workItem from="1667037801542" duration="127000" />
     </task>
     <servers />
   </component>
